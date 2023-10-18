@@ -4,6 +4,8 @@ const { pointSchema } = require("./abstract/point.model");
 const { addressSchema } = require("./abstract/address.model");
 const { recoverySchema } = require("./abstract/recovery.model");
 const validation = new Validator();
+const { isMatchingPassword } = require("../utils/password/Password");
+const jwt = require("jsonwebtoken");
 
 const Schema = require("mongoose").Schema;
 const memberSchema = Schema({
@@ -66,10 +68,21 @@ const memberSchema = Schema({
     required: [true, "Please enter your facebook profile link"],
   },
   recovery_question: {
-    type: recoverySchema , 
-    required : true 
-  }
+    type: recoverySchema,
+    required: true,
+  },
 });
+memberSchema.statics.login = async function (email, password) {
+  const member = await this.findOne(
+    { email, isMember:true },
+    { email: 1, _id: 1, password: 1 }
+  );
+  if (!member) return null;
+  const valid = await isMatchingPassword(member.password, password);
+  if (valid) {
+    return member.id;
+  }
+  return null;
+};
 
-
-module.exports = mongoose.model("Member", memberSchema)
+module.exports = mongoose.model("Member", memberSchema);

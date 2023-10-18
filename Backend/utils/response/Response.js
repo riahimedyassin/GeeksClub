@@ -1,6 +1,6 @@
 const response=(res,message,status,token=false,data) => {
     if(token) {
-        return res.status(status).json({message,token : token,status : 200})
+        return res.status(status).json({message,token : data,status : 200})
     }
     if(data) {
         return res.status(status).json({message,status,data})

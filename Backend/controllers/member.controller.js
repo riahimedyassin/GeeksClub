@@ -4,6 +4,7 @@ const { hashPassword } = require("../utils/password/Password");
 const Member = require("../models/member.model");
 const Event = require("../models/event.model");
 const { response } = require("../utils/response/Response");
+const { createToken } = require("../utils/token/createToken");
 
 const registerUser = async (req, res, next) => {
   const user = req.body;
@@ -26,8 +27,9 @@ const registerUser = async (req, res, next) => {
 };
 const attendEvent = async (req, res, next) => {
   const { id } = req.params;
-  const {user_id} = req.body
-  if (!id || !user_id)
+  const user_id = req.user
+  if( !user_id) next(createError("Unauthorized",403))
+  if (!id )
     return next(
       createError("Please provide the ID of the event and the USER", 400)
     );
@@ -49,6 +51,7 @@ const attendEvent = async (req, res, next) => {
   }
 };
 const getLeaderboard=async(req,res,next) => {
+  console.log(req.user)
   try {
       const members = await Member.find({},{name:1,forname:1,points:1})
       if(members) {
@@ -60,10 +63,25 @@ const getLeaderboard=async(req,res,next) => {
     console.log(error)
   }
 }
+const loginMember=async(req,res,next) => {
+    const {email,password}= req.body ; 
+    if(!email || !password) return next(createError("All fields are mandatory",400))
+    try {
+      const user = await Member.login(email,password)
+      if(!user) return next(createError("Invalid Email or Password",400))
+      const token = createToken(user)
+      return response(res,"Logged in successfullu",200,true,token)
+    } catch (error) {
+      next(error)
+      console.log(error)
+    }
+}
+
 
 
 module.exports = {
   registerUser,
   attendEvent,
-  getLeaderboard
+  getLeaderboard,
+  loginMember
 };
