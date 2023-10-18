@@ -3,7 +3,6 @@ const { createError } = require("../errors/customError");
 const Member = require("../models/member.model");
 const { response } = require("../utils/response/Response");
 const { lazyResponse } = require("../utils/response/LazyResponse");
-const Event = require("../models/event.model");
 
 const registerMember = async (req, res, next) => {
   try {
@@ -63,56 +62,11 @@ const deleteMember = async (req, res, next) => {
   }
 };
 
-const getAllEvents = async (req, res, next) => {
-  try {
-    const events = await Event.find({});
-    if (events)
-      return response(res, "Events Retrieved Successfully", 200, false, events);
-    return next(createError("Server Error"), 500);
-  } catch (error) {
-    next(error);
-  }
-};
-const getEventByCategorie = async (req, res, next) => {
-  try {
-    const { categorie } = req.params;
-    if (!categorie)
-      return next(createError("Bad Request : Provide the categorie", 400));
-    const events = await Event.find({ categorie: categorie.toLowerCase() });
-    if (events)
-      return response(
-        res,
-        `Events of the ${categorie} categorie has been retrieved `,
-        200,
-        false,
-        events
-      );
-    return next(createError("Server Error", 500));
-  } catch (error) {
-    next(error);
-  }
-};
-const addEvents = async (req, res, next) => {
-  try {
-    const event = req.body;
-    const createdEvent = await Event.create(event);
-    if (createError) {
-      return response(res, "Event has been created successfully", 200, false, {
-        eventid: createdEvent._id,
-      });
-    }
-  } catch (error) {
-    if (error instanceof MongooseError) return next(error);
-    return next(createError("Uknown Error " + error, 500));
-  }
-};
+
 
 module.exports = {
   registerMember,
   getAllRegistred,
   getAllMembers,
   deleteMember,
-  getAllEvents,
-  getEventByCategorie,
-  addEvents,
 };

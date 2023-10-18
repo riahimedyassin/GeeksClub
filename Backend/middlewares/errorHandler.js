@@ -1,16 +1,26 @@
-const { Mongoose, MongooseError } = require("mongoose")
-const { CustomError } = require("../errors/customError")
+const { Mongoose, MongooseError } = require("mongoose");
+const { CustomError } = require("../errors/customError");
 
-
-
-const errorHandler=async(err,req,res,next) => {
-    if(err instanceof CustomError) {
-        return res.status(err.status).json({message:err.message,status:err.status})
+const errorHandler = async (err, req, res, next) => {
+  if (err) {
+    if (err instanceof CustomError) {
+      return res
+        .status(err.status)
+        .json({ message: err.message, status: err.status });
     }
-    if(err instanceof MongooseError) {
-        return res.status(400).json({message:"Bad Request" , error : err })
+    if (err instanceof MongooseError) {
+      return res.status(400).json({ message: "Bad Request", error: err });
     }
-    next()
-}
+    return res
+      .status(500)
+      .json({
+        message: "Internal Server Error",
+        error: err,
+        status: 500,
+        stackTrace: err.stackTrace,
+      });
+  }
+  next();
+};
 
-module.exports=errorHandler
+module.exports = errorHandler;

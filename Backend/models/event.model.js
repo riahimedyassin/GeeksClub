@@ -46,7 +46,7 @@ const eventSchema = Schema({
         default:[]
     },
     participants: {
-        type:Array,
+        type:[String],
         default:[]
     }
 })
