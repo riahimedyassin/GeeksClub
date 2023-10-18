@@ -34,10 +34,10 @@ const attendEvent = async (req, res, next) => {
   try {
     const event = await Event.findOne({ _id: id });
     if (event) {
-      event.participants.push(user_id);
+      event.registred.push(user_id);
       const up = await Event.findOneAndUpdate(
         { _id: id },
-        { participants : event.participants }
+        { registred : event.registred }
       );
       if (up)
         return response(res, "You are now participating to that event", 200);
@@ -48,8 +48,22 @@ const attendEvent = async (req, res, next) => {
     next(error);
   }
 };
+const getLeaderboard=async(req,res,next) => {
+  try {
+      const members = await Member.find({},{name:1,forname:1,points:1})
+      if(members) {
+        return response(res,"Leaderboard retrieved Successfully",200,false,members)
+      }
+      return next(createError("Cannot retrieve leaderboard ",400))
+  } catch (error) {
+    next(error)
+    console.log(error)
+  }
+}
+
 
 module.exports = {
   registerUser,
   attendEvent,
+  getLeaderboard
 };

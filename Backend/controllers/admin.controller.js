@@ -3,6 +3,7 @@ const { createError } = require("../errors/customError");
 const Member = require("../models/member.model");
 const { response } = require("../utils/response/Response");
 const { lazyResponse } = require("../utils/response/LazyResponse");
+const { deleteFromTable } = require("../utils/deleteFromTable");
 
 const registerMember = async (req, res, next) => {
   try {
@@ -55,13 +56,38 @@ const deleteMember = async (req, res, next) => {
     const { id } = req.params;
     if (!id) next(createError("Please provide the user's ID", 400));
     const deleted = await Member.findOneAndDelete({ _id: id });
-    if (deleted) return response(res, "Deleted Successfully", 204);
+    const removeFromEvents = await Event.find({},{participants:1,registred:1,id:1})
+    let participants  ; 
+    let registered ; 
+    removeFromEvents.forEach(async(event)=> {
+      if(event.participants.indexOf(id)!=-1) participants=deleteFromTable(event.participants,id)
+      if(event.registred.indexOf(id)!=-1) registered=deleteFromTable(event.registred,id);
+      await Event.findOneAndUpdate({_id:event.id},{participants,registered})
+    })
+    if (deleted) return response(res, "Deleted Successfully From Members and Event List", 204);
     next(createError("Server Error", 500));
   } catch (error) {
     next(error);
   }
 };
-
+const confirmParticipation=async(req,res,next) => {
+  const {members} = req.body ;
+  const {event_id} = req.body
+  if(!members || typeof(members)!=Array) return next(createError("Please provide and Array of User's ID",400))
+  try {
+const event = await Event.findOne({_id:event_id},{reward_point:1,id:1})
+      members.forEach(async(member)=> {
+        const mem = await Member.findOne({_id:member},{points:1,_id:1})
+        mem.points.week_points+=event.reward_point;
+        event.registred=deleteFromTable(event,member)
+        await Member.findOneAndUpdate({_id:member},mem)
+      })
+      event.participants = members ;
+      await Event.findOneAndUpdate({_id:event_id},event);
+  } catch (error) {
+      next(error)
+  }
+}
 
 
 module.exports = {
@@ -69,4 +95,5 @@ module.exports = {
   getAllRegistred,
   getAllMembers,
   deleteMember,
+  confirmParticipation
 };

@@ -4,6 +4,7 @@ const {
   getAllRegistred,
   getAllMembers,
   deleteMember,
+  confirmParticipation
 } = require("../controllers/admin.controller");
 
 
@@ -13,6 +14,7 @@ router.get("/member/all/:page", getAllMembers);
 router.post("/member/add", registerMember);
 router.get("/user/all", getAllRegistred);
 router.delete("/member/:id", deleteMember);
+router.post("/member/confirm",confirmParticipation)
 
 
 
