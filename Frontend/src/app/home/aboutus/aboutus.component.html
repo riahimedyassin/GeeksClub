@@ -1,19 +1,61 @@
-<div class="h-[1000px] bg-black bg-[url(assets/aboutuseffect.svg)] bg-cover text-white flex flex-col items-center" id="aboutus" >
-    <h1 class="z-20 mb-16 mt-16" >About us</h1>
-    <div class="grid grid-cols-4 grid-rows-2 px-24" #myElement >
-        <ng-container *ngFor="let abt of aboutus;index as index">
-            <div  class="grid-cols-1 reveal-element" [id]="'element-'+index" >
-                <lucide-icon [name]="abt.icon" class="icon" ></lucide-icon>
-                <h4>{{abt.title}} </h4>
-                <p>{{abt.text}}</p>
-            </div>
-        </ng-container>
-    </div>
-    <div class="mt-12 w-[75vw] flex flex-col items-center overflow-hidden ">
-        <h4>About the founder</h4>
-        <div class="founder">
-            <img src="assets/aboutfoundereffect.svg" alt="" class="opacity-30 w-full">
-        </div>
-    </div>
+<div
+  class="h-[1000px] bg-black bg-[url(assets/aboutuseffect.svg)] bg-cover text-white flex flex-col items-center"
+  id="aboutus"
+>
+  <h1 class="z-20 mb-16 mt-16">About us</h1>
+  <div class="grid grid-cols-4 grid-rows-2 px-24" #myElement>
+    <ng-container *ngFor="let abt of aboutus; index as index">
+      <div class="grid-cols-1 " [id]="'element-' + index" [ngClass]="index<4 ? 'reveal-element' : 'reveal-element-right'">
+        <lucide-icon [name]="abt.icon" class="icon"></lucide-icon>
+        <h4>{{ abt.title }}</h4>
+        <p>{{ abt.text }}</p>
+      </div>
+    </ng-container>
+  </div>
+  <div class="mt-24 w-[75vw] flex flex-col items-center overflow-hidden">
+    <h4 class="mb-6">About the founder</h4>
+    <div class="founder grid relative grid-cols-6 overflow-hidden reveal-element-right" >
     
+      <div
+        class="col-span-2  h-[300px] flex flex-col items-center justify-center z-[20]"
+      >
+        <img
+          src="assets/me.jpg"
+          alt="founder picture"
+          class="w-28 h-28 rounded-full border-[1px] border-white"
+        />
+        <h4 class="mt-4">Riahi Yassin</h4>
+        <p class="text-sm text-gray-600 mt-1 mb-4">Web Designer & Developer</p>
+        <button
+          class="border-[1px] border-white rounded-lg px-4 py-2 cursor-pointer opacity-80 hover:opacity-100 transition-all"
+        >
+          Read more
+        </button>
+      </div>
+      <div
+        class="col-span-4  grid h-[300px] grid-cols-2" id="about"
+      >
+        <div class=" px-4 py-3">
+          <h4 class="mb-4">About me</h4>
+          <p class="text-gray-300">Tunisian Developer originally from Bèja, aiming to be on the top.</p>
+        </div>
+        <div class="px-4 py-3" id="social">
+          <h4>Social Media</h4>
+          <div class="flex space-x-6 mt-6">
+                <ng-container *ngFor="let media of socialMedia">
+                    <a [href]="media.link" target="_blank"><img [src]="'assets/'+media.picture" [alt]="media.title"></a>
+                </ng-container>
+          </div>
+        </div>
+        <div class="col-span-2  px-4 py-3" id="more">
+          <h4 class="mb-4">Read more . . .</h4>
+          <p class="text-gray-300">
+            Passionate about problem solving and software development. I’m doing my best in this field. Currently
+            trying to expand my knowledge.
+          </p>
+        </div>
+      </div>
+      <div></div>
+    </div>
+  </div>
 </div>

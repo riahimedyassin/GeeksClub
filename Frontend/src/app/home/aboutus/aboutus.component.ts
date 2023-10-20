@@ -8,7 +8,7 @@ import  ScrollReveal from 'scrollreveal' ;
 })
 export class AboutusComponent {
   aboutus = [
-    { title: 'Foundation', text: 'Found in 2024', icon: 'calendar' },
+    { title: 'Foundation', text: 'Found in 2023', icon: 'calendar' },
     {
       title: 'Goals',
       text: 'Solving problems with the help of tech',
@@ -44,12 +44,32 @@ export class AboutusComponent {
       icon : 'laptop-2'
     }
   ];
+  socialMedia= [
+    {
+      title : "Github",
+      picture : "github.png",
+      link: "https://github.com/riahimedyassin"
+    },{
+      title : "Linkedin",
+      picture : "linkedin.png",
+      link: "https://www.linkedin.com/in/riahi-mohamed-yassin/"
+    },
+    {
+      title : "Behance",
+      picture : "behance.png",
+      link: "https://www.behance.net/fernandoyassin"
+    }
+  ]
   constructor(private scroll : RevealAnimationService) { }
   ngAfterViewInit(): void {
     this.initScrollReveal();
   }
   private initScrollReveal(): void {
     this.scroll.initScrollReveal('left',2000,'.reveal-element')
+    this.scroll.initScrollReveal('right',2000,'.reveal-element-right')
+    this.scroll.initScrollReveal('right',3000,'#about')
+    this.scroll.initScrollReveal('buttom',3300,'#social')
+    this.scroll.initScrollReveal('left',3300,'#more')
   }
   
 }

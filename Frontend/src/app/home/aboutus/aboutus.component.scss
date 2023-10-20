@@ -22,4 +22,13 @@ div  {
 .founder {
     @apply border-[1px] rounded-lg  w-full h-[300px] mt-4  ; 
     border: 1px solid rgba(128, 128, 128, 0.269);
+    & > div > div {
+        border: 1px solid rgba(128, 128, 128, 0.269);
+        @apply transition-all ; 
+        background-image: none;
+        &:hover {
+            background-image: linear-gradient(20deg,rgba(255, 0, 247, 0.089),rgba(153, 0, 255, 0.038));
+        }
+        
+    }
 }
