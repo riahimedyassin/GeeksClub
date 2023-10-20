@@ -1,0 +1,19 @@
+<div class="h-[1000px] bg-black bg-[url(assets/aboutuseffect.svg)] bg-cover text-white flex flex-col items-center" id="aboutus" >
+    <h1 class="z-20 mb-16 mt-16" >About us</h1>
+    <div class="grid grid-cols-4 grid-rows-2 px-24" #myElement >
+        <ng-container *ngFor="let abt of aboutus;index as index">
+            <div  class="grid-cols-1 reveal-element" [id]="'element-'+index" >
+                <lucide-icon [name]="abt.icon" class="icon" ></lucide-icon>
+                <h4>{{abt.title}} </h4>
+                <p>{{abt.text}}</p>
+            </div>
+        </ng-container>
+    </div>
+    <div class="mt-12 w-[75vw] flex flex-col items-center overflow-hidden ">
+        <h4>About the founder</h4>
+        <div class="founder">
+            <img src="assets/aboutfoundereffect.svg" alt="" class="opacity-30 w-full">
+        </div>
+    </div>
+    
+</div>

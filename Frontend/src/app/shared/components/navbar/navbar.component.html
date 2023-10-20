@@ -1,0 +1,26 @@
+<nav
+  class="custom-navbar fixed top-0 left-0 flex justify-between items-center px-24"
+>
+  <div>
+    <h2>
+      <span class="text-second">&lt;</span>Geeks<span class="text-second"
+        >&gt;</span
+      >
+    </h2>
+  </div>
+  <div
+    class="border-[1px] border-gray-800 rounded-full h-[50%] w-[400px] flex justify-between items-center px-5 text-white text-sm"
+  >
+    <span (click)="scroll('header')" class="link">Home</span>
+    <span (click)="scroll('aboutus')" class="link">About us</span>
+    <span class="link">Activities</span>
+    <span class="link">Contact us</span>
+  </div>
+  <div class="flex space-x-4">
+    <button class="button" (click)="navigate()">
+      <div class="button-overlay"></div>
+      <span>Join us</span>
+    </button>
+    <button class="hover:underline">Login</button>
+  </div>
+</nav>

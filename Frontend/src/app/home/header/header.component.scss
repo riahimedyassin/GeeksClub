@@ -1,0 +1,126 @@
+.loader {
+  width: 150px;
+  height: 120px;
+  background: transparent;
+  border-radius: 50%;
+  box-shadow: 25px 25px 75px rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transform: scale(2);
+  opacity: 0.1;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 20px;
+    background: transparent;
+    border-radius: 50%;
+    box-shadow: inset -5px -5px 25px rgba(0, 0, 0, 0.25),
+      inset 5px 5px 35px rgba(0, 0, 0, 0.25);
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    box-shadow: inset -5px -5px 25px rgba(0, 0, 0, 0.25),
+      inset 5px 5px 35px rgba(0, 0, 0, 0.25);
+  }
+  span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    background: transparent;
+    transform-origin: top left;
+    animation: radar81 6s linear infinite;
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #cd07c389 ;
+      transform-origin: top left;
+      transform: rotate(-55deg);
+      filter: blur(40px) drop-shadow(20px 20px 20px #ff36ff89);
+    }
+  }
+}
+@keyframes radar81 {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.effect {
+  backdrop-filter: blur(17px) saturate(200%);
+  background-color: rgba(0, 0, 0, 0.54);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.125);
+  width: 80%;
+  height: 400px;
+  z-index: 10;
+  overflow: hidden; 
+  box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.308); 
+  @apply transition-all ; 
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.59);
+    box-shadow: 0 20px 20px 10px rgba(0, 0, 0, 0.509); 
+  }
+  .header {
+    background-color: rgba(0, 0, 0, 0.141);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.382);
+  }
+}
+
+.join {
+  @apply px-6 py-2 border-[1px] rounded-xl border-white text-white opacity-80 hover:opacity-100 transition-all; 
+  cursor: pointer;
+}
+.readmore {
+  @extend .join ; 
+  @apply border-dashed
+}
+/* <reset-style> ============================ */
+a {
+  text-decoration: none;
+}
+/* <main-style> ============================ */
+.main__scroll-text {
+  color: white;
+}
+
+.main__action .main__scroll-box {
+  animation: scroll-down 3s infinite;
+}
+.main__scroll {
+  cursor: pointer;
+}
+
+/* Animate scroll icon */
+@keyframes scroll-down {
+  0%, 100% {
+    transform: translateY(0rem);
+    opacity: 1;
+  }
+
+  35% {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+
+  70% {
+    transform: translateY(-1rem);
+    opacity: 0;
+  }
+}
+.anonymous {
+  font-family: 'Anonymous Pro', monospace;
+}

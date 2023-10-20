@@ -1,0 +1,25 @@
+div  {
+    .grid-cols-1 {
+        height: 150px;
+        border : 1px solid rgba(128, 128, 128, 0.33) ; 
+        border-left: 1px solid rgba(64, 64, 64, 0.213) ; 
+        @apply px-6 py-4 transition-all; 
+        &:hover {
+            background-color: rgba(43, 11, 27, 0.2);
+        }
+        svg {
+            width: 40px ; 
+            height: 40px
+        }
+        h4  {
+            @apply mt-6
+        }
+        p {
+            @apply text-sm mt-2 text-gray-500; 
+        }
+    }
+}
+.founder {
+    @apply border-[1px] rounded-lg  w-full h-[300px] mt-4  ; 
+    border: 1px solid rgba(128, 128, 128, 0.269);
+}
