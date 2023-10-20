@@ -15,7 +15,7 @@ const errorHandler = require('./middlewares/errorHandler')
 
 app.use(express.json())
 app.use("/api/geeks/dashboard",adminRoute)
-app.use("/api/geeks/member",memberRoute)
+app.use("/api/geeks/members",memberRoute)
 app.use("/api/geeks/events",eventRoute)
 app.use(errorHandler)
 

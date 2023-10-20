@@ -84,14 +84,15 @@ const endEvent = async (req, res, next) => {
   const { id } = req.params;
   if (!id) return next(createError("Please provide the ID of the event", 400));
   try {
-    const event = await Event.findOne({ _id: id });
+    const event = await Event.findOne({ _id: id }, { participants: 1 , reward_points : 1});
     if (!event) return next(createError("Event not found", 404));
     const participants = event["participants"];
     if (participants.length > 0) {
       participants.forEach(async (participant) => {
-        const week_point = await Member.findOne({ _id: participant }).select(
-          "points.week_point"
-        );
+        const week_point = await Member.findOne(
+          { _id: participant },
+          { points: 1 }
+        ).select("week_point");
         await Member.findOneAndUpdate(
           { _id: participant },
           { week_point: week_point + event.reward_points }

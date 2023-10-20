@@ -22,7 +22,7 @@ const registerMember = async (req, res, next) => {
 };
 const getAllRegistred = async (req, res, next) => {
   try {
-    const registred = await Member.find({ isMember: false });
+    const registred = await Member.find({ isMember: false },{password:0});
     if (registred) {
       return response(
         res,
@@ -42,7 +42,7 @@ const getAllMembers = async (req, res, next) => {
   const limit = 4;
   const skip = (page - 1) * limit;
   try {
-    const members = await Member.find({ isMember: true })
+    const members = await Member.find({ isMember: true },{password:0})
       .skip(skip)
       .limit(limit);
     if (members)

@@ -6,10 +6,11 @@ const {
   deleteMember,
   confirmParticipation
 } = require("../controllers/admin.controller");
+const { requireAdminAuth } = require("../middlewares/auth/admin.auth");
 
 
 //REQUIRE ADMIN
-
+router.use(requireAdminAuth)
 router.get("/member/all/:page", getAllMembers);
 router.post("/member/add", registerMember);
 router.get("/user/all", getAllRegistred);
