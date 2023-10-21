@@ -1,0 +1,73 @@
+<hr class="opacity-20 mb-24">
+<div class="h-[1000px] text-white flex flex-col items-center relative" id="contact">
+    <img src="assets/yellowpink.svg" alt="" class="absolute w-full h-full opacity-50">
+  <h1 class="mb-2">Contact us</h1>
+  <p class="text-gray-500">Sponsoring or collaborating ? Never hesitate</p>
+  <div class="border-[1px] border-gray-500 w-[80%] h-[70%] rounded-lg mt-8 relative">
+    <div class="flex flex-col items-center px-28 py-12 reveal-me ">
+      <h2>Social Media</h2>
+      <p class="text-gray-500 mt-2 mb-8">
+        Feel Free to reach us through our social media account.
+      </p>
+      
+      <div
+        class="bg-[#0D0D0D] w-full h-44 rounded-xl flex justify-around py-4 border-[1px] border-[#272727]  "
+      >
+      
+        <div class="border-r-[1px] border-r-[#272727] insta media ">
+          <lucide-icon
+            name="instagram"
+            size="48px"
+            color="#f97316"
+          ></lucide-icon>
+          <h4>Instagram</h4>
+        </div>
+        <div class="face media ">
+          <lucide-icon
+            name="facebook"
+            size="48px"
+            color="rgb(37 99 235)"
+          ></lucide-icon>
+          <h4>Facebook</h4>
+        </div>
+        <div class="border-l-[1px] border-l-[#272727] linked media ">
+          <lucide-icon
+            name="linkedin"
+            size="48px"
+            color="rgb(59 130 246)"
+          ></lucide-icon>
+          <h4>LinkedIn</h4>
+        </div>
+      </div>
+    </div>
+    <div class="px-28 mt-24 flex flex-col items-center reveal-right">
+      <h2>Mail Address</h2>
+      <p class="text-gray-500 mt-2 mb-8">
+        Feel Free to reach us through our social media account.
+      </p>
+      <div
+        class="bg-[#0D0D0D] w-full h-14 rounded-xl grid grid-cols-8 border-[1px] border-[#272727] items-center"
+      >
+        <p class="col-span-7 text-center text-gray-500 text-lg tracking-wider">
+          geeks.club@gmail.com
+        </p>
+        <div
+          class="border-l-[1px] border-l-[#272727] flex items-center justify-center cursor-pointer"
+          (click)="copy()"
+        >
+          <lucide-icon name="copy" size="28px" color="gray"></lucide-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+<<ng-container *ngIf="showNotif">
+  <app-notification
+    icon="check-circle-2"
+    second="rgba(40, 226, 9, 0.2)"
+    prime="rgba(26, 232, 47, 0.04)"
+    message="Copied to clipboard"
+    color="green"
+  ></app-notification>
+</ng-container>

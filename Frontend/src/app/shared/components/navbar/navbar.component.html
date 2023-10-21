@@ -2,7 +2,7 @@
   class="custom-navbar fixed top-0 left-0 flex justify-between items-center px-24"
 >
   <div>
-    <h2>
+    <h2 >
       <span class="text-second">&lt;</span>Geeks<span class="text-second"
         >&gt;</span
       >
@@ -13,8 +13,8 @@
   >
     <span (click)="scroll('header')" class="link">Home</span>
     <span (click)="scroll('aboutus')" class="link">About us</span>
-    <span class="link">Activities</span>
-    <span class="link">Contact us</span>
+    <span class="link" (click)="scroll('activities')">Activities</span>
+    <span class="link" (click)="scroll('contact')">Contact us</span>
   </div>
   <div class="flex space-x-4">
     <button class="button" (click)="navigate()">

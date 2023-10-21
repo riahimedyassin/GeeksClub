@@ -67,9 +67,9 @@ export class AboutusComponent {
   private initScrollReveal(): void {
     this.scroll.initScrollReveal('left',2000,'.reveal-element')
     this.scroll.initScrollReveal('right',2000,'.reveal-element-right')
-    this.scroll.initScrollReveal('right',3000,'#about')
-    this.scroll.initScrollReveal('buttom',3300,'#social')
-    this.scroll.initScrollReveal('left',3300,'#more')
+    // this.scroll.initScrollReveal('right',3000,'#about')
+    // this.scroll.initScrollReveal('right',3300,'#social')
+    // this.scroll.initScrollReveal('left',3300,'#more')
   }
   
 }

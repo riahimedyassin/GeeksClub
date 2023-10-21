@@ -6,7 +6,7 @@ import ScrollReveal from 'scrollreveal';
 export class RevealAnimationService {
   constructor() {}
   public initScrollReveal(
-    direction: 'left' | 'right' | 'buttom' | 'top',
+    direction: 'left' | 'right' | 'bottom' | 'top',
     duration: number,
     className?: string, 
     myElement ?: ElementRef

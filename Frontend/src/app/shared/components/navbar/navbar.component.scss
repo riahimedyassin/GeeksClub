@@ -9,6 +9,9 @@
     color: white;
     & div {
         background-color: rgba(0, 0, 0, 0.155);
+        h2 {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.205);
+        }
     }
     span.link {
         cursor: pointer;
