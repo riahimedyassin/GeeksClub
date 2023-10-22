@@ -53,11 +53,52 @@ const unsubscribe=async(req,res,next) => {
         console.log(error)
         next(error)
     }
-
 }
+const sendMessage=async(req,res,next) => {
+    const id = req.user  ; 
+    if(!id ) return next(createError("Unauthorized",403)) 
+    const {forum} = req.params ; 
+    const { message} = req.body
+    if(!forum) return next(createError("Provide the forum id",400));
+    if(!message) return next(createError("All fields are mandatory",400))
+    try {
+        const created = await Forum.findOne({_id:forum},{articles:1,members:1}) ; 
+        if(created.members.includes(id)) {
+            created.articles.push({message: {
+                sent_by : id , 
+                content : message.content , 
+                date_sent : message.date_sent
+            }});
+            const done = await Forum.findOneAndUpdate({_id:forum},created)
+            if(done) return response(res,"Article published successfully",201); 
+            return next(createError("Unable to publish article",500));
+        }
+        return next(createError("You are not a member of this forum, subscribe first",403))
+    } catch (error) {
+        next(error)
+    }
+ }
+const sendReply = async(req,res,next) => {
+    const id = req.user ;
+    if(!id) return next(createError("Unauthorized",403))
+    const {reply} = req.body ; 
+    const {message} = req.params ; 
+    if(!reply) return next(createError("All fields are mandatory",400)) ; 
+    if(!message) return next(createError("Provide the message ID",400)) ; 
+    try {
+         
+    } catch (error) {
+        
+    }
+}
+
+
+
+
 
 module.exports={
     addForum,
     subscribe,
-    unsubscribe
+    unsubscribe,
+    sendMessage
 }

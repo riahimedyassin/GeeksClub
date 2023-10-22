@@ -15,7 +15,7 @@ const messageSchema = Schema({
         maxlength:[300,"Messages cannot exceed 300 caracters"]
     }
 })
-const message = Object.assign({replies: {type: messageSchema}},{messageSchema})
+const message = Object.assign({replies: [{type: messageSchema}]},{message : {type: messageSchema}})
 
 
 module.exports={message}
