@@ -4,7 +4,9 @@ const {
   getAllRegistred,
   getAllMembers,
   deleteMember,
-  confirmParticipation
+  confirmParticipation,
+  changeInfo,
+  getAdminInfo
 } = require("../controllers/admin.controller");
 const { requireAdminAuth } = require("../middlewares/auth/admin.auth");
 
@@ -16,6 +18,8 @@ router.post("/member/add", registerMember);
 router.get("/user/all", getAllRegistred);
 router.delete("/member/:id", deleteMember);
 router.post("/member/confirm",confirmParticipation)
+router.post("/me",changeInfo)
+router.get("/me",getAdminInfo)
 
 
 

@@ -22,7 +22,7 @@ const registerMember = async (req, res, next) => {
 };
 const getAllRegistred = async (req, res, next) => {
   try {
-    const registred = await Member.find({ isMember: false },{password:0});
+    const registred = await Member.find({ isMember: false }, { password: 0 });
     if (registred) {
       return response(
         res,
@@ -42,7 +42,7 @@ const getAllMembers = async (req, res, next) => {
   const limit = 4;
   const skip = (page - 1) * limit;
   try {
-    const members = await Member.find({ isMember: true },{password:0})
+    const members = await Member.find({ isMember: true }, { password: 0 })
       .skip(skip)
       .limit(limit);
     if (members)
@@ -92,21 +92,61 @@ const confirmParticipation = async (req, res, next) => {
   try {
     const event = await Event.findOne(
       { _id: event_id },
-      { reward_point: 1, id: 1, registred: 1, participants:1 }
+      { reward_point: 1, id: 1, registred: 1, participants: 1 }
     );
-    if(!event) next(createError("Cannot Find this Event",404))
+    if (!event) next(createError("Cannot Find this Event", 404));
     members.forEach(async (member) => {
       const mem = await Member.findOne({ _id: member }, { points: 1, _id: 1 });
       mem.points.week_point += event.reward_point;
       await Member.findOneAndUpdate({ _id: member }, mem);
     });
-    event.registred=[]; 
+    event.registred = [];
     event.participants = members;
     await Event.findOneAndUpdate({ _id: event_id }, event);
     return response(res, "Confirmed Successfully", 200);
   } catch (error) {
     next(error);
     console.log(error);
+  }
+};
+const getAdminInfo = async (req, res, next) => {
+  try {
+    const id = req.user;
+    if (!id) return next(createError("Unauthorized", 403));
+    const admin = await Admin.findOne({ _id: id });
+    if (admin)
+      return response(
+        res,
+        "Admin data retrieved successfully",
+        200,
+        false,
+        admin
+      );
+    return next(createError("Not found", 404));
+  } catch (error) {}
+};
+
+const changeInfo = async (req, res, next) => {
+  const id = req.user;
+  if (!id) return next(createError("Unauthorized", 403));
+  const impossible = ["name", "forname", "role", "isSup"];
+  const changes = Object.keys(req.body);
+  if (!changes) return next(createError("No changes has been detected", 400));
+  let index = 0;
+  while (index < changes.length) {
+    if (impossible.includes(changes[index]))
+      return next(createError(`You can't change ${changes[index]}`, 403));
+    index++;
+  }
+  try {
+    const applyChanges = await Admin.findOneAndUpdate({ _id: id }, req.body);
+    if (applyChanges)
+      return response(res, "Changes has been saved succeessfully", 201);
+    else {
+      next(createError("Cannot save", 500));
+    }
+  } catch (error) {
+    next(error);
   }
 };
 
@@ -116,4 +156,6 @@ module.exports = {
   getAllMembers,
   deleteMember,
   confirmParticipation,
+  changeInfo,
+  getAdminInfo,
 };

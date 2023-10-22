@@ -71,7 +71,6 @@ const getLeaderboard = async (req, res, next) => {
     return next(createError("Cannot retrieve leaderboard ", 400));
   } catch (error) {
     next(error);
-    console.log(error);
   }
 };
 const loginMember = async (req, res, next) => {
@@ -85,7 +84,6 @@ const loginMember = async (req, res, next) => {
     return response(res, "Logged in successfullu", 200, true, token);
   } catch (error) {
     next(error);
-    console.log(error);
   }
 };
 const recoverAccount = async (req, res, next) => {

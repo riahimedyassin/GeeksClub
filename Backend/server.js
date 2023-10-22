@@ -10,6 +10,7 @@ const CONNECTION_STRING = process.env.CONNECTION_STRING
 const adminRoute = require("./routes/admin.route")
 const memberRoute = require("./routes/member.route")
 const eventRoute = require("./routes/event.route")
+const forumRoute = require("./routes/forum.route")
 const errorHandler = require('./middlewares/errorHandler')
 
 
@@ -17,6 +18,7 @@ app.use(express.json())
 app.use("/api/geeks/dashboard",adminRoute)
 app.use("/api/geeks/members",memberRoute)
 app.use("/api/geeks/events",eventRoute)
+app.use("/api/geeks/forums",forumRoute)
 app.use(errorHandler)
 
 

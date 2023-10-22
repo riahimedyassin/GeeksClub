@@ -1,7 +1,7 @@
 div {
     border : 1px solid rgba(40, 226, 9, 0.2) ;    
     background-color: rgba(26, 232, 47, 0.04);
-    animation: show 1.5s ease-in-out;
+    animation: show 2s ease-in-out;
     backdrop-filter: blur(5px);
     opacity: 0;
 }
@@ -10,8 +10,11 @@ div {
         right: -400px;
         opacity: 0.5;
     }
-    90% {
+    40% {
         right: 12px;
+        opacity: 1;
+    }
+    80% {
         opacity: 1;
     }
     100% {

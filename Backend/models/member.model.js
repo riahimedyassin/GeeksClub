@@ -71,6 +71,10 @@ const memberSchema = Schema({
     type: recoverySchema,
     required: true,
   },
+  forums : {
+    type : [{type:String}],
+    default : [] 
+  }
 });
 memberSchema.statics.login = async function (email, password) {
   const member = await this.findOne(
