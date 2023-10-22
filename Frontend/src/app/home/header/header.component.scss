@@ -43,7 +43,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: #cd07c389 ;
+      background: #cd07c389;
       transform-origin: top left;
       transform: rotate(-55deg);
       filter: blur(40px) drop-shadow(20px 20px 20px #ff36ff89);
@@ -65,14 +65,14 @@
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.125);
   width: 80%;
-  height: 600px; 
+  height: 600px;
   z-index: 10;
-  overflow: hidden; 
-  box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.308); 
-  @apply transition-all ; 
+  overflow: hidden;
+  box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.308);
+  @apply transition-all;
   &:hover {
     background-color: rgba(0, 0, 0, 0.59);
-    box-shadow: 0 20px 20px 10px rgba(0, 0, 0, 0.509); 
+    box-shadow: 0 20px 20px 10px rgba(0, 0, 0, 0.509);
   }
   .header {
     background-color: rgba(0, 0, 0, 0.141);
@@ -81,12 +81,12 @@
 }
 
 .join {
-  @apply px-6 py-2 border-[1px] rounded-xl border-white text-white opacity-80 hover:opacity-100 transition-all; 
+  @apply px-6 py-2 border-[1px] rounded-xl border-white text-white opacity-80 hover:opacity-100 transition-all;
   cursor: pointer;
 }
 .readmore {
-  @extend .join ; 
-  @apply border-dashed
+  @extend .join;
+  @apply border-dashed;
 }
 /* <reset-style> ============================ */
 a {
@@ -106,7 +106,8 @@ a {
 
 /* Animate scroll icon */
 @keyframes scroll-down {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0rem);
     opacity: 1;
   }
@@ -121,6 +122,22 @@ a {
     opacity: 0;
   }
 }
-.anonymous , .anonymous span {
-  font-family: 'Anonymous Pro', monospace;
+@keyframes geeksbgcolor {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+.geeks {
+  background: linear-gradient(90deg, #ec4899 , #a15cf6);
+  background-clip: text;
+  background-size: 200% 200%;
+  animation: geeksbgcolor 2s infinite alternate;
+
+}
+.anonymous,
+.anonymous span {
+  font-family: "Anonymous Pro", monospace;
 }
