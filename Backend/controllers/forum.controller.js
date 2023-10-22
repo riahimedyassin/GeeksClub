@@ -78,17 +78,35 @@ const sendMessage=async(req,res,next) => {
         next(error)
     }
  }
+const getAllForums=async(req,res,next) => {
+    try {
+        const getforum = await Forum.find({})
+        if(getforum) return response(res,"Forum retrieved successfully",200,false,getforum)
+        return next(createError("Cannot find the Forum",404))
+    } catch (error) {
+        next(error)
+    }
+}
+
 const sendReply = async(req,res,next) => {
     const id = req.user ;
     if(!id) return next(createError("Unauthorized",403))
     const {reply} = req.body ; 
     const {message} = req.params ; 
+    const {forum} = req.params ; 
     if(!reply) return next(createError("All fields are mandatory",400)) ; 
-    if(!message) return next(createError("Provide the message ID",400)) ; 
+    if(!message || !forum) return next(createError("Provide the message && forum IDs",400)) ; 
     try {
-         
+        const getforum = await Forum.findOne({_id:forum},{articles:1}); 
+        let index = 0 ;
+        while(getforum.articles[index]._id!=message && index<getforum.articles.length) index++ ; 
+        getforum.articles[index].replies.push({sent_by : id , content : reply.content , date_sent : reply.date_sent});
+        const changed = await Forum.findOneAndUpdate({_id:forum},getforum)
+        if(changed) return response(res,'Reply added successfully',201);
+        return next(createError("Cannot add reply",500))
     } catch (error) {
-        
+        console.log(error)
+        next(error)
     }
 }
 
@@ -100,5 +118,7 @@ module.exports={
     addForum,
     subscribe,
     unsubscribe,
-    sendMessage
+    sendMessage,
+    sendReply,
+    getAllForums
 }

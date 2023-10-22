@@ -1,0 +1,19 @@
+footer {
+    backdrop-filter: blur(6px);
+    & > div {
+        @apply flex justify-center   ;
+        & ul li {
+            @apply hover:underline hover:text-white transition-all w-fit cursor-pointer text-sm; 
+        }
+    }
+    .donate {
+        @apply w-[60%]  h-12 bg-[#0D0D0D] rounded-xl grid items-center grid-cols-6 px-6 transition-all;
+        color : #ffae00 ; 
+        border : 1px solid rgba(255, 174, 0, 0.472) ; 
+        &:hover {
+            background-color: rgba(255, 174, 0, 0.127);
+            cursor: pointer;
+            box-shadow: 0px 4px 16px rgba(255, 174, 0, 0.1), 0px 8px 32px rgba(255, 174, 0, 0.08);
+        }
+    }
+}

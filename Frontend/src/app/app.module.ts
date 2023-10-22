@@ -13,6 +13,7 @@ import { RegisterComponent } from './home/register/register.component';
 import { ActivitiesComponent } from './home/activities/activities.component';
 import { ContactComponent } from './home/contact/contact.component';
 import { NotificationComponent } from './shared/components/notification/notification.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { NotificationComponent } from './shared/components/notification/notifica
     RegisterComponent,
     ActivitiesComponent,
     ContactComponent,
-    NotificationComponent
+    NotificationComponent,
+    FooterComponent
     
   ],
   imports: [
