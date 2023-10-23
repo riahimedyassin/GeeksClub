@@ -1,5 +1,5 @@
 *.txt
 Backend/node_modules
-Backend/.env
+Backend/env/dev.env
 Frontend/node_modules
 Frontend/angular
