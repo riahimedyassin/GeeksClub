@@ -100,11 +100,28 @@ const recoverAccount = async (req, res, next) => {
   return next(createError("Invalid Recovery Question Answer",400));
 
 };
+const getSingleMember = async(req,res,next) => {
+  const {id} = req.params
+  try {
+      const members = await Member.findOne({_id:id},{password:0,recovery_question:0})
+      if(members) return response(res,"Members retrieved",200,false,members)
+      return next(createError("Can't find this member",404))
+  } catch (error) {
+      next(error)
+  }
+
+}
+
+
+
+
+
 
 module.exports = {
   registerUser,
   attendEvent,
   getLeaderboard,
   loginMember,
-  recoverAccount
+  recoverAccount,
+  getSingleMember
 };

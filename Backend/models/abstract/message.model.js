@@ -3,8 +3,16 @@ const Schema = require("mongoose").Schema;
 const messageSchema = Schema(
   {
     sent_by: {
-      type: String,
-      required: [true, "Please enter the sender of the message"],
+      user_id : {
+        type : String ,
+        required : [true,"Enter the member's ID"]
+      },
+      name : {
+        type : String 
+      },
+      forname : {
+        type : String 
+      }
     },
     content: {
       type: String,

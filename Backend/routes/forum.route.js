@@ -5,14 +5,16 @@ const {
   unsubscribe,
   sendMessage,
   sendReply,
-  getAllForums
+  getAllForums,
+  getSingleForum
 } = require("../controllers/forum.controller");
 const { requireMemberAuth } = require("../middlewares/auth/member.auth");
 const {requireAdminAuth} = require("../middlewares/auth/admin.auth")
 
 router.post("/",requireAdminAuth ,addForum);
 router.use(requireMemberAuth);
-router.get("/",getAllForums)
+router.get("/",getAllForums);
+router.get("/:id",getSingleForum)
 router.post("/subscribe", subscribe);
 router.post("/unsubscribe", unsubscribe);
 router.post("/articles/:forum", sendMessage);
