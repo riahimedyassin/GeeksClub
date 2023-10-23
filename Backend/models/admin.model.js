@@ -1,7 +1,9 @@
 const Schema = require("mongoose").Schema;
 const { default: mongoose } = require("mongoose");
 const { Validator } = require("../utils/validators/Validator");
+const { recoverySchema } = require("./abstract/recovery.model");
 const validate = new Validator();
+const bcrypt = require('bcrypt')
 
 const adminSchema = Schema({
   name: {
@@ -56,5 +58,23 @@ const adminSchema = Schema({
     required: true,
   },
 });
+
+adminSchema.statics.login=async function (email,password)  {
+    try {
+        const admin = await this.findOne({email:email},{email:1,password:1,_id:1})
+        if(admin) {
+            const pass = await bcrypt.compare(password,admin.password)
+            if(pass) {
+              return admin.id 
+            }
+            return null 
+        }
+        return null 
+    } catch (error) {
+        return null
+    }
+}
+
+
 
 module.exports = mongoose.model("Admin", adminSchema);

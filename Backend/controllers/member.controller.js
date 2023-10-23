@@ -6,6 +6,7 @@ const Event = require("../models/event.model");
 const { response } = require("../utils/response/Response");
 const { createToken } = require("../utils/token/createToken");
 const { Recovery } = require("../utils/recovery/Recovery");
+const { inTable } = require("../utils/inTable");
 const recovery = new Recovery();
 
 const registerUser = async (req, res, next) => {
@@ -103,15 +104,42 @@ const recoverAccount = async (req, res, next) => {
 const getSingleMember = async(req,res,next) => {
   const {id} = req.params
   try {
-      const members = await Member.findOne({_id:id},{password:0,recovery_question:0})
+      const members = await Member.findOne({_id:id,isMember:true},{password:0,recovery_question:0})
       if(members) return response(res,"Members retrieved",200,false,members)
       return next(createError("Can't find this member",404))
   } catch (error) {
       next(error)
   }
-
 }
 
+const updateMember = async(req,res,next) => {
+    const id = req.user ; 
+    if(!id) return next(createError("Unauthorized"));
+    const changes = req.body ; 
+    const impossible = ['name','forname','points','forums','recovery_question','isMember','CIN']
+    const keys = Object.keys(changes)
+    if(inTable(impossible,keys)) return next(createError("You cannot changes this/those fields",403))
+    try {
+        const member = await Member.findOneAndUpdate({_id:id,isMember:true},changes)
+        if(member) return response(res,"Updated successfully",201);
+        return next(createError("Cannot save changes",505))
+    } catch (error) {
+        next(error)
+    }
+}
+const getInfo=async(req,res,next) => {
+  const id = req.user ; 
+  if(!id) return next(createError('Unauthorized',403))
+  try {
+      const user = await Member.findOne({_id:id, isMember:true})
+      if(user) return response(res,'Member retrieved successfully') 
+  } catch (error) {
+      next(error)
+  }
+
+
+
+}
 
 
 
@@ -123,5 +151,7 @@ module.exports = {
   getLeaderboard,
   loginMember,
   recoverAccount,
-  getSingleMember
+  getSingleMember,
+  updateMember,
+  getInfo
 };
