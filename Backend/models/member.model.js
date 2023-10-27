@@ -89,4 +89,6 @@ memberSchema.statics.login = async function (email, password) {
   return null;
 };
 
+
+
 module.exports = mongoose.model("Member", memberSchema);

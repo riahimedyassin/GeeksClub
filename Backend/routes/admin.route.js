@@ -18,7 +18,7 @@ router.post("/member/add", registerMember);
 router.get("/user/all", getAllRegistred);
 router.delete("/member/:id", deleteMember);
 router.post("/member/confirm",confirmParticipation)
-router.post("/me",changeInfo)
+router.patch("/me",changeInfo)
 router.get("/me",getAdminInfo)
 
 

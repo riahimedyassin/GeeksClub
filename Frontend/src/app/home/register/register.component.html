@@ -1,8 +1,126 @@
 <app-navbar></app-navbar>
 <div class="w-full text-white px-24 mt-24">
-    <div class="py-12 h-[600px] rounded-lg bg-black mt-32 w-full border-[1px] border-gray-500 flex justify-center">
-        <div class="flex items-center flex-col">
-            <h2>Regitser</h2>
-        </div>
+  <div
+    class="py-12 h-[700px] rounded-lg bg-black mt-32 w-full border-[1px] border-gray-500 flex items-center flex-col"
+  >
+    <div class="flex items-center flex-col">
+      <h2>Regitser</h2>
+      <p class="text-sm text-gray-500 mt-2">Apply now and join the crew !</p>
     </div>
+    <form
+      [formGroup]="form"
+      class="grid grid-cols-2 gap-6"
+      (ngSubmit)="submit()"
+    >
+      <div class="">
+        <input
+          type="text"
+          formControlName="name"
+          placeholder="Enter yout name"
+        />
+        <div *ngIf="form.get('name')?.invalid && form.get('name')?.touched" class="flex space-x-4 items-center mt-2">
+            <lucide-icon name="info" color="#ef4444" size="16"></lucide-icon>
+            <p class="text-sm text-red-500">Invalid name</p>
+        </div>
+      </div>
+      <div class="">
+        <input
+          type="text"
+          formControlName="forname"
+          placeholder="Enter yout forname"
+        />
+      </div>
+      <div class="">
+        <input type="text" formControlName="age" placeholder="Enter yout age" />
+      </div>
+      <div class="">
+        <input type="text" formControlName="CIN" placeholder="Enter yout CIN" />
+      </div>
+      <div class="overflow-hidden grid grid-cols-10 items-center custom-input">
+        <div>
+          <lucide-icon name="at-sign" color="gray"></lucide-icon>
+        </div>
+        <input
+          type="email"
+          class="col-span-9"
+          id=""
+          formControlName="email"
+          placeholder="Enter your email"
+        />
+      </div>
+      <div class="overflow-hidden grid grid-cols-10 items-center custom-input">
+        <div>
+          <lucide-icon name="lock" color="gray"></lucide-icon>
+        </div>
+        <input
+          type="password"
+          class="col-span-9"
+          id=""
+          formControlName="password"
+          placeholder="Enter your password"
+        />
+      </div>
+      <div formGroupName="address" class="grid grid-cols-3 gap-4 col-span-2">
+        <input type="text" placeholder="City" formControlName="city" />
+        <input type="text" placeholder="Region" formControlName="region" />
+        <input type="text" placeholder="Country" formControlName="country" />
+      </div>
+      <div class="overflow-hidden grid grid-cols-10 items-center custom-input">
+        <div>
+          <lucide-icon name="facebook" color="gray"></lucide-icon>
+        </div>
+        <input
+          type="text"
+          class="col-span-9"
+          id=""
+          formControlName="facebook"
+          placeholder="Enter your facebook"
+        />
+      </div>
+      <div class="overflow-hidden grid grid-cols-10 items-center custom-input">
+        <div>
+          <lucide-icon name="phone" color="gray"></lucide-icon>
+        </div>
+        <input
+          type="text"
+          class="col-span-9"
+          id=""
+          formControlName="phone"
+          placeholder="Enter your phone"
+        />
+      </div>
+      <div class="overflow-hidden grid grid-cols-10 items-center custom-input">
+        <div>
+          <lucide-icon name="help-circle" color="gray"></lucide-icon>
+        </div>
+        <select
+          formControlName="question"
+          id=""
+          class="col-span-9 cursor-pointer"
+        >
+          <option value="0">What is your best friend's name ?</option>
+        </select>
+      </div>
+      <div class="overflow-hidden grid grid-cols-10 items-center custom-input">
+        <div>
+          <lucide-icon name="pencil-line" color="gray"></lucide-icon>
+        </div>
+        <input
+          type="text"
+          class="col-span-9"
+          id=""
+          formControlName="answer"
+          placeholder="Enter your answer"
+        />
+      </div>
+      <div class="col-span-2 flex items-center justify-center">
+        <button
+          class="border-[1px] border-gray-500 rounded-xl w-36 h-12"
+          type="submit"
+        >
+          Register
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

@@ -40,12 +40,12 @@ const attendEvent = async (req, res, next) => {
       createError("Please provide the ID of the event and the USER", 400)
     );
   try {
-    const event = await Event.findOne({ _id: id },{registred:1});
+    const event = await Event.findOne({ _id: id },{participants:1});
     if (event) {
-      event.registred.push(user_id);
+      event.participants.push({user_id , participated : false });
       const up = await Event.findOneAndUpdate(
         { _id: id },
-        { registred: event.registred }
+        { participants: event.participants }
       );
       if (up)
         return response(res, "You are now participating to that event", 200);
@@ -132,7 +132,7 @@ const getInfo=async(req,res,next) => {
   if(!id) return next(createError('Unauthorized',403))
   try {
       const user = await Member.findOne({_id:id, isMember:true})
-      if(user) return response(res,'Member retrieved successfully') 
+      if(user) return response(res,'Member retrieved successfully',200,false , user ) 
   } catch (error) {
       next(error)
   }

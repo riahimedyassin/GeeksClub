@@ -41,12 +41,17 @@ const eventSchema = Schema({
         enum : ["formation","assignment","event","reunion"],
         required : [true,"Please enter the categorie of this event"]
     },
-    registred: {
-        type : Array,
-        default:[]
-    },
     participants: {
-        type:[String],
+        type:[{
+            id : {
+                type : String ,
+                required : [true  , "Please provide the user's ID"]
+            },
+            participated : {
+                type : Boolean , 
+                default : false 
+            }
+        }],
         default:[]
     }
 })

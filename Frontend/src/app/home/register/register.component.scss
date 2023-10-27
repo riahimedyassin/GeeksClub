@@ -1,0 +1,49 @@
+form {
+  width: 100%;
+  padding: 32px 64px;
+  div {
+    width: 100%;
+    input,
+    select {
+      background-color: transparent;
+      color: white;
+      width: 100%;
+      height: 50px;
+      border: 1px solid rgba(128, 128, 128, 0.365);
+      border-radius: 8px;
+      padding-left: 16px;
+      &:focus {
+        outline: 1px solid rgba(128, 128, 128, 0.562);
+        &::placeholder {
+          font-size: 12px;
+          top: 0;
+        }
+      }
+      position: relative;
+      &::placeholder {
+        transition: 0.2s ease-in-out;
+        position: absolute;
+      }
+      &.ng-invalid.ng-touched {
+        border: 1px solid;
+        @apply border-red-500;
+        &::placeholder {
+          @apply text-red-500;
+        }
+      }
+    }
+  }
+  .custom-input {
+    div {
+      @apply col-span-1  h-full flex items-center justify-center;
+      border: 1px solid rgba(128, 128, 128, 0.365);
+      border-radius: 8px 0px 0px 8px;
+      background-color: rgba(18, 18, 18, 0.543);
+    }
+    input,
+    select {
+      border-left: 0;
+      border-radius: 0px 8px 8px 0px;
+    }
+  }
+}

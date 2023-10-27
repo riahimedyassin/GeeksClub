@@ -92,7 +92,7 @@ const confirmParticipation = async (req, res, next) => {
   try {
     const event = await Event.findOne(
       { _id: event_id },
-      { reward_point: 1, id: 1, registred: 1, participants: 1 }
+      { reward_point: 1, id: 1, participants: 1 }
     );
     if (!event) next(createError("Cannot Find this Event", 404));
     members.forEach(async (member) => {

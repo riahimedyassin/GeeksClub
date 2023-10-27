@@ -19,8 +19,8 @@ router.post("/recovery", recoverAccount);
 router.use(requireMemberAuth);
 router.post("/events/participate/:id", attendEvent);
 router.get("/leaderboard", getLeaderboard);
-router.get("/:id",getSingleMember)
 router.get("/me",getInfo)
+router.get("/:id",getSingleMember)
 router.patch("/me",updateMember)
 
 module.exports = router;
