@@ -18,9 +18,12 @@
           formControlName="name"
           placeholder="Enter yout name"
         />
-        <div *ngIf="form.get('name')?.invalid && form.get('name')?.touched" class="flex space-x-4 items-center mt-2">
-            <lucide-icon name="info" color="#ef4444" size="16"></lucide-icon>
-            <p class="text-sm text-red-500">Invalid name</p>
+        <div
+          *ngIf="form.get('name')?.invalid && form.get('name')?.touched"
+          class="flex space-x-4 items-center mt-2"
+        >
+          <lucide-icon name="info" color="#ef4444" size="16"></lucide-icon>
+          <p class="text-sm text-red-500">Invalid name</p>
         </div>
       </div>
       <div class="">
@@ -29,89 +32,205 @@
           formControlName="forname"
           placeholder="Enter yout forname"
         />
+        <div
+          *ngIf="form.get('forname')?.invalid && form.get('forname')?.touched"
+          class="flex space-x-4 items-center mt-2"
+        >
+          <lucide-icon name="info" color="#ef4444" size="16"></lucide-icon>
+          <p class="text-sm text-red-500">Invalid forname</p>
+        </div>
       </div>
       <div class="">
         <input type="text" formControlName="age" placeholder="Enter yout age" />
+        <div
+          *ngIf="form.get('age')?.invalid && form.get('age')?.touched"
+          class="flex space-x-4 items-center mt-2"
+        >
+          <lucide-icon name="info" color="#ef4444" size="16"></lucide-icon>
+          <p class="text-sm text-red-500">Invalid Age : 16 &lt; Age &gt; 22</p>
+        </div>
       </div>
+
       <div class="">
         <input type="text" formControlName="CIN" placeholder="Enter yout CIN" />
-      </div>
-      <div class="overflow-hidden grid grid-cols-10 items-center custom-input">
-        <div>
-          <lucide-icon name="at-sign" color="gray"></lucide-icon>
+        <div
+          *ngIf="form.get('CIN')?.invalid && form.get('CIN')?.touched"
+          class="flex space-x-4 items-center mt-2"
+        >
+          <lucide-icon name="info" color="#ef4444" size="16"></lucide-icon>
+          <p class="text-sm text-red-500">Invalid CIN</p>
         </div>
-        <input
-          type="email"
-          class="col-span-9"
-          id=""
-          formControlName="email"
-          placeholder="Enter your email"
-        />
       </div>
-      <div class="overflow-hidden grid grid-cols-10 items-center custom-input">
-        <div>
-          <lucide-icon name="lock" color="gray"></lucide-icon>
+      <div class="flex flex-col">
+        <div
+          class="overflow-hidden grid grid-cols-10 items-center custom-input"
+        >
+          <div class="icon--container">
+            <lucide-icon name="at-sign" color="gray"></lucide-icon>
+          </div>
+          <input
+            type="email"
+            class="col-span-9"
+            id=""
+            formControlName="email"
+            placeholder="Enter your email"
+          />
         </div>
-        <input
-          type="password"
-          class="col-span-9"
-          id=""
-          formControlName="password"
-          placeholder="Enter your password"
-        />
+        <div
+          *ngIf="form.get('email')?.invalid && form.get('email')?.touched"
+          class="flex space-x-4 items-center mt-2"
+        >
+          <lucide-icon name="info" color="#ef4444" size="16"></lucide-icon>
+          <p class="text-sm text-red-500">Invalid Email</p>
+        </div>
+      </div>
+      <div class="flex flex-col">
+        <div
+          class="overflow-hidden grid grid-cols-10 items-center custom-input"
+        >
+          <div class="icon--container">
+            <lucide-icon name="lock" color="gray"></lucide-icon>
+          </div>
+          <input
+            type="password"
+            class="col-span-9"
+            id=""
+            formControlName="password"
+            placeholder="Enter your password"
+          />
+        </div>
+        <div
+          *ngIf="form.get('password')?.invalid && form.get('password')?.touched"
+          class="flex space-x-4 items-center mt-2"
+        >
+          <lucide-icon name="info" color="#ef4444" size="16"></lucide-icon>
+          <p class="text-sm text-red-500">Invalid Password</p>
+        </div>
       </div>
       <div formGroupName="address" class="grid grid-cols-3 gap-4 col-span-2">
-        <input type="text" placeholder="City" formControlName="city" />
-        <input type="text" placeholder="Region" formControlName="region" />
-        <input type="text" placeholder="Country" formControlName="country" />
-      </div>
-      <div class="overflow-hidden grid grid-cols-10 items-center custom-input">
-        <div>
-          <lucide-icon name="facebook" color="gray"></lucide-icon>
+        <div class="flex flex-col">
+          <input type="text" placeholder="City" formControlName="city" />
+          <div
+            *ngIf="
+              form.get('address')?.get('city')?.invalid && form.get('address')?.get('city')?.touched
+            "
+            class="flex space-x-4 items-center mt-2"
+          >
+            <lucide-icon name="info" color="#ef4444" size="16"></lucide-icon>
+            <p class="text-sm text-red-500">Invalid City Name</p>
+          </div>
         </div>
-        <input
-          type="text"
-          class="col-span-9"
-          id=""
-          formControlName="facebook"
-          placeholder="Enter your facebook"
-        />
-      </div>
-      <div class="overflow-hidden grid grid-cols-10 items-center custom-input">
-        <div>
-          <lucide-icon name="phone" color="gray"></lucide-icon>
+        <div class="flex flex-col">
+          <input type="text" placeholder="Region" formControlName="region" />
+          <div
+            *ngIf="
+              form.get('address')?.get('region')?.invalid && form.get('address')?.get('region')?.touched
+            "
+            class="flex space-x-4 items-center mt-2"
+          >
+            <lucide-icon name="info" color="#ef4444" size="16"></lucide-icon>
+            <p class="text-sm text-red-500">Invalid Region Name</p>
+          </div>
         </div>
-        <input
-          type="text"
-          class="col-span-9"
-          id=""
-          formControlName="phone"
-          placeholder="Enter your phone"
-        />
-      </div>
-      <div class="overflow-hidden grid grid-cols-10 items-center custom-input">
-        <div>
-          <lucide-icon name="help-circle" color="gray"></lucide-icon>
+        <div class="flex flex-col">
+          <input type="text" placeholder="Country" formControlName="country" />
+          <div
+            *ngIf="
+              form.get('address')?.get('country')?.invalid && form.get('address')?.get('country')?.touched
+            "
+            class="flex space-x-4 items-center mt-2"
+          >
+            <lucide-icon name="info" color="#ef4444" size="16"></lucide-icon>
+            <p class="text-sm text-red-500">Invalid Country Name</p>
+          </div>
         </div>
-        <select
-          formControlName="question"
-          id=""
-          class="col-span-9 cursor-pointer"
+      </div>
+      <div class="flex flex-col">
+        <div class="overflow-hidden grid grid-cols-10 items-center custom-input">
+          <div class="icon--container">
+            <lucide-icon name="facebook" color="gray"></lucide-icon>
+          </div>
+          <input
+            type="text"
+            class="col-span-9"
+            id=""
+            formControlName="facebook"
+            placeholder="Enter your facebook"
+          />
+        </div>
+        <div
+            *ngIf="
+              form.get('facebook')?.invalid && form.get('facebook')?.touched
+            "
+            class="flex space-x-4 items-center mt-2"
+          >
+            <lucide-icon name="info" color="#ef4444" size="16"></lucide-icon>
+            <p class="text-sm text-red-500">Invalid Facebook Link</p>
+          </div>
+      </div>
+      <div class="flex flex-col">
+        <div
+          class="overflow-hidden grid grid-cols-10 items-center custom-input"
         >
-          <option value="0">What is your best friend's name ?</option>
-        </select>
-      </div>
-      <div class="overflow-hidden grid grid-cols-10 items-center custom-input">
-        <div>
-          <lucide-icon name="pencil-line" color="gray"></lucide-icon>
+          <div class="icon--container">
+            <lucide-icon name="phone" color="gray"></lucide-icon>
+          </div>
+          <input
+            type="text"
+            class="col-span-9"
+            id=""
+            formControlName="phone"
+            placeholder="Enter your phone"
+          />
         </div>
-        <input
-          type="text"
-          class="col-span-9"
-          id=""
-          formControlName="answer"
-          placeholder="Enter your answer"
-        />
+        <div
+          *ngIf="form.get('phone')?.invalid && form.get('phone')?.touched"
+          class="flex space-x-4 items-center mt-2"
+        >
+          <lucide-icon name="info" color="#ef4444" size="16"></lucide-icon>
+          <p class="text-sm text-red-500">Invalid Phone Number</p>
+        </div>
+      </div>
+      <div>
+        <div
+          class="overflow-hidden grid grid-cols-10 items-center custom-input"
+        >
+          <div class="icon--container">
+            <lucide-icon name="help-circle" color="gray"></lucide-icon>
+          </div>
+          <select
+            formControlName="question"
+            id=""
+            class="col-span-9 cursor-pointer"
+          >
+          <ng-container *ngFor="let question of questions">
+            <option [value]="question.value">{{question.question}}</option>
+          </ng-container>
+          </select>
+        </div>
+      </div>
+      <div class="flex flex-col">
+        <div
+          class="overflow-hidden grid grid-cols-10 items-center custom-input"
+        >
+          <div class="icon--container">
+            <lucide-icon name="pencil-line" color="gray"></lucide-icon>
+          </div>
+          <input
+            type="text"
+            class="col-span-9"
+            id=""
+            formControlName="answer"
+            placeholder="Enter your answer"
+          />
+        </div>
+        <div
+          *ngIf="form.get('answer')?.invalid && form.get('answer')?.touched"
+          class="flex space-x-4 items-center mt-2"
+        >
+          <lucide-icon name="info" color="#ef4444" size="16"></lucide-icon>
+          <p class="text-sm text-red-500">Invalid Answer</p>
+        </div>
       </div>
       <div class="col-span-2 flex items-center justify-center">
         <button

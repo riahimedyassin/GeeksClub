@@ -32,9 +32,12 @@ form {
         }
       }
     }
+    option {
+      color : black ; 
+    }
   }
   .custom-input {
-    div {
+    .icon--container {
       @apply col-span-1  h-full flex items-center justify-center;
       border: 1px solid rgba(128, 128, 128, 0.365);
       border-radius: 8px 0px 0px 8px;
