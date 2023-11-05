@@ -111,6 +111,22 @@ const endEvent = async (req, res, next) => {
     next(error);
   }
 };
+const getFeaturedEvents = async (req, res, next) => {
+  try {
+    const events = await Event.find({} , {participants : 0}).limit(4);
+    if (events)
+      return response(
+        res,
+        "Featured events retrieved successfully",
+        200,
+        false,
+        events
+      );
+    return next(createError("Error fetching events", 400));
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
   getAllEvents,
@@ -119,4 +135,5 @@ module.exports = {
   getSingleEvent,
   updateEvent,
   endEvent,
+  getFeaturedEvents
 };

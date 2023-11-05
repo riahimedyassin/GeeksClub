@@ -11,6 +11,7 @@ const recovery = new Recovery();
 
 const registerUser = async (req, res, next) => {
   const user = req.body;
+  console.log(user)
   try {
     const exist = await Member.findOne({ email: user.email });
     if (exist) return response(res, "Already Registered", 200);

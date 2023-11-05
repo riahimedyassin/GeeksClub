@@ -21,4 +21,10 @@ export class CustomValidator {
     if(isNaN(value)) return {number : false }
     return null 
   }
+  public static facebook(control : AbstractControl) : ValidationErrors | null {
+      const value = control.value ; 
+      const regex : RegExp = /^https:\/\/(www.)?facebook.com\//
+      if(regex.test(value)) return null ; 
+      return {facebook : false}
+  }
 }

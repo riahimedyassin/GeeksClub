@@ -112,7 +112,8 @@
           <input type="text" placeholder="City" formControlName="city" />
           <div
             *ngIf="
-              form.get('address')?.get('city')?.invalid && form.get('address')?.get('city')?.touched
+              form.get('address')?.get('city')?.invalid &&
+              form.get('address')?.get('city')?.touched
             "
             class="flex space-x-4 items-center mt-2"
           >
@@ -124,7 +125,8 @@
           <input type="text" placeholder="Region" formControlName="region" />
           <div
             *ngIf="
-              form.get('address')?.get('region')?.invalid && form.get('address')?.get('region')?.touched
+              form.get('address')?.get('region')?.invalid &&
+              form.get('address')?.get('region')?.touched
             "
             class="flex space-x-4 items-center mt-2"
           >
@@ -133,10 +135,11 @@
           </div>
         </div>
         <div class="flex flex-col">
-          <input type="text" placeholder="Country" formControlName="country" />
+          <input type="text" placeholder="Country" formControlName="country" [disabled]="true" readonly/>
           <div
             *ngIf="
-              form.get('address')?.get('country')?.invalid && form.get('address')?.get('country')?.touched
+              form.get('address')?.get('country')?.invalid &&
+              form.get('address')?.get('country')?.touched
             "
             class="flex space-x-4 items-center mt-2"
           >
@@ -146,7 +149,9 @@
         </div>
       </div>
       <div class="flex flex-col">
-        <div class="overflow-hidden grid grid-cols-10 items-center custom-input">
+        <div
+          class="overflow-hidden grid grid-cols-10 items-center custom-input"
+        >
           <div class="icon--container">
             <lucide-icon name="facebook" color="gray"></lucide-icon>
           </div>
@@ -159,14 +164,12 @@
           />
         </div>
         <div
-            *ngIf="
-              form.get('facebook')?.invalid && form.get('facebook')?.touched
-            "
-            class="flex space-x-4 items-center mt-2"
-          >
-            <lucide-icon name="info" color="#ef4444" size="16"></lucide-icon>
-            <p class="text-sm text-red-500">Invalid Facebook Link</p>
-          </div>
+          *ngIf="form.get('facebook')?.invalid && form.get('facebook')?.touched"
+          class="flex space-x-4 items-center mt-2"
+        >
+          <lucide-icon name="info" color="#ef4444" size="16"></lucide-icon>
+          <p class="text-sm text-red-500">Invalid Facebook Link</p>
+        </div>
       </div>
       <div class="flex flex-col">
         <div
@@ -191,47 +194,51 @@
           <p class="text-sm text-red-500">Invalid Phone Number</p>
         </div>
       </div>
-      <div>
-        <div
-          class="overflow-hidden grid grid-cols-10 items-center custom-input"
-        >
-          <div class="icon--container">
-            <lucide-icon name="help-circle" color="gray"></lucide-icon>
-          </div>
-          <select
-            formControlName="question"
-            id=""
-            class="col-span-9 cursor-pointer"
+      <ng-container formGroupName="recovery_question">
+        <div>
+          <div
+            class="overflow-hidden grid grid-cols-10 items-center custom-input"
           >
-          <ng-container *ngFor="let question of questions">
-            <option [value]="question.value">{{question.question}}</option>
-          </ng-container>
-          </select>
-        </div>
-      </div>
-      <div class="flex flex-col">
-        <div
-          class="overflow-hidden grid grid-cols-10 items-center custom-input"
-        >
-          <div class="icon--container">
-            <lucide-icon name="pencil-line" color="gray"></lucide-icon>
+            <div class="icon--container">
+              <lucide-icon name="help-circle" color="gray"></lucide-icon>
+            </div>
+            <select
+              formControlName="question"
+              id=""
+              class="col-span-9 cursor-pointer"
+            >
+              <ng-container *ngFor="let question of questions">
+                <option [value]="question.question">
+                  {{ question.question }}
+                </option>
+              </ng-container>
+            </select>
           </div>
-          <input
-            type="text"
-            class="col-span-9"
-            id=""
-            formControlName="answer"
-            placeholder="Enter your answer"
-          />
         </div>
-        <div
-          *ngIf="form.get('answer')?.invalid && form.get('answer')?.touched"
-          class="flex space-x-4 items-center mt-2"
-        >
-          <lucide-icon name="info" color="#ef4444" size="16"></lucide-icon>
-          <p class="text-sm text-red-500">Invalid Answer</p>
+        <div class="flex flex-col">
+          <div
+            class="overflow-hidden grid grid-cols-10 items-center custom-input"
+          >
+            <div class="icon--container">
+              <lucide-icon name="pencil-line" color="gray"></lucide-icon>
+            </div>
+            <input
+              type="text"
+              class="col-span-9"
+              id=""
+              formControlName="answer"
+              placeholder="Enter your answer"
+            />
+          </div>
+          <div
+            *ngIf="form.get('answer')?.invalid && form.get('answer')?.touched"
+            class="flex space-x-4 items-center mt-2"
+          >
+            <lucide-icon name="info" color="#ef4444" size="16"></lucide-icon>
+            <p class="text-sm text-red-500">Invalid Answer</p>
+          </div>
         </div>
-      </div>
+      </ng-container>
       <div class="col-span-2 flex items-center justify-center">
         <button
           class="border-[1px] border-gray-500 rounded-xl w-36 h-12"
@@ -243,3 +250,18 @@
     </form>
   </div>
 </div>
+<ng-container *ngIf="trigger">
+  <app-notification
+    icon="x-circle"
+    prime="#C70039"
+    second="#FF6969"
+    message="Please fill in correctly the form"
+  ></app-notification>
+</ng-container>
+<ng-container *ngIf="alert">
+  <app-alert
+    [title]="alert.title"
+    [message]="alert.message"
+    [status]="alert.status"
+  ></app-alert>
+</ng-container>

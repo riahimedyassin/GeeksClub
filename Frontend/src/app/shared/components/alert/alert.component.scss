@@ -1,0 +1,22 @@
+.main {
+  @apply absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] h-[100vh] w-[100vw] text-white rounded-xl text-center flex flex-col items-center justify-center;
+  background-color: rgba(0, 0, 0, 0.345);
+  backdrop-filter: blur(12px);
+  z-index: 200;
+  div{
+    width: 60vw;
+    height: 400px;
+    border-radius: 16px;
+    display: flex ; 
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+.false {
+  background-color: rgba(255, 0, 0, 0.507);
+}
+.true {
+  background-color: rgba(0, 128, 0, 0.527);
+}

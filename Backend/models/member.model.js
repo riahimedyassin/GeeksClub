@@ -30,9 +30,9 @@ const memberSchema = Schema({
     max: [30, "Grandpa ? You must be under 30 Years Old"],
   },
   CIN: {
-    type: String,
+    type: Number,
     required: false,
-    default: "Undefined",
+    default: 0,
   },
   email: {
     type: String,

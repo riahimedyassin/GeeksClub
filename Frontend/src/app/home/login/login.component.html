@@ -1,0 +1,38 @@
+<app-navbar></app-navbar>
+<div class="text-white mt-32 w-full h-full px-36">
+  <div class="grid grid-cols-3 contain rounded-lg">
+    <div class="col-span-1 border-r-2 border-r-gray-500 second flex flex-col items-center px-8 py-12 relative ">
+        <h2 class="mb-2">Geeks Club</h2>
+        <p class="text-gray-200">Your way to greatness !</p>
+        <div class="mt-24 text-center">
+            <p class="text-sm">" What can't be solved will be eventually solved , what can't be done will be eventually done , it is a matter of when not how." </p>
+        </div>
+        <div class="flex items-center justify-between w-[60%] absolute bottom-12">
+            <a href=""><lucide-icon name="facebook" size="36"></lucide-icon></a>
+            <a href=""><lucide-icon name="twitter" size="36"></lucide-icon></a>
+            <a href=""><lucide-icon name="instagram" size="36"></lucide-icon></a>
+        </div>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="submit()" class="col-span-2">
+      <h1>Member's Login</h1>
+      <div class="input--holder">
+        <input
+          type="email"
+          placeholder="Enter your email"
+          formControlName="email"
+        />
+        <p *ngIf="form.get('email')?.invalid && form.get('email')?.touched " class="text-red-700 ">Please enter a valid email</p>
+      </div>
+      <div>
+        <input
+          type="password"
+          formControlName="password"
+          placeholder="Enter your password"
+        />
+        <p *ngIf="form.get('password')?.invalid && form.get('password')?.touched " class="text-red-700 ">Please enter a valid password</p>
+      </div>
+      <app-feedback type="danger" message="Invalid email or password"></app-feedback>
+      <button class="btn" type="submit">Login</button>
+    </form>
+  </div>
+</div>

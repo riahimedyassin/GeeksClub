@@ -14,10 +14,14 @@ import { HomeRoutingModule } from './home-routing.module';
 import { IndexComponent } from './index/index.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FounderComponent } from './founder/founder.component';
+import { LoginComponent } from './login/login.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AlertComponent } from '../shared/components/alert/alert.component';
+import { FeedbackComponent } from '../shared/components/feedback/feedback.component';
 
 @NgModule({
   declarations: [
-    NavbarComponent,
+    
     HomeComponent,
     HeaderComponent,
     AboutusComponent,
@@ -28,8 +32,11 @@ import { FounderComponent } from './founder/founder.component';
     FooterComponent,
     IndexComponent,
     FounderComponent,
+    LoginComponent,
+    AlertComponent
+    ,FeedbackComponent
   ],
-  imports : [HomeRoutingModule,LucideAngularModule.pick(icons) , CommonModule , ReactiveFormsModule] , 
+  imports : [HomeRoutingModule,LucideAngularModule.pick(icons) , CommonModule , ReactiveFormsModule, HttpClientModule , NavbarComponent] , 
   exports : [HomeRoutingModule]
 })
 export class HomeModule {}

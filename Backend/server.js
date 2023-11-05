@@ -4,6 +4,7 @@ const {connect}= require("./config/connect")
 require("dotenv").config({
     path:"env/dev.env"
 })
+const cors = require('cors')
 
 
 const PORT = process.env.PORT
@@ -17,6 +18,7 @@ const errorHandler = require('./middlewares/errorHandler')
 
 
 app.use(express.json())
+app.use(cors())
 app.use("/api/geeks/dashboard",adminRoute)
 app.use("/api/geeks/members",memberRoute)
 app.use("/api/geeks/events",eventRoute)

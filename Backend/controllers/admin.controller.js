@@ -42,7 +42,7 @@ const getAllMembers = async (req, res, next) => {
   const limit = 4;
   const skip = (page - 1) * limit;
   try {
-    const members = await Member.find({ isMember: true }, { password: 0 })
+    const members = await Member.find({ isMember: true }, { password: 0 , recovery_question : 0 })
       .skip(skip)
       .limit(limit);
     if (members)

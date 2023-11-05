@@ -24,16 +24,23 @@ form {
         transition: 0.2s ease-in-out;
         position: absolute;
       }
-      &.ng-invalid.ng-touched {
-        border: 1px solid;
-        @apply border-red-500;
-        &::placeholder {
-          @apply text-red-500;
+      &.ng-touched {
+        &.ng-invalid {
+          border: 1px solid;
+          @apply border-red-500;
+          &::placeholder {
+            @apply text-red-500;
+          }
+        }
+        &.ng-valid {
+          border : 1px solid ; 
+          @apply border-green-400 ; 
         }
       }
+    
     }
     option {
-      color : black ; 
+      color: black;
     }
   }
   .custom-input {
