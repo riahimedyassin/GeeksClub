@@ -1,18 +1,21 @@
-import { recovery_question } from "./types/recovery_question.type";
-import { points } from "./types/points.type";
-import { address } from "./types/address.type";
+import { recovery_question } from './types/recovery_question.type';
+import { points } from './types/points.type';
+import { address } from './types/address.type';
 
 export class User {
-    private name! : string ; 
-    private forname! : string ; 
-    private age! : number ; 
-    private CIN! : string ; 
-    private phone! : string;
-    private email! : string ; 
-    private isMember? : boolean ; 
-    private facebook! : string ; 
-    private forums? : string[];
-    private address!  : address ;
-    private points? : points;
-    private recovery_question! : recovery_question
+  constructor(
+    public picture : string, 
+    public name: string,
+    public forname: string,
+    public age: number,
+    public CIN: string,
+    public phone: string,
+    public email: string,
+    public facebook: string,
+    public address: address,
+    public recovery_question: recovery_question,
+    public points?: points,
+    public isMember?: boolean,
+    public forums?: string[]
+  ) {}
 }

@@ -1,14 +1,17 @@
-import { recovery_question } from "./types/recovery_question.type";
+import { recovery_question } from './types/recovery_question.type';
 
 export class Admin {
-    private name! : string ; 
-    private forname! : string; 
-    private age! : number ; 
-    private role! : 'President' | 'Vice President' | 'Other'; 
-    private email! : string ; 
-    private password! : string ; 
-    private isSup! : boolean ; 
-    private phone! : string ; 
-    private facebook! : string ; 
-    private recovery_question! : recovery_question 
+  constructor(
+    public picture : string , 
+    public name: string,
+    public forname: string,
+    public age: number,
+    public role: 'President' | 'Vice President' | 'Other',
+    public email: string,
+    public password: string,
+    public isSup: boolean,
+    public phone: string,
+    public facebook: string,
+    public recovery_question: recovery_question
+  ) {}
 }

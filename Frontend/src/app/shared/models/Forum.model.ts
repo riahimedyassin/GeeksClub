@@ -1,9 +1,10 @@
-import { message } from "./types/message.type";
+import { message } from './types/message.type';
 
 export class Forum {
-    private name! : string ; 
-    private descreption! : string ; 
-    private members! : string[]; 
-    private articles! : message[]
-
+  constructor(
+    public name: string,
+    public descreption: string,
+    public members: string[],
+    public articles: message[]
+  ) {}
 }
