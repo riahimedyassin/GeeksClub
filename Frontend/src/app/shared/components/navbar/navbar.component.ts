@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent {
   constructor(private router : Router) {}
-  navigate() {
-    this.router.navigateByUrl("register")
+  navigate(to : string) {
+    this.router.navigateByUrl(to)
   }
   scroll(to :string ) {
     this.router.navigateByUrl('').then(() => {

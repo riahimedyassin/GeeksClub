@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-<div class="text-white mt-32 w-full h-full px-36">
+<div class="text-white mt-32 w-full h-full px-36 mb-36">
   <div class="grid grid-cols-3 contain rounded-lg">
     <div class="col-span-1 border-r-2 border-r-gray-500 second flex flex-col items-center px-8 py-12 relative ">
         <h2 class="mb-2">Geeks Club</h2>
@@ -31,8 +31,11 @@
         />
         <p *ngIf="form.get('password')?.invalid && form.get('password')?.touched " class="text-red-700 ">Please enter a valid password</p>
       </div>
-      <app-feedback type="danger" message="Invalid email or password"></app-feedback>
+      <ng-container *ngIf="error">
+        <app-feedback type="danger" [message]="errorMessage"></app-feedback>
+      </ng-container>
       <button class="btn" type="submit">Login</button>
     </form>
   </div>
 </div>
+<app-footer></app-footer>

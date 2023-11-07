@@ -1,6 +1,13 @@
+@import  '../../../scss/mixin'  ; 
 .founder__img {
     border-radius: 50%;
-    border : 1px solid white ; 
-    width: 200px; 
-    height: 200px;
+    border : 2px solid white ; 
+    @include resize(200px,200px); 
+}
+.skills {
+    @include flex(false); 
+    @apply gap-10; 
+    img {
+        @include resize(45px,50px);
+    }
 }

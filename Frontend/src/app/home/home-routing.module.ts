@@ -3,7 +3,7 @@ import { HomeComponent } from './home.component';
 import { RegisterComponent } from './register/register.component';
 import {NgModule} from '@angular/core'
 import { IndexComponent } from './index/index.component';
-import { FounderComponent } from './founder/founder.component';
+
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
@@ -15,10 +15,6 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent,
-  },
-  {
-    path : 'founder' , 
-    component: FounderComponent
   },
   {
     path: 'login' , 

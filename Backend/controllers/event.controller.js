@@ -113,8 +113,8 @@ const endEvent = async (req, res, next) => {
 };
 const getFeaturedEvents = async (req, res, next) => {
   try {
-    const events = await Event.find({} , {participants : 0}).limit(4);
-    if (events)
+    const events = await Event.find({} ).limit(4);
+    if (events) {
       return response(
         res,
         "Featured events retrieved successfully",
@@ -122,9 +122,12 @@ const getFeaturedEvents = async (req, res, next) => {
         false,
         events
       );
+    }
     return next(createError("Error fetching events", 400));
   } catch (error) {
+    console.log(error)
     next(error);
+
   }
 };
 

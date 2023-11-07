@@ -1,0 +1,13 @@
+@mixin flex($col) {
+    @apply flex items-center ; 
+    @if ($col) {
+        @apply flex-col 
+    }
+    @else {
+        @apply justify-center
+    }
+}
+@mixin resize($width,$height) {
+    width: $width;
+    height: $height;
+}

@@ -1,10 +1,13 @@
 .main {
-  @apply absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] h-[100vh] w-[100vw] text-white rounded-xl text-center flex flex-col items-center justify-center;
+  @apply fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] h-[100vh] w-[100vw] text-white rounded-xl text-center flex flex-col items-center justify-center;
   background-color: rgba(0, 0, 0, 0.345);
   backdrop-filter: blur(12px);
-  z-index: 200;
+  z-index: 400;
+
   div{
     width: 60vw;
+    border: 1px solid rgba(255, 255, 255, 0.395);
+    box-shadow: 0 0 40px 10px black;
     height: 400px;
     border-radius: 16px;
     display: flex ; 

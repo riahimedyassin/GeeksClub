@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 
-
 @NgModule({
   declarations: [AppComponent ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, NavbarComponent],

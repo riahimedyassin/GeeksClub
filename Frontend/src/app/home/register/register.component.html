@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <div class="w-full text-white px-24 mt-24">
   <div
-    class="py-12 h-[700px] rounded-lg bg-black mt-32 w-full border-[1px] border-gray-500 flex items-center flex-col"
+    class="py-12 h-[700px] rounded-lg bg-black mt-32 w-full border-[1px] border-gray-500 flex items-center flex-col mb-28"
   >
     <div class="flex items-center flex-col">
       <h2>Regitser</h2>
@@ -135,7 +135,12 @@
           </div>
         </div>
         <div class="flex flex-col">
-          <input type="text" placeholder="Country" formControlName="country" [disabled]="true" readonly/>
+          <input
+            type="text"
+            placeholder="Country"
+            formControlName="country"
+            readonly
+          />
           <div
             *ngIf="
               form.get('address')?.get('country')?.invalid &&
@@ -243,6 +248,7 @@
         <button
           class="border-[1px] border-gray-500 rounded-xl w-36 h-12"
           type="submit"
+
         >
           Register
         </button>
@@ -263,5 +269,7 @@
     [title]="alert.title"
     [message]="alert.message"
     [status]="alert.status"
+    (hide)="handleHide()"
   ></app-alert>
 </ng-container>
+<app-footer></app-footer>

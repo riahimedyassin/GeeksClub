@@ -8,20 +8,20 @@ import { FooterComponent } from '../shared/components/footer/footer.component';
 import { NavbarComponent } from '../shared/components/navbar/navbar.component';
 import { HomeComponent } from './home.component';
 import { HeaderComponent } from './index/header/header.component';
-import { LucideAngularModule, icons  } from 'lucide-angular';
+import { LucideAngularModule, icons } from 'lucide-angular';
 import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
 import { IndexComponent } from './index/index.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FounderComponent } from './founder/founder.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AlertComponent } from '../shared/components/alert/alert.component';
 import { FeedbackComponent } from '../shared/components/feedback/feedback.component';
+import { ActivityComponent } from './index/activities/activity/activity.component';
+import { ShortenPipe } from '../shared/pipes/shorten.pipe';
 
 @NgModule({
   declarations: [
-    
     HomeComponent,
     HeaderComponent,
     AboutusComponent,
@@ -29,14 +29,23 @@ import { FeedbackComponent } from '../shared/components/feedback/feedback.compon
     ActivitiesComponent,
     ContactComponent,
     NotificationComponent,
-    FooterComponent,
     IndexComponent,
-    FounderComponent,
     LoginComponent,
-    AlertComponent
-    ,FeedbackComponent
+  
+    FeedbackComponent,
+        ActivityComponent,
   ],
-  imports : [HomeRoutingModule,LucideAngularModule.pick(icons) , CommonModule , ReactiveFormsModule, HttpClientModule , NavbarComponent] , 
-  exports : [HomeRoutingModule]
+  imports: [
+    HomeRoutingModule,
+    LucideAngularModule.pick(icons),
+    CommonModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    NavbarComponent,
+    FooterComponent,
+    AlertComponent,
+    ShortenPipe
+  ],
+  exports: [HomeRoutingModule],
 })
 export class HomeModule {}

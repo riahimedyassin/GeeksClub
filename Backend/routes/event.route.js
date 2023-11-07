@@ -12,7 +12,7 @@ const { requireMemberAuth } = require("../middlewares/auth/member.auth");
 
 const router = require("express").Router();
 
-router.get("featured",getFeaturedEvents)
+router.get("/featured",getFeaturedEvents)
 router.use(requireMemberAuth)
 router.get("/", getAllEvents);
 router.get("/:id", getSingleEvent);

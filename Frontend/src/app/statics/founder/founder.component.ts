@@ -1,10 +1,22 @@
 import { Component } from '@angular/core';
 
+const base = "assets/Skills"
+
 @Component({
   selector: 'app-founder',
   templateUrl: './founder.component.html',
   styleUrls: ['./founder.component.scss'],
 })
 export class FounderComponent {
-  skills = [{ path: '', alt: '', title: '' }];
+  skills = [
+    { path: base+'/angular.jpg', alt: 'Angular', title: 'Angular' }, 
+    { path: base+'/react.png', alt: 'React', title: 'React ' }, 
+    { path: base+'/node.png', alt: 'Node JS', title: 'Node JS' }, 
+    { path: `${base}/figma.png`, alt: 'Figma', title: 'Figma' },
+    { path: `${base}/ps.png`, alt: 'Photoshop', title: 'Adobe Photoshop' },
+    { path: `${base}/jest.png`, alt: 'Jest', title: 'Jest Testing Library' },
+    { path: `${base}/mongo.png`, alt: 'MongoDB', title: 'Mongo Database' },
+    { path: `${base}/sass.png`, alt: 'Sass', title: 'SASS/SCSS' }, 
+    { path: `${base}/express.png`, alt: 'Express JS', title: 'Express JS' }
+  ]
 }

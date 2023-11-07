@@ -17,10 +17,10 @@
     <span class="link" (click)="scroll('contact')">Contact us</span>
   </div>
   <div class="flex space-x-4">
-    <button class="button" (click)="navigate()">
+    <button class="button" (click)="navigate('register')">
       <div class="button-overlay"></div>
       <span>Join us</span>
     </button>
-    <button class="hover:underline" routerLink="/login">Login</button>
+    <button class="hover:underline" (click)="navigate('login')">Login</button>
   </div>
 </nav>
