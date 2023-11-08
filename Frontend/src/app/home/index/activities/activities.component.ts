@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivitiesService } from 'src/app/services/activities/activities.service';
 import { Event } from 'src/app/shared/models/Event.model';
@@ -6,22 +7,31 @@ import { RevealAnimationService } from 'src/app/shared/services/reveal-animation
 @Component({
   selector: 'app-activities',
   templateUrl: './activities.component.html',
-  styleUrls: ['./activities.component.scss']
+  styleUrls: ['./activities.component.scss'],
 })
 export class ActivitiesComponent implements OnInit {
-  constructor(private scroll : RevealAnimationService , private activitieService : ActivitiesService) { }
+  constructor(
+    private scroll: RevealAnimationService,
+    private activitieService: ActivitiesService
+  ) {}
 
-  activities! : Event[]
+  activities!: Event[];
+  error: boolean = false;
   ngAfterViewInit(): void {
     this.initScrollReveal();
   }
   private initScrollReveal(): void {
-    this.scroll.initScrollReveal('bottom',1000,'.reveal-element-buttom')
+    this.scroll.initScrollReveal('bottom', 1000, '.reveal-element-buttom');
   }
   ngOnInit(): void {
-      this.activitieService.getFeaturedActivites().subscribe((response)=> {
-        console.log(response.data)
-        this.activities=response.data
-      })
+    this.activitieService.getFeaturedActivites().subscribe(
+      (response) => {
+        console.log(response.data);
+        this.activities = response.data;
+      },
+      (error: HttpErrorResponse) => {
+        this.error = true;
+      }
+    );
   }
 }

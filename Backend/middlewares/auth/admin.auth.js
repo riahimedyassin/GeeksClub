@@ -7,7 +7,8 @@ const requireAdminAuth = async (req, res, next) => {
     const { authorization } = req.headers;
     if (!authorization)
       return next(createError("No token has been provided", 403));
-    const verfied = await verfiyToken(authorization);
+    const token = authorization.split(' ')[1]
+    const verfied = await verfiyToken(token);
     if (!verfied) return next(createError("Unauth", 403));
     req.user = verfied.id;
     next();

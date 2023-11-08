@@ -19,6 +19,7 @@ import { AlertComponent } from '../shared/components/alert/alert.component';
 import { FeedbackComponent } from '../shared/components/feedback/feedback.component';
 import { ActivityComponent } from './index/activities/activity/activity.component';
 import { ShortenPipe } from '../shared/pipes/shorten.pipe';
+import { ErrorComponent } from '../shared/components/error/error.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ShortenPipe } from '../shared/pipes/shorten.pipe';
     NavbarComponent,
     FooterComponent,
     AlertComponent,
-    ShortenPipe
+    ShortenPipe,
+    ErrorComponent
   ],
   exports: [HomeRoutingModule],
 })

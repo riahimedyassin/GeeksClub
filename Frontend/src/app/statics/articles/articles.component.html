@@ -1,11 +1,14 @@
 <app-navbar></app-navbar>
-<div class="main-container h-[100vh] mb-36">
+<div class="main-container mb-36">
   <h1 class="mb-2">Articles</h1>
   <p class="mb-16 text-sm text-gray-500">Recent tech & club news </p>
-  <div class="w-[80%] grid grid-cols-2 gap-6 items-center ">
+  <div class="w-[80%] grid grid-cols-2 gap-6 items-center " *ngIf="!error ; else error_box ">
         <ng-container *ngFor="let article of articles  ">
             <app-article [title]="article.title" [content]="article.content" [picture]="article.picture" [id]="article._id"></app-article>
         </ng-container>
   </div>
+  <ng-template #error_box>
+      <app-error ></app-error>
+  </ng-template>
 </div>
 <app-footer></app-footer>

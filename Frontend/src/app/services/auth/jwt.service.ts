@@ -7,7 +7,7 @@ export class JwtService {
 
   constructor() { }
 
-  getToken() : string | null {
+  getToken()   {
     return localStorage.getItem("token")
   }
   setToken(token :  string ) : void {

@@ -10,6 +10,7 @@ import { ArticleComponent } from './articles/article/article.component';
 import { SponsoringComponent } from './sponsoring/sponsoring.component';
 import { DetailsComponent } from './articles/article/details/details.component';
 import { FooterComponent } from '../shared/components/footer/footer.component';
+import { ErrorComponent } from '../shared/components/error/error.component';
 
 
 
@@ -17,8 +18,6 @@ import { FooterComponent } from '../shared/components/footer/footer.component';
   declarations: [
     FounderComponent,
     PolicyComponent,
-    ArticlesComponent,
-    ArticleComponent,
     SponsoringComponent,
     DetailsComponent
   ],
@@ -27,7 +26,8 @@ import { FooterComponent } from '../shared/components/footer/footer.component';
     StaticsRoutingModule,
     NavbarComponent,
     LucideAngularModule.pick(icons), 
-    FooterComponent
+    FooterComponent,
+    ErrorComponent
   ],
   exports: [StaticsRoutingModule]
 })

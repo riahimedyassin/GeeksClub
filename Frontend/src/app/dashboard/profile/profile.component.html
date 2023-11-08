@@ -1,0 +1,36 @@
+<div class="w-full h[100vh]">
+    <div class="w-full h-[80vh] grid grid-cols-6 px-24 mt-24 gap-6">
+        <div class="col-span-2 bg-deepblack flex  flex-col items-center py-4 text-white rounded-md" *ngIf="user ; else load">
+            <div class="img--container">
+                <img src="" alt="">
+            </div>
+            <div class="mt-8">
+                <h1>{{user.name + " " + user.forname}}</h1>
+                <div class="flex gap-4 mt-3">
+                    <lucide-icon name="mail"></lucide-icon>
+                    <p> {{user.email}} </p>
+                </div>
+            </div>
+            <ul class="list mt-8 font-bold text-center space-y-">
+                <li >Total Points : {{user.points?.global_point}} </li>
+                <li>Week Points : {{user.points?.week_point}} </li>
+            </ul>
+            <div class="flex w-full justify-center gap-12 mt-12 ">
+                <button class="dashed-button flex gap-4">
+                    <lucide-icon name="pencil" color="white" ></lucide-icon>
+                    <p>Edit</p>
+                </button>
+                <button class="logout-button flex gap-4">
+                    <lucide-icon name="log-out"></lucide-icon>
+                    <p>Logout</p>
+                </button>
+            </div>
+        </div>  
+        <div class="col-span-4 h-[80vh] bg-deepblack text-white px-6 py-4 rounded-md">
+            <h2>Details</h2>
+        </div>
+        <ng-template #load>
+            <app-skeleton-profile></app-skeleton-profile>
+        </ng-template>
+    </div>
+</div>

@@ -7,7 +7,8 @@ module.exports = {
     extend: {
       colors: {
         main : "rgba(236, 72, 153, 1.00)" ,
-        second : "#ff008cff"
+        second : "#ff008cff",
+        deepblack : "#0D0D0D"
       }
     },
   },

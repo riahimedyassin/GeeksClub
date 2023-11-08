@@ -1,3 +1,28 @@
-<nav class="bg-white h-24 w-full">
-
+<nav
+  class="text-white h-20 w-full flex items-center px-24 justify-between border-b-[1px] border-b-gray-500 z-200 backdrop-blur-md"
+>
+  <h2>
+    <span class="text-main">&lt;</span> Geeks
+    <span class="text-main">&gt;</span>
+  </h2>
+  <div class="w-[40%]">
+    <app-search></app-search>
+  </div>
+  <div class="flex items-center gap-6">
+    <ng-container *ngIf="user!=undefined ; else load">
+      <div class="user" routerLink="./profile">
+        <img src="" alt="" />
+        <div>
+          <h6 class="text-md font-bold">
+            {{ user.name + " " + user.forname }}
+          </h6>
+          <p class="text-xs">Total Points : {{user.points?.global_point}}</p>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #load>
+      <app-skeleton-profile></app-skeleton-profile>
+    </ng-template>
+    <button (click)="logout()" class="flex gap-2 "><lucide-icon name="log-out" class="logout"></lucide-icon>Logout</button>
+  </div>
 </nav>

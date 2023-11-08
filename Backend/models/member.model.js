@@ -9,6 +9,10 @@ const jwt = require("jsonwebtoken");
 
 const Schema = require("mongoose").Schema;
 const memberSchema = Schema({
+  picture: {
+    type : String , 
+    required: [true,"Please upload your picture to procceed"]
+  },
   isMember: {
     type: Boolean,
     default: false,

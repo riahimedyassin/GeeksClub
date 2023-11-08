@@ -1,0 +1,21 @@
+.img--container {
+    width: 200px;
+    height: 200px;
+    border: 1px solid white ;
+    border-radius: 50%;
+
+}
+.logout-button {
+    background-color: rgba(255, 0, 0, 0.212);
+    border-radius: 8px;
+    @apply px-4 py-2 transition-all; 
+    &:hover {
+        background-color: rgba(255, 0, 0, 0.379);
+    }
+}
+.dashed-button {
+    @apply transition-all; 
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.123);
+    }
+}

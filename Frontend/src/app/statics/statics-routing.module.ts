@@ -5,6 +5,7 @@ import { PolicyComponent } from './policy/policy.component';
 import { SponsoringComponent } from './sponsoring/sponsoring.component';
 import { ArticlesComponent } from './articles/articles.component';
 import { DetailsComponent } from './articles/article/details/details.component';
+import { ArticlesService } from '../services/articles/articles.service';
 
 const routes: Routes = [
   {
@@ -28,7 +29,7 @@ const routes: Routes = [
   {
     path: 'articles',
     children: [
-      { path: '', component: ArticlesComponent },
+      { path: '', loadComponent: () => import('./articles/articles.component').then(c=> c.ArticlesComponent)  },
       { path: ':id', component: DetailsComponent },
     ],
   },

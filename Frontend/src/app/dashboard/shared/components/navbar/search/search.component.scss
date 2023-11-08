@@ -1,0 +1,25 @@
+div {
+    input , select {
+        height: 50px;
+        @apply bg-deepblack; 
+        border : 1px solid rgba(128, 128, 128, 0.388)
+    }
+    input {
+        border-radius: 8px 0 0 8px ;
+        width: 80%;
+        @apply px-6 ; 
+        border-right: 1px solid rgba(128, 128, 128, 0.388);
+        &::placeholder {
+            @apply px-4 
+        }
+        &:focus {
+            outline: none;
+        }
+    }
+    select {
+        border-radius: 0 8px 8px 0;
+        cursor: pointer;
+        width: 20%;
+        @apply px-2 ;   
+    }
+}

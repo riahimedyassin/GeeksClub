@@ -15,6 +15,10 @@ export class RegisterComponent implements OnInit {
   constructor(private auth: AuthService) {}
   form!: FormGroup;
   trigger: boolean = false;
+  image!: File | null;
+  handleImage(event: any) {
+    this.image = event.target.files[0];
+  }
   questions: Question[] = [
     {
       value: 0,
@@ -98,16 +102,22 @@ export class RegisterComponent implements OnInit {
         ]),
         answer: new FormControl(null, [Validators.required]),
       }),
+      image : new FormControl(null,[Validators.required])
     });
   }
   submit() {
     if (this.form.valid && !this.form.invalid && this.form.touched) {
       let user: User = this.form.value;
+      let imageUrl: string | undefined = '';
+      const formData = new FormData()
+      console.log(formData)
+      console.log(user);
       this.auth.register(user).subscribe(
         (response) => {
           this.alert = this.alerts[0];
         },
         (err: HttpErrorResponse) => {
+          console.log(err);
           if (err.status === 403) {
             this.alert = this.alerts[1];
           } else {

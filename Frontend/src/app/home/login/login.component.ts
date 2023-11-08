@@ -1,6 +1,7 @@
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { JwtService } from 'src/app/services/auth/jwt.service';
 import { Response } from 'src/app/shared/models/Response.model';
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
   error: boolean = false;
   errorMessage!: string;
 
-  constructor(private auth: AuthService, private jwt: JwtService) {}
+  constructor(private auth: AuthService, private jwt: JwtService , private router : Router) {}
   ngOnInit(): void {
     this.form = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
@@ -35,6 +36,7 @@ export class LoginComponent implements OnInit {
               this.error=false ; 
               this.errorMessage="";
               this.jwt.setToken(response.token);
+              this.router.navigate(['/dashboard'])
             }
           },
           (err: HttpErrorResponse) => {

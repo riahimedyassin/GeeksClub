@@ -4,5 +4,6 @@
 .main-container {
     @include flex(true);
     @apply text-white mt-36 ; 
+    min-height: 100vh;
     
 }
