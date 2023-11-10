@@ -1,0 +1,27 @@
+<div class="text-white px-24 py-12">
+    <h1>Forums</h1>
+    <div class="flex items-center">
+        <h2>Filter : </h2>
+        <button class="filter--button" [ngClass]="type=='all' ? 'active' : ''">
+            <lucide-angular name="form-input"></lucide-angular>
+            <p>All Forums</p>
+        </button>
+        <button class="filter--button" [ngClass]="type=='user' ? 'active' : ''" >
+            <lucide-angular name="user" ></lucide-angular>
+            <p>Subscribed Forums</p>
+        </button>
+    </div>
+    <div *ngIf="forums ; else loading " class="mt-12">
+        <ng-container *ngFor="let forum of forums">
+            <app-forum [forum]="forum"></app-forum>
+        </ng-container>
+    </div>
+    <ng-template #loading>
+        <div class="mt-16">
+            <app-loading></app-loading>
+        </div>
+    </ng-template>
+    <ng-container *ngIf="error">
+        <h1 class="text-red-500">Error fetching forums , please try again later ! </h1>
+    </ng-container>
+</div>

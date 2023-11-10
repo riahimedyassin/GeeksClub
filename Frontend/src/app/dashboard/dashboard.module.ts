@@ -19,11 +19,15 @@ import { EventComponent } from './events/event/event.component';
 import { SelectedEventComponent } from './events/selected-event/selected-event.component';
 import { FormsModule } from '@angular/forms';
 import { CommentsComponent } from './events/selected-event/comments/comments.component';
+import { ForumsComponent } from './forums/forums.component';
+import { AllForumsComponent } from './forums/all-forums/all-forums.component';
+import { UserForumsComponent } from './forums/user-forums/user-forums.component';
+import { SelectedForumComponent } from './forums/selected-forum/selected-forum.component';
 
 
 @NgModule({
   providers: [],
-  declarations: [NavbarComponent, MainComponent, SearchComponent, ProfileComponent, SideNavbarComponent, HomeComponent, ForumComponent, EventsComponent, EventComponent, SelectedEventComponent, CommentsComponent],
+  declarations: [NavbarComponent, MainComponent, SearchComponent, ProfileComponent, SideNavbarComponent, HomeComponent, ForumComponent, EventsComponent, EventComponent, SelectedEventComponent, CommentsComponent, ForumsComponent, AllForumsComponent, UserForumsComponent, SelectedForumComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,

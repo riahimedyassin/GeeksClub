@@ -6,6 +6,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { HomeComponent } from './home/home.component';
 import { EventsComponent } from './events/events.component';
 import { SelectedEventComponent } from './events/selected-event/selected-event.component';
+import { ForumsComponent } from './forums/forums.component';
+import { SelectedForumComponent } from './forums/selected-forum/selected-forum.component';
 
 const routes: Routes = [
   {
@@ -21,6 +23,13 @@ const routes: Routes = [
         path: 'profile',
         component: ProfileComponent,
         title: 'Geeks Club | Profile',
+      },
+      {
+        path: 'forums',
+        children: [
+          { path: '', component: ForumsComponent },
+          { path: ':id', component: SelectedForumComponent },
+        ],
       },
       {
         path: 'events',
