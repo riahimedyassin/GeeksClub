@@ -22,6 +22,10 @@ const subscribe = async (req, res, next) => {
   if (!forum) return next(createError("Provide the forum ID", 400));
   if (!id) return next(createError("Unauthorized", 403));
   try {
+    const user = await Member.findOne({_id:id})
+    user.forums.push(forum)
+    const doneUser = await Member.findOneAndUpdate({_id:id},user)
+    if(!doneUser) return next(createError("Could not subscribe to this forum",405))
     const grtforum = await Forum.findOne({ _id: forum }, { members: 1 });
     if (grtforum) {
       grtforum.members.push(id);
@@ -77,11 +81,11 @@ const sendMessage = async (req, res, next) => {
         message: {
           sent_by: { user_id: id, name: user.name, forname: user.forname },
           content: message.content,
-          date_sent: message.date_sent,
+          date_sent: Date.now,
         },
       });
       const done = await Forum.findOneAndUpdate({ _id: forum }, created);
-      if (done) return response(res, "Article published successfully", 201);
+      if (done) return response(res, "Article published successfully", 200,false,created.articles);
       return next(createError("Unable to publish article", 500));
     }
     return next(
@@ -156,6 +160,15 @@ const getSingleForum = async (req, res, next) => {
     next(error);
   }
 };
+const getUserEvents=async(req,res,next)=> {
+  const id = req.user
+  try {
+      const user = await Member.findOne({_id:id})
+      return response(res,"Forums retrieved successfully",200,false,user.forums)
+  } catch (error) {
+      next(error)
+  }
+}
 
 module.exports = {
   addForum,
@@ -165,4 +178,5 @@ module.exports = {
   sendReply,
   getAllForums,
   getSingleForum,
+  getUserEvents
 };

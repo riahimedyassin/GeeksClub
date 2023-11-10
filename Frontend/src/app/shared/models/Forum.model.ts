@@ -1,3 +1,4 @@
+import { articleResponse } from './types/articleResponse.type';
 import { message } from './types/message.type';
 
 export class Forum {
@@ -6,6 +7,6 @@ export class Forum {
     public name: string,
     public descreption: string,
     public members: string[],
-    public articles: message[]
+    public articles: articleResponse[]
   ) {}
 }

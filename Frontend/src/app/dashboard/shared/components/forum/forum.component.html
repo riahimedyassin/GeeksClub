@@ -1,0 +1,4 @@
+<div class="w-full h-28 px-4 py-2 bg-deepblack rounded-lg cursor-pointer hover:bg-main transition-all" [routerLink]="'/dashboard/forums/'+forum._id">
+    <h3 class="mb-2">{{forum.name}}</h3>
+    <p>{{forum.descreption | shorten : 'lg'}}</p>
+</div>

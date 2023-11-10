@@ -13,21 +13,35 @@ import { SideNavbarComponent } from './shared/components/side-navbar/side-navbar
 import { HomeComponent } from './home/home.component';
 import { LoadingComponent } from './shared/components/loading/loading.component';
 import { ShortenPipe } from '../shared/pipes/shorten.pipe';
-import { ForumComponent } from './home/forum/forum.component';
+import { ForumComponent } from './shared/components/forum/forum.component';
 import { EventsComponent } from './events/events.component';
 import { EventComponent } from './events/event/event.component';
 import { SelectedEventComponent } from './events/selected-event/selected-event.component';
 import { FormsModule } from '@angular/forms';
 import { CommentsComponent } from './events/selected-event/comments/comments.component';
 import { ForumsComponent } from './forums/forums.component';
-import { AllForumsComponent } from './forums/all-forums/all-forums.component';
-import { UserForumsComponent } from './forums/user-forums/user-forums.component';
 import { SelectedForumComponent } from './forums/selected-forum/selected-forum.component';
-
+import { ArticleComponent } from './forums/selected-forum/article/article.component';
+import { NotificationComponent } from '../shared/components/notification/notification.component';
 
 @NgModule({
   providers: [],
-  declarations: [NavbarComponent, MainComponent, SearchComponent, ProfileComponent, SideNavbarComponent, HomeComponent, ForumComponent, EventsComponent, EventComponent, SelectedEventComponent, CommentsComponent, ForumsComponent, AllForumsComponent, UserForumsComponent, SelectedForumComponent],
+  declarations: [
+    NavbarComponent,
+    MainComponent,
+    SearchComponent,
+    ProfileComponent,
+    SideNavbarComponent,
+    HomeComponent,
+    ForumComponent,
+    EventsComponent,
+    EventComponent,
+    SelectedEventComponent,
+    CommentsComponent,
+    ForumsComponent,
+    SelectedForumComponent,
+    ArticleComponent,
+  ],
   imports: [
     CommonModule,
     DashboardRoutingModule,
@@ -36,6 +50,7 @@ import { SelectedForumComponent } from './forums/selected-forum/selected-forum.c
     LoadingComponent,
     ShortenPipe,
     FormsModule,
+    NotificationComponent
     
   ],
 })

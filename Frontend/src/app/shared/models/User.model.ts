@@ -4,6 +4,7 @@ import { address } from './types/address.type';
 
 export class User {
   constructor(
+    public _id: string , 
     public picture : string, 
     public name: string,
     public forname: string,

@@ -29,7 +29,7 @@ import { ErrorComponent } from '../shared/components/error/error.component';
     RegisterComponent,
     ActivitiesComponent,
     ContactComponent,
-    NotificationComponent,
+    
     IndexComponent,
     LoginComponent,
   
@@ -46,7 +46,8 @@ import { ErrorComponent } from '../shared/components/error/error.component';
     FooterComponent,
     AlertComponent,
     ShortenPipe,
-    ErrorComponent
+    ErrorComponent,
+    NotificationComponent
   ],
   exports: [HomeRoutingModule],
 })

@@ -13,7 +13,7 @@ import { UserService } from '../shared/services/user/user.service';
 })
 export class HomeComponent implements OnInit {
   event!: Event;
-  forums!: Forum[];
+  forums: Forum[] = [];
   user!: User;
   tier!: { title: string; icon: string };
   constructor(
@@ -29,14 +29,18 @@ export class HomeComponent implements OnInit {
       this.user = response.data;
       this.handleTier();
       const userForums = this.user.forums;
+      console.log(this.user)
       if (userForums) {
-        userForums.forEach((forum) => {
-          this.forumsService.getSingleForum(forum).subscribe((forum) => {
-            this.forums.push(forum.data);
+        this.forumsService.getUsersForums().subscribe((response) => {
+          console.log(response.data)
+          response.data.forEach((forum) => {
+            this.forumsService.getSingleForum(forum).subscribe((response) => {
+              this.forums.push(response.data);
+            },err=> console.log(err));
           });
-        });
+        },err=> console.log(err));
       }
-    });
+    },err=>console.log(err));
   }
   handleTier() {
     const points = this.user.points?.global_point;

@@ -1,8 +1,14 @@
-<div [class]="'fixed bottom-6 right-[12px] w-[400px] h-12 rounded-xl flex overflow-hidden ' + 'border-['+secondColor+'] ' + ' bg-['+primeColor+'] z-30' ">
-    <div class="w-1/5 flex items-center justify-center">
-        <lucide-icon [name]="icon" [color]="iconColor"></lucide-icon>
-    </div>
-    <div [class]="'text-center text-sm w-4/5 flex items-center justify-center text-gray-500'">
-        {{messsage}}
-    </div>
+<div
+  class="fixed bottom-6 right-[12px] w-[400px] h-12 rounded-xl flex overflow-hidden z-[1000]"
+>
+  <div class="w-1/5 flex items-center justify-center">
+    <lucide-icon [name]="icon" [color]="iconColor"></lucide-icon>
+  </div>
+  <div
+    [class]="
+      'text-center text-sm w-4/5 flex items-center justify-center text-white'
+    "
+  >
+    {{ messsage }}
+  </div>
 </div>

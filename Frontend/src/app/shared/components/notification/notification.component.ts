@@ -1,14 +1,21 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
-  styleUrls: ['./notification.component.scss']
+  imports: [LucideAngularModule],
+  styleUrls: ['./notification.component.scss'],
+  standalone: true,
 })
-export class NotificationComponent {
-  @Input('prime') primeColor! : string ; 
-  @Input('second') secondColor! : string ; 
-  @Input ('color') iconColor! : string ; 
-  @Input('message') messsage! : string ; 
-  @Input('icon') icon! : string ; 
+export class NotificationComponent implements OnInit {
+  @Input('prime') primeColor!: string;
+  @Input('second') secondColor!: string;
+  @Input('color') iconColor!: string;
+  @Input('message') messsage!: string;
+  @Input('icon') icon!: string;
+  mainClass: string = '';
+  ngOnInit(): void {
+    
+  }
 }
