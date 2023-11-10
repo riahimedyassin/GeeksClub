@@ -7,8 +7,10 @@ const {
   getSingleMember,
   updateMember,
   getInfo,
-  imageUpload
+  imageUpload,
+  getUserEvents
 } = require("../controllers/member.controller");
+const { requireAdminAuth } = require("../middlewares/auth/admin.auth");
 const { requireMemberAuth } = require("../middlewares/auth/member.auth");
 
 const router = require("express").Router();
@@ -18,11 +20,14 @@ router.post("/login", loginMember);
 router.post("/recovery", recoverAccount);
 router.post('/image',imageUpload)
 
+
+
 router.use(requireMemberAuth);
 router.post("/events/participate/:id", attendEvent);
 router.get("/leaderboard", getLeaderboard);
 router.get("/me",getInfo)
-router.get("/:id",getSingleMember)
 router.patch("/me",updateMember)
+router.get("/:id",requireAdminAuth,getSingleMember)
+
 
 module.exports = router;

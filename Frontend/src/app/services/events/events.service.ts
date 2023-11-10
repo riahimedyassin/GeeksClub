@@ -16,4 +16,20 @@ export class EventsService {
   getAllEvenets(): Observable<Response<Event[]>> {
     return this.http.get<Response<Event[]>>(URL);
   }
+  getFeaturedEvents() : Observable<Response<Event[] >> {
+    return this.http.get<Response<Event[]>>(`${URL}/featured`)
+  }
+
+  getUsersEvents() : Observable<Response<Event[]>> {
+      return this.http.get<Response<Event[]>>(`${URL}/event/me`)
+  }
+  getSingleEvent(id : string ) : Observable<Response<Event>> {
+    return this.http.get<Response<Event>>(`${URL}/${id}`)
+  }
+  addComment(comment : string, event : string  ) {
+    return this.http.post(`${URL}/comments/${event}`,comment)
+  }
+
+
+
 }

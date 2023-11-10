@@ -1,0 +1,30 @@
+div.grid {
+    gap: 24px;
+    & > div {
+        height: 200px;
+        @apply bg-deepblack rounded-lg overflow-hidden px-4 py-2 transition-all; 
+        &.col-span-2 {
+            height: 400px;
+        }
+        &.points-overview {
+            background-color: rgba(0, 0, 255, 0.224);
+            &:hover {
+                background-color: rgba(0, 0, 255, 0.441);
+                cursor: pointer;
+            }
+        }
+        &.recent-events {
+            background-color: rgba(255, 0, 140, 0.283); 
+            &:hover {
+                background-color: rgba(255, 0, 140, 0.475); 
+                cursor: pointer;
+            }
+            > div {
+                background-color: rgba(236, 72, 154, 0.233);
+                &:hover {
+                    background-color: rgba(236, 72, 154, 0.575);  
+                }
+            }
+        }
+    }
+}

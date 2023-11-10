@@ -5,6 +5,7 @@ import {NgModule} from '@angular/core'
 import { IndexComponent } from './index/index.component';
 
 import { LoginComponent } from './login/login.component';
+import { loginGuard } from './guards/login.guard';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
     component: RegisterComponent,
   },
   {
+    canActivate : [loginGuard],
     path: 'login' , 
     component: LoginComponent
   }

@@ -1,0 +1,38 @@
+<div class="text-white px-24 pt-12 reveal">
+  <h1>Liste of your events</h1>
+  <ng-container *ngIf="events; else noParticiaption">
+    <div *ngFor="let event of events" class="space-y-4 mt-12">
+      <app-event [event]="event"></app-event>
+    </div>
+  </ng-container>
+  <ng-template #noParticiaption>
+    <div class="mt-8">
+      <h3 class="font-normal mb-16">
+        You haven't participated in any event recently . . .
+      </h3>
+    </div>
+  </ng-template>
+  <hr />
+  <h1 class="mt-16">Liste of all the events</h1>
+  <div class="filter flex items-center justify-between mt-6">
+    <div class="flex gap-4 items-center px-4">
+      <lucide-angular name="search" color="gray"></lucide-angular>
+      <input
+        type="text"
+        (input)="handleSearch($event)"
+        placeholder="Search an event"
+      />
+    </div>
+    <select (change)="handleCategorie($event)">
+        <option value="all">All</option>
+        <option value="formation">Formation</option>
+        <option value="reunion">Reunion</option>
+        <option value="assignment">Assignment</option>
+    </select>
+  </div>
+  <div class="space-y-4 mt-12">
+    <ng-container *ngFor="let event of toDisplay">
+      <app-event [event]="event"></app-event>
+    </ng-container>
+  </div>
+</div>

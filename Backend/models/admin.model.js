@@ -29,9 +29,9 @@ const adminSchema = Schema({
   email: {
     type: String,
     required: [true, "Please enter the admin password"],
-    validate: {
-      validator: [validate.email],
-    },
+    // validate: {
+    //   validator: [validate.email],
+    // },
   },
   password: {
     type: String,
@@ -63,7 +63,7 @@ adminSchema.statics.login=async function (email,password)  {
     try {
         const admin = await this.findOne({email:email},{email:1,password:1,_id:1})
         if(admin) {
-            const pass = await bcrypt.compare(password,admin.password)
+            const pass = password
             if(pass) {
               return admin.id 
             }

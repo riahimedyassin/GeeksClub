@@ -1,0 +1,20 @@
+.filter {
+  & > div {
+    width: 50%;
+    @apply rounded-md border-[1px] border-gray-500 h-[40px]  ; 
+    input {
+      @apply bg-transparent w-[50%] ;
+      &:placeholder {
+        @apply px-4;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  select {
+    background-color: black;
+    border: 1px solid gray;
+    @apply px-4 py-2 rounded-md cursor-pointer
+  }
+}

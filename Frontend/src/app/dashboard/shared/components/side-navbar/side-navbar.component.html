@@ -2,23 +2,23 @@
   class="mt-18 text-white col-span-2 border-r-[1px] border-r-gray-500 h-[100vh] "
 >
   <ul>
-    <li routerLink="/dashboard">
+    <li routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
       <lucide-angular name="Home"></lucide-angular>
       <p>Home</p>
     </li>
-    <li>
+    <li routerLinkActive="active"  routerLink="/dashboard/events">
       <lucide-angular name="calendar-days"></lucide-angular>
       <p>Events</p>
     </li>
-    <li>
+    <li routerLinkActive="active" >
         <lucide-angular name="messages-square"></lucide-angular>
         <p>Forums</p>
     </li>
-    <li>
+    <li routerLinkActive="active" >
         <lucide-angular name="align-start-horizontal"></lucide-angular>
         <p>Leaderboard</p>
     </li>
-    <li routerLink="profile">
+    <li routerLink="profile" routerLinkActive="active" >
         <lucide-angular name="settings"></lucide-angular>
         <p>Settings</p>
     </li>

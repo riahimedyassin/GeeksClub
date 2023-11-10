@@ -5,7 +5,8 @@ const {
   getSingleEvent,
   updateEvent,
   endEvent,
-  getFeaturedEvents
+  getFeaturedEvents,
+  getUserEvents
 } = require("../controllers/event.controller");
 const { requireAdminAuth } = require("../middlewares/auth/admin.auth");
 const { requireMemberAuth } = require("../middlewares/auth/member.auth");
@@ -17,6 +18,8 @@ router.use(requireMemberAuth)
 router.get("/", getAllEvents);
 router.get("/:id", getSingleEvent);
 router.get("/categorie/:categorie",getEventByCategorie);
+router.get('/event/me',getUserEvents)
+router.post('/comments/:id')
 
 //REQUIRE ADMIN 
 router.use(requireAdminAuth)

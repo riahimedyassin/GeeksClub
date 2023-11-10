@@ -1,0 +1,23 @@
+img {
+    width: 100%;
+    height: 400px;
+}
+.addComment {
+    .comment {
+        width: 100%;
+        height: 100px;
+        background-color: transparent;
+        border: 1px solid gray;
+        @apply rounded-md ; 
+        &:focus {
+            outline: none;
+        }
+    }
+    button {
+        border: 1px solid ;
+        @apply px-4 py-2 rounded-lg transition-all border-main ;
+        &:hover {
+            @apply bg-main
+        }
+    }
+}

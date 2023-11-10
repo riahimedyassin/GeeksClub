@@ -53,6 +53,9 @@ const eventSchema = Schema({
             }
         }],
         default:[]
+    },
+    comments : {
+        type: [{comment : String , name : String , forname : String , id : String }]
     }
 })
 

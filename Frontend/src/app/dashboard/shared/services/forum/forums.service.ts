@@ -16,4 +16,7 @@ export class ForumsService {
   getAllForums(): Observable<Response<Forum[]>> {
     return this.http.get<Response<Forum[]>>(`${URL}`);
   }
+  getSingleForum(id : string ) : Observable<Response<Forum>> {
+    return this.http.get<Response<Forum>>(`${URL}/${id}`)
+  }
 }

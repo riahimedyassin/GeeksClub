@@ -170,6 +170,9 @@ const getInfo = async (req, res, next) => {
   }
 };
 
+
+
+
 module.exports = {
   registerUser,
   attendEvent,

@@ -1,0 +1,47 @@
+<div class="text-white px-24 py-12">
+    <div *ngIf="event && !error ; else loading">
+        <img [src]="event.picture" *ngIf="event.picture">
+        <h1 class="mb-12">{{event.title}}</h1>
+        <hr>
+        <div class="flex items-center justify-between mb-8 mt-8">
+            <div class="flex items-center gap-4">
+                <lucide-angular name="calendar"></lucide-angular>
+                <p>{{event.date.date_start | date : 'dd MMMM'}} </p>
+            </div>
+            <div class="flex items-center gap-4">
+                <lucide-angular name="calendar-x"></lucide-angular>
+                <p>{{event.date.date_end | date : 'dd MMMM'}} </p>
+            </div>
+            <div class="flex items-center gap-4">
+                <lucide-angular name="user"></lucide-angular>
+                <p>{{event.participants.length}} Participant </p>
+            </div>
+        </div>
+        <hr>
+        <p class="mt-8 mb-16">
+            {{event.descreption}}
+        </p>
+        <hr class="opacity-25">
+        <div class="addComment" >
+            <textarea type="text" [(ngModel)]="comment" placeholder="Type in your comment" class="comment"></textarea>
+            <button (click)="handleComment()">Submit</button>
+        </div>
+        <div class="comments" *ngIf="event.comments && event.comments.length > 0 ; else noComment">
+            <ng-container *ngFor="let comment of event.comments">
+                <app-comments [comment]="comment"></app-comments>
+            </ng-container>
+        </div>
+        <ng-template #noComment>
+            <p class="mt-4">No comments on this event</p>
+        </ng-template>
+    </div>
+    <ng-template #loading >
+        <ng-container *ngIf="!error">
+            <app-loading></app-loading>
+        </ng-container>
+    </ng-template>
+    <ng-container *ngIf="error">
+        <h1 class="text-red-500">Event not found</h1>
+        <button routerLink="/dashboard/events" class="dashed-button mt-8">Go back</button>
+    </ng-container>
+</div>

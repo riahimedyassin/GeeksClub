@@ -1,0 +1,65 @@
+<div class="text-white px-24 py-12">
+  <h1>Overview</h1>
+  <div class="grid grid-cols-2 mt-8">
+    <div class="recent-events col-span-1">
+      <ng-container *ngIf="event; else loadEvent">
+        <h2>Recent Events</h2>
+        <div
+          class="hover:bg-black px-2 py-2 w-full rounded-lg mt-2  hover:bg-main transition-all active:bg-second flex justify-between"
+        >
+          <div [routerLink]="'/dashboard/events/'+event._id" class="cursor-pointer">
+            <h3 class="font-bold">{{ event.title }}</h3>
+            <p>{{ event.descreption | shorten : "sm" }}</p>
+          </div>
+          <div class="flex flex-col justify-between">
+                <div class="flex gap-2">
+                    <lucide-angular name="calendar" size="16"></lucide-angular>
+                    <p class="text-sm">{{event.date.date_start | date : 'dd MMMM'}} </p>
+                </div>
+                <div class="flex gap-2">
+                    <lucide-angular name="gift" size="16"></lucide-angular>
+                    <p class="text-sm">{{event.reward_point}} Point </p>
+                </div>
+          </div>
+        </div>
+        <button class="flex gap-4 mt-8 hover:gap-3 transition-all" routerLink="./events">
+          <lucide-angular name="chevron-right"></lucide-angular>
+          <p class="font-bold text-lg">See more</p>
+        </button>
+      </ng-container>
+      <ng-template #loadEvent>
+        <app-loading></app-loading>
+      </ng-template>
+    </div>
+    <div class="points-overview col-span-1 overflow-hidden">
+      <ng-container *ngIf="user; else loadPoints">
+        <h2>Points Overview</h2>
+        <div class="mt-4 relative">
+          <h3>Global Points : {{ user.points?.global_point }}</h3>
+          <p class="mt-2">Current Tier : {{ tier.title }}</p>
+          <div class="absolute right-[-90px] top-[-90px]">
+            <lucide-angular [name]="tier.icon" size="256"></lucide-angular>
+          </div>
+          <button class="flex gap-4 mt-8 hover:gap-3 transition-all">
+            <lucide-angular name="chevron-right"></lucide-angular>
+            <p class="font-bold text-lg">See more</p>
+          </button>
+        </div>
+      </ng-container>
+      <ng-template #loadPoints>
+        <app-loading></app-loading>
+      </ng-template>
+    </div>
+    <div class="col-span-2">
+      <h2>Subscribed Forums</h2>
+      <ng-container *ngIf="!forums ; else dispForum">
+        <h4>You haven't subscribed to any forums yet</h4>
+      </ng-container>
+      <ng-template #dispForum>
+        <div *ngFor="let forum of forums" class="space-y-4">
+            <app-forum [forum]="forum"></app-forum>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

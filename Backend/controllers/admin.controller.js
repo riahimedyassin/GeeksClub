@@ -5,6 +5,8 @@ const { response } = require("../utils/response/Response");
 const { lazyResponse } = require("../utils/response/LazyResponse");
 const { deleteFromTable } = require("../utils/deleteFromTable");
 const Event = require("../models/event.model");
+const Admin = require("../models/admin.model");
+const { createToken } = require("../utils/token/createToken");
 
 const registerMember = async (req, res, next) => {
   try {
@@ -42,7 +44,10 @@ const getAllMembers = async (req, res, next) => {
   const limit = 4;
   const skip = (page - 1) * limit;
   try {
-    const members = await Member.find({ isMember: true }, { password: 0 , recovery_question : 0 })
+    const members = await Member.find(
+      { isMember: true },
+      { password: 0, recovery_question: 0 }
+    )
       .skip(skip)
       .limit(limit);
     if (members)
@@ -149,6 +154,29 @@ const changeInfo = async (req, res, next) => {
     next(error);
   }
 };
+const registerAdmin = async (req, res, next) => {
+  const admin = req.body;
+  Admin.create(admin)
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
+const adminLogin = async (req, res, next) => {
+  const { email, password } = req.body;
+  try {
+    const admin = await Admin.login(email, password);
+    if(admin) {
+      const token = createToken(admin)
+      if (token) return response(res, "Logged in successfully", 200,true,token);
+    }
+    return next(createError("Invalid email or password", 403));
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
   registerMember,
@@ -158,4 +186,6 @@ module.exports = {
   confirmParticipation,
   changeInfo,
   getAdminInfo,
+  registerAdmin,
+  adminLogin,
 };

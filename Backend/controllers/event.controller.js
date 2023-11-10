@@ -46,7 +46,6 @@ const getSingleEvent = async (req, res, next) => {
   }
 };
 const updateEvent = async (req, res, next) => {
-  console.log("I'm called");
   const { id } = req.params;
   const changes = req.body;
   if (!id) return next(createError("Please provide the ID of the event", 400));
@@ -113,7 +112,7 @@ const endEvent = async (req, res, next) => {
 };
 const getFeaturedEvents = async (req, res, next) => {
   try {
-    const events = await Event.find({} ).limit(4);
+    const events = await Event.find({}).limit(4);
     if (events) {
       return response(
         res,
@@ -125,11 +124,44 @@ const getFeaturedEvents = async (req, res, next) => {
     }
     return next(createError("Error fetching events", 400));
   } catch (error) {
-    console.log(error)
+    console.log(error);
     next(error);
-
   }
 };
+const getUserEvents = async (req, res, next) => {
+  id = req.user;
+  if (!id) return next(createError("Unauthorized", 403));
+  try {
+    const events = await Event.find({ participants: id });
+    if (!events) return next(createError("Cannot find events", 404));
+    return response(res, "Events retrieved successfully", 200, false, events);
+  } catch (error) {
+    next(error);
+  }
+};
+const addComment=async(req,res,next) => {
+  const user_id  = req.user 
+  const {id} = req.params
+  const comment = req.body
+  console.log(req.user)
+  console.log(req.params)
+  console.log(req.body)
+  try {
+      const user = await Member.findOne({_id:user_id}, {name : 1 , forname :1 })
+      const event = await Event.findOne({_id : id})
+      if(!event) return next(createError("Cannot find this event"))
+      event.comments.push({
+        comment  , id , name : user.name , forname : user.forname
+      })
+      const done = await Event.findOneAndUpdate({_id:event}, event)
+      if(done) return response(res,"Comment added successfully",201)
+      return next(createError("Cannot add comment"))
+  } catch (error) {
+      next(error)
+  }
+}
+
+
 
 module.exports = {
   getAllEvents,
@@ -138,5 +170,7 @@ module.exports = {
   getSingleEvent,
   updateEvent,
   endEvent,
-  getFeaturedEvents
+  getFeaturedEvents,
+  getUserEvents,
+  addComment
 };
