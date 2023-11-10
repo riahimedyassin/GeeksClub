@@ -2,7 +2,7 @@ import { HTTP_INTERCEPTORS, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { UserService } from 'src/app/services/user/user.service';
+import { UserService } from 'src/app/dashboard/shared/services/user/user.service';
 import { User } from 'src/app/shared/models/User.model';
 
 @Component({
@@ -16,10 +16,6 @@ export class NavbarComponent implements OnInit {
     ngOnInit(): void {
         this.userService.getCurrentUser().subscribe((response)=> {
             this.user=response.data
-        },(error : HttpErrorResponse)=> {
-          if(error.status===403) {
-            this.router.navigate(["/login"])
-          }
         })
     }
     logout() {

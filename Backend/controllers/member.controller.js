@@ -12,7 +12,7 @@ const cloudinary = require("../utils/cloudinary").v2;
 
 const registerUser = async (req, res, next) => {
   const user = req.body;
-  console.log(user)
+  console.log(req)
   try {
     const exist = await Member.findOne({ email: user.email });
     if (exist) return response(res, "Already Registered", 200);
@@ -36,6 +36,11 @@ const registerUser = async (req, res, next) => {
     return next(createError(`Unknown Error , Error : ${error}`, 500));
   }
 };
+const imageUpload=async(req,res,next) => {
+    console.log(req.picture); 
+}
+
+
 const attendEvent = async (req, res, next) => {
   const { id } = req.params;
   const user_id = req.user;
@@ -174,4 +179,5 @@ module.exports = {
   getSingleMember,
   updateMember,
   getInfo,
+  imageUpload
 };

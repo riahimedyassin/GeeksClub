@@ -13,6 +13,7 @@ const routes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent,
+        title :'Geeks Club | Profile'
       },
     ],
   },

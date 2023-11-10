@@ -1,5 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
-import { UserService } from 'src/app/services/user/user.service';
+import { FormBuilder } from '@angular/forms';
+import { UserService } from 'src/app/dashboard/shared/services/user/user.service';
 import { User } from 'src/app/shared/models/User.model';
 
 @Component({
@@ -9,7 +11,7 @@ import { User } from 'src/app/shared/models/User.model';
 })
 export class ProfileComponent implements OnInit{
    user! :User ;
-   constructor(private userService : UserService) {
+   constructor(private userService : UserService, private formbuilder : FormBuilder) {
    }
    ngOnInit(): void {
        this.userService.getCurrentUser().subscribe(response=> {

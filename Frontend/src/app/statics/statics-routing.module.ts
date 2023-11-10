@@ -6,31 +6,44 @@ import { SponsoringComponent } from './sponsoring/sponsoring.component';
 import { ArticlesComponent } from './articles/articles.component';
 import { DetailsComponent } from './articles/article/details/details.component';
 import { ArticlesService } from '../services/articles/articles.service';
+import { MainComponent } from './main/main.component';
+import { DonateComponent } from './donate/donate.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: PolicyComponent,
-    pathMatch: 'full',
-  },
-
-  {
-    path: 'founder',
-    component: FounderComponent,
-  },
-  {
-    path: 'policy',
-    component: PolicyComponent,
-  },
-  {
-    path: 'sponsoring',
-    component: SponsoringComponent,
-  },
-  {
-    path: 'articles',
+    component: MainComponent,
     children: [
-      { path: '', loadComponent: () => import('./articles/articles.component').then(c=> c.ArticlesComponent)  },
-      { path: ':id', component: DetailsComponent },
+      { path: '', redirectTo: 'policy' , pathMatch:'full' },
+      {
+        path: 'founder',
+        component: FounderComponent,
+      },
+      {
+        path: 'policy',
+        component: PolicyComponent,
+      },
+      {
+        path: 'sponsoring',
+        component: SponsoringComponent,
+      },
+      {
+        path:'donate',
+        component:DonateComponent
+      },
+      {
+        path: 'articles',
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('./articles/articles.component').then(
+                (c) => c.ArticlesComponent
+              ),
+          },
+          { path: ':id', component: DetailsComponent },
+        ],
+      },
     ],
   },
 ];

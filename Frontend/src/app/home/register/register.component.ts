@@ -102,16 +102,11 @@ export class RegisterComponent implements OnInit {
         ]),
         answer: new FormControl(null, [Validators.required]),
       }),
-      image : new FormControl(null,[Validators.required])
     });
   }
   submit() {
     if (this.form.valid && !this.form.invalid && this.form.touched) {
       let user: User = this.form.value;
-      let imageUrl: string | undefined = '';
-      const formData = new FormData()
-      console.log(formData)
-      console.log(user);
       this.auth.register(user).subscribe(
         (response) => {
           this.alert = this.alerts[0];

@@ -14,6 +14,12 @@ export class AuthService {
   register(user : User) {
      return this.http.post(`${environment.host}/members/register`,user)
   }
+  imageUpload( image : File) {
+    const formData : FormData = new FormData() ; 
+    formData.append('picture',image,image.name);
+    formData.append('id',"test")
+    return this.http.post(`${environment.host}/members/image`,formData)
+  }
   login(email : string , password : string ) : Observable<Response<string>> {
     return this.http.post<Response<string>>(`${environment.host}/members/login`,{email,password})
   }

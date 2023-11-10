@@ -1,2 +1,15 @@
-<app-navbar></app-navbar>
-<router-outlet></router-outlet>
+<div class="grid grid-cols-12">
+  <div class="row-span-1 col-span-12">
+    <app-navbar></app-navbar>
+  </div>
+  <div class="col-span-12">
+    <div class="grid grid-cols-12">
+      <div class="col-span-2">
+        <app-side-navbar></app-side-navbar>
+      </div>
+      <div class="col-span-10">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

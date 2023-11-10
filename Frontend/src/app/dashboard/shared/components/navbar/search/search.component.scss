@@ -23,3 +23,26 @@ div {
         @apply px-2 ;   
     }
 }
+div.absolute {
+    @apply top-16  ;
+    background-color: rgba(0, 0, 0, 0.502);
+    backdrop-filter: blur(16px);
+    border: 1px solid gray;
+    border-radius: 0 0 8px 8px ; 
+    left: 43%;
+    transform: translate(-43%,0);
+    width: 650px;
+    height: 200px;
+    ul {
+        width: 100%;
+        li {
+            @apply px-4 py-1; 
+            height: 50px;
+            width: 100%;
+            p {
+                font: bold;
+            }
+        }
+    }
+
+}

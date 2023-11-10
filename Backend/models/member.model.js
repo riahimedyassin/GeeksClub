@@ -11,7 +11,7 @@ const Schema = require("mongoose").Schema;
 const memberSchema = Schema({
   picture: {
     type : String , 
-    required: [true,"Please upload your picture to procceed"]
+    required: false
   },
   isMember: {
     type: Boolean,

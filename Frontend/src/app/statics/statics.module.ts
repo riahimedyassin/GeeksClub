@@ -11,6 +11,8 @@ import { SponsoringComponent } from './sponsoring/sponsoring.component';
 import { DetailsComponent } from './articles/article/details/details.component';
 import { FooterComponent } from '../shared/components/footer/footer.component';
 import { ErrorComponent } from '../shared/components/error/error.component';
+import { MainComponent } from './main/main.component';
+import { DonateComponent } from './donate/donate.component';
 
 
 
@@ -19,7 +21,9 @@ import { ErrorComponent } from '../shared/components/error/error.component';
     FounderComponent,
     PolicyComponent,
     SponsoringComponent,
-    DetailsComponent
+    DetailsComponent,
+    MainComponent,
+    DonateComponent
   ],
   imports: [
     CommonModule,

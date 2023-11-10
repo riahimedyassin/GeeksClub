@@ -1,4 +1,4 @@
-<div class="w-full h[100vh]">
+<div class=" h[100vh]">
     <div class="w-full h-[80vh] grid grid-cols-6 px-24 mt-24 gap-6">
         <div class="col-span-2 bg-deepblack flex  flex-col items-center py-4 text-white rounded-md" *ngIf="user ; else load">
             <div class="img--container">
@@ -27,7 +27,12 @@
             </div>
         </div>  
         <div class="col-span-4 h-[80vh] bg-deepblack text-white px-6 py-4 rounded-md">
-            <h2>Details</h2>
+            <h1>Details</h1>
+            <div class="grid grid-cols-2">
+                <div class="input--container">
+                    <input type="text" >
+                </div>
+            </div>
         </div>
         <ng-template #load>
             <app-skeleton-profile></app-skeleton-profile>

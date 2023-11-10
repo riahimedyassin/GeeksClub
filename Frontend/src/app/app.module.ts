@@ -7,6 +7,7 @@ import {  HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { JwtInterceptor } from './services/auth/jwt.interceptor';
 import { SkeletonProfileComponent } from './shared/components/skeleton-profile/skeleton-profile.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [AppComponent ],

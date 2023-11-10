@@ -1,7 +1,31 @@
 <div class="w-full">
-    <input type="text" placeholder="Search" (input)="handleSearch($event)">
-    <select >
-        <option value="events" selected>Events</option>
-        <option value="forum">Forum</option>
-    </select>
+  <input
+    type="text"
+    placeholder="Search"
+    (input)="handleSearch($event)"
+    (focus)="hide = false"
+  />
+  <select (change)="bindSearchType($event)" [value]="selected">
+    <option value="events" selected>Events</option>
+    <option value="forum">Forum</option>
+  </select>
 </div>
+<ng-container *ngIf="toDisplay && !hide && !isEmpty">
+  <div class="absolute text-white z-[900]" (mouseover)="hide=false" (mouseleave)="hide=true">
+    <div *ngIf="toDisplay.length == 0; else dis">No matching {{selected | titlecase}} </div>
+    <ng-template #dis>
+      <ul *ngIf="selected == 'events'; else forums">
+        <li *ngFor="let ele of toDisplay">
+          <p routerLink="./profile">{{ ele.title }}</p>
+        </li>
+      </ul>
+      <ng-template #forums>
+        <ul>
+          <li *ngFor="let ele of toDisplay">
+            {{ ele.name }}
+          </li>
+        </ul>
+      </ng-template>
+    </ng-template>
+  </div>
+</ng-container>

@@ -9,11 +9,12 @@ import { SearchComponent } from './shared/components/navbar/search/search.compon
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ProfileComponent } from './profile/profile.component';
 import { SkeletonProfileComponent } from '../shared/components/skeleton-profile/skeleton-profile.component';
+import { SideNavbarComponent } from './shared/components/side-navbar/side-navbar.component';
 
 
 @NgModule({
   providers: [],
-  declarations: [NavbarComponent, MainComponent, SearchComponent, ProfileComponent],
+  declarations: [NavbarComponent, MainComponent, SearchComponent, ProfileComponent, SideNavbarComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,
