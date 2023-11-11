@@ -1,4 +1,4 @@
-<div class=" h[100vh]">
+<div class=" h[100vh]" *ngIf="user">
     <div class="w-full h-[80vh] grid grid-cols-6 px-24 mt-24 gap-6">
         <div class="col-span-2 bg-deepblack flex  flex-col items-center py-4 text-white rounded-md" *ngIf="user ; else load">
             <div class="img--container">
@@ -28,11 +28,35 @@
         </div>  
         <div class="col-span-4 h-[80vh] bg-deepblack text-white px-6 py-4 rounded-md">
             <h1>Details</h1>
-            <div class="grid grid-cols-2">
+            <form class="grid grid-cols-2 gap-4" [formGroup]="form" >
                 <div class="input--container">
-                    <input type="text" >
+                    <label for="">Name</label>
+                    <input type="text" formControlName="name" >
                 </div>
-            </div>
+                <div class="input--container">
+                    <label for="">Forname</label>
+                    <input type="text" formControlName="forname" >
+                </div>
+                <div class="input--container">
+                    <label for="">Email</label>
+                    <input type="text" formControlName="email" >
+                </div>
+                <div class="input--container">
+                    <label for="">Age</label>
+                    <input type="number" formControlName="age">
+                </div>
+                <div formGroupName="address" class="col-span-2 grid grid-cols-2 gap-4">
+                    <div class="input--container">
+                        <label for="">Resgion</label>
+                        <input type="text" formControlName="region">
+                    </div>
+                    <div class="input--container">
+                        <label for="">City</label>
+                        <input type="text" formControlName="city">
+                    </div>
+                </div>
+                
+            </form>
         </div>
         <ng-template #load>
             <app-skeleton-profile></app-skeleton-profile>

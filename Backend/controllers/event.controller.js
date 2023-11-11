@@ -124,45 +124,109 @@ const getFeaturedEvents = async (req, res, next) => {
     }
     return next(createError("Error fetching events", 400));
   } catch (error) {
-    console.log(error);
     next(error);
   }
 };
 const getUserEvents = async (req, res, next) => {
-  id = req.user;
+  const id = req.user;
   if (!id) return next(createError("Unauthorized", 403));
   try {
-    const events = await Event.find({ participants: id });
+    const events = await Event.find({});
+    const final = [];
+    events.forEach((event) => {
+      event.participants.forEach((participant) => {
+        if (participant.user_id === id) final.push(event);
+      });
+    });
     if (!events) return next(createError("Cannot find events", 404));
-    return response(res, "Events retrieved successfully", 200, false, events);
+    return response(res, "Events retrieved successfully", 200, false, final);
   } catch (error) {
     next(error);
   }
 };
-const addComment=async(req,res,next) => {
-  const user_id  = req.user 
-  const {id} = req.params
-  const comment = req.body
-  console.log(req.user)
-  console.log(req.params)
-  console.log(req.body)
+const addComment = async (req, res, next) => {
+  const user_id = req.user;
+  const { id } = req.params;
+  const { content } = req.body;
   try {
-      const user = await Member.findOne({_id:user_id}, {name : 1 , forname :1 })
-      const event = await Event.findOne({_id : id})
-      if(!event) return next(createError("Cannot find this event"))
-      event.comments.push({
-        comment  , id , name : user.name , forname : user.forname
-      })
-      const done = await Event.findOneAndUpdate({_id:event}, event)
-      if(done) return response(res,"Comment added successfully",201)
-      return next(createError("Cannot add comment"))
+    const user = await Member.findOne(
+      { _id: user_id },
+      { name: 1, forname: 1 }
+    );
+    const event = await Event.findOne({ _id: id });
+    if (!event) return next(createError("Cannot find this event"));
+    event.comments.push({
+      content: content,
+      id: user_id,
+      name: user.name,
+      forname: user.forname,
+    });
+    const done = await Event.findOneAndUpdate({ _id: event }, event);
+    if (done) return response(res, "Comment added successfully", 200 , false , event);
+    return next(createError("Cannot add comment"));
   } catch (error) {
-      next(error)
+    next(error);
   }
-}
+};
+const attendEvent = async (req, res, next) => {
+  const { id } = req.params;
+  const user_id = req.user;
+  if (!user_id) next(createError("Unauthorized", 403));
+  if (!id)
+    return next(
+      createError("Please provide the ID of the event and the USER", 400)
+    );
+  try {
+    const event = await Event.findOne({ _id: id }, { participants: 1 });
+    if (event) {
+      event.participants.push({ user_id, participated: false });
+      const up = await Event.findOneAndUpdate(
+        { _id: id },
+        { participants: event.participants }
+      );
+      if (up)
+        return response(res, "You are now participating to that event", 200);
+      next(createError("Cannot Participate at that event", 400));
+    }
+    return next(createError("Event not found", 404));
+  } catch (error) {
+    next(error);
+  }
+};
+const quitEvent = async (req, res, next) => {
+  const user_id = req.user;
+  const { id } = req.params;
+  if (!user_id) return next(createError("Unauthorized", 403));
+  if (!id) return next(createError("Provide the form id", 400));
+  try {
+    const event = await Event.findOne({ _id: id });
+    if (!event) return next(createError("Cannot find the event", 404));
+    event.participants = event.participants.filter((e) => e.user_id != user_id);
+    const done = await Event.findOneAndUpdate({ _id: id }, event);
+    if (done) return response(res, "Quit successfully", 200, false, event);
+    return next(createError("Cannot quit the event", 500));
+  } catch (error) {
+    next(error);
+  }
+};
 
-
-
+const getLeaderboard = async (req, res, next) => {
+  try {
+    const members = await Member.find({}, { name: 1, forname: 1, points: 1 });
+    if (members) {
+      return response(
+        res,
+        "Leaderboard retrieved Successfully",
+        200,
+        false,
+        members
+      );
+    }
+    return next(createError("Cannot retrieve leaderboard ", 400));
+  } catch (error) {
+    next(error);
+  }
+};
 module.exports = {
   getAllEvents,
   getEventByCategorie,
@@ -172,5 +236,8 @@ module.exports = {
   endEvent,
   getFeaturedEvents,
   getUserEvents,
-  addComment
+  addComment,
+  attendEvent,
+  quitEvent,
+  getLeaderboard
 };

@@ -12,7 +12,6 @@ const cloudinary = require("../utils/cloudinary").v2;
 
 const registerUser = async (req, res, next) => {
   const user = req.body;
-  console.log(req)
   try {
     const exist = await Member.findOne({ email: user.email });
     if (exist) return response(res, "Already Registered", 200);
@@ -31,7 +30,6 @@ const registerUser = async (req, res, next) => {
       );
     }
   } catch (error) {
-    console.log(error)
     if (error instanceof MongooseError) return next(error);
     return next(createError(`Unknown Error , Error : ${error}`, 500));
   }
@@ -39,51 +37,6 @@ const registerUser = async (req, res, next) => {
 const imageUpload=async(req,res,next) => {
     console.log(req.picture); 
 }
-
-
-const attendEvent = async (req, res, next) => {
-  const { id } = req.params;
-  const user_id = req.user;
-  if (!user_id) next(createError("Unauthorized", 403));
-  if (!id)
-    return next(
-      createError("Please provide the ID of the event and the USER", 400)
-    );
-  try {
-    const event = await Event.findOne({ _id: id }, { participants: 1 });
-    if (event) {
-      event.participants.push({ user_id, participated: false });
-      const up = await Event.findOneAndUpdate(
-        { _id: id },
-        { participants: event.participants }
-      );
-      if (up)
-        return response(res, "You are now participating to that event", 200);
-      next(createError("Cannot Participate at that event", 400));
-    }
-    return next(createError("Event not found", 404));
-  } catch (error) {
-    next(error);
-  }
-};
-const getLeaderboard = async (req, res, next) => {
-  console.log(req.user);
-  try {
-    const members = await Member.find({}, { name: 1, forname: 1, points: 1 });
-    if (members) {
-      return response(
-        res,
-        "Leaderboard retrieved Successfully",
-        200,
-        false,
-        members
-      );
-    }
-    return next(createError("Cannot retrieve leaderboard ", 400));
-  } catch (error) {
-    next(error);
-  }
-};
 const loginMember = async (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password)
@@ -175,8 +128,6 @@ const getInfo = async (req, res, next) => {
 
 module.exports = {
   registerUser,
-  attendEvent,
-  getLeaderboard,
   loginMember,
   recoverAccount,
   getSingleMember,

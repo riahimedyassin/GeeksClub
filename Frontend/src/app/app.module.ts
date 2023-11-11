@@ -9,9 +9,10 @@ import { JwtInterceptor } from './services/auth/jwt.interceptor';
 import { SkeletonProfileComponent } from './shared/components/skeleton-profile/skeleton-profile.component';
 import { RouterModule } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { NavigationAnimationComponent } from './navigation-animation/navigation-animation.component';
 
 @NgModule({
-  declarations: [AppComponent, NotFoundComponent ],
+  declarations: [AppComponent, NotFoundComponent, NavigationAnimationComponent ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, NavbarComponent],
   providers: [{
     provide:HTTP_INTERCEPTORS,

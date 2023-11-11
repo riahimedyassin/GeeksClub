@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
     });
     this.userService.getCurrentUser().subscribe((response) => {
       this.user = response.data;
-      this.handleTier();
+      this.tier=this.userService.getTier(<number>this.user.points?.global_point)
       const userForums = this.user.forums;
       console.log(this.user)
       if (userForums) {
@@ -42,18 +42,5 @@ export class HomeComponent implements OnInit {
       }
     },err=>console.log(err));
   }
-  handleTier() {
-    const points = this.user.points?.global_point;
-    if (typeof points == 'number') {
-      if (points < 10)
-        this.tier = { title: 'Hydrogene (Starter)', icon: 'bot' };
-      if (points > 10 && points < 50)
-        this.tier = { title: 'Growing star', icon: 'star-half' };
-      if (points > 50 && points < 100)
-        this.tier = { title: 'Shiny star', icon: 'asterisk' };
-      if (points > 100 && points < 200)
-        this.tier = { title: 'Brilliant star', icon: 'star' };
-      if (points > 200) this.tier = { title: 'Supernova', icon: 'asterisk' };
-    }
-  }
+  
 }

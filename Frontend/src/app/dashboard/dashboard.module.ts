@@ -6,7 +6,6 @@ import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { LucideAngularModule, icons } from 'lucide-angular';
 import { MainComponent } from './main/main.component';
 import { SearchComponent } from './shared/components/navbar/search/search.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ProfileComponent } from './profile/profile.component';
 import { SkeletonProfileComponent } from '../shared/components/skeleton-profile/skeleton-profile.component';
 import { SideNavbarComponent } from './shared/components/side-navbar/side-navbar.component';
@@ -17,12 +16,13 @@ import { ForumComponent } from './shared/components/forum/forum.component';
 import { EventsComponent } from './events/events.component';
 import { EventComponent } from './events/event/event.component';
 import { SelectedEventComponent } from './events/selected-event/selected-event.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommentsComponent } from './events/selected-event/comments/comments.component';
 import { ForumsComponent } from './forums/forums.component';
 import { SelectedForumComponent } from './forums/selected-forum/selected-forum.component';
 import { NotificationComponent } from '../shared/components/notification/notification.component';
 import { RepliesComponent } from './forums/selected-forum/replies/replies.component';
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 
 @NgModule({
   providers: [],
@@ -41,6 +41,7 @@ import { RepliesComponent } from './forums/selected-forum/replies/replies.compon
     ForumsComponent,
     SelectedForumComponent,
     RepliesComponent,
+    LeaderboardComponent,
   ],
   imports: [
     CommonModule,
@@ -50,7 +51,8 @@ import { RepliesComponent } from './forums/selected-forum/replies/replies.compon
     LoadingComponent,
     ShortenPipe,
     FormsModule,
-    NotificationComponent
+    NotificationComponent,
+    ReactiveFormsModule
     
   ],
 })

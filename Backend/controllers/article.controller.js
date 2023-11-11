@@ -26,7 +26,6 @@ const getSingleArticle= async(req,res,next) => {
         return next(createError("Cannot find this article",404))
     } catch (error) {
         next(error)
-        console.log(error)
     }
 }
 const addNewArticle=async(req,res,next) => {
@@ -38,7 +37,6 @@ const addNewArticle=async(req,res,next) => {
       return next(createError("Cannot create article",500))
   } catch (error) {
       next(error)
-      console.log(error)
   }
 }
 

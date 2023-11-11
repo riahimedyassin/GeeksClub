@@ -23,8 +23,6 @@ router.post('/image',imageUpload)
 
 
 router.use(requireMemberAuth);
-router.post("/events/participate/:id", attendEvent);
-router.get("/leaderboard", getLeaderboard);
 router.get("/me",getInfo)
 router.patch("/me",updateMember)
 router.get("/:id",requireAdminAuth,getSingleMember)

@@ -1,7 +1,19 @@
 <div class="text-white px-24 py-12">
     <div *ngIf="event && !error ; else loading">
         <img [src]="event.picture" *ngIf="event.picture">
-        <h1 class="mb-12">{{event.title}}</h1>
+        <div class="flex justify-between items-center mb-12" >
+            <h1 >{{event.title}}</h1>
+            <button class="flex gap-4 px-4 py-2  bg-main rounded-lg hover:bg-second transition-all" *ngIf="!member ; else participant" (click)="handleParticipate()">
+                <lucide-angular name="plus-circle"></lucide-angular>
+                <p >Participate</p>
+            </button>
+            <ng-template #participant>
+                <button class="flex gap-4 px-4 py-2  border-main rounded-lg hover:bg-second transition-all border-[1px] "(click)="handleQuitEvent()">
+                    <lucide-angular name="check-circle-2"></lucide-angular>
+                    <p >Quit </p>
+                </button>
+            </ng-template>
+        </div>
         <hr>
         <div class="flex items-center justify-between mb-8 mt-8">
             <div class="flex items-center gap-4">
@@ -18,15 +30,18 @@
             </div>
         </div>
         <hr>
+        <h2 class="mt-8">Descreption : </h2>
         <p class="mt-8 mb-16">
+            
             {{event.descreption}}
         </p>
-        <hr class="opacity-25 mb-12">
+        <hr class="mt-12 mb-4">
+        <h2 class="mb-8">Comments : </h2>
         <div class="addComment" >
             <textarea type="text" [(ngModel)]="comment" placeholder="Type in your comment" class="comment"></textarea>
             <button (click)="handleComment()">Submit</button>
         </div>
-        <div class="comments" *ngIf="event.comments && event.comments.length > 0 ; else noComment">
+        <div class="comments mt-12" *ngIf="event.comments && event.comments.length > 0 ; else noComment">
             <ng-container *ngFor="let comment of event.comments">
                 <app-comments [comment]="comment"></app-comments>
             </ng-container>

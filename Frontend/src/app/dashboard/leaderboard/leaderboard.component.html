@@ -1,0 +1,48 @@
+<div class="w-full text-white px-24 py-12">
+  <h1 class="mb-2">Available Tiers</h1>
+  <div class="tiers h-56 flex items-center justify-between mb-6">
+    <div
+      *ngFor="let tier of tiers"
+      class="flex items-center flex-col space-y-4"
+    >
+      <lucide-angular [name]="tier.icon" size="56"></lucide-angular>
+      <h2>{{ tier.title }}</h2>
+      <p class="text-gray-500">{{ tier.descreption }}</p>
+    </div>
+  </div>
+  <h1>Leaderboard</h1>
+  <table class="w-full mt-12 space-y-2" *ngIf="leaderboard; else loading">
+    <tr class="px-4 w-full bg-yellow-500 rounded-t-lg h-16">
+      <th class="rounded-tl-lg">Name</th>
+      <th>Tier</th>
+      <th class="rounded-tr-lg">Global Points</th>
+    </tr>
+    <tr
+      *ngFor="let user of leaderboard"
+      class="w-full px-4 bg-deepblack rounded-lg py-2 h-16 border-b-[1px] border-gray-500"
+    >
+      <td>
+        <h4>{{ user.name }} {{ user.forname }}</h4>
+      </td>
+      <td class="flex items-center gap-4 justify-center h-16">
+        <lucide-angular
+          [name]="handleTier(user.points.global_point).icon"
+        ></lucide-angular>
+        <h4>{{ handleTier(user.points.global_point).title }}</h4>
+      </td>
+      <td>
+        <h4>{{ user.points.global_point }}</h4>
+      </td>
+    </tr>
+  </table>
+  <ng-template #loading >
+    <div *ngIf="!error ; else errorOccured" >
+      <app-loading></app-loading>
+    </div>
+  </ng-template>
+  <ng-template #errorOccured>
+    <h1 class="text-red-500" *ngIf="error">
+      Error fetching the leaderboard , please try again later !
+    </h1>
+  </ng-template>
+</div>

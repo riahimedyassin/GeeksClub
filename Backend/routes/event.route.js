@@ -6,7 +6,11 @@ const {
   updateEvent,
   endEvent,
   getFeaturedEvents,
-  getUserEvents
+  getUserEvents,
+  addComment,
+  attendEvent,
+  quitEvent,
+  getLeaderboard
 } = require("../controllers/event.controller");
 const { requireAdminAuth } = require("../middlewares/auth/admin.auth");
 const { requireMemberAuth } = require("../middlewares/auth/member.auth");
@@ -16,10 +20,15 @@ const router = require("express").Router();
 router.get("/featured",getFeaturedEvents)
 router.use(requireMemberAuth)
 router.get("/", getAllEvents);
+router.get('/leaderboard',getLeaderboard)
+router.get('/list/me',getUserEvents)
+router.post('/comments/:id',addComment)
 router.get("/:id", getSingleEvent);
 router.get("/categorie/:categorie",getEventByCategorie);
-router.get('/event/me',getUserEvents)
-router.post('/comments/:id')
+router.post("/participate/:id", attendEvent);
+router.post('/quit/:id',quitEvent)
+
+
 
 //REQUIRE ADMIN 
 router.use(requireAdminAuth)

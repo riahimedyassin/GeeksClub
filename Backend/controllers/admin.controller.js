@@ -111,7 +111,6 @@ const confirmParticipation = async (req, res, next) => {
     return response(res, "Confirmed Successfully", 200);
   } catch (error) {
     next(error);
-    console.log(error);
   }
 };
 const getAdminInfo = async (req, res, next) => {

@@ -25,6 +25,9 @@
         <div class="mt-16" *ngIf="!forums  || !subscribedForums">
             <app-loading></app-loading>
         </div>
+        <div *ngIf="forums && forums.length===0 || subscribedForums && subscribedForums.length==0 " class="mt-8">
+            <h2>There are no available forums</h2>
+        </div>
     </ng-template>
     <ng-container *ngIf="error">
         <h1 class="text-red-500">Error fetching forums , please try again later ! </h1>

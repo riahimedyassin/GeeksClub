@@ -39,7 +39,6 @@ const subscribe = async (req, res, next) => {
     }
     return next(createError("Cannot find this forum", 404));
   } catch (error) {
-    console.log(error);
     next(error);
   }
 };
@@ -59,7 +58,6 @@ const unsubscribe = async (req, res, next) => {
     if (changes) return response(res, "Deleted successfully", 204);
     return next(createError("Cannot delete this member", 500));
   } catch (error) {
-    console.log(error);
     next(error);
   }
 };
@@ -118,9 +116,6 @@ const sendReply = async (req, res, next) => {
   const { reply } = req.body;
   const { message } = req.params;
   const { forum } = req.params;
-  console.log(message)
-  console.log(forum)
-  console.log(reply)
   if (!reply) return next(createError("All fields are mandatory", 400));
   if (!message || !forum)
     return next(createError("Provide the message && forum IDs", 400));
@@ -146,7 +141,6 @@ const sendReply = async (req, res, next) => {
     if (changed) return response(res, "Reply added successfully", 200 , false , getforum.articles);
     return next(createError("Cannot add reply", 500));
   } catch (error) {
-    console.log(error);
     next(error);
   }
 };

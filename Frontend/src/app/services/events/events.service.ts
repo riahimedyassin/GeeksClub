@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Event } from 'src/app/shared/models/Event.model';
 import { Response } from 'src/app/shared/models/Response.model';
+import { points } from 'src/app/shared/models/types/points.type';
 import { environment } from 'src/env/env';
 
 const URL = `${environment.host}/events`;
@@ -21,15 +22,23 @@ export class EventsService {
   }
 
   getUsersEvents() : Observable<Response<Event[]>> {
-      return this.http.get<Response<Event[]>>(`${URL}/event/me`)
+      return this.http.get<Response<Event[]>>(`${URL}/list/me`)
   }
   getSingleEvent(id : string ) : Observable<Response<Event>> {
     return this.http.get<Response<Event>>(`${URL}/${id}`)
   }
-  addComment(comment : string, event : string  ) {
-    return this.http.post(`${URL}/comments/${event}`,comment)
+  addComment(comment : string, event : string  ) : Observable<Response<Event>> {
+    return this.http.post<Response<Event>>(`${URL}/comments/${event}`,{content: comment})
   }
-
+  participateToEvent(id : string ) {
+    return this.http.post(`${URL}/participate/${id}`,{})
+  }
+  quitEvent(id : string ) : Observable<Response<Event>> {
+    return this.http.post<Response<Event>>(`${URL}/quit/${id}`,{})
+  }
+  getLeaderBoard(): Observable<Response<{name : string ,forname : string , points : points }[]>> {
+    return this.http.get<Response<{name : string ,forname : string , points : points }[]>>(`${URL}/leaderboard`)
+  }
 
 
 }

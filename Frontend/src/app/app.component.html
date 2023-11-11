@@ -1,1 +1,6 @@
-<router-outlet></router-outlet>
+<ng-container *ngIf="!navigating ; else navigation">
+    <router-outlet></router-outlet>
+</ng-container>
+<ng-template #navigation>
+   <app-navigation-animation></app-navigation-animation>>
+</ng-template>

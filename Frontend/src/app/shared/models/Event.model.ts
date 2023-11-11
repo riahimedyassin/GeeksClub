@@ -2,7 +2,7 @@ import { Comment } from './Comment.model';
 import { date } from './types/date.type';
 
 type participants = {
-  id: string;
+  user_id: string;
   participated: boolean;
 };
 

@@ -43,7 +43,7 @@ const eventSchema = Schema({
     },
     participants: {
         type:[{
-            id : {
+            user_id : {
                 type : String ,
                 required : [true  , "Please provide the user's ID"]
             },
@@ -55,7 +55,7 @@ const eventSchema = Schema({
         default:[]
     },
     comments : {
-        type: [{comment : String , name : String , forname : String , id : String }]
+        type: [{content : String , name : String , forname : String , id : String }]
     }
 })
 

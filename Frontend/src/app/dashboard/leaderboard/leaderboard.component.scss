@@ -1,0 +1,11 @@
+tr {
+    td {
+        text-align: center;
+    }
+    th {
+        @apply text-2xl
+    }
+    h4 {
+        font-weight: normal;
+    }
+}
