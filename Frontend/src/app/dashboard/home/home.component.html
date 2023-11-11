@@ -56,9 +56,14 @@
         <h4>You haven't subscribed to any forums yet</h4>
       </ng-container>
       <ng-template #dispForum>
-        <div *ngFor="let forum of forums" class="space-y-4 py-6  h-full w-full">
+        <ng-container *ngIf="forums.length>0; else noForum">
+          <div *ngFor="let forum of forums" class="space-y-4 py-6  h-full w-full">
             <app-forum [forum]="forum"></app-forum>
         </div>
+        </ng-container>
+        <ng-template #noForum>
+          <h2 class="mt-8">You are not subscribed to any forum</h2>
+        </ng-template>
       </ng-template>
     </div>
   </div>

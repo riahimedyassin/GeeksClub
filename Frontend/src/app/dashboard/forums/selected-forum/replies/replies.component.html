@@ -1,0 +1,32 @@
+<div
+  class="text-white w-full bg-deepblack rounded-lg mb-8 px-4 py-2 reveal transition-all"
+>
+  <p class="mb-4 font-bold mt-2">
+    {{ article.message.sent_by.name }} {{ article.message.sent_by.forname }}
+  </p>
+  <p class="text-lg">{{ article.message.content }}</p>
+  <button (click)="showComment = !showComment" class="text-second">
+    {{ !showComment ? "Show" : "Hide" }} comments
+  </button>
+  <div>
+    <div class="comment space-y-4" *ngIf="showComment">
+      <ng-container *ngFor="let comment of article.replies">
+        <div>
+          <p>{{ comment.sent_by.name }} {{ comment.sent_by.forname }}</p>
+          <p>{{ comment.content }}</p>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div
+    class="flex gap-2 border-[1px] border-gray-500 rounded-lg w-full justify-between mt-4"
+  >
+    <input type="text" placeholder="Type a comment" [(ngModel)]="comment" />
+    <button
+      class="bg-main px-4 hover:bg-second transition-all"
+      (click)="handleComment()"
+    >
+      <lucide-angular name="send"></lucide-angular>
+    </button>
+  </div>
+</div>

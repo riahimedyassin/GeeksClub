@@ -1,6 +1,7 @@
 import { message } from "./message.type";
 
 export type articleResponse = {
-  message: message;
+  _id : string , 
+  message: message,
   replies: message[]
 };

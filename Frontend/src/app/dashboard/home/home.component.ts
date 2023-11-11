@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
           console.log(response.data)
           response.data.forEach((forum) => {
             this.forumsService.getSingleForum(forum).subscribe((response) => {
-              this.forums.push(response.data);
+              if(response.data.members.includes(this.user._id)) this.forums.push(response.data); 
             },err=> console.log(err));
           });
         },err=> console.log(err));

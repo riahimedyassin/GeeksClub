@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../shared/services/user/user.service';
 import { User } from 'src/app/shared/models/User.model';
 import { RevealAnimationService } from 'src/app/shared/services/reveal-animation.service';
+import { articleResponse } from 'src/app/shared/models/types/articleResponse.type';
 
 
 @Component({
@@ -53,7 +54,7 @@ export class SelectedForumComponent implements OnInit {
     );
   }
   postArticle() {
-    if (this.content.trim() != '') {
+    if (this.content.trim() != '' && this.isSub) {
       this.forumService.postArticle(this.content, this.id).subscribe(
         (response) => {
           this.forum.articles = response.data;
@@ -68,5 +69,8 @@ export class SelectedForumComponent implements OnInit {
         }
       );
     }
+  }
+  handleCommentChange(event : articleResponse[]) {
+    this.forum.articles=event
   }
 }

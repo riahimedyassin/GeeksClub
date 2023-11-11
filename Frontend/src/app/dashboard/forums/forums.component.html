@@ -2,22 +2,27 @@
     <h1>Forums</h1>
     <div class="flex items-center">
         <h2>Filter : </h2>
-        <button class="filter--button" [ngClass]="type=='all' ? 'active' : ''">
+        <button class="filter--button" [ngClass]="type=='all' ? 'active' : ''" (click)="type='all'">
             <lucide-angular name="form-input"></lucide-angular>
             <p>All Forums</p>
         </button>
-        <button class="filter--button" [ngClass]="type=='user' ? 'active' : ''" >
+        <button class="filter--button" [ngClass]="type=='user' ? 'active' : ''" (click)="type='user'" >
             <lucide-angular name="user" ></lucide-angular>
             <p>Subscribed Forums</p>
         </button>
     </div>
-    <div *ngIf="forums ; else loading " class="mt-12">
+    <div *ngIf="forums && type=='all'; else loading " class="mt-12">
         <ng-container *ngFor="let forum of forums">
             <app-forum [forum]="forum"></app-forum>
         </ng-container>
     </div>
+    <div *ngIf="subscribedForums && type=='user' " class="mt-12">
+        <ng-container *ngFor="let forum of subscribedForums">
+            <app-forum [forum]="forum"></app-forum>
+        </ng-container>
+    </div>
     <ng-template #loading>
-        <div class="mt-16">
+        <div class="mt-16" *ngIf="!forums  || !subscribedForums">
             <app-loading></app-loading>
         </div>
     </ng-template>

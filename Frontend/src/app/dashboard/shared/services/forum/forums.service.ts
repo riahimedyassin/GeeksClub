@@ -36,6 +36,9 @@ export class ForumsService {
       { message: { content } }
     );
   }
+  postComment(content : string, forum : string , article : string) : Observable<Response<articleResponse[]>> {
+    return this.http.post<Response<articleResponse[]>>(`${URL}/articles/${forum}/${article}`,{reply : content})
+  }
   getUsersForums(): Observable<Response<string[]>> {
     return this.http.get<Response<string[]>>(`${URL}/user/me`);
   }

@@ -21,8 +21,8 @@ import { FormsModule } from '@angular/forms';
 import { CommentsComponent } from './events/selected-event/comments/comments.component';
 import { ForumsComponent } from './forums/forums.component';
 import { SelectedForumComponent } from './forums/selected-forum/selected-forum.component';
-import { ArticleComponent } from './forums/selected-forum/article/article.component';
 import { NotificationComponent } from '../shared/components/notification/notification.component';
+import { RepliesComponent } from './forums/selected-forum/replies/replies.component';
 
 @NgModule({
   providers: [],
@@ -40,7 +40,7 @@ import { NotificationComponent } from '../shared/components/notification/notific
     CommentsComponent,
     ForumsComponent,
     SelectedForumComponent,
-    ArticleComponent,
+    RepliesComponent,
   ],
   imports: [
     CommonModule,

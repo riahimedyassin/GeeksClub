@@ -15,14 +15,14 @@
     <div *ngIf="toDisplay.length == 0; else dis">No matching {{selected | titlecase}} </div>
     <ng-template #dis>
       <ul *ngIf="selected == 'events'; else forums">
-        <li *ngFor="let ele of toDisplay">
-          <p routerLink="./profile">{{ ele.title }}</p>
+        <li *ngFor="let ele of toDisplay" [routerLink]="'/dashboard/events/'+ele._id" class="cursor-pointer hover:bg-deepblack bg-black">
+          <p >{{ ele.title }}</p>
         </li>
       </ul>
       <ng-template #forums>
         <ul>
-          <li *ngFor="let ele of toDisplay">
-            {{ ele.name }}
+          <li *ngFor="let ele of toDisplay" [routerLink]="'/dashboard/forums/'+ele._id" class="cursor-pointer hover:bg-deepblack bg-black">
+            <p>{{ ele.name }}</p>
           </li>
         </ul>
       </ng-template>

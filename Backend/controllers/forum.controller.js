@@ -118,6 +118,9 @@ const sendReply = async (req, res, next) => {
   const { reply } = req.body;
   const { message } = req.params;
   const { forum } = req.params;
+  console.log(message)
+  console.log(forum)
+  console.log(reply)
   if (!reply) return next(createError("All fields are mandatory", 400));
   if (!message || !forum)
     return next(createError("Provide the message && forum IDs", 400));
@@ -125,7 +128,7 @@ const sendReply = async (req, res, next) => {
     const getforum = await Forum.findOne({ _id: forum }, { articles: 1 });
     let index = 0;
     while (
-      getforum.articles[index].id != message &&
+      getforum.articles[index]._id != message &&
       index < getforum.articles.length
     )
       index++;
@@ -136,11 +139,11 @@ const sendReply = async (req, res, next) => {
       sent_by: {
         user_id: id , name : user.name, forname : user.forname
       },
-      content: reply.content,
-      date_sent: reply.date_sent,
+      content: reply,
+      date_sent: Date.now(),
     });
     const changed = await Forum.findOneAndUpdate({ _id: forum }, getforum);
-    if (changed) return response(res, "Reply added successfully", 201);
+    if (changed) return response(res, "Reply added successfully", 200 , false , getforum.articles);
     return next(createError("Cannot add reply", 500));
   } catch (error) {
     console.log(error);
