@@ -9,7 +9,7 @@ import { Comment } from 'src/app/shared/models/Comment.model';
 export class CommentsComponent implements OnInit  {
   @Input('comment') comment! : Comment;
   ngOnInit(): void {
-      console.log(this.comment)
+      
   }
   
 }

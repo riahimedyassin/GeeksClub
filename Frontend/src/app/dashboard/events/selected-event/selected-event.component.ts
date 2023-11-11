@@ -25,58 +25,40 @@ export class SelectedEventComponent implements OnInit {
   user_id!: string;
   ngOnInit(): void {
     this.id = <string>this.activated.snapshot.paramMap.get('id');
-    this.eventService.getSingleEvent(this.id).subscribe(
-      (response) => {
-        this.event = response.data;
-        this.userService.getCurrentUser().subscribe((response) => {
-          this.user_id = response.data._id;
-          this.member =
-            this.event.participants.filter(
-              (participant) => participant.user_id === response.data._id
-            ).length > 0;
-          console.log(this.member);
-        });
-      },
-      (err) => {
-        this.error = true;
-      }
-    );
+    this.eventService.getSingleEvent(this.id).subscribe((response) => {
+      this.event = response.data;
+      this.userService.getCurrentUser().subscribe((response) => {
+        this.user_id = response.data._id;
+        this.member =
+          this.event.participants.filter(
+            (participant) => participant.user_id === response.data._id
+          ).length > 0;
+        console.log(this.member);
+      });
+    });
   }
   handleComment() {
     console.log(this.id);
-    this.eventService.addComment(this.comment, this.id).subscribe(
-      (response) => {
+    this.eventService
+      .addComment(this.comment, this.id)
+      .subscribe((response) => {
         this.comment = '';
         this.event = response.data;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+      });
   }
   handleParticipate() {
-    this.eventService.participateToEvent(this.id).subscribe(
-      () => {
-        this.member = true;
-        this.event.participants.push({
-          user_id: this.user_id,
-          participated: false,
-        });
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    this.eventService.participateToEvent(this.id).subscribe(() => {
+      this.member = true;
+      this.event.participants.push({
+        user_id: this.user_id,
+        participated: false,
+      });
+    });
   }
   handleQuitEvent() {
-    this.eventService.quitEvent(this.id).subscribe(
-      (response) => {
-        this.event = response.data;
-        this.member = false;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    this.eventService.quitEvent(this.id).subscribe((response) => {
+      this.event = response.data;
+      this.member = false;
+    });
   }
 }

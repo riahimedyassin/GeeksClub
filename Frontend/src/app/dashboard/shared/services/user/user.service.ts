@@ -5,7 +5,7 @@ import { User } from 'src/app/shared/models/User.model';
 import { environment } from 'src/env/env';
 import { JwtService } from '../../../../services/auth/jwt.service';
 import { Response } from 'src/app/shared/models/Response.model';
-import { HandleError } from '../../error/errorHandler';
+import { HandleError } from '../../../../shared/error/errorHandler';
 
 const URL = `${environment.host}/members`;
 
@@ -32,21 +32,16 @@ export class UserService {
     this.jwtService.removeToken();
   }
   cacheUser() {
-    this.http
-      .get<Response<User>>(`${URL}/me`)
-      .pipe(catchError((error: any) => this.errorHandler.handle(error)))
-      .subscribe((response) => {
-        this.user = response.data;
-      });
+    this.http.get<Response<User>>(`${URL}/me`).subscribe((response) => {
+      this.user = response.data;
+    });
   }
   getCurrentUser(): Observable<Response<User>> {
     if (this.user) {
       return this.user$;
     } else {
-      this.cacheUser()
-      return this.http
-        .get<Response<User>>(`${URL}/me`)
-        .pipe(catchError((error: any) => this.errorHandler.handle(error)));
+      this.cacheUser();
+      return this.http.get<Response<User>>(`${URL}/me`);
     }
   }
   getTier(points: number): { title: string; icon: string } {

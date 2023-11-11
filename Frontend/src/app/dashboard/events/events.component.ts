@@ -24,9 +24,6 @@ export class EventsComponent implements OnInit {
     this.eventService.getUsersEvents().subscribe(
       (response) => {
         this.events = response.data;
-      },
-      (err) => {
-        console.log(err);
       }
     );
     this.eventService.getAllEvenets().subscribe((response) => {

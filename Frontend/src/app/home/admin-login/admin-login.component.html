@@ -1,0 +1,14 @@
+<app-navbar></app-navbar>
+<div class="w-full h-[100vh] text-white  flex items-center justify-center ">
+    <form class="w-[600px] bg-deepblack h-[60vh] rounded-lg " [formGroup]="form">
+        <h1 class="mb-12">Login</h1>
+        <div>
+            <input type="text" placeholder="Enter your email" formControlName="email">
+        </div>
+        <div >
+            <input type="password" placeholder="Enter your password" formControlName="password">
+        </div>
+        <button (click)="handleLogin()">Login</button>
+    </form>
+</div>
+<app-footer></app-footer>

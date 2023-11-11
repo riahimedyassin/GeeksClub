@@ -47,9 +47,6 @@ export class SelectedForumComponent implements OnInit {
     this.forumService.unsubscribeFromForum(this.id).subscribe(
       (response) => {
         this.isSub = false;
-      },
-      (err) => {
-        console.log(err);
       }
     );
   }
@@ -63,9 +60,6 @@ export class SelectedForumComponent implements OnInit {
           setTimeout(() => {
             this.published = false;
           }, 3000);
-        },
-        (error) => {
-          console.log(error);
         }
       );
     }

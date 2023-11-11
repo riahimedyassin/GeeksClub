@@ -23,6 +23,9 @@ export class AuthService {
   login(email : string , password : string ) : Observable<Response<string>> {
     return this.http.post<Response<string>>(`${environment.host}/members/login`,{email,password})
   }
+  loginAdmin(email : string , password : string ) : Observable<Response<string>> {
+    return this.http.post<Response<string>>(`${environment.host}/dashboard/login`,{email,password})
+  }
 
 
 

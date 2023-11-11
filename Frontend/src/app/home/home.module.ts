@@ -20,6 +20,7 @@ import { FeedbackComponent } from '../shared/components/feedback/feedback.compon
 import { ActivityComponent } from './index/activities/activity/activity.component';
 import { ShortenPipe } from '../shared/pipes/shorten.pipe';
 import { ErrorComponent } from '../shared/components/error/error.component';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { ErrorComponent } from '../shared/components/error/error.component';
     RegisterComponent,
     ActivitiesComponent,
     ContactComponent,
-    
+    AdminLoginComponent,
     IndexComponent,
     LoginComponent,
   

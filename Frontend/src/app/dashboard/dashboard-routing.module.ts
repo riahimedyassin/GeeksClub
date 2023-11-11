@@ -10,6 +10,7 @@ import { ForumsComponent } from './forums/forums.component';
 import { SelectedForumComponent } from './forums/selected-forum/selected-forum.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 
+
 const routes: Routes = [
   {
     path: '',
