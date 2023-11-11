@@ -47,7 +47,7 @@ export class ForumsService {
       { reply: content }
     );
   }
-  getUsersForums(): Observable<Response<string[]>> {
-    return this.http.get<Response<string[]>>(`${URL}/user/me`);
+  getUsersForums(): Observable<Response<Forum[]>> {
+    return this.http.get<Response<Forum[]>>(`${URL}/user/me`);
   }
 }

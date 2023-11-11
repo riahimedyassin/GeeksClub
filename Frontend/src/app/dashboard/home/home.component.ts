@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
       this.event = response.data[0];
     });
     this.userService.getCurrentUser().subscribe((response) => {
-      console.log(response.data)
+      console.log(response.data);
       this.user = response.data;
       this.tier = this.userService.getTier(
         <number>this.user.points?.global_point
@@ -35,13 +35,9 @@ export class HomeComponent implements OnInit {
       console.log(this.user);
       if (userForums) {
         this.forumsService.getUsersForums().subscribe((response) => {
-          console.log(response.data);
-          response.data.forEach((forum) => {
-            this.forumsService.getSingleForum(forum).subscribe((response) => {
-              if (response.data.members.includes(this.user._id))
-                this.forums.push(response.data);
-            });
-          });
+          console.log(response)
+          this.forums = response.data;
+          console.log(this.forums)
         });
       }
     });

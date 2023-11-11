@@ -1,14 +1,15 @@
 const {
   registerUser,
-  attendEvent,
-  getLeaderboard,
   loginMember,
   recoverAccount,
   getSingleMember,
   updateMember,
   getInfo,
   imageUpload,
-  getUserEvents
+  getAllMembers,
+  deleteMember,
+  getAllRegistred,
+  registerMember
 } = require("../controllers/member.controller");
 const { requireAdminAuth } = require("../middlewares/auth/admin.auth");
 const { requireMemberAuth } = require("../middlewares/auth/member.auth");
@@ -21,11 +22,16 @@ router.post("/recovery", recoverAccount);
 router.post('/image',imageUpload)
 
 
-
-router.use(requireMemberAuth);
-router.get("/me",getInfo)
-router.patch("/me",updateMember)
+router.get("/all/:page", requireAdminAuth, getAllMembers);
+router.post("/add/:id", requireAdminAuth, registerMember);
+router.get("/registered/all",requireAdminAuth, getAllRegistred);
+router.delete("/:id",requireAdminAuth, deleteMember);
 router.get("/:id",requireAdminAuth,getSingleMember)
+
+
+router.get("/me/info",requireMemberAuth,getInfo)
+router.patch("/me",requireMemberAuth,updateMember)
+
 
 
 module.exports = router;

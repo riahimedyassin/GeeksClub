@@ -4,6 +4,7 @@ const { response } = require("../utils/response/Response");
 const { createError } = require("../errors/customError");
 const { deleteFromTable } = require("../utils/deleteFromTable");
 const Member = require("../models/member.model");
+const { verfiyToken } = require("../utils/token/verifyToken");
 
 const addForum = async (req, res, next) => {
   try {
@@ -55,7 +56,10 @@ const unsubscribe = async (req, res, next) => {
     });
     getforum.members = deleteFromTable(getforum.members, id);
     const changes = await Forum.findOneAndUpdate({ _id: forum }, getforum);
-    if (changes) return response(res, "Deleted successfully", 204);
+    const user = await Member.findOne({_id:id})
+    user.forums=deleteFromTable(user.forums,forum)
+    const done = await Member.findOneAndUpdate({_id:id},user)
+    if (changes && done) return response(res, "Deleted successfully", 204);
     return next(createError("Cannot delete this member", 500));
   } catch (error) {
     next(error);
@@ -160,8 +164,13 @@ const getSingleForum = async (req, res, next) => {
 const getUserEvents=async(req,res,next)=> {
   const id = req.user
   try {
-      const user = await Member.findOne({_id:id})
-      return response(res,"Forums retrieved successfully",200,false,user.forums)
+      const user = await Member.findOne({_id:id});
+      const forums= [];
+      for(let i=0;i<user.forums.length;i++) {
+        const frm = await Forum.findOne({_id:user.forums[i]})
+        forums.push(frm)
+      }
+      return response(res,"Forums retrieved successfully",200,false,forums)
   } catch (error) {
       next(error)
   }

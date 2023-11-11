@@ -162,7 +162,8 @@ const addComment = async (req, res, next) => {
       forname: user.forname,
     });
     const done = await Event.findOneAndUpdate({ _id: event }, event);
-    if (done) return response(res, "Comment added successfully", 200 , false , event);
+    if (done)
+      return response(res, "Comment added successfully", 200, false, event);
     return next(createError("Cannot add comment"));
   } catch (error) {
     next(error);
@@ -227,6 +228,30 @@ const getLeaderboard = async (req, res, next) => {
     next(error);
   }
 };
+const confirmParticipation = async (req, res, next) => {
+  const { members } = req.body;
+  const { id } = req.params;
+  if (!members)
+    return next(createError("Please provide and Array of User's ID", 400));
+  try {
+    const event = await Event.findOne(
+      { _id: id },
+      { reward_point: 1, _id: 1, participants: 1 }
+    );
+    if (!event) next(createError("Cannot Find this Event", 404));
+    members.forEach(async (member) => {
+      const mem = await Member.findOne({ _id: member }, { points: 1, _id: 1 });
+      mem.points.week_point += event.reward_point;
+      await Member.findOneAndUpdate({ _id: member }, mem);
+    });
+    event.registred = [];
+    event.participants = members;
+    await Event.findOneAndUpdate({ _id: id }, event);
+    return response(res, "Confirmed Successfully", 200);
+  } catch (error) {
+    next(error);
+  }
+};
 module.exports = {
   getAllEvents,
   getEventByCategorie,
@@ -239,5 +264,6 @@ module.exports = {
   addComment,
   attendEvent,
   quitEvent,
-  getLeaderboard
+  getLeaderboard,
+  confirmParticipation,
 };

@@ -9,16 +9,14 @@ const errorHandler = async (err, req, res, next) => {
         .json({ message: err.message, status: err.status });
     }
     if (err instanceof MongooseError) {
-      return res.status(400).json({ message: "Bad Request", error: err });
+      return res.status(400).json({ message: "Bad Request", error: err.message , stackTrace:err.stack });
     }
-    return res
-      .status(500)
-      .json({
-        message: "Internal Server Error",
-        error: err,
-        status: 500,
-        stackTrace: err.stackTrace,
-      });
+    return res.status(500).json({
+      message: "Internal Server Error || Unknown Error",
+      error: err,
+      status: 500,
+      stackTrace: err.stackTrace,
+    });
   }
   next();
 };

@@ -32,7 +32,7 @@ export class UserService {
     this.jwtService.removeToken();
   }
   cacheUser() {
-    this.http.get<Response<User>>(`${URL}/me`).subscribe((response) => {
+    this.http.get<Response<User>>(`${URL}/me/info`).subscribe((response) => {
       this.user = response.data;
     });
   }
@@ -41,7 +41,7 @@ export class UserService {
       return this.user$;
     } else {
       this.cacheUser();
-      return this.http.get<Response<User>>(`${URL}/me`);
+      return this.http.get<Response<User>>(`${URL}/me/info`);
     }
   }
   getTier(points: number): { title: string; icon: string } {

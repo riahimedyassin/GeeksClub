@@ -1,7 +1,7 @@
 const { createError } = require("../../errors/customError");
 const { verfiyToken } = require("../../utils/token/verifyToken");
 
-const requireMemberAuth = async (req, res, next) => {
+const isAuth = async (req, res, next) => {
   try {
     const { authorization } = req.headers;
     if (!authorization)
@@ -10,11 +10,10 @@ const requireMemberAuth = async (req, res, next) => {
     const verfied = await verfiyToken(token);
     if (!verfied) return next(createError("Unauth", 403));
     req.user = verfied.id;
-    req.role = "member";
     next();
   } catch (error) {
     return next(createError("Unauthorized", 403));
   }
 };
 
-module.exports = { requireMemberAuth };
+module.exports = { isAuth };

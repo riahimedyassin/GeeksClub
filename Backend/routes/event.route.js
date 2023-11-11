@@ -10,24 +10,26 @@ const {
   addComment,
   attendEvent,
   quitEvent,
-  getLeaderboard
+  getLeaderboard,
+  confirmParticipation
 } = require("../controllers/event.controller");
 const { requireAdminAuth } = require("../middlewares/auth/admin.auth");
 const { requireMemberAuth } = require("../middlewares/auth/member.auth");
+const {isAuth} = require("../middlewares/auth/isAuth")
 
 const router = require("express").Router();
 
 router.get("/featured",getFeaturedEvents)
-router.use(requireMemberAuth)
-router.get("/", getAllEvents);
-router.get('/leaderboard',getLeaderboard)
-router.get('/list/me',getUserEvents)
-router.post('/comments/:id',addComment)
-router.get("/:id", getSingleEvent);
-router.get("/categorie/:categorie",getEventByCategorie);
-router.post("/participate/:id", attendEvent);
-router.post('/quit/:id',quitEvent)
 
+router.get("/",isAuth, getAllEvents);
+router.get('/leaderboard',isAuth,getLeaderboard)
+router.get('/list/me',isAuth,getUserEvents)
+router.post('/comments/:id',requireMemberAuth,addComment)
+router.get("/:id",isAuth, getSingleEvent);
+router.get("/categorie/:categorie",isAuth,getEventByCategorie);
+router.post("/participate/:id",requireMemberAuth, attendEvent);
+router.post('/quit/:id',requireMemberAuth,quitEvent)
+router.post("/confirm/:id",requireAdminAuth,confirmParticipation)
 
 
 //REQUIRE ADMIN 

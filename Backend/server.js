@@ -16,14 +16,17 @@ const forumRoute = require("./routes/forum.route");
 const articleRoute = require("./routes/article.route");
 const errorHandler = require("./middlewares/errorHandler");
 
+
+
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:4200",
+    origin: process.env.CORS_ORIGIN ,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true
   })
 );
+app.disable('x-powered-by');
 app.use("/api/geeks/dashboard", adminRoute);
 app.use("/api/geeks/members", memberRoute);
 app.use("/api/geeks/events", eventRoute);

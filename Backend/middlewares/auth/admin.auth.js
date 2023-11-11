@@ -1,4 +1,3 @@
-
 const { createError } = require("../../errors/customError");
 const { verfiyToken } = require("../../utils/token/verifyToken");
 
@@ -7,7 +6,7 @@ const requireAdminAuth = async (req, res, next) => {
     const { authorization } = req.headers;
     if (!authorization)
       return next(createError("No token has been provided", 403));
-    const token = authorization.split(' ')[1]
+    const token = authorization.split(" ")[1];
     const verfied = await verfiyToken(token);
     if (!verfied) return next(createError("Unauth", 403));
     req.user = verfied.id;
