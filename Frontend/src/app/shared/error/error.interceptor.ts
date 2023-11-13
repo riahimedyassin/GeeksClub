@@ -7,10 +7,9 @@ import {
   HttpEvent,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HandleError } from './errorHandler';
-import { Response } from '../models/Response.model';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -21,6 +20,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
+        console.log('"Hola"')
         return this.errorHandler.handle(error);
       })
     );

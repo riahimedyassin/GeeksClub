@@ -50,4 +50,7 @@ export class ForumsService {
   getUsersForums(): Observable<Response<Forum[]>> {
     return this.http.get<Response<Forum[]>>(`${URL}/user/me`);
   }
+  createForum(forum: Forum): Observable<Response<Forum>> {
+    return this.http.post<Response<Forum>>(`${URL}`, forum);
+  }
 }

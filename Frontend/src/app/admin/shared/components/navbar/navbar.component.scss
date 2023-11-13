@@ -1,0 +1,18 @@
+ul {
+    @apply w-full;
+    li {
+        @apply rounded-lg px-4 py-2 transition-all col-span-1 grid grid-cols-4 items-center justify-center gap-4 w-full h-16 font-bold text-xl ; 
+        lucide-angular {
+            @apply col-span-1
+        }
+        p {
+            @apply col-span-3
+        }
+        &:hover {
+            @apply bg-main cursor-pointer
+        }
+    }
+}
+.active {
+    @apply bg-second
+}

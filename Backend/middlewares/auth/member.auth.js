@@ -10,7 +10,6 @@ const requireMemberAuth = async (req, res, next) => {
     const verfied = await verfiyToken(token);
     if (!verfied) return next(createError("Unauth", 403));
     req.user = verfied.id;
-    req.role = "member";
     next();
   } catch (error) {
     return next(createError("Unauthorized", 403));

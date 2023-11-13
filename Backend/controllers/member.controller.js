@@ -9,6 +9,7 @@ const { Recovery } = require("../utils/recovery/Recovery");
 const { inTable } = require("../utils/inTable");
 const recovery = new Recovery();
 const cloudinary = require("../utils/cloudinary").v2;
+const { lazyResponse } = require("../utils/response/LazyResponse");
 
 const registerUser = async (req, res, next) => {
   const user = req.body;
@@ -17,7 +18,7 @@ const registerUser = async (req, res, next) => {
     if (exist) return response(res, "Already Registered", 200);
     const result = await cloudinary.uploader.upload(user.picture);
     user.password = await hashPassword(user.password);
-    user.picture = result ; 
+    user.picture = result;
     user.recovery_question.answer = await recovery.hashResponse(
       user.recovery_question.answer
     );
@@ -34,9 +35,9 @@ const registerUser = async (req, res, next) => {
     return next(createError(`Unknown Error , Error : ${error}`, 500));
   }
 };
-const imageUpload=async(req,res,next) => {
-    console.log(req.picture); 
-}
+const imageUpload = async (req, res, next) => {
+  console.log(req.picture);
+};
 const loginMember = async (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password)
@@ -65,6 +66,7 @@ const recoverAccount = async (req, res, next) => {
       { email: email },
       { password: newHashed }
     );
+
     if (updated) return response(res, "Updated Successfully", 200);
     return next(createError("Internal Server Error", 500));
   }
@@ -118,6 +120,7 @@ const getInfo = async (req, res, next) => {
     const user = await Member.findOne({ _id: id, isMember: true });
     if (user)
       return response(res, "Member retrieved successfully", 200, false, user);
+    return next(createError("Unauthorized", 403));
   } catch (error) {
     next(error);
   }
@@ -127,16 +130,14 @@ const getAllMembers = async (req, res, next) => {
   const limit = 4;
   const skip = (page - 1) * limit;
   try {
-    const members = await Member.find(
-      { isMember: true },
-      { password: 0, recovery_question: 0 }
-    )
+    const members = await Member.find({}, { password: 0, recovery_question: 0 })
       .skip(skip)
       .limit(limit);
     if (members)
       return lazyResponse(res, "Members Retrieved Successfully", 200, members);
     return next(createError("Server Error", 500));
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };
@@ -204,7 +205,6 @@ const registerMember = async (req, res, next) => {
   }
 };
 
-
 module.exports = {
   registerUser,
   loginMember,
@@ -216,5 +216,5 @@ module.exports = {
   getAllMembers,
   deleteMember,
   getAllRegistred,
-  registerMember
+  registerMember,
 };

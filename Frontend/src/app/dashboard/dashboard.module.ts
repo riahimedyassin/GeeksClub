@@ -23,9 +23,15 @@ import { SelectedForumComponent } from './forums/selected-forum/selected-forum.c
 import { NotificationComponent } from '../shared/components/notification/notification.component';
 import { RepliesComponent } from './forums/selected-forum/replies/replies.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorInterceptor } from '../shared/error/error.interceptor';
 
 @NgModule({
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass:ErrorInterceptor,
+    multi:true
+  }],
   declarations: [
     NavbarComponent,
     MainComponent,

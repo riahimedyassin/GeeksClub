@@ -1,0 +1,39 @@
+<nav class="h-full w-full text-white border-r-[1px] border-gray-500 bg-deepblack flex flex-col items-center px-2 justify-between py-12">
+    <h2>Geeks</h2>
+    <ul class="flex flex-col items-center  px-2 py-1 ">
+        <li routerLinkActive="active" routerLink="/admin/home">
+            <lucide-angular name="home"></lucide-angular>
+            <p>Home</p>
+        </li>
+        <li routerLinkActive="active" routerLink="/admin/members">
+            <lucide-angular name="users-2"></lucide-angular>
+            <p>Members</p>
+        </li>
+        <li routerLinkActive="active" routerLink="/admin/events">
+            <lucide-angular name="calendar-clock"></lucide-angular>
+            <p>Events</p>
+        </li>
+        <li routerLinkActive="active" routerLink="/admin/forums">
+            <lucide-angular name="messages-square"></lucide-angular>
+            <p>Forums</p>
+        </li>
+        <li routerLinkActive="active" routerLink="/admin/admins">
+            <lucide-angular name="shield-half"></lucide-angular>
+            <p>Admins</p>
+        </li>
+    </ul>
+    <div class="profile w-full" >
+        <div class="bg-black hover:bg-third transition-all w-full rounded-lg px-4 py-2 h-26 flex items-center justify-between" *ngIf="admin ; else loadProfile">
+           <div>
+                <h4>{{admin.name}} {{admin.forname}}</h4>
+                <p>{{admin.role}}</p>
+           </div>
+           <lucide-angular name="arrow-right-circle"></lucide-angular>
+
+        </div>
+        <ng-template #loadProfile>
+            <app-skeleton-profile></app-skeleton-profile>
+        </ng-template>
+    </div>
+    
+</nav>

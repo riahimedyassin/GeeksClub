@@ -1,0 +1,59 @@
+<h1>Liste of all members</h1>
+
+<div class="flex justify-between items-center mt-14">
+  <div class="search grid grid-cols-6 ">
+    <lucide-angular name="search"></lucide-angular>
+    <input
+      class="col-span-5"
+      type="text"
+      placeholder="Search by name"
+      [(ngModel)]="search"
+      (input)="handleSerch()"
+    />
+  </div>
+  <button (click)="dispalyRegisterd()"
+    class="px-4 py-2 flex gap-4 rounded-lg"
+    [ngClass]="listRegistered ? 'bg-lightthird' : 'bg-third'"
+
+  >
+    <lucide-angular name="align-left"></lucide-angular>
+    <p>Registered</p>
+  </button>
+</div>
+
+<table
+  *ngIf="members; else load"
+  class="w-full mt-6 rounded-t-lg overflow-hidden"
+>
+  <tr class="bg-second h-12 rounded-t-lg">
+    <th>Full-name</th>
+    <th>Email</th>
+    <th>Points</th>
+    <th>Actions</th>
+  </tr>
+  <tr
+    *ngFor="let member of toDisplay; index as index"
+    class="h-12"
+    [ngClass]="
+      index % 2 === 0 ? 'bg-deepblack' : 'border-t-[1px] border-gray-500'
+    "
+  >
+    <th>{{ member.name }} {{ member.forname }}</th>
+    <th>{{ member.email }}</th>
+    <th>{{ member.points?.global_point }}</th>
+    <th class="flex gap-8 items-center justify-center h-12">
+      <button [routerLink]="'/admin/members/' + member._id">
+        <lucide-angular name="eye"></lucide-angular>
+      </button>
+      <button [routerLink]="'/admin/members/' + member._id">
+        <lucide-angular name="trash"></lucide-angular>
+      </button>
+    </th>
+  </tr>
+  <ng-container *ngIf="toDisplay.length === 0">
+    <h2 class="mt-2">No member found</h2>
+  </ng-container>
+</table>
+<ng-template #load>
+  <app-loading></app-loading>
+</ng-template>

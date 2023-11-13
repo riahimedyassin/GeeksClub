@@ -1,0 +1,12 @@
+<div
+  class="col-span-1 h-[200px] bg-deepblack rounded-lg hover:bg-main transition-all  py-4 px-6 cursor-pointer"
+  [routerLink]="'/admin' + link"
+>
+  <div class="col-span-2">
+    <h2>{{ title }}</h2>
+  </div>
+  <div class="flex items-center justify-between w-full px-12 mt-4">
+    <h1 class="text-7xl">{{ count }}</h1>
+    <lucide-angular [name]="icon" size="100"></lucide-angular>
+  </div>
+</div>

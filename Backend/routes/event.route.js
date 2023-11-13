@@ -29,7 +29,7 @@ router.get("/:id",isAuth, getSingleEvent);
 router.get("/categorie/:categorie",isAuth,getEventByCategorie);
 router.post("/participate/:id",requireMemberAuth, attendEvent);
 router.post('/quit/:id',requireMemberAuth,quitEvent)
-router.post("/confirm/:id",requireAdminAuth,confirmParticipation)
+
 
 
 //REQUIRE ADMIN 
@@ -37,5 +37,6 @@ router.use(requireAdminAuth)
 router.post("/",addEvents)
 router.patch("/:id",updateEvent)
 router.delete("/:id",endEvent)
+router.post("/confirm/:id",confirmParticipation)
 
 module.exports = router;

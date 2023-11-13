@@ -1,0 +1,16 @@
+table {
+    button {
+        @apply flex items-center justify-center h-full
+    }
+}
+.search {
+    width: 400px;
+    height: 40px;
+    input {
+        background-color: transparent;
+        &:focus {
+            outline: none;
+        }
+    }
+    @apply border-[1px] border-gray-500 rounded-xl items-center px-6
+}

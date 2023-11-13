@@ -23,10 +23,11 @@ const subscribe = async (req, res, next) => {
   if (!forum) return next(createError("Provide the forum ID", 400));
   if (!id) return next(createError("Unauthorized", 403));
   try {
-    const user = await Member.findOne({_id:id})
-    user.forums.push(forum)
-    const doneUser = await Member.findOneAndUpdate({_id:id},user)
-    if(!doneUser) return next(createError("Could not subscribe to this forum",405))
+    const user = await Member.findOne({ _id: id });
+    user.forums.push(forum);
+    const doneUser = await Member.findOneAndUpdate({ _id: id }, user);
+    if (!doneUser)
+      return next(createError("Could not subscribe to this forum", 405));
     const grtforum = await Forum.findOne({ _id: forum }, { members: 1 });
     if (grtforum) {
       grtforum.members.push(id);
@@ -56,9 +57,9 @@ const unsubscribe = async (req, res, next) => {
     });
     getforum.members = deleteFromTable(getforum.members, id);
     const changes = await Forum.findOneAndUpdate({ _id: forum }, getforum);
-    const user = await Member.findOne({_id:id})
-    user.forums=deleteFromTable(user.forums,forum)
-    const done = await Member.findOneAndUpdate({_id:id},user)
+    const user = await Member.findOne({ _id: id });
+    user.forums = deleteFromTable(user.forums, forum);
+    const done = await Member.findOneAndUpdate({ _id: id }, user);
     if (changes && done) return response(res, "Deleted successfully", 204);
     return next(createError("Cannot delete this member", 500));
   } catch (error) {
@@ -87,7 +88,14 @@ const sendMessage = async (req, res, next) => {
         },
       });
       const done = await Forum.findOneAndUpdate({ _id: forum }, created);
-      if (done) return response(res, "Article published successfully", 200,false,created.articles);
+      if (done)
+        return response(
+          res,
+          "Article published successfully",
+          200,
+          false,
+          created.articles
+        );
       return next(createError("Unable to publish article", 500));
     }
     return next(
@@ -136,13 +144,22 @@ const sendReply = async (req, res, next) => {
     const user = await Member.findOne({ _id: id }, { name: 1, forname: 1 });
     getforum.articles[index].replies.push({
       sent_by: {
-        user_id: id , name : user.name, forname : user.forname
+        user_id: id,
+        name: user.name,
+        forname: user.forname,
       },
       content: reply,
       date_sent: Date.now(),
     });
     const changed = await Forum.findOneAndUpdate({ _id: forum }, getforum);
-    if (changed) return response(res, "Reply added successfully", 200 , false , getforum.articles);
+    if (changed)
+      return response(
+        res,
+        "Reply added successfully",
+        200,
+        false,
+        getforum.articles
+      );
     return next(createError("Cannot add reply", 500));
   } catch (error) {
     next(error);
@@ -161,20 +178,45 @@ const getSingleForum = async (req, res, next) => {
     next(error);
   }
 };
-const getUserEvents=async(req,res,next)=> {
-  const id = req.user
+const getUserEvents = async (req, res, next) => {
+  const id = req.user;
   try {
-      const user = await Member.findOne({_id:id});
-      const forums= [];
-      for(let i=0;i<user.forums.length;i++) {
-        const frm = await Forum.findOne({_id:user.forums[i]})
-        forums.push(frm)
-      }
-      return response(res,"Forums retrieved successfully",200,false,forums)
+    const user = await Member.findOne({ _id: id });
+    const forums = [];
+    for (let i = 0; i < user.forums.length; i++) {
+      const frm = await Forum.findOne({ _id: user.forums[i] });
+      forums.push(frm);
+    }
+    return response(res, "Forums retrieved successfully", 200, false, forums);
+  } catch (error) {
+    next(error);
+  }
+};
+const updateForums = async (req, res, next) => {
+  const { id } = req.params;
+  const changes = req.body;
+  try {
+    const forum = await Forum.findOneAndUpdate({ _id: id }, changes);
+    if (forum) {
+      return response(res, "Forum updated successfully", 201);
+    }
+    return next(createError("Cannot find this forum", 404));
+  } catch (error) {
+    next(error);
+  }
+};
+const deleteForum = async(req,res,next) => {
+  const {id} = req.params ; 
+  try {
+      const forum = await Forum.findOneAndDelete({_id:id});
+      if(forum) return response(res,"Forum deleted succussfully",204)
+      return next(createError("Cannot find this forum",404))
   } catch (error) {
       next(error)
   }
 }
+
+
 
 module.exports = {
   addForum,
@@ -184,5 +226,7 @@ module.exports = {
   sendReply,
   getAllForums,
   getSingleForum,
-  getUserEvents
+  getUserEvents,
+  updateForums,
+  deleteForum
 };

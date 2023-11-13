@@ -1,4 +1,4 @@
-<div class="main">
+<div class="main" *ngIf="!hideMe">
   <div [ngClass]="status ? 'true' : 'false'">
     <h1 class="flex gap-4 items-center">
       {{ title }}

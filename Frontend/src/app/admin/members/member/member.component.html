@@ -1,0 +1,55 @@
+<div *ngIf="user; else load">
+  <div class="flex items-center justify-between">
+    <h2>Member : {{ user.name }} {{ user.forname }}</h2>
+    <ng-container *ngIf="displayNotification ">
+        <app-alert message="Deleting members will be final and permenant and all the data will be gone" ></app-alert>
+    </ng-container>
+    <button class="bg-red-500 rounded-lg px-4 py-2 flex gap-4 hover:bg-red-700 transition-all" (click)="handleDelete()">
+        <p>
+            Delete Member
+        </p>
+        <lucide-angular name="trash"></lucide-angular>
+    </button>
+  </div>
+  <div class="mt-12 class grid grid-cols-2 gap-12">
+    <div>
+      <h4>Facebooke profile</h4>
+      <div class="w-auto flex gap-4 bg-deepblack  rounded-lg overflow-hidden mt-4 items-center">
+        <div class="bg-blue-500 w-16 h-full px-4 py-2">
+            <lucide-angular name="facebook"></lucide-angular>
+        </div>
+        <p class="py-2">{{ user.facebook }}</p>
+        <a [href]="user.facebook" target="_blank">
+            <lucide-angular name="link"></lucide-angular>
+        </a>
+      </div>
+    </div>
+    <div>
+      <h4>Email Address</h4>
+      <p class="mt-4 bg-deepblack  rounded-lg overflow-hidden py-2">{{ user.email }}</p>
+    </div>
+    <div>
+        <h4>Phone Number</h4>
+        <p class="mt-4 bg-deepblack  rounded-lg overflow-hidden py-2">{{ user.phone}}</p>
+      </div>
+    <div>
+      <h4>Global Points</h4>
+      <p class="mt-4 bg-deepblack  rounded-lg overflow-hidden py-2">{{ user.points?.global_point }}</p>
+    </div>
+    <div>
+      <h4>Region</h4>
+      <p class="mt-4 bg-deepblack  rounded-lg overflow-hidden py-2">{{ user.address.region }}</p>
+    </div>
+    <div>
+      <h4>City</h4>
+      <p class="mt-4 bg-deepblack  rounded-lg overflow-hidden py-2">{{ user.address.city }}</p>
+    </div>
+    <div>
+      <h4>Email Address</h4>
+      <p class="mt-4 bg-deepblack  rounded-lg overflow-hidden py-2">{{ user.name }}</p>
+    </div>
+  </div>
+</div>
+<ng-template #load>
+  <app-loading></app-loading>
+</ng-template>

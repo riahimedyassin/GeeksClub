@@ -14,7 +14,9 @@ export class AlertComponent {
   @Input('message') message : string = "Error Occured"; 
   @Input('status') status : boolean = false ; 
   @Output() hide : EventEmitter<boolean> = new EventEmitter<boolean>() ; 
+  hideMe :boolean = false  ;
   emithidden() {
+    this.hideMe=true ; 
     this.hide.emit(true)
   }
 }

@@ -9,16 +9,14 @@ const {
 } = require("../controllers/admin.controller");
 const { requireAdminAuth } = require("../middlewares/auth/admin.auth");
 
-router.post('/register',registerAdmin)
 router.post('/login',adminLogin)
 
 
 //REQUIRE ADMIN
 router.use(requireAdminAuth)
-
-
 router.patch("/me",changeInfo)
 router.get("/me",getAdminInfo)
+router.post('/register',registerAdmin)
 
 
 

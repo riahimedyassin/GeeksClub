@@ -38,7 +38,7 @@ export class AdminLoginComponent implements OnInit {
         )
         .subscribe(
           (response) => {
-            this.jwtService.setToken(response.data);
+            this.jwtService.setToken(<string>response.token);
             this.router.navigate(['/admin']);
           },
           (error: HttpErrorResponse) => {

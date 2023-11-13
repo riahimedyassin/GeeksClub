@@ -18,32 +18,61 @@ const getAllArticles = async (req, res, next) => {
     next(error);
   }
 };
-const getSingleArticle= async(req,res,next) => {
-    try {
-        const {id} = req.params
-        const article = await Article.findOne({_id:id})
-        if(article) return response(res,'Article retrieved successfully',200,false,article)
-        return next(createError("Cannot find this article",404))
-    } catch (error) {
-        next(error)
-    }
-}
-const addNewArticle=async(req,res,next) => {
-  const article = req.body  ; 
-  if(!article) return next(createError("Please provide an article",400))
+const getSingleArticle = async (req, res, next) => {
   try {
-      const created = await Article.create(article)
-      if(article) return response(res,'Created Successfully',200,false,article)
-      return next(createError("Cannot create article",500))
+    const { id } = req.params;
+    const article = await Article.findOne({ _id: id });
+    if (article)
+      return response(
+        res,
+        "Article retrieved successfully",
+        200,
+        false,
+        article
+      );
+    return next(createError("Cannot find this article", 404));
   } catch (error) {
-      next(error)
+    next(error);
   }
-}
+};
+const addNewArticle = async (req, res, next) => {
+  const article = req.body;
+  if (!article) return next(createError("Please provide an article", 400));
+  try {
+    const created = await Article.create(article);
+    if (article)
+      return response(res, "Created Successfully", 200, false, article);
+    return next(createError("Cannot create article", 500));
+  } catch (error) {
+    next(error);
+  }
+};
+const updateArticle = async (req, res, next) => {
+  const { id } = req.params;
+  const changes = req.body;
+  try {
+    const article = await Article.findByIdAndUpdate({ _id: id }, changes);
+    if (article) return response(res, "Article updated succussfully", 201);
+    return next(createError("Cannot find  this article", 404));
+  } catch (error) {
+    next(error);
+  }
+};
+const deleteArticle = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const article = await Article.findByIdAndDelete({ _id: id });
+    if (article) return response(res, "Article deleted successfully", 204);
+    return next(createError("Cannot find this article", 404));
+  } catch (error) {
+    next(error);
+  }
+};
 
-
-
-module.exports= {
-    getAllArticles, 
-    getSingleArticle,
-    addNewArticle
-}
+module.exports = {
+  getAllArticles,
+  getSingleArticle,
+  addNewArticle,
+  updateArticle,
+  deleteArticle
+};

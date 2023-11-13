@@ -40,6 +40,6 @@ export class HomeComponent implements OnInit {
           console.log(this.forums)
         });
       }
-    });
+    },err=> console.log(err));
   }
 }

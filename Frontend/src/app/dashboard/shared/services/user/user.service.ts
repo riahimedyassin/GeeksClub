@@ -31,7 +31,7 @@ export class UserService {
   logout() {
     this.jwtService.removeToken();
   }
-  cacheUser() {
+  private cacheUser() {
     this.http.get<Response<User>>(`${URL}/me/info`).subscribe((response) => {
       this.user = response.data;
     });
@@ -68,4 +68,24 @@ export class UserService {
       { title: 'Supernova', icon: 'sparkles', descreption: 'OG Member' },
     ];
   }
+  registerMember(id: string) {
+    return this.http.post(`${URL}/add/${id}`, {});
+  }
+  deleteMember(id: string) {
+    return this.http.delete(`${URL}/${id}`);
+  }
+  getMemberDetails(id: string): Observable<Response<User>> {
+    return this.http.get<Response<User>>(`${URL}/${id}`);
+  }
+  getAllMembers(page: number): Observable<Response<User[]>> {
+    return this.http.get<Response<User[]>>(`${URL}/all/${page}`);
+  }
+  getAllRegistered() : Observable<Response<User[]>> {
+    return this.http.get<Response<User[]>>(`${URL}/registered/all`)
+  }
+
+
+
 }
+
+
