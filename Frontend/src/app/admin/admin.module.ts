@@ -28,6 +28,7 @@ import { ForumComponent } from './forums/forum/forum.component';
 import { ArticleComponent } from './forums/forum/article/article.component';
 import { NewForumComponent } from './forums/new-forum/new-forum.component';
 import { NotificationComponent } from '../shared/components/notification/notification.component';
+import { NewEventComponent } from './events/new-event/new-event.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { NotificationComponent } from '../shared/components/notification/notific
     ForumComponent,
     ArticleComponent,
     NewForumComponent,
+    NewEventComponent,
   ],
   imports: [
     CommonModule,

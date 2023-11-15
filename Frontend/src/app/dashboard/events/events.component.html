@@ -1,4 +1,4 @@
-<div class="text-white px-24 pt-12 reveal">
+<div class="text-white px-24 pt-12 reveal" *ngIf="events ; else load">
   <h1>Liste of your events</h1>
   <ng-container *ngIf="events.length > 0 ; else noParticiaption">
     <div *ngFor="let event of events" class="space-y-4 mt-12 mb-8">
@@ -30,9 +30,12 @@
         <option value="assignment">Assignment</option>
     </select>
   </div>
-  <div class="space-y-4 mt-12">
+  <div class="space-y-12 mt-12">
     <ng-container *ngFor="let event of toDisplay">
       <app-event [event]="event"></app-event>
     </ng-container>
   </div>
 </div>
+<ng-template #load>
+  <app-loading></app-loading>
+</ng-template>

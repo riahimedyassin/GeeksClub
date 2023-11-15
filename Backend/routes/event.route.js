@@ -13,6 +13,7 @@ const {
   getLeaderboard,
   confirmParticipation,
   getEventsParticipants,
+  deleteEvent
 } = require("../controllers/event.controller");
 const { requireAdminAuth } = require("../middlewares/auth/admin.auth");
 const { requireMemberAuth } = require("../middlewares/auth/member.auth");
@@ -39,5 +40,6 @@ router.patch("/:id", updateEvent);
 router.post("/end/:id", endEvent);
 router.post("/confirm/:id/:user", confirmParticipation);
 router.get("/members/:id", getEventsParticipants);
+router.delete('/:id',deleteEvent)
 
 module.exports = router;

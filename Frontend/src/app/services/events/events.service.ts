@@ -59,4 +59,10 @@ export class EventsService {
   editEvent(id: string, changes: Event) {
     return this.http.patch(`${URL}/${id}`, changes);
   }
+  addNewEvent(event: Event) {
+    return this.http.post(`${URL}`, event);
+  }
+  deleteEvent(id : string) {
+    return this.http.delete(`${URL}/${id}`)
+  }
 }

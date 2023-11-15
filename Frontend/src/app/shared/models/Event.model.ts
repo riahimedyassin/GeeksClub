@@ -8,7 +8,7 @@ type participants = {
 
 export class Event {
   constructor(
-    public _id : string , 
+     
     public picture : string,
     public title: string,
     public descreption: string,
@@ -19,7 +19,9 @@ export class Event {
     public categorie: 'formation' | 'assignment' | 'event' | 'reunion',
     public participants: participants[],
     public prerequis: string[], 
-    public comments : Comment[]
+    public comments : Comment[],
+    public _id : string
+
   ) {}
 }
 

@@ -1,0 +1,81 @@
+<h1>Add new Event</h1>
+<div>
+  <form [formGroup]="form" (ngSubmit)="handleSubmit()" >
+    <div class="w-full grid grid-cols-2 mt-24 gap-6">
+        <div class="input--holder">
+            <h3>Title</h3>
+            <input
+              type="text"
+              placeholder="Enter the event title"
+              formControlName="title"
+            />
+          </div>
+          <div class="input--holder">
+            <h3>Reward Points</h3>
+            <input
+              type="number"
+              placeholder="Enter the event title"
+              formControlName="reward_point"
+            />
+          </div>
+          <div class="input--holder col-span-2">
+            <h3>Descreption</h3>
+            <textarea
+              type="text"
+              placeholder="Enter the event title"
+              formControlName="descreption"
+            ></textarea>
+          </div>
+          <div class="input--holder col-span-2">
+            <h3>Categorie</h3>
+            <select formControlName="categorie">
+              <option value="formation">Formation</option>
+              <option value="assignment">Assignement</option>
+              <option value="event">Event</option>
+              <option value="reunion">Reunion</option>
+            </select>
+          </div>
+          <div class="col-span-2 flex justify-between items-center gap-6" formGroupName="date" >
+              <div class="input--holder w-1/2">
+                  <h3>Date Start</h3>
+                  <input
+                    type="date"
+                    placeholder="Date start"
+                    formControlName="date_start"
+                  />
+                </div>
+                <div class="input--holder w-1/2">
+                  <h3>Date End</h3>
+                  <input
+                    type="date"
+                    placeholder="Date end"
+                    formControlName="date_end"
+                  />
+                </div>
+          </div>
+          <div class="input--holder col-span-2" formArrayName="prerequis">
+              <h2>Prerequis</h2>
+                <div *ngFor="let pre of listePrerquis.controls; index as index">
+                        <div class="flex gap-6 items-center">
+                            <input type="text" formControlName="{{index}}" placeholder="Prerequis Number {{index + 1}}" > 
+                            <button class="danger-button" (click)="deletePrerequis(index)">
+                                <lucide-angular name="trash"></lucide-angular>
+                                <p>Delete</p>
+                            </button>
+                        </div>
+                </div>
+                <button class="warning-button mt-4" (click)="addPrerequis()">Add prerequis</button>
+          </div>
+    </div>
+    <div class="flex gap-6 mt-12">
+        <button class="succuss-button " type="submit">
+            <lucide-angular name="calendar-plus"></lucide-angular>
+            <p>Add Event</p>
+        </button>
+        <button class="default-button" (click)="form.reset()" type="button">
+            <lucide-angular name="rotate-ccw"></lucide-angular>
+            <p>Reset</p>
+        </button>
+    </div>
+  </form>
+</div>

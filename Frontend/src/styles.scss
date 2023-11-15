@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import './scss//mixin' ; 
+@import "./scss//mixin";
 
 @import url("https://fonts.googleapis.com/css2?family=Anonymous+Pro&family=Inter:wght@100;200;300;400;500&family=Poppins:wght@100;300;400;600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500&family=Poppins:wght@100;300;400;600&display=swap");
@@ -67,20 +67,33 @@ h4 {
   background-color: rgb(26, 25, 25);
 }
 h3 {
-  @apply text-xl font-bold ; 
+  @apply text-xl font-bold;
 }
 .anonymous {
-  font-family: 'Anonymous Pro';
+  font-family: "Anonymous Pro";
 }
 .dashed-button {
-  @apply border-[1px] border-dashed border-white rounded-lg px-4 py-2
+  @apply border-[1px] border-dashed border-white rounded-lg px-4 py-2;
 }
 .error--container {
   background-color: rgba(255, 0, 0, 0.169);
   width: 80vw;
   height: 200px;
-  @include flex(true); 
+  @include flex(true);
   justify-content: center;
   gap: 16px;
   border-radius: 8px;
+}
+
+.succuss-button {
+  @apply px-4 py-2 rounded-lg bg-green-500 flex gap-4;
+}
+.danger-button {
+  @apply px-4 py-2 rounded-lg bg-red-500 flex gap-4;
+}
+.warning-button {
+  @apply px-4 py-2 rounded-lg bg-yellow-500 flex gap-4;
+}
+.default-button {
+  @apply px-4 py-2 rounded-lg bg-gray-500 flex gap-4;
 }

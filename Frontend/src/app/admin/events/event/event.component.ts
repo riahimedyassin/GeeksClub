@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/dashboard/shared/services/user/user.service';
 import { EventsService } from 'src/app/services/events/events.service';
 import { Event } from 'src/app/shared/models/Event.model';
@@ -20,7 +20,8 @@ export class EventComponent implements OnInit {
   constructor(
     private eventService: EventsService,
     private activated: ActivatedRoute,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router : Router
   ) {}
   ngOnInit(): void {
     this.id = <string>this.activated.snapshot.paramMap.get('id');
@@ -75,5 +76,10 @@ export class EventComponent implements OnInit {
         this.event = this.form.value;
         this.edit=false
       });
+  }
+  handleDelete() {
+    this.eventService.deleteEvent(this.id).subscribe(response=> {
+      this.router.navigateByUrl('/admin/events')
+    })
   }
 }

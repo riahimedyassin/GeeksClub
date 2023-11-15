@@ -1,0 +1,14 @@
+.input--holder {
+  input , textarea{
+    @apply w-full bg-transparent border-[1px] border-gray-500 rounded-lg mt-2;
+  }
+  input {
+    @apply h-[40px]
+  }
+  textarea {
+    @apply h-[100px]
+  }
+  select {
+    @apply bg-black w-full h-[40px] rounded-lg border-[1px] border-gray-500
+  }
+}

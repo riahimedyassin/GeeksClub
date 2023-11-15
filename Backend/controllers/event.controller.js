@@ -301,6 +301,16 @@ const getEventsParticipants = async (req, res, next) => {
     next(error);
   }
 };
+const deleteEvent = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const event = await Event.findOneAndDelete({ _id: id });
+    if (event) return response(res, "Event deleted succussfully", 204);
+    return next(createError("Cannot find this event"));
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
   getAllEvents,
@@ -317,4 +327,5 @@ module.exports = {
   getLeaderboard,
   confirmParticipation,
   getEventsParticipants,
+  deleteEvent
 };
