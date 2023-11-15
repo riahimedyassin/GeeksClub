@@ -17,14 +17,12 @@ export class ListEventsComponent implements OnInit {
   ngOnInit(): void {
     this.eventService.getAllEvenets().subscribe((response) => {
       this.events = response.data;
-      this.toDisplay = response.data.filter(
-        (event) => event.ended == this.ended
-      );
+      this.toDisplay = response.data
     });
   }
   handleEndEvent(eventId: string) {
     this.eventService.endEvent(eventId).subscribe((response) => {
-      response.status === 201 ? console.log('Done') : console.log('What ?');
+      response.status === 200 ? console.log('Done') : console.log('What ?');
     });
   }
   handleSearch(event: any) {

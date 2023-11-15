@@ -26,7 +26,30 @@
 </ng-template>
 <h2 class="mt-12">Quick actions</h2>
 <div class="grid grid-cols-3 gap-6 mt-4">
-    <app-quick-action title="New Event" icon="calendar-plus" link="/events/new"></app-quick-action>
-    <app-quick-action title="New Forum" icon="message-square-plus" link="/forums/new"></app-quick-action>
-    <app-quick-action title="Check Register" icon="user-check" link="/members/list" [query]="'true'"></app-quick-action>
+  <app-quick-action
+    title="New Event"
+    icon="calendar-plus"
+    link="/events/new"
+  ></app-quick-action>
+  <app-quick-action
+    title="New Forum"
+    icon="message-square-plus"
+    link="/forums/new"
+  ></app-quick-action>
+  <app-quick-action
+    title="Check Register"
+    icon="user-check"
+    link="/members/list"
+    [query]="'true'"
+  ></app-quick-action>
+</div>
+<div class="grid grid-cols-2">
+  <div class="col-span-1">
+    <h2 class="mb-4 mt-16">Forums Activities Overview : </h2>
+    <canvas id="forumsStats"></canvas>
+  </div>
+  <div class="col-span-1">
+    <h2 class="mb-4 mt-16">Member's Points Overview : </h2>
+    <canvas id="membersStats"></canvas>
+  </div>
 </div>

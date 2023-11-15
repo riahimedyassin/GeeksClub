@@ -67,7 +67,7 @@
           [ngClass]="edit ? 'border-[1px] border-gray-500' : ''"
         />
       </div>
-      <ng-container formGroupName="date">
+      <div formGroupName="date">
         <div class="col-span-1">
           <h2>Date start</h2>
           <p class="mt-4" *ngIf="!edit; else inputStart">
@@ -94,7 +94,7 @@
             />
           </ng-template>
         </div>
-      </ng-container>
+      </div>
       <div class="col-span-1">
         <h2>Status</h2>
         <p class="mt-4" *ngIf="!edit; else inputStatus">
@@ -146,7 +146,7 @@
               <button [routerLink]="'/admin/members/' + p._id">
                 <lucide-angular name="eye"></lucide-angular>
               </button>
-              <button (click)="confirmParticipation(p._id)" >
+              <button (click)="confirmParticipation(p._id)" *ngIf="!participants.includes(p)" >
                 <lucide-angular name="plus-circle"></lucide-angular>
               </button>
             </td>

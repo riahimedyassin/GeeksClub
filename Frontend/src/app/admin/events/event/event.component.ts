@@ -43,6 +43,7 @@ export class EventComponent implements OnInit {
       this.eventService.getParticipants(this.id).subscribe((response) => {
         console.log(response);
         this.participants = response.data;
+        console.log(this.participants)
       });
     });
   }

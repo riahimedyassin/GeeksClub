@@ -87,34 +87,24 @@ const endEvent = async (req, res, next) => {
     const event = await Event.findOne({ _id: id, ended: false });
     if (!event)
       return next(createError("Event not found or already ended", 404));
-
-    const bulkUpdateOps = [];
-
     for (let i = 0; i < event.participants.length; i++) {
-      if (event.participants[i].participated) {
-        const memberId = event.participants[i].user_id;
-        const updateOperation = {
-          updateOne: {
-            filter: { _id: memberId },
-            update: { $inc: { "points.week_point": event.reward_point } },
-          },
-        };
-        bulkUpdateOps.push(updateOperation);
+      if (event.participants[i]["participated"]) {
+        const memberId = event.participants[i]["user_id"];
+        const member = await Member.findOne({ _id: memberId });
+        member.points.week_point += event.reward_point;
+        console.log(member);
+        const update = await Member.findOneAndUpdate(
+          { _id: memberId },
+          member,
+          { new: true }
+        );
       }
     }
-
-    // Execute bulk update
-    if (bulkUpdateOps.length > 0) {
-      await Member.bulkWrite(bulkUpdateOps);
-    }
-
-    // Update event status
     const updatedEvent = await Event.findOneAndUpdate(
       { _id: id, ended: false },
       { ended: true },
       { new: true }
     );
-
     if (updatedEvent) {
       return response(
         res,
@@ -265,13 +255,15 @@ const confirmParticipation = async (req, res, next) => {
     );
     if (!event) next(createError("Cannot Find this Event", 404));
     let index = 0;
+    console.log(event.participants)
     while (
-      event.participants[index].user_id != user &&
-      event.participants.length < index
+      event.participants[index]["user_id"] != user &&
+      event.participants.length > index
     )
       index++;
     if (index === event.participants.length)
       return next(createError("This member is not part of the event", 404));
+    console.log(event.participants[index]);
     event.participants[index].participated = true;
     await Event.findOneAndUpdate({ _id: id }, event);
     return response(res, "Confirmed Successfully", 200, false, event);
@@ -327,5 +319,5 @@ module.exports = {
   getLeaderboard,
   confirmParticipation,
   getEventsParticipants,
-  deleteEvent
+  deleteEvent,
 };

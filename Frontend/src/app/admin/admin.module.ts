@@ -30,6 +30,8 @@ import { NewForumComponent } from './forums/new-forum/new-forum.component';
 import { NotificationComponent } from '../shared/components/notification/notification.component';
 import { NewEventComponent } from './events/new-event/new-event.component';
 import { TableColorDirective } from '../shared/directives/table-color.directive';
+import { ArticlesComponent } from './articles/articles.component';
+
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { TableColorDirective } from '../shared/directives/table-color.directive'
     ArticleComponent,
     NewForumComponent,
     NewEventComponent,
-    TableColorDirective
+    TableColorDirective,
+    ArticlesComponent,
+
   ],
   imports: [
     CommonModule,
