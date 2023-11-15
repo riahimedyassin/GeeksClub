@@ -82,34 +82,55 @@ const addEvents = async (req, res, next) => {
 const endEvent = async (req, res, next) => {
   const { id } = req.params;
   if (!id) return next(createError("Please provide the ID of the event", 400));
+
   try {
-    const event = await Event.findOne(
-      { _id: id },
-      { participants: 1, reward_points: 1 }
-    );
-    if (!event) return next(createError("Event not found", 404));
-    const participants = event["participants"];
-    if (participants.length > 0) {
-      participants.forEach(async (participant) => {
-        if (participant.participated) {
-          const week_point = await Member.findOne(
-            { _id: participant },
-            { points: 1 }
-          ).select("week_point");
-          await Member.findOneAndUpdate(
-            { _id: participant },
-            { week_point: week_point + event.reward_points }
-          );
-        }
-      });
+    const event = await Event.findOne({ _id: id, ended: false });
+    if (!event)
+      return next(createError("Event not found or already ended", 404));
+
+    const bulkUpdateOps = [];
+
+    for (let i = 0; i < event.participants.length; i++) {
+      if (event.participants[i].participated) {
+        const memberId = event.participants[i].user_id;
+        const updateOperation = {
+          updateOne: {
+            filter: { _id: memberId },
+            update: { $inc: { "points.week_point": event.reward_point } },
+          },
+        };
+        bulkUpdateOps.push(updateOperation);
+      }
     }
-    const del = await Event.findOneAndDelete({ _id: id });
-    if (del) return response(res, "Deleted Successfully", 204);
-    return next(createError("Server Error : Cannot Delete Event", 500));
+
+    // Execute bulk update
+    if (bulkUpdateOps.length > 0) {
+      await Member.bulkWrite(bulkUpdateOps);
+    }
+
+    // Update event status
+    const updatedEvent = await Event.findOneAndUpdate(
+      { _id: id, ended: false },
+      { ended: true },
+      { new: true }
+    );
+
+    if (updatedEvent) {
+      return response(
+        res,
+        "Event has ended successfully",
+        200,
+        false,
+        updatedEvent
+      );
+    } else {
+      return next(createError("Internal Server error", 500));
+    }
   } catch (error) {
     next(error);
   }
 };
+
 const getFeaturedEvents = async (req, res, next) => {
   try {
     const events = await Event.find({}).limit(4);
@@ -148,6 +169,7 @@ const addComment = async (req, res, next) => {
   const user_id = req.user;
   const { id } = req.params;
   const { content } = req.body;
+  if (!user_id) return next(createError("Not authorized", 404));
   try {
     const user = await Member.findOne(
       { _id: user_id },
@@ -228,30 +250,58 @@ const getLeaderboard = async (req, res, next) => {
     next(error);
   }
 };
+/**
+ *
+ * Takes the members list as a request body
+ */
+
 const confirmParticipation = async (req, res, next) => {
-  const { members } = req.body;
-  const { id } = req.params;
-  if (!members)
-    return next(createError("Please provide and Array of User's ID", 400));
+  const { id, user } = req.params;
+  if (!user) return next(createError("Please provide a user ", 400));
   try {
     const event = await Event.findOne(
       { _id: id },
-      { reward_point: 1, _id: 1, participants: 1 }
+      { reward_point: 1, participants: 1 }
     );
     if (!event) next(createError("Cannot Find this Event", 404));
-    members.forEach(async (member) => {
-      const mem = await Member.findOne({ _id: member }, { points: 1, _id: 1 });
-      mem.points.week_point += event.reward_point;
-      await Member.findOneAndUpdate({ _id: member }, mem);
-    });
-    event.registred = [];
-    event.participants = members;
+    let index = 0;
+    while (
+      event.participants[index].user_id != user &&
+      event.participants.length < index
+    )
+      index++;
+    if (index === event.participants.length)
+      return next(createError("This member is not part of the event", 404));
+    event.participants[index].participated = true;
     await Event.findOneAndUpdate({ _id: id }, event);
-    return response(res, "Confirmed Successfully", 200);
+    return response(res, "Confirmed Successfully", 200, false, event);
   } catch (error) {
     next(error);
   }
 };
+
+const getEventsParticipants = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const finalParticipants = [];
+    const event = await Event.findOne({ _id: id }, { participants: 1 });
+    for (let i = 0; i < event.participants.length; i++) {
+      const user = await Member.findOne({ _id: event.participants[i].user_id });
+      if (user) finalParticipants.push(user);
+    }
+    return response(
+      res,
+      "Event's members retrieved succussfully",
+      200,
+      false,
+      finalParticipants
+    );
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
 module.exports = {
   getAllEvents,
   getEventByCategorie,
@@ -266,4 +316,5 @@ module.exports = {
   quitEvent,
   getLeaderboard,
   confirmParticipation,
+  getEventsParticipants,
 };

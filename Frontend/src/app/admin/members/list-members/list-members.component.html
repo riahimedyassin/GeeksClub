@@ -28,7 +28,8 @@
   <tr class="bg-second h-12 rounded-t-lg">
     <th>Full-name</th>
     <th>Email</th>
-    <th>Points</th>
+    <th>Global Points</th>
+    <th>Week Points </th>
     <th>Actions</th>
   </tr>
   <tr
@@ -41,6 +42,7 @@
     <th>{{ member.name }} {{ member.forname }}</th>
     <th>{{ member.email }}</th>
     <th>{{ member.points?.global_point }}</th>
+    <th>{{ member.points?.week_point }}</th>
     <th class="flex gap-8 items-center justify-center h-12">
       <button [routerLink]="'/admin/members/' + member._id">
         <lucide-angular name="eye"></lucide-angular>

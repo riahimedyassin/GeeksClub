@@ -1,0 +1,35 @@
+<div class="flex items-center justify-between">
+    <h1>Forums</h1>
+    <button class="flex gap-4 border-[1px] border-main hover:bg-main transition-all rounded-lg px-4 py-2">
+        <lucide-angular name="form-input"></lucide-angular>
+        <p>Add new Forum</p>
+    </button>
+</div>
+<ng-container *ngIf="forum; else load">
+  <table class="w-full rounded-lg overflow-hidden mt-14 text-center">
+    <tr class="bg-second h-16 rounded-lg">
+      <th>Name</th>
+      <th>Descreption</th>
+      <th>Members</th>
+      <th>Articles</th>
+      <th>Actions</th>
+    </tr>
+    <tr *ngFor="let f of forum" class="h-14">
+      <td>{{ f.name }}</td>
+      <td>{{ f.descreption | shorten }}</td>
+      <td>{{ f.members.length }}</td>
+      <td>{{ f.articles.length }}</td>
+      <td class="flex items-center gap-4 justify-center h-14">
+        <button [routerLink]="'/admin/forums/' + f._id">
+          <lucide-angular name="eye"></lucide-angular>
+        </button>
+        <button>
+          <lucide-angular name="trash"></lucide-angular>
+        </button>
+      </td>
+    </tr>
+  </table>
+</ng-container>
+<ng-template #load>
+  <app-loading></app-loading>
+</ng-template>

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { ErrorHandler, Injectable } from '@angular/core';
-import { Observable, Subject, catchError } from 'rxjs';
+import {  Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { User } from 'src/app/shared/models/User.model';
 import { environment } from 'src/env/env';
 import { JwtService } from '../../../../services/auth/jwt.service';
@@ -16,7 +16,6 @@ export class UserService {
   constructor(
     private http: HttpClient,
     private jwtService: JwtService,
-    private errorHandler: HandleError
   ) {}
   user$: Observable<Response<User>> = new Observable<Response<User>>(
     (observer) => {

@@ -1,0 +1,96 @@
+<ng-container *ngIf="singleForum; else load">
+  <form [formGroup]="form">
+    <div class="flex items-center justify-between">
+      <input
+        formControlName="name"
+        class="text-5xl font-bold"
+        [ngClass]="edit ? 'border-[1px] border-gray-500' : ''"
+      />
+      <div class="flex items-center gap-4 jsutify-center">
+        <button class="flex gap-4 items-center bg-red-500 rounded-lg px-4 py-2">
+          <lucide-angular name="trash"></lucide-angular>
+          <p>Delete</p>
+        </button>
+        <button
+          class="flex gap-4 items-center bg-third rounded-lg px-4 py-2"
+          (click)="handleEdit()"
+        >
+          <lucide-angular name="pencil"></lucide-angular>
+          <p>Edit</p>
+        </button>
+        <button *ngIf="edit"  class="flex gap-4 items-center bg-green-500 rounded-lg px-4 py-2" (click)="saveChanges()">
+            <lucide-angular name="save"></lucide-angular>
+            <p>Save</p>
+        </button>
+      </div>
+    </div>
+    <div class="mt-8 mb-6">
+      <h2 class="mb-2">Descreption</h2>
+      <input type="text" formControlName="descreption" [ngClass]="edit ? 'border-[1px] border-gray-500' : ''"  >
+    </div>
+  </form>
+  <div class="grid grid-cols-2 mt-14">
+    <div class="col-span-1">
+      <h2 class="mb-2">Total Members</h2>
+      <p>{{ singleForum.members.length }}</p>
+    </div>
+    <div class="col-span-1">
+      <h2 class="mb-2">Total Articles</h2>
+      <p>{{ singleForum.articles.length }}</p>
+    </div>
+    <div class="col-span-2 mt-8">
+      <h2>Members</h2>
+      <table class="w-full text-center overflow-hidden rounded-t-lg mt-6">
+        <tr class="h-16 bg-second rounded-t-lg">
+          <th>Full-name</th>
+          <th>Actions</th>
+        </tr>
+        <tr *ngFor="let p of members" class="h-14">
+          <td>{{ p.name }} {{ p.forname }}</td>
+          <td class="h-14 flex items-center justify-center gap-6">
+            <button [routerLink]="'/admin/members/' + p._id">
+              <lucide-angular name="eye"></lucide-angular>
+            </button>
+            <button></button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <hr class="col-span-2 mb-16 mt-12" />
+    <h2 class="mb-4">Articles</h2>
+    <div class="col-span-2">
+      <table class="w-full rounded-t-lg text-center overflow-hidden">
+        <tr class="bg-second h-16 rounded-t-lg">
+          <th>Number</th>
+          <th>Sent by</th>
+          <th>Content</th>
+          <th>Actions</th>
+        </tr>
+        <tr
+          *ngFor="let article of singleForum.articles; index as index"
+          class="h-14"
+          [ngClass]="index % 2 === 0 ? 'bg-deepblack' : ''"
+        >
+          <td>
+            {{ index }}
+          </td>
+          <td>
+            {{ article.message.sent_by.name }}
+            {{ article.message.sent_by.forname }}
+          </td>
+          <td>
+            {{ article.message.content | shorten }}
+          </td>
+          <td class="flex items-center justify-center h-14">
+            <button>
+              <lucide-angular name="eye"></lucide-angular>
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</ng-container>
+<ng-template #load>
+  <app-loading></app-loading>
+</ng-template>

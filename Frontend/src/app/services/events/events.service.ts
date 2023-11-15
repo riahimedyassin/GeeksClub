@@ -4,6 +4,7 @@ import { Observable, catchError } from 'rxjs';
 import { HandleError } from 'src/app/shared/error/errorHandler';
 import { Event } from 'src/app/shared/models/Event.model';
 import { Response } from 'src/app/shared/models/Response.model';
+import { User } from 'src/app/shared/models/User.model';
 import { points } from 'src/app/shared/models/types/points.type';
 import { environment } from 'src/env/env';
 
@@ -16,9 +17,7 @@ export class EventsService {
   constructor(private http: HttpClient, private handleError: HandleError) {}
 
   getAllEvenets(): Observable<Response<Event[]>> {
-    return this.http
-      .get<Response<Event[]>>(URL)
-      .pipe(catchError((err: any) => this.handleError.handle(err)));
+    return this.http.get<Response<Event[]>>(URL);
   }
   getFeaturedEvents(): Observable<Response<Event[]>> {
     return this.http.get<Response<Event[]>>(`${URL}/featured`);
@@ -47,5 +46,14 @@ export class EventsService {
     return this.http.get<
       Response<{ name: string; forname: string; points: points }[]>
     >(`${URL}/leaderboard`);
+  }
+  getParticipants(id: string): Observable<Response<User[]>> {
+    return this.http.get<Response<User[]>>(`${URL}/members/${id}`);
+  }
+  endEvent(id: string): Observable<Response<Event>> {
+    return this.http.post<Response<Event>>(`${URL}/end/${id}`, {});
+  }
+  confirmParticipation(eventId: string, userId: string) {
+    return this.http.post(`${URL}/confirm/${eventId}/${userId}`, {});
   }
 }

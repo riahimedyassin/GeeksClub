@@ -1,0 +1,11 @@
+input {
+    width: 600px;
+    height: 40px;
+    border: 1px solid gray ; 
+    background-color: transparent;
+    color:white ; 
+    @apply rounded-lg 
+}
+select {
+    @apply  rounded-lg w-20 h-[40px] bg-black cursor-pointer border-gray-500 border-[1px]
+}

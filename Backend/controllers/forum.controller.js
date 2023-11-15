@@ -53,7 +53,7 @@ const unsubscribe = async (req, res, next) => {
     const getforum = await Forum.findOne({ _id: forum });
     if (!getforum) return next(createError("Cannot find this forum", 404));
     getforum.articles.filter((article) => {
-      return article.sent_by != id;
+      return article.sent_by.user_id != id;
     });
     getforum.members = deleteFromTable(getforum.members, id);
     const changes = await Forum.findOneAndUpdate({ _id: forum }, getforum);
@@ -205,18 +205,16 @@ const updateForums = async (req, res, next) => {
     next(error);
   }
 };
-const deleteForum = async(req,res,next) => {
-  const {id} = req.params ; 
+const deleteForum = async (req, res, next) => {
+  const { id } = req.params;
   try {
-      const forum = await Forum.findOneAndDelete({_id:id});
-      if(forum) return response(res,"Forum deleted succussfully",204)
-      return next(createError("Cannot find this forum",404))
+    const forum = await Forum.findOneAndDelete({ _id: id });
+    if (forum) return response(res, "Forum deleted succussfully", 204);
+    return next(createError("Cannot find this forum", 404));
   } catch (error) {
-      next(error)
+    next(error);
   }
-}
-
-
+};
 
 module.exports = {
   addForum,
@@ -228,5 +226,5 @@ module.exports = {
   getSingleForum,
   getUserEvents,
   updateForums,
-  deleteForum
+  deleteForum,
 };

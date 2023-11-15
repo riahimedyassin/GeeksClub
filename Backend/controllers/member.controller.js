@@ -7,18 +7,17 @@ const { response } = require("../utils/response/Response");
 const { createToken } = require("../utils/token/createToken");
 const { Recovery } = require("../utils/recovery/Recovery");
 const { inTable } = require("../utils/inTable");
-const recovery = new Recovery();
 const cloudinary = require("../utils/cloudinary").v2;
 const { lazyResponse } = require("../utils/response/LazyResponse");
+
+const recovery = new Recovery();
 
 const registerUser = async (req, res, next) => {
   const user = req.body;
   try {
     const exist = await Member.findOne({ email: user.email });
-    if (exist) return response(res, "Already Registered", 200);
-    const result = await cloudinary.uploader.upload(user.picture);
+    if (exist) return response(res, "This email is already in use", 400);
     user.password = await hashPassword(user.password);
-    user.picture = result;
     user.recovery_question.answer = await recovery.hashResponse(
       user.recovery_question.answer
     );
@@ -26,7 +25,7 @@ const registerUser = async (req, res, next) => {
     if (registred) {
       return response(
         res,
-        `Registered Successfully , ID: ${registred._id}`,
+        `Registered Successfully , We will be contacting you soon !`,
         200
       );
     }
@@ -103,10 +102,7 @@ const updateMember = async (req, res, next) => {
   if (inTable(impossible, keys))
     return next(createError("You cannot changes this/those fields", 403));
   try {
-    const member = await Member.findOneAndUpdate(
-      { _id: id, isMember: true },
-      changes
-    );
+    const member = await Member.findOneAndUpdate({ _id: id }, changes);
     if (member) return response(res, "Updated successfully", 201);
     return next(createError("Cannot save changes", 505));
   } catch (error) {
@@ -117,7 +113,7 @@ const getInfo = async (req, res, next) => {
   const id = req.user;
   if (!id) return next(createError("Unauthorized", 403));
   try {
-    const user = await Member.findOne({ _id: id, isMember: true });
+    const user = await Member.findOne({ _id: id });
     if (user)
       return response(res, "Member retrieved successfully", 200, false, user);
     return next(createError("Unauthorized", 403));
@@ -146,21 +142,12 @@ const deleteMember = async (req, res, next) => {
     const { id } = req.params;
     if (!id) next(createError("Please provide the user's ID", 400));
     const deleted = await Member.findOneAndDelete({ _id: id });
-    const removeFromEvents = await Event.find(
-      {},
-      { participants: 1, registred: 1, id: 1 }
-    );
+    const removeFromEvents = await Event.find({}, { participants: 1, _id: 1 });
     let participants;
-    let registered;
     removeFromEvents.forEach(async (event) => {
       if (event.participants.indexOf(id) != -1)
         participants = deleteFromTable(event.participants, id);
-      if (event.registred.indexOf(id) != -1)
-        registered = deleteFromTable(event.registred, id);
-      await Event.findOneAndUpdate(
-        { _id: event.id },
-        { participants, registered }
-      );
+      await Event.findOneAndUpdate({ _id: event.id }, { participants });
     });
     if (deleted)
       return response(
@@ -204,6 +191,23 @@ const registerMember = async (req, res, next) => {
     return next(createError(`Unkown Error : ${error}`, 500));
   }
 };
+const getRecoverQuestion = async (req, res, next) => {
+  const { id } = req.params;
+  if (!id) return next(createError("Please provide your ID", 400));
+  try {
+    const user = await Member.findOne({ _id: id }, { recovery_question: 1 });
+    if (!user) return next(createError("Cannot find this user", 404));
+    return response(
+      res,
+      "Used question retireved succussfully",
+      200,
+      false,
+      user.question
+    );
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
   registerUser,
@@ -217,4 +221,5 @@ module.exports = {
   deleteMember,
   getAllRegistred,
   registerMember,
+  getRecoverQuestion,
 };

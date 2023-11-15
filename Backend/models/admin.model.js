@@ -1,9 +1,7 @@
 const Schema = require("mongoose").Schema;
 const { default: mongoose } = require("mongoose");
 const { Validator } = require("../utils/validators/Validator");
-const { recoverySchema } = require("./abstract/recovery.model");
-const validate = new Validator();
-const bcrypt = require('bcrypt')
+const { isMatchingPassword } = require("../utils/password/Password");
 
 const adminSchema = Schema({
   name: {
@@ -53,28 +51,25 @@ const adminSchema = Schema({
     type: String,
     required: [true, "Please enter your facebook profile link"],
   },
-  recovery_question: {
-    type: recoverySchema,
-    required: true,
-  },
 });
 
-adminSchema.statics.login=async function (email,password)  {
-    try {
-        const admin = await this.findOne({email:email},{email:1,password:1,_id:1})
-        if(admin) {
-            const pass = password
-            if(pass) {
-              return admin.id 
-            }
-            return null 
-        }
-        return null 
-    } catch (error) {
-        return null
+adminSchema.statics.login = async function (email, password) {
+  try {
+    const admin = await this.findOne(
+      { email: email },
+      { email: 1, password: 1, _id: 1 }
+    );
+    if (admin) {
+      // const pass = await isMatchingPassword(admin.password, password);
+      if (admin.password === password) {
+        return admin.id;
+      }
+      return null;
     }
-}
-
-
+    return null;
+  } catch (error) {
+    return null;
+  }
+};
 
 module.exports = mongoose.model("Admin", adminSchema);

@@ -5,6 +5,10 @@ const { response } = require("../utils/response/Response");
 const Event = require("../models/event.model");
 const Admin = require("../models/admin.model");
 const { createToken } = require("../utils/token/createToken");
+const { hashPassword } = require("../utils/password/Password");
+const {Recovery} = require('../utils/recovery/Recovery')
+
+const recovery = new Recovery()
 
 
 
@@ -51,6 +55,7 @@ const changeInfo = async (req, res, next) => {
 };
 const registerAdmin = async (req, res, next) => {
   const admin = req.body;
+  admin.password = await hashPassword(admin.password)
   Admin.create(admin)
     .then((data) => {
       res.status(200).json(data);
@@ -72,10 +77,22 @@ const adminLogin = async (req, res, next) => {
     next(error);
   }
 };
+const deleteAdmin = async(req,res,next) => {
+  const {id} = req.params ; 
+  try {
+      const admin = await Admin.findOneAndDelete({_id:id, isSup : false });
+      if(admin) return response (res,"Admin Deleted successfuly",204)
+      return next(createError('Cannot find this admin',404))
+  } catch (error) {
+      next(error)
+  }
+}
+
 
 module.exports = {
   changeInfo,
   getAdminInfo,
   registerAdmin,
   adminLogin,
+  deleteAdmin
 };

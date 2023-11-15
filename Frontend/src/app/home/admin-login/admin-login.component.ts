@@ -24,7 +24,7 @@ export class AdminLoginComponent implements OnInit {
     this.form = new FormGroup({
       email: new FormControl(null, [Validators.email, Validators.required]),
       password: new FormControl(null, [
-        CustomValidator.password,
+        
         Validators.required,
       ]),
     });

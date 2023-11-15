@@ -18,9 +18,14 @@ import { OverviewBlockComponent } from './home/overview-block/overview-block.com
 import { QuickActionComponent } from './home/quick-action/quick-action.component';
 import { MemberComponent } from './members/member/member.component';
 import { ListMembersComponent } from './members/list-members/list-members.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertComponent } from '../shared/components/alert/alert.component';
-
+import { ShortenPipe } from '../shared/pipes/shorten.pipe';
+import { EventComponent } from './events/event/event.component';
+import { ListEventsComponent } from './events/list-events/list-events.component';
+import { ListForumsComponent } from './forums/list-forums/list-forums.component';
+import { ForumComponent } from './forums/forum/forum.component';
+import { ArticleComponent } from './forums/forum/article/article.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +41,11 @@ import { AlertComponent } from '../shared/components/alert/alert.component';
     QuickActionComponent,
     MemberComponent,
     ListMembersComponent,
-    
+    EventComponent,
+    ListEventsComponent,
+    ListForumsComponent,
+    ForumComponent,
+    ArticleComponent,
   ],
   imports: [
     CommonModule,
@@ -46,7 +55,9 @@ import { AlertComponent } from '../shared/components/alert/alert.component';
     SkeletonProfileComponent,
     LoadingComponent,
     FormsModule,
-    AlertComponent
+    AlertComponent,
+    ShortenPipe,
+    ReactiveFormsModule,
   ],
 })
 export class AdminModule {}
