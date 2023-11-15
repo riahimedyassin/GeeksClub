@@ -56,4 +56,7 @@ export class EventsService {
   confirmParticipation(eventId: string, userId: string) {
     return this.http.post(`${URL}/confirm/${eventId}/${userId}`, {});
   }
+  editEvent(id: string, changes: Event) {
+    return this.http.patch(`${URL}/${id}`, changes);
+  }
 }

@@ -1,0 +1,12 @@
+select {
+    @apply bg-black
+}
+input {
+    @apply bg-transparent 
+}
+textarea {
+    @apply w-full h-auto bg-transparent 
+}
+input , textarea {
+    @apply rounded-lg 
+}

@@ -12,6 +12,7 @@ import { EventComponent } from './events/event/event.component';
 import { ListEventsComponent } from './events/list-events/list-events.component';
 import { ListForumsComponent } from './forums/list-forums/list-forums.component';
 import { ForumComponent } from './forums/forum/forum.component';
+import { NewForumComponent } from './forums/new-forum/new-forum.component';
 
 const routes: Routes = [
   {
@@ -61,6 +62,7 @@ const routes: Routes = [
         children: [
           { path: '', redirectTo: 'list', pathMatch: 'full' },
           { path: 'list', component: ListForumsComponent },
+          { path: 'new', component: NewForumComponent },
           { path: ':id', component: ForumComponent },
         ],
       },

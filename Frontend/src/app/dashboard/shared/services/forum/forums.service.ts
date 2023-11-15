@@ -55,4 +55,10 @@ export class ForumsService {
   changeForum(id: string, name: string, descreption: string) {
     return this.http.patch(`${URL}/${id}`, { name, descreption });
   }
+  addNewForum(name: string, descreption: string): Observable<Response<Forum>> {
+    return this.http.post<Response<Forum>>(`${URL}`, { name, descreption });
+  }
+  deleteForum(id: string) {
+    return this.http.delete(`${URL}/${id}`);
+  }
 }

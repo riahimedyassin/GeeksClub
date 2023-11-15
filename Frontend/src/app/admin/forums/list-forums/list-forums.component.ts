@@ -13,8 +13,13 @@ export class ListForumsComponent implements OnInit {
   constructor(private forumService: ForumsService) {}
   ngOnInit(): void {
     this.forumService.getAllForums().subscribe((response) => {
-      console.log(response)
+      console.log(response);
       this.forum = response.data;
+    });
+  }
+  handleDelete(id: string) {
+    this.forumService.deleteForum(id).subscribe((response) => {
+      console.log('done');
     });
   }
 }

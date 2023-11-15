@@ -7,8 +7,9 @@ const Member = require("../models/member.model");
 const { verfiyToken } = require("../utils/token/verifyToken");
 
 const addForum = async (req, res, next) => {
+  const { name, descreption } = req.body;
   try {
-    const forum = await Forum.create(req.body);
+    const forum = await Forum.create({ name, descreption });
     if (forum)
       return response(res, "Forum created successfully", 200, false, forum);
     return next(createError("Cannot create forum", 500));
@@ -209,9 +210,17 @@ const deleteForum = async (req, res, next) => {
   const { id } = req.params;
   try {
     const forum = await Forum.findOneAndDelete({ _id: id });
+    const members = await Member.find({});
+    for (let i = 0; i < members.length; i++) {
+      if (members[i].forums.includes(id)) {
+        members[i].forums = deleteFromTable(members[i].forums, id);
+        const update = await Member.findOneAndUpdate({ _id: members[i]._id },members);
+      }
+    }
     if (forum) return response(res, "Forum deleted succussfully", 204);
     return next(createError("Cannot find this forum", 404));
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };

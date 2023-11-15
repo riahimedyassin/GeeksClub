@@ -1,0 +1,37 @@
+<h1>Add new Forum</h1>
+<form class="mt-12" [formGroup]="form" (ngSubmit)="handleSubmit()">
+  <div class="grid grid-cols-2 gap-6">
+    <div class="col-span-2">
+      <h2>Title</h2>
+      <input
+        type="text"
+        formControlName="name"
+        placeholder="Enter the name of the forum"
+      />
+    </div>
+    <div class="col-span-2">
+      <h2>Descreption</h2>
+      <textarea
+        type="text"
+        formControlName="descreption"
+        placeholder="Enter the descreption of the forum"
+      ></textarea>
+    </div>
+  </div>
+  <div class="flex gap-6">
+    <button class="flex gap-4 rounded-lg bg-green-500 px-4 py-2 mt-6" type="submit">
+        <lucide-angular name="plus-circle"></lucide-angular>
+        <p>Add new forum</p>
+      </button>
+      <button class="flex gap-4 rounded-lg bg-gray-500 px-4 py-2 mt-6" (click)="form.reset()">
+        <lucide-angular name="rotate-ccw"></lucide-angular>
+        <p>Reset</p>
+      </button>
+  </div>
+</form>
+<ng-container *ngIf="done">
+  <app-notification message="Forum Added Succussfully" icon="plus-circle" color="green"></app-notification>
+</ng-container>
+<ng-container *ngIf="error">
+  <app-notification [message]="errorMessage" icon="x-circle" color="red"></app-notification>
+</ng-container>

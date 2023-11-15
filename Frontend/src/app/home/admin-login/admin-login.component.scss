@@ -1,31 +1,26 @@
-form {
-    @apply flex flex-col items-center gap-4 px-4 py-12  h-[600px] justify-center; 
-    h1 {
-        @apply mb-4 ; 
-    }
-    div {
-        width: 90%;
-        margin : 12px 0
-    }
-    input {
-        &.ng-invalid.ng-touched {
-            @apply border-red-400  ; 
+.prompt {
+    font-family: 'Anonymous Pro' ; 
+    @apply w-[800px] h-[400px] bg-deepblack rounded-lg relative overflow-hidden ; 
+    .header {
+        @apply absolute top-0 left-0 w-full px-4 py-2 h-[40px] bg-white text-center flex items-center justify-between;
+        .circles {
+            @apply flex gap-4 ; 
+            div {
+                @apply rounded-[50%] w-[10px] h-[10px]
+            }
         }
-        @apply border-[1px] border-white rounded-md bg-black ; 
-        width: 100% ;
-        height: 50px;
-        &::placeholder {
-            padding-left: 12px;
-        }
+        
     }
-    button {
-        border : 1px solid white ; 
-        @apply px-8 py-2 rounded-md font-bold; 
-        border-radius: 4px;
-        @apply bg-[#0D0D0D] text-white;
-        transition: 0.2s ease-in-out    ;
-        &:hover {
-            background-color: rgb(0, 0, 0)
+    .body {
+        @apply w-full text-white mt-12 px-4 ; 
+        input{
+            @apply bg-transparent border-none outline-none ; 
+            &:focus {
+                @apply outline-none
+            }
+            &:active {
+                @apply bg-transparent
+            }
         }
     }
 }

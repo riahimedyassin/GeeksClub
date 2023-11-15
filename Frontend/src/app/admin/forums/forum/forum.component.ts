@@ -24,6 +24,7 @@ export class ForumComponent implements OnInit {
   singleForum!: Forum;
   members: User[] = [];
   form!: FormGroup;
+  deleted: boolean = false;
   ngOnInit(): void {
     this.id = <string>this.activated.snapshot.paramMap.get('id');
     this.forumService.getSingleForum(this.id).subscribe((response) => {
@@ -58,10 +59,18 @@ export class ForumComponent implements OnInit {
       this.form.controls['name'].enable();
       this.form.controls['descreption'].enable();
     } else {
-      this.form.controls['name'].setValue(this.singleForum.name)
+      this.form.controls['name'].setValue(this.singleForum.name);
       this.form.controls['name'].disable();
-      this.form.controls['descreption'].setValue(this.singleForum.descreption)
+      this.form.controls['descreption'].setValue(this.singleForum.descreption);
       this.form.controls['descreption'].disable();
     }
+  }
+  handleDelete() {
+    this.forumService.deleteForum(this.id).subscribe((response) => {
+      this.deleted = true;
+      setTimeout(() => {
+        this.deleted = false;
+      },3000);
+    });
   }
 }

@@ -1,0 +1,11 @@
+div.col-span-2 {
+    input , textarea {
+        @apply bg-transparent text-white w-full mt-4 rounded-lg border-[1px] border-gray-500  ; 
+    }
+    input {
+        @apply h-[40px]
+    }
+    textarea {
+        @apply h-[200px]
+    }
+}

@@ -4,12 +4,18 @@
     <ng-container *ngIf="displayNotification ">
         <app-alert message="Deleting members will be final and permenant and all the data will be gone" ></app-alert>
     </ng-container>
-    <button class="bg-red-500 rounded-lg px-4 py-2 flex gap-4 hover:bg-red-700 transition-all" (click)="handleDelete()">
+    <button class="bg-red-500 rounded-lg px-4 py-2 flex gap-4 hover:bg-red-500 transition-all" (click)="handleDelete()" *ngIf="!deleted">
         <p>
             Delete Member
         </p>
         <lucide-angular name="trash"></lucide-angular>
     </button>
+    <button class="bg-red-500 rounded-lg px-4 py-2 flex gap-4 hover:bg-green-500 transition-all" (click)="acceptMember()" *ngIf="!accepted">
+      <p>
+          Accept Member
+      </p>
+      <lucide-angular name="trash"></lucide-angular>
+  </button>
   </div>
   <div class="mt-12 class grid grid-cols-2 gap-12">
     <div>
@@ -53,3 +59,9 @@
 <ng-template #load>
   <app-loading></app-loading>
 </ng-template>
+<ng-container *ngIf="deleted">
+  <app-notification message="User deleted succussfully" color="red" icon="x-circle"></app-notification>
+</ng-container>
+<ng-container *ngIf="accepted">
+  <app-notification message="This user is a member" icon="plus-circle" color="green"></app-notification>
+</ng-container>

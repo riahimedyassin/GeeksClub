@@ -14,7 +14,7 @@ export class ListMembersComponent {
   search: string = '';
   registered!: User[];
   page: number = 1;
-  listRegistered : boolean = false ; 
+  listRegistered: boolean = false;
   ngOnInit(): void {
     this.userService.getAllMembers(this.page).subscribe((response) => {
       this.members = response.data;
@@ -25,15 +25,18 @@ export class ListMembersComponent {
     });
   }
   handleSerch() {
-    if (this.search.trim() === '') this.toDisplay = this.members;
+    if (this.search.trim() === '')
+      this.toDisplay = this.members.filter(
+        (member) => member.isMember == !this.listRegistered
+      );
     else {
       this.toDisplay = this.members.filter((member) =>
-        member.name.toLowerCase().includes(this.search.toLowerCase())
+        member.name.toLowerCase().includes(this.search.toLowerCase()) && member.isMember==!this.listRegistered
       );
     }
   }
   dispalyRegisterd() {
-    this.listRegistered=!this.listRegistered
-    this.toDisplay= this.listRegistered ? this.registered : this.members
+    this.listRegistered = !this.listRegistered;
+    this.toDisplay = this.listRegistered ? this.registered : this.members;
   }
 }

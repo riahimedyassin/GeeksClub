@@ -7,65 +7,75 @@
     <p>Add new Event</p>
   </button>
 </div>
-<div class="filter flex items-center justify-between mt-24">
-    <input type="text" placeholder="Search for event" (input)="handleSearch($event)" >
-    <button class="flex gap-4 rounded-lg bg-third px-4 py-2" (click)="handelEnded()" [ngClass]="ended ? 'bg-purple-400' : '' "  >
-        <lucide-angular name="calendar-off"></lucide-angular>
-        <p>Ended</p>
+<ng-container *ngIf="events ; else load">
+  <div class="filter flex items-center justify-between mt-24">
+    <input
+      type="text"
+      placeholder="Search for event"
+      (input)="handleSearch($event)"
+    />
+    <button
+      class="flex gap-4 rounded-lg bg-third px-4 py-2"
+      (click)="handelEnded()"
+      [ngClass]="ended ? 'bg-purple-800' : ''"
+    >
+      <lucide-angular name="calendar-off"></lucide-angular>
+      <p>Ended</p>
     </button>
     <select (change)="handleCategorie($event)">
-        <option value="all">All</option>
-        <option value="formation">Formation</option>
-        <option value="assignment">Assignment</option>
-        <option value="reunion">Reunion</option>
-        <option value=""></option>
+      <option value="all">All</option>
+      <option value="formation">Formation</option>
+      <option value="assignment">Assignment</option>
+      <option value="reunion">Reunion</option>
+      <option value=""></option>
     </select>
-    
-</div>
-<table class="mt-6 w-full rounded-t-lg text-center overflow-hidden">
-  <tr class="bg-second h-16 rounded-t-lg">
-    <th>Title</th>
-    <th>Categorie</th>
-    <th>Date Start</th>
-    <th>Date End</th>
-    <th>Participants</th>
-    <th>Actions</th>
-  </tr>
-  <tr
-    *ngFor="let event of toDisplay; index as index"
-    class="h-14"
-    [ngClass]="index % 2 === 0 ? 'bg-deepblack' : 'bg-black'"
-  >
-    <td>
-      {{ event.title }}
-    </td>
-    <td>
-      {{ event.categorie | titlecase }}
-    </td>
-    <td>
-      {{ event.date.date_start | date : "dd MMMM" }}
-    </td>
-    <td>
-      {{ event.date.date_end | date : "dd MMMM" }}
-    </td>
-    <td>
-      {{ event.participants.length }}
-    </td>
-    <td class="flex items-center justify-around h-14">
-      <button [routerLink]="'/admin/events/' + event._id">
-        <lucide-angular name="eye"></lucide-angular>
-      </button>
-      <button
-        (click)="handleEndEvent(event._id)"
-      >
-        <lucide-angular name="calendar-heart"></lucide-angular>
-      </button>
-      <button>
-        <lucide-angular name="trash"></lucide-angular>
-      </button>
-    </td>
-  </tr>
-  <tr *ngIf="toDisplay.length===0" class="mt-4">
-    <h2>No events with this filter  </h2>
-  </tr>
-</table>
+  </div>
+  <table class="mt-6 w-full rounded-t-lg text-center overflow-hidden">
+    <tr class="bg-second h-16 rounded-t-lg">
+      <th>Title</th>
+      <th>Categorie</th>
+      <th>Date Start</th>
+      <th>Date End</th>
+      <th>Participants</th>
+      <th>Actions</th>
+    </tr>
+    <tr
+      *ngFor="let event of toDisplay; index as index"
+      class="h-14"
+      [ngClass]="index % 2 === 0 ? 'bg-deepblack' : 'bg-black'"
+    >
+      <td>
+        {{ event.title }}
+      </td>
+      <td>
+        {{ event.categorie | titlecase }}
+      </td>
+      <td>
+        {{ event.date.date_start | date : "dd MMMM" }}
+      </td>
+      <td>
+        {{ event.date.date_end | date : "dd MMMM" }}
+      </td>
+      <td>
+        {{ event.participants.length }}
+      </td>
+      <td class="flex items-center justify-around h-14">
+        <button [routerLink]="'/admin/events/' + event._id">
+          <lucide-angular name="eye"></lucide-angular>
+        </button>
+        <button (click)="handleEndEvent(event._id)">
+          <lucide-angular name="calendar-heart"></lucide-angular>
+        </button>
+        <button>
+          <lucide-angular name="trash"></lucide-angular>
+        </button>
+      </td>
+    </tr>
+    <tr *ngIf="toDisplay.length === 0" class="mt-4">
+      <h2>No events with this filter</h2>
+    </tr>
+  </table>
+</ng-container>
+<ng-template #load>
+  <app-loading></app-loading>
+</ng-template>

@@ -11,8 +11,14 @@ const forumSchema = Schema({
         type:String , 
         required:[true,"Please enter the forums descreption"]
     },
-    members : [{type: String}],
-    articles : [{type:message}]
+    members : {
+        type : [{type: String}] , 
+        default : []
+    },
+    articles : {
+        type : [{type:message}] , 
+        default :[]
+    }
 
 })
 

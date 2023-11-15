@@ -1,14 +1,46 @@
 <app-navbar></app-navbar>
-<div class="w-full h-[100vh] text-white  flex items-center justify-center ">
-    <form class="w-[600px] bg-deepblack h-[60vh] rounded-lg " [formGroup]="form">
-        <h1 class="mb-12">Login</h1>
-        <div>
-            <input type="text" placeholder="Enter your email" formControlName="email">
+<div class="h-[80vh] anonymous flex items-center justify-center" >
+  <div class="prompt anonymous" >
+    <div class="header">
+      <p>Command Prompt</p>
+      <div class="circles">
+        <div class="bg-red-500"></div>
+        <div class="bg-yellow-500"></div>
+        <div class="bg-green-500"></div>
+      </div>
+    </div>
+    <div class="body text-white">
+      <p>
+        Microsoft Windows [Version 10.0.22621.2715]<br />
+        (c) Microsoft Corporation. All rights reserved.
+      </p>
+      <p class="mt-2">Enter your email :</p>
+      <form [formGroup]="form" (keydown)="handleKeyPress($event)">
+        <div class="flex gap-4">
+          <p class="text-red-500">email&gt;</p>
+          <input
+            type="text"
+            type="email"
+            placeholder=". . . . . . ."
+            formControlName="email"
+          />
         </div>
-        <div >
-            <input type="password" placeholder="Enter your password" formControlName="password">
+        <p class="mt-2">Enter your password :</p>
+        <div class="flex gap-4">
+          <p class="text-red-500">password&gt;</p>
+          <input
+            type="text"
+            type="password"
+            placeholder=". . . . . . ."
+            formControlName="password"
+          />
         </div>
-        <button (click)="handleLogin()">Login</button>
-    </form>
+        <p class="text-yellow-500 mt-4 font-bold">Press enter to login <span class="animate-ping">|</span> </p>
+        <div *ngIf="error">
+            <p class="text-red-500 font-bold">{{errorMessage}} </p>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
 <app-footer></app-footer>

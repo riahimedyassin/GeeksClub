@@ -26,6 +26,8 @@ import { ListEventsComponent } from './events/list-events/list-events.component'
 import { ListForumsComponent } from './forums/list-forums/list-forums.component';
 import { ForumComponent } from './forums/forum/forum.component';
 import { ArticleComponent } from './forums/forum/article/article.component';
+import { NewForumComponent } from './forums/new-forum/new-forum.component';
+import { NotificationComponent } from '../shared/components/notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,7 @@ import { ArticleComponent } from './forums/forum/article/article.component';
     ListForumsComponent,
     ForumComponent,
     ArticleComponent,
+    NewForumComponent,
   ],
   imports: [
     CommonModule,
@@ -58,6 +61,7 @@ import { ArticleComponent } from './forums/forum/article/article.component';
     AlertComponent,
     ShortenPipe,
     ReactiveFormsModule,
+    NotificationComponent,
   ],
 })
 export class AdminModule {}

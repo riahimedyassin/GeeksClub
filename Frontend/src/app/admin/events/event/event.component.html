@@ -1,94 +1,117 @@
 <ng-container *ngIf="event; else load">
-  <div class="flex items-center justify-between">
-    <div>
-      <h1>
-        {{ event.title }}
-      </h1>
-      <p class="mt-2 text-gray-500">Categorie : {{ event.categorie }}</p>
-    </div>
-
-    <div class="flex gap-4 items*center">
-      <button class="flex gap-4 bg-red-500 rounded-lg px-4 py-2">
-        <p>Delete</p>
-        <lucide-angular name="trash"></lucide-angular>
-      </button>
-      <button class="flex gap-4 bg-third rounded-lg px-4 py-2">
-        <p>Edit</p>
-        <lucide-angular name="pencil"></lucide-angular>
-      </button>
-    </div>
-  </div>
-  <div class="mt-12 grid grid-cols-2 gap-4">
-    <div class="col-span-2 mb-6">
-      <h2>Descreption</h2>
-      <p class="mt-4">{{ event.descreption }}</p>
-    </div>
-    <div class="col-span-1">
-      <h2>Entery</h2>
-      <p class="mt-4">
-        {{ event.price === 0 ? "Free" : (event.price | currency) }}
-      </p>
-    </div>
-    <div class="col-span-1">
-      <h2>Reward Points</h2>
-      <p class="mt-4">
-        {{ event.reward_point }}
-      </p>
-    </div>
-    <div class="col-span-1">
-      <h2>Date start</h2>
-      <p class="mt-4">Start : {{ event.date.date_start | date : "dd MMMM" }}</p>
-    </div>
-    <div class="col-span-1">
-      <h2>Date end</h2>
-      <p class="mt-4">End : {{ event.date.date_end | date : "dd MMMM" }}</p>
-    </div>
-    <div class="col-span-1">
-      <h2>Status</h2>
-      <p class="mt-4">Ended : {{ event.ended }}</p>
-    </div>
-    <div class="col-span-2">
-      <h2>Pre-requis</h2>
-      <div class="flex justify-between items-center mt-4">
-        <p *ngFor="let pre of event.prerequis">
-          {{ pre }}
-        </p>
+  <form [formGroup]="form" (ngSubmit)="handleSave()" >
+    <div class="flex items-center justify-between">
+      <div>
+        <h1>
+          {{ event.title }}
+        </h1>
+        <input class="mt-2 text-gray-500" formControlName="categorie" />
+      </div>
+      <div class="flex gap-4 items*center">
+        <button class="flex gap-4 bg-red-500 rounded-lg px-4 py-2">
+          <p>Delete</p>
+          <lucide-angular name="trash"></lucide-angular>
+        </button>
+        <button class="flex gap-4 bg-third rounded-lg px-4 py-2" (click)="handleEdit()" type="button">
+          <p>Edit</p>
+          <lucide-angular name="pencil"></lucide-angular>
+        </button>
+        <button
+          class="flex gap-4 bg-green-500 rounded-lg px-4 py-2"
+          *ngIf="edit" 
+          type="submit"
+        >
+          <p>Save</p>
+          <lucide-angular name="save"></lucide-angular>
+        </button>
       </div>
     </div>
-    <div class="col-span-2">
-      <h2 class="mt-6">Participants</h2>
-      <table class="text-center w-full rounded-t-lg overflow-hidden mt-4">
-        <tr class="bg-main h-16 rounded-t-lg">
-          <th>Full-name</th>
-          <th>Email</th>
-          <th>Facebook</th>
-          <th>Actions</th>
-        </tr>
-        <tr *ngFor="let p of participants" class="h-14">
-          <td>{{ p.name }} {{ p.forname }}</td>
-          <td>{{ p.email }}</td>
-          <td>
-            <a
-              class="py-2 bg-blue-500 rounded-lg flex items-center justify-center"
-              [href]="p.facebook"
-              target="_blank"
-            >
-              <lucide-angular name="facebook"></lucide-angular>
-              <p>Facebook</p>
-            </a>
-          </td>
-          <td class="flex items-center justify-center h-14 gap-4">
-            <button [routerLink]="'/admin/members/' + p._id">
-              <lucide-angular name="eye"></lucide-angular>
-            </button>
-            <button (click)="confirmParticipation(p._id)">
-              <lucide-angular name="plus-circle"></lucide-angular>
-            </button>
-          </td>
-        </tr>
-      </table>
+    <div class="mt-12 grid grid-cols-2 gap-4">
+      <div class="col-span-2 mb-6">
+        <h2>Descreption</h2>
+        <textarea class="mt-4" formControlName="descreption" [ngClass]="edit ? 'border-[1px] border-gray-500' : ''" ></textarea>
+      </div>
+      <div class="col-span-1">
+        <h2>Entery</h2>
+        <input type="number" class="mt-4" formControlName="price" [ngClass]="edit ? 'border-[1px] border-gray-500' : ''" />
+      </div>
+      <div class="col-span-1">
+        <h2>Reward Points</h2>
+        <input class="mt-4" formControlName="reward_point" [ngClass]="edit ? 'border-[1px] border-gray-500' : ''" />
+      </div>
+      <ng-container formGroupName="date">
+        <div class="col-span-1">
+          <h2>Date start</h2>
+          <p class="mt-4" *ngIf="!edit; else inputStart">
+            Start : {{ event.date.date_start | date : "dd MMMM" }}
+          </p>
+          <ng-template #inputStart>
+            <input type="date" formControlName="date_start" [ngClass]="edit ? 'border-[1px] border-gray-500' : ''" />
+          </ng-template>
+        </div>
+        <div class="col-span-1">
+          <h2>Date end</h2>
+          <p class="mt-4" *ngIf="!edit ; else inputEnd">
+            End : {{ event.date.date_end | date : "dd MMMM" }}
+          </p>
+          <ng-template #inputEnd>
+            <input type="date" formControlName="date_end" [ngClass]="edit ? 'border-[1px] border-gray-500' : ''" />
+          </ng-template>
+        </div>
+      </ng-container>
+      <div class="col-span-1">
+        <h2>Status</h2>
+        <p class="mt-4" *ngIf="!edit ; else inputStatus">Ended : {{ event.ended }}</p>
+        <ng-template #inputStatus>
+          <select [ngClass]="edit ? 'border-[1px] border-gray-500' : ''">
+            <option value="false">False</option>
+            <option value="true">True</option>
+          </select>
+        </ng-template>
+      </div>
+      <div class="col-span-2">
+        <h2>Pre-requis</h2>
+        <div class="flex justify-between items-center mt-4" formArrayName="prerequis" *ngIf="event.prerequis" >
+          <p *ngFor="let pre of event.prerequis ;index as index ">
+            {{ pre }}
+          </p>
+        </div>
+      </div>
+      <div class="col-span-2">
+        <h2 class="mt-6">Participants</h2>
+        <table class="text-center w-full rounded-t-lg overflow-hidden mt-4">
+          <tr class="bg-main h-16 rounded-t-lg">
+            <th>Full-name</th>
+            <th>Email</th>
+            <th>Facebook</th>
+            <th>Actions</th>
+          </tr>
+          <tr *ngFor="let p of participants" class="h-14">
+            <td>{{ p.name }} {{ p.forname }}</td>
+            <td>{{ p.email }}</td>
+            <td>
+              <a
+                class="py-2 bg-blue-500 rounded-lg flex items-center justify-center"
+                [href]="p.facebook"
+                target="_blank"
+              >
+                <lucide-angular name="facebook"></lucide-angular>
+                <p>Facebook</p>
+              </a>
+            </td>
+            <td class="flex items-center justify-center h-14 gap-4">
+              <button [routerLink]="'/admin/members/' + p._id">
+                <lucide-angular name="eye"></lucide-angular>
+              </button>
+              <button (click)="confirmParticipation(p._id)">
+                <lucide-angular name="plus-circle"></lucide-angular>
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
-  </div>
+  </form>
 </ng-container>
 <ng-template #load>
   <app-loading></app-loading>

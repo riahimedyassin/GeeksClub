@@ -18,17 +18,20 @@ export class MemberComponent implements OnInit {
   user!: User;
   displayNotification: boolean = false;
   error : boolean = false  ;
+  accepted! : boolean  ; 
+  deleted : boolean = false ; 
   ngOnInit(): void {
     this.id = <string>this.activated.snapshot.paramMap.get('id');
     this.userService.getMemberDetails(this.id).subscribe((response) => {
       this.user = response.data;
+      this.accepted=<boolean>response.data.isMember
     });
   }
   handleDelete() {
     if (!this.displayNotification) this.displayNotification = true;
     else {
       this.userService.deleteMember(this.id).subscribe((response) => {
-        console.log("Deleted succussfully")
+          this.deleted=true ;
       },(err)=> {
 
       });
@@ -36,7 +39,8 @@ export class MemberComponent implements OnInit {
   }
   acceptMember() {
     this.userService.registerMember(this.id).subscribe(response=> {
-      
+      this.accepted=true ; 
     })
   }
+  
 }

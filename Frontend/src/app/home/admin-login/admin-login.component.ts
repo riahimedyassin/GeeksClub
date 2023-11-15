@@ -23,10 +23,7 @@ export class AdminLoginComponent implements OnInit {
   ngOnInit(): void {
     this.form = new FormGroup({
       email: new FormControl(null, [Validators.email, Validators.required]),
-      password: new FormControl(null, [
-        
-        Validators.required,
-      ]),
+      password: new FormControl(null, [Validators.required]),
     });
   }
   handleLogin() {
@@ -49,6 +46,12 @@ export class AdminLoginComponent implements OnInit {
             }
           }
         );
+    }
+  }
+  handleKeyPress(event: any) {
+    const key = <number>event.keyCode;
+    if (key === 13) {
+      this.handleLogin();
     }
   }
 }

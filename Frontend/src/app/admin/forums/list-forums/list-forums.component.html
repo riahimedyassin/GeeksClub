@@ -1,6 +1,6 @@
 <div class="flex items-center justify-between">
     <h1>Forums</h1>
-    <button class="flex gap-4 border-[1px] border-main hover:bg-main transition-all rounded-lg px-4 py-2">
+    <button class="flex gap-4 border-[1px] border-main hover:bg-main transition-all rounded-lg px-4 py-2" routerLink="/admin/forums/new">
         <lucide-angular name="form-input"></lucide-angular>
         <p>Add new Forum</p>
     </button>
@@ -23,7 +23,7 @@
         <button [routerLink]="'/admin/forums/' + f._id">
           <lucide-angular name="eye"></lucide-angular>
         </button>
-        <button>
+        <button (click)="handleDelete(f._id)">
           <lucide-angular name="trash"></lucide-angular>
         </button>
       </td>
