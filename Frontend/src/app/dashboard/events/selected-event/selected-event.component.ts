@@ -61,4 +61,7 @@ export class SelectedEventComponent implements OnInit {
       this.member = false;
     });
   }
+  trackBy(index: number, item: Comment): string {
+    return item._id;
+  }
 }

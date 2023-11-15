@@ -11,11 +11,12 @@
     </div>
   </div>
   <h1>Leaderboard</h1>
-  <table class="w-full mt-12 space-y-2" *ngIf="leaderboard; else loading">
-    <tr class="px-4 w-full bg-yellow-500 rounded-t-lg h-16">
-      <th class="rounded-tl-lg">Name</th>
+  <table class="w-full mt-12 space-y-2 rounded-t-lg overflow-hidden" *ngIf="leaderboard; else loading">
+    <tr class="px-4 w-full bg-yellow-500 rounded-t-lg h-16 overflow-hidden">
+      <th >Name</th>
       <th>Tier</th>
-      <th class="rounded-tr-lg">Global Points</th>
+      <th >Global Points</th>
+      <th >Weekly Points</th>
     </tr>
     <tr
       *ngFor="let user of leaderboard"
@@ -32,6 +33,9 @@
       </td>
       <td>
         <h4>{{ user.points.global_point }}</h4>
+      </td>
+      <td>
+        <h4>{{ user.points.week_point }}</h4>
       </td>
     </tr>
   </table>

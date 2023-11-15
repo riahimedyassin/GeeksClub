@@ -4,8 +4,9 @@ import { ForumsService } from '../../shared/services/forum/forums.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../shared/services/user/user.service';
 import { User } from 'src/app/shared/models/User.model';
-import { RevealAnimationService } from 'src/app/shared/services/reveal-animation.service';
 import { articleResponse } from 'src/app/shared/models/types/articleResponse.type';
+import { message } from 'src/app/shared/models/types/message.type';
+import { Article } from 'src/app/shared/models/Article.model';
 
 
 @Component({
@@ -54,7 +55,7 @@ export class SelectedForumComponent implements OnInit {
     if (this.content.trim() != '' && this.isSub) {
       this.forumService.postArticle(this.content, this.id).subscribe(
         (response) => {
-          this.forum.articles = response.data;
+          this.forum.articles = [...response.data];
           this.content = '';
           this.published = true;
           setTimeout(() => {
@@ -66,5 +67,8 @@ export class SelectedForumComponent implements OnInit {
   }
   handleCommentChange(event : articleResponse[]) {
     this.forum.articles=event
+  }
+  trackBy(index : number , item : articleResponse ) : string {
+    return item._id
   }
 }

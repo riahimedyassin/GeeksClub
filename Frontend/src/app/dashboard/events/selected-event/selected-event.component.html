@@ -1,62 +1,80 @@
 <div class="text-white px-24 py-12">
-    <div *ngIf="event && !error ; else loading">
-        <img [src]="event.picture" *ngIf="event.picture">
-        <div class="flex justify-between items-center mb-12" >
-            <h1 >{{event.title}}</h1>
-            <button class="flex gap-4 px-4 py-2  bg-main rounded-lg hover:bg-second transition-all" *ngIf="!member ; else participant" (click)="handleParticipate()">
-                <lucide-angular name="plus-circle"></lucide-angular>
-                <p >Participate</p>
-            </button>
-            <ng-template #participant>
-                <button class="flex gap-4 px-4 py-2  border-main rounded-lg hover:bg-second transition-all border-[1px] "(click)="handleQuitEvent()">
-                    <lucide-angular name="check-circle-2"></lucide-angular>
-                    <p >Quit </p>
-                </button>
-            </ng-template>
-        </div>
-        <hr>
-        <div class="flex items-center justify-between mb-8 mt-8">
-            <div class="flex items-center gap-4">
-                <lucide-angular name="calendar"></lucide-angular>
-                <p>{{event.date.date_start | date : 'dd MMMM'}} </p>
-            </div>
-            <div class="flex items-center gap-4">
-                <lucide-angular name="calendar-x"></lucide-angular>
-                <p>{{event.date.date_end | date : 'dd MMMM'}} </p>
-            </div>
-            <div class="flex items-center gap-4">
-                <lucide-angular name="user"></lucide-angular>
-                <p>{{event.participants.length}} Participant </p>
-            </div>
-        </div>
-        <hr>
-        <h2 class="mt-8">Descreption : </h2>
-        <p class="mt-8 mb-16">
-            
-            {{event.descreption}}
-        </p>
-        <hr class="mt-12 mb-4">
-        <h2 class="mb-8">Comments : </h2>
-        <div class="addComment" >
-            <textarea type="text" [(ngModel)]="comment" placeholder="Type in your comment" class="comment"></textarea>
-            <button (click)="handleComment()">Submit</button>
-        </div>
-        <div class="comments mt-12" *ngIf="event.comments && event.comments.length > 0 ; else noComment">
-            <ng-container *ngFor="let comment of event.comments">
-                <app-comments [comment]="comment"></app-comments>
-            </ng-container>
-        </div>
-        <ng-template #noComment>
-            <p class="mt-4">No comments on this event</p>
-        </ng-template>
+  <div *ngIf="event && !error; else loading">
+    <img [src]="event.picture" *ngIf="event.picture" />
+    <div class="flex justify-between items-center mb-12">
+      <h1>{{ event.title }}</h1>
+      <ng-container *ngIf="!event.ended">
+        <button
+        class="flex gap-4 px-4 py-2 bg-main rounded-lg hover:bg-second transition-all"
+        *ngIf="!member; else participant"
+        (click)="handleParticipate()"
+      >
+        <lucide-angular name="plus-circle"></lucide-angular>
+        <p>Participate</p>
+      </button>
+      <ng-template #participant>
+        <button
+          class="flex gap-4 px-4 py-2 border-main rounded-lg hover:bg-second transition-all border-[1px]"
+          (click)="handleQuitEvent()"
+        >
+          <lucide-angular name="check-circle-2"></lucide-angular>
+          <p>Quit</p>
+        </button>
+      </ng-template>
+      </ng-container>
     </div>
-    <ng-template #loading >
-        <ng-container *ngIf="!error">
-            <app-loading></app-loading>
-        </ng-container>
+    <hr />
+    <div class="flex items-center justify-between mb-8 mt-8">
+      <div class="flex items-center gap-4">
+        <lucide-angular name="calendar"></lucide-angular>
+        <p>{{ event.date.date_start | date : "dd MMMM" }}</p>
+      </div>
+      <div class="flex items-center gap-4">
+        <lucide-angular name="calendar-x"></lucide-angular>
+        <p>{{ event.date.date_end | date : "dd MMMM" }}</p>
+      </div>
+      <div class="flex items-center gap-4">
+        <lucide-angular name="user"></lucide-angular>
+        <p>{{ event.participants.length }} Participant</p>
+      </div>
+    </div>
+    <hr />
+    <h2 class="mt-8">Descreption :</h2>
+    <p class="mt-8 mb-16">
+      {{ event.descreption }}
+    </p>
+    <hr class="mt-12 mb-4" />
+    <h2 class="mb-8">Comments :</h2>
+    <div class="addComment" *ngIf="!event.ended">
+      <textarea
+        type="text"
+        [(ngModel)]="comment"
+        placeholder="Type in your comment"
+        class="comment"
+      ></textarea>
+      <button (click)="handleComment()">Submit</button>
+    </div>
+    <div
+      class="comments mt-12"
+      *ngIf="event.comments && event.comments.length > 0; else noComment"
+    >
+      <ng-container *ngFor="let comment of event.comments; trackBy: trackBy">
+        <app-comments [comment]="comment"></app-comments>
+      </ng-container>
+    </div>
+    <ng-template #noComment>
+      <p class="mt-4">No comments on this event</p>
     </ng-template>
-    <ng-container *ngIf="error">
-        <h1 class="text-red-500">Event not found</h1>
-        <button routerLink="/dashboard/events" class="dashed-button mt-8">Go back</button>
+  </div>
+  <ng-template #loading>
+    <ng-container *ngIf="!error">
+      <app-loading></app-loading>
     </ng-container>
+  </ng-template>
+  <ng-container *ngIf="error">
+    <h1 class="text-red-500">Event not found</h1>
+    <button routerLink="/dashboard/events" class="dashed-button mt-8">
+      Go back
+    </button>
+  </ng-container>
 </div>

@@ -14,21 +14,16 @@ export class RepliesComponent {
   @Output() oncomment: EventEmitter<articleResponse[]> = new EventEmitter<
     articleResponse[]
   >();
-  showComment : boolean =false ; 
+  showComment: boolean = false;
   comment!: string;
-  constructor(
-    private reveal: RevealAnimationService,
-    private forumService: ForumsService
-  ) {}
-  ngOnInit(): void {
-    this.reveal.initScrollReveal('bottom', 1000, '.reveal');
-  }
+  constructor(private forumService: ForumsService) {}
+  ngOnInit(): void {}
   handleComment() {
     if (this.comment.trim() != '') {
       this.forumService
         .postComment(this.comment, this.forum, this.article._id)
         .subscribe((response) => {
-          console.log(response)
+          console.log(response);
           this.oncomment.emit(response.data);
         });
     }
