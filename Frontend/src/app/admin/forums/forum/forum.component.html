@@ -7,12 +7,12 @@
         [ngClass]="edit ? 'border-[1px] border-gray-500' : ''"
       />
       <div class="flex items-center gap-4 jsutify-center">
-        <button class="flex gap-4 items-center bg-red-500 rounded-lg px-4 py-2" (click)="handleDelete()">
+        <button class="danger-button" (click)="handleDelete()">
           <lucide-angular name="trash"></lucide-angular>
           <p>Delete</p>
         </button>
         <button
-          class="flex gap-4 items-center bg-third rounded-lg px-4 py-2"
+          class="third-button"
           (click)="handleEdit()"
         >
           <lucide-angular name="pencil"></lucide-angular>
@@ -45,7 +45,7 @@
           <th>Full-name</th>
           <th>Actions</th>
         </tr>
-        <tr *ngFor="let p of members" class="h-14">
+        <tr *ngFor="let p of members ; index as index" class="h-14" [appTableColor]="index">
           <td>{{ p.name }} {{ p.forname }}</td>
           <td class="h-14 flex items-center justify-center gap-6">
             <button [routerLink]="'/admin/members/' + p._id">
@@ -70,7 +70,7 @@
         <tr
           *ngFor="let article of singleForum.articles; index as index"
           class="h-14"
-          [ngClass]="index % 2 === 0 ? 'bg-deepblack' : ''"
+          [appTableColor]="index"
         >
           <td>
             {{ index }}

@@ -1,58 +1,76 @@
 <div *ngIf="user; else load">
   <div class="flex items-center justify-between">
     <h2>Member : {{ user.name }} {{ user.forname }}</h2>
-    <ng-container *ngIf="displayNotification ">
-        <app-alert message="Deleting members will be final and permenant and all the data will be gone" ></app-alert>
+    <ng-container *ngIf="displayNotification">
+      <app-alert
+        message="Deleting members will be final and permenant and all the data will be gone"
+      ></app-alert>
     </ng-container>
-    <button class="bg-red-500 rounded-lg px-4 py-2 flex gap-4 hover:bg-red-500 transition-all" (click)="handleDelete()" *ngIf="!deleted">
-        <p>
-            Delete Member
-        </p>
+    <div class="flex gap-6">
+      <button
+        class="bg-red-500 rounded-lg px-4 py-2 flex gap-4 hover:bg-red-500 transition-all"
+        (click)="handleDelete()"
+        *ngIf="!deleted"
+      >
+        <p>Delete Member</p>
         <lucide-angular name="trash"></lucide-angular>
-    </button>
-    <button class="bg-red-500 rounded-lg px-4 py-2 flex gap-4 hover:bg-green-500 transition-all" (click)="acceptMember()" *ngIf="!accepted">
-      <p>
-          Accept Member
-      </p>
-      <lucide-angular name="trash"></lucide-angular>
-  </button>
+      </button>
+      <button class="succuss-button" (click)="acceptMember()" *ngIf="!accepted">
+        <p>Accept Member</p>
+        <lucide-angular name="trash"></lucide-angular>
+      </button>
+    </div>
   </div>
   <div class="mt-12 class grid grid-cols-2 gap-12">
     <div>
       <h4>Facebooke profile</h4>
-      <div class="w-auto flex gap-4 bg-deepblack  rounded-lg overflow-hidden mt-4 items-center">
+      <div
+        class="w-auto flex gap-4 bg-deepblack rounded-lg overflow-hidden mt-4 items-center"
+      >
         <div class="bg-blue-500 w-16 h-full px-4 py-2">
-            <lucide-angular name="facebook"></lucide-angular>
+          <lucide-angular name="facebook"></lucide-angular>
         </div>
         <p class="py-2">{{ user.facebook }}</p>
         <a [href]="user.facebook" target="_blank">
-            <lucide-angular name="link"></lucide-angular>
+          <lucide-angular name="link"></lucide-angular>
         </a>
       </div>
     </div>
     <div>
       <h4>Email Address</h4>
-      <p class="mt-4 bg-deepblack  rounded-lg overflow-hidden py-2">{{ user.email }}</p>
+      <p class="mt-4 bg-deepblack rounded-lg overflow-hidden py-2">
+        {{ user.email }}
+      </p>
     </div>
     <div>
-        <h4>Phone Number</h4>
-        <p class="mt-4 bg-deepblack  rounded-lg overflow-hidden py-2">{{ user.phone}}</p>
-      </div>
+      <h4>Phone Number</h4>
+      <p class="mt-4 bg-deepblack rounded-lg overflow-hidden py-2">
+        {{ user.phone }}
+      </p>
+    </div>
     <div>
       <h4>Global Points</h4>
-      <p class="mt-4 bg-deepblack  rounded-lg overflow-hidden py-2">{{ user.points?.global_point }}</p>
+      <p class="mt-4 bg-deepblack rounded-lg overflow-hidden py-2">
+        {{ user.points?.global_point }}
+      </p>
     </div>
     <div>
       <h4>Region</h4>
-      <p class="mt-4 bg-deepblack  rounded-lg overflow-hidden py-2">{{ user.address.region }}</p>
+      <p class="mt-4 bg-deepblack rounded-lg overflow-hidden py-2">
+        {{ user.address.region }}
+      </p>
     </div>
     <div>
       <h4>City</h4>
-      <p class="mt-4 bg-deepblack  rounded-lg overflow-hidden py-2">{{ user.address.city }}</p>
+      <p class="mt-4 bg-deepblack rounded-lg overflow-hidden py-2">
+        {{ user.address.city }}
+      </p>
     </div>
     <div>
       <h4>Email Address</h4>
-      <p class="mt-4 bg-deepblack  rounded-lg overflow-hidden py-2">{{ user.name }}</p>
+      <p class="mt-4 bg-deepblack rounded-lg overflow-hidden py-2">
+        {{ user.name }}
+      </p>
     </div>
   </div>
 </div>
@@ -60,8 +78,16 @@
   <app-loading></app-loading>
 </ng-template>
 <ng-container *ngIf="deleted">
-  <app-notification message="User deleted succussfully" color="red" icon="x-circle"></app-notification>
+  <app-notification
+    message="User deleted succussfully"
+    color="red"
+    icon="x-circle"
+  ></app-notification>
 </ng-container>
 <ng-container *ngIf="accepted">
-  <app-notification message="This user is a member" icon="plus-circle" color="green"></app-notification>
+  <app-notification
+    message="This user is a member"
+    icon="plus-circle"
+    color="green"
+  ></app-notification>
 </ng-container>

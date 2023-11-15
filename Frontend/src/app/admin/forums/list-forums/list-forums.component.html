@@ -1,5 +1,8 @@
 <div class="flex items-center justify-between">
-    <h1>Forums</h1>
+<div class="flex gap-6">
+  <lucide-angular name="messages-square" size="48"></lucide-angular>
+  <h1>Forums</h1>
+</div>
     <button class="flex gap-4 border-[1px] border-main hover:bg-main transition-all rounded-lg px-4 py-2" routerLink="/admin/forums/new">
         <lucide-angular name="form-input"></lucide-angular>
         <p>Add new Forum</p>
@@ -14,7 +17,7 @@
       <th>Articles</th>
       <th>Actions</th>
     </tr>
-    <tr *ngFor="let f of forum" class="h-14">
+    <tr *ngFor="let f of forum ; index as index" class="h-14" [appTableColor]="index"  >
       <td>{{ f.name }}</td>
       <td>{{ f.descreption | shorten }}</td>
       <td>{{ f.members.length }}</td>

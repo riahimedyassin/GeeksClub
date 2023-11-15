@@ -5,7 +5,6 @@ import { User } from 'src/app/shared/models/User.model';
 import { environment } from 'src/env/env';
 import { JwtService } from '../../../../services/auth/jwt.service';
 import { Response } from 'src/app/shared/models/Response.model';
-import { HandleError } from '../../../../shared/error/errorHandler';
 
 const URL = `${environment.host}/members`;
 
@@ -22,21 +21,24 @@ export class UserService {
       observer.next({
         message: 'User retrived succsfully',
         status: 200,
-        data: this.user,
+        data: <User>this.user,
       });
     }
   );
-  user!: User;
+  user!: User | null ;
   logout() {
+    this.user = null ; 
     this.jwtService.removeToken();
   }
   private cacheUser() {
+   
     this.http.get<Response<User>>(`${URL}/me/info`).subscribe((response) => {
       this.user = response.data;
     });
   }
   getCurrentUser(): Observable<Response<User>> {
     if (this.user) {
+      console.log("cached")
       return this.user$;
     } else {
       this.cacheUser();

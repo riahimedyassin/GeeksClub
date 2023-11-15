@@ -29,6 +29,7 @@ import { ArticleComponent } from './forums/forum/article/article.component';
 import { NewForumComponent } from './forums/new-forum/new-forum.component';
 import { NotificationComponent } from '../shared/components/notification/notification.component';
 import { NewEventComponent } from './events/new-event/new-event.component';
+import { TableColorDirective } from '../shared/directives/table-color.directive';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { NewEventComponent } from './events/new-event/new-event.component';
     ArticleComponent,
     NewForumComponent,
     NewEventComponent,
+    TableColorDirective
   ],
   imports: [
     CommonModule,
@@ -63,7 +65,7 @@ import { NewEventComponent } from './events/new-event/new-event.component';
     AlertComponent,
     ShortenPipe,
     ReactiveFormsModule,
-    NotificationComponent,
+    NotificationComponent
   ],
 })
 export class AdminModule {}

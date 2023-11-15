@@ -25,6 +25,8 @@ import { RepliesComponent } from './forums/selected-forum/replies/replies.compon
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorInterceptor } from '../shared/error/error.interceptor';
+import { ListForumsComponent } from './forums/list-forums/list-forums.component';
+import { ListEventsComponent } from './events/list-events/list-events.component';
 
 @NgModule({
   providers: [{
@@ -48,6 +50,8 @@ import { ErrorInterceptor } from '../shared/error/error.interceptor';
     SelectedForumComponent,
     RepliesComponent,
     LeaderboardComponent,
+    ListForumsComponent,
+    ListEventsComponent,
   ],
   imports: [
     CommonModule,

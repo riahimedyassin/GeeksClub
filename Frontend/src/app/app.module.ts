@@ -9,6 +9,7 @@ import { JwtInterceptor } from './services/auth/jwt.interceptor';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NavigationAnimationComponent } from './navigation-animation/navigation-animation.component';
 import { ErrorInterceptor } from './shared/error/error.interceptor';
+import { TableColorDirective } from './shared/directives/table-color.directive';
 
 @NgModule({
   declarations: [AppComponent, NotFoundComponent, NavigationAnimationComponent],

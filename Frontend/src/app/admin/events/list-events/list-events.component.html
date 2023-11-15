@@ -1,5 +1,8 @@
 <div class="flex justify-between items-center">
-  <h1>Events</h1>
+  <div class="flex gap-6">
+    <lucide-angular name="calendar-clock" size="48"></lucide-angular>
+    <h1>Events</h1>
+  </div>
   <button
     class="flex gap-4 border-main rounded-lg px-4 py-2 border-[1px] hover:bg-main transition-all" routerLink="/admin/events/new"
   >
@@ -15,9 +18,9 @@
       (input)="handleSearch($event)"
     />
     <button
-      class="flex gap-4 rounded-lg bg-third px-4 py-2"
+      class="third-button"
       (click)="handelEnded()"
-      [ngClass]="ended ? 'bg-purple-800' : ''"
+      [ngClass]="ended ? 'bg-purple-500' : ''"
     >
       <lucide-angular name="calendar-off"></lucide-angular>
       <p>Ended</p>
@@ -27,7 +30,7 @@
       <option value="formation">Formation</option>
       <option value="assignment">Assignment</option>
       <option value="reunion">Reunion</option>
-      <option value=""></option>
+      <option value="event">Event</option>
     </select>
   </div>
   <table class="mt-6 w-full rounded-t-lg text-center overflow-hidden">

@@ -1,0 +1,16 @@
+div.flex {
+    gap : 16px; 
+    @apply mt-12; 
+    div {
+        width: 50%;
+        height: 400px;
+        @apply bg-deepblack rounded-xl ;
+        
+    }
+}
+.filter--button {
+    @apply flex gap-4 border-[1px] border-main rounded-lg bg-deepblack px-4 py-2 hover:bg-main active:bg-second transition-all
+}
+.active {
+    @apply bg-second ; 
+}

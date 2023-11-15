@@ -19,12 +19,12 @@
         </ng-template>
       </div>
       <div class="flex gap-4 items*center">
-        <button class="flex gap-4 bg-red-500 rounded-lg px-4 py-2" (click)="handleDelete()">
+        <button class="danger-button" (click)="handleDelete()">
           <p>Delete</p>
           <lucide-angular name="trash"></lucide-angular>
         </button>
         <button
-          class="flex gap-4 bg-third rounded-lg px-4 py-2"
+          class="third-button"
           (click)="handleEdit()"
           type="button"
         >
@@ -32,7 +32,7 @@
           <lucide-angular name="pencil"></lucide-angular>
         </button>
         <button
-          class="flex gap-4 bg-green-500 rounded-lg px-4 py-2"
+          class="succuss-button"
           *ngIf="edit"
           type="submit"
         >
@@ -133,9 +133,10 @@
             <td>{{ p.email }}</td>
             <td>
               <a
-                class="py-2 bg-blue-500 rounded-lg flex items-center justify-center"
+                class="py-2 bg-blue-500 hover:bg-blue-600 transition-all rounded-lg flex items-center justify-center"
                 [href]="p.facebook"
                 target="_blank"
+                title="Navigate to the facebook profile"
               >
                 <lucide-angular name="facebook"></lucide-angular>
                 <p>Facebook</p>
@@ -145,7 +146,7 @@
               <button [routerLink]="'/admin/members/' + p._id">
                 <lucide-angular name="eye"></lucide-angular>
               </button>
-              <button (click)="confirmParticipation(p._id)">
+              <button (click)="confirmParticipation(p._id)" >
                 <lucide-angular name="plus-circle"></lucide-angular>
               </button>
             </td>

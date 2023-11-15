@@ -24,16 +24,18 @@ export class SelectedEventComponent implements OnInit {
   member!: boolean;
   user_id!: string;
   ngOnInit(): void {
-    this.id = <string>this.activated.snapshot.paramMap.get('id');
-    this.eventService.getSingleEvent(this.id).subscribe((response) => {
-      this.event = response.data;
-      this.userService.getCurrentUser().subscribe((response) => {
-        this.user_id = response.data._id;
-        this.member =
-          this.event.participants.filter(
-            (participant) => participant.user_id === response.data._id
-          ).length > 0;
-        console.log(this.member);
+    this.activated.paramMap.subscribe((params) => {
+      this.id = <string>params.get('id');
+      this.eventService.getSingleEvent(this.id).subscribe((response) => {
+        this.event = response.data;
+        this.userService.getCurrentUser().subscribe((response) => {
+          this.user_id = response.data._id;
+          this.member =
+            this.event.participants.filter(
+              (participant) => participant.user_id === response.data._id
+            ).length > 0;
+          console.log(this.member);
+        });
       });
     });
   }

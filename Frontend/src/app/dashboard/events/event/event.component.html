@@ -1,16 +1,22 @@
-<div class="bg-deepblack w-[70em] h-52 rounded-xl grid grid-cols-8 py-4 transition-all cursor-pointer hover:bg-main " [routerLink]="'./'+event._id">
-    <div class="col-span-2 border-r-[1px] border-r-[#272727] overflow-hidden " >
+<div
+  class="bg-deepblack w-[70em] h-52 rounded-xl grid grid-cols-8 py-4 transition-all cursor-pointer hover:bg-main"
+  [routerLink]="'/dashboard/events/' + event._id"
+>
+  <div
+    class="col-span-2 border-r-[1px] border-r-[#272727] overflow-hidden"
+  ></div>
+  <div class="col-span-6 px-6 py-2">
+    <h2 class="mb-4">{{ event.title }}</h2>
+    <p class="text-gray-300">{{ event.descreption | shorten : "lg" }}</p>
+    <div class="flex justify-around mt-8">
+      <div class="flex space-x-2">
+        <lucide-icon name="users-2"></lucide-icon>
+        <span>{{ event.participants.length }} Participants</span>
+      </div>
+      <div class="flex space-x-2">
+        <lucide-icon name="calendar-days"></lucide-icon>
+        <span>{{ event.date.date_start | date : "dd MMMM YYYY" }} </span>
+      </div>
     </div>
-    <div class="col-span-6 px-6 py-2">
-        <h2 class="mb-4">{{event.title}}</h2>
-        <p class="text-gray-300">{{event.descreption | shorten : 'lg'}} </p>
-        <div class="flex justify-around mt-8">
-            <div class="flex space-x-2">
-                <lucide-icon name="users-2"></lucide-icon> <span>{{event.participants.length}} Participants</span>
-            </div>
-            <div class="flex space-x-2">
-                <lucide-icon name="calendar-days"></lucide-icon> <span>{{event.date.date_start | date : 'dd MMMM YYYY'}} </span>
-            </div>
-        </div>
-    </div>
+  </div>
 </div>

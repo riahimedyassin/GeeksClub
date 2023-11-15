@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Query } from '@angular/core';
 
 @Component({
   selector: 'app-quick-action',
@@ -9,4 +9,5 @@ export class QuickActionComponent {
   @Input('title') title! : string ; 
   @Input('icon') icon! : string ; 
   @Input('link') link! : string ;
+  @Input('query') query? : string
 }

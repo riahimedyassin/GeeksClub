@@ -97,3 +97,9 @@ h3 {
 .default-button {
   @apply px-4 py-2 rounded-lg bg-gray-500 flex gap-4;
 }
+.third-button {
+  @apply px-4 py-2 rounded-lg bg-third flex gap-4;
+}
+.ng-invalid.ng-touched {
+  @apply border-red-500
+}

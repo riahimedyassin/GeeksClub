@@ -1,4 +1,4 @@
-import {  Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Forum } from 'src/app/shared/models/Forum.model';
 import { ForumsService } from '../../shared/services/forum/forums.service';
 import { ActivatedRoute } from '@angular/router';
@@ -7,7 +7,6 @@ import { User } from 'src/app/shared/models/User.model';
 import { articleResponse } from 'src/app/shared/models/types/articleResponse.type';
 import { message } from 'src/app/shared/models/types/message.type';
 import { Article } from 'src/app/shared/models/Article.model';
-
 
 @Component({
   selector: 'app-selected-forum',
@@ -24,16 +23,18 @@ export class SelectedForumComponent implements OnInit {
   constructor(
     private forumService: ForumsService,
     private activated: ActivatedRoute,
-    private userService: UserService,
+    private userService: UserService
   ) {}
   ngOnInit(): void {
-    this.id = <string>this.activated.snapshot.paramMap.get('id');
-    this.userService.getCurrentUser().subscribe((response) => {
-      this.user = response.data;
+    this.activated.paramMap.subscribe((params) => {
+      this.id = <string>params.get('id');
       this.forumService.getSingleForum(this.id).subscribe((response) => {
         this.forum = response.data;
         this.isSub = this.isSubscribed();
       });
+    });
+    this.userService.getCurrentUser().subscribe((response) => {
+      this.user = response.data;
     });
   }
   isSubscribed() {
@@ -45,30 +46,28 @@ export class SelectedForumComponent implements OnInit {
     });
   }
   unsubscribe() {
-    this.forumService.unsubscribeFromForum(this.id).subscribe(
-      (response) => {
-        this.isSub = false;
-      }
-    );
+    this.forumService.unsubscribeFromForum(this.id).subscribe((response) => {
+      this.isSub = false;
+    });
   }
   postArticle() {
     if (this.content.trim() != '' && this.isSub) {
-      this.forumService.postArticle(this.content, this.id).subscribe(
-        (response) => {
+      this.forumService
+        .postArticle(this.content, this.id)
+        .subscribe((response) => {
           this.forum.articles = [...response.data];
           this.content = '';
           this.published = true;
           setTimeout(() => {
             this.published = false;
           }, 3000);
-        }
-      );
+        });
     }
   }
-  handleCommentChange(event : articleResponse[]) {
-    this.forum.articles=event
+  handleCommentChange(event: articleResponse[]) {
+    this.forum.articles = event;
   }
-  trackBy(index : number , item : articleResponse ) : string {
-    return item._id
+  trackBy(index: number, item: articleResponse): string {
+    return item._id;
   }
 }

@@ -35,9 +35,7 @@
   <tr
     *ngFor="let member of toDisplay; index as index"
     class="h-12"
-    [ngClass]="
-      index % 2 === 0 ? 'bg-deepblack' : 'border-t-[1px] border-gray-500'
-    "
+    [appTableColor]="index"
   >
     <th>{{ member.name }} {{ member.forname }}</th>
     <th>{{ member.email }}</th>

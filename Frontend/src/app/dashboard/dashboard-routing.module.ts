@@ -9,7 +9,8 @@ import { SelectedEventComponent } from './events/selected-event/selected-event.c
 import { ForumsComponent } from './forums/forums.component';
 import { SelectedForumComponent } from './forums/selected-forum/selected-forum.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
-
+import { ListForumsComponent } from './forums/list-forums/list-forums.component';
+import { ListEventsComponent } from './events/list-events/list-events.component';
 
 const routes: Routes = [
   {
@@ -27,19 +28,30 @@ const routes: Routes = [
         title: 'Geeks Club | Profile',
       },
       {
-        path:'leaderboard',component:LeaderboardComponent
+        path: 'leaderboard',
+        component: LeaderboardComponent,
       },
       {
         path: 'forums',
+        component: ForumsComponent,
         children: [
-          { path: '', component: ForumsComponent },
+          { path: '', redirectTo: 'list', pathMatch: 'full' },
+          {
+            path: 'list',
+            component: ListForumsComponent,
+          },
           { path: ':id', component: SelectedForumComponent },
         ],
       },
       {
         path: 'events',
+        component: EventsComponent,
         children: [
-          { path: '', component: EventsComponent },
+          { path: '', redirectTo: 'list', pathMatch: 'full' },
+          {
+            path: 'list',
+            component: ListEventsComponent,
+          },
           { path: ':id', component: SelectedEventComponent },
         ],
       },

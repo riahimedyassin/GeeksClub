@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/dashboard/shared/services/user/user.service';
 import { User } from 'src/app/shared/models/User.model';
 
@@ -8,7 +9,7 @@ import { User } from 'src/app/shared/models/User.model';
   styleUrls: ['./list-members.component.scss'],
 })
 export class ListMembersComponent {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService , private activated : ActivatedRoute) {}
   members!: User[];
   toDisplay!: User[];
   search: string = '';
@@ -18,7 +19,11 @@ export class ListMembersComponent {
   ngOnInit(): void {
     this.userService.getAllMembers(this.page).subscribe((response) => {
       this.members = response.data;
-      this.toDisplay = response.data;
+      
+      if(this.activated.snapshot.queryParamMap.get('registered')=='true') {
+        this.listRegistered=true
+      }
+      this.toDisplay = response.data.filter(memeber => memeber.isMember==!this.listRegistered );
     });
     this.userService.getAllRegistered().subscribe((response) => {
       this.registered = response.data;
