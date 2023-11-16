@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Anonymous+Pro&display=swap');
+* {
+    font-family: 'Anonymous Pro', monospace; 
+}
 .prompt {
-    font-family: 'Anonymous Pro' ; 
-    @apply w-[800px] h-[400px] bg-deepblack rounded-lg relative overflow-hidden ; 
+    @apply w-[800px] h-[400px] bg-deepblack rounded-lg relative overflow-hidden shadow-md shadow-white  ; 
     .header {
         @apply absolute top-0 left-0 w-full px-4 py-2 h-[40px] bg-white text-center flex items-center justify-between;
         .circles {

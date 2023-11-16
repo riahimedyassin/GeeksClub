@@ -5,19 +5,21 @@ import { Router } from '@angular/router';
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
-  standalone:true 
+  standalone: true,
 })
 export class NavbarComponent {
-  constructor(private router : Router) {}
-  navigate(to : string) {
-    this.router.navigateByUrl(to)
+  constructor(private router: Router) {}
+  navigate(to: string) {
+    this.router.navigateByUrl(to);
   }
-  scroll(to :string ) {
+  scroll(to: string) {
     this.router.navigateByUrl('').then(() => {
       document.querySelector(`#${to}`)?.scrollIntoView({
-        behavior:'smooth'
-      })
-    })
-    
+        behavior: 'smooth',
+      });
+    });
+  }
+  navigateToHome() {
+    this.router.navigate(['/'])
   }
 }

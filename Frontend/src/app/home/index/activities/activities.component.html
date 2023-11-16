@@ -5,7 +5,7 @@
 >
   <h1 class="mb-12">Activities</h1>
   <div
-    class="backdrop-blur-lg h-auto w-full backdrop-filter backdrop-opacity-10 flex flex-col items-center py-12 border-[1px] border-gray-600 rounded-lg reveal-element-buttom"
+    class="backdrop-blur-lg h-auto w-full space-y-8 backdrop-filter backdrop-opacity-10 flex flex-col items-center py-12 border-[1px] border-gray-600 rounded-lg reveal-element-buttom"
    *ngIf="!error ; else errortemp">
     <ng-container *ngFor="let activity of activities">
       <app-activity

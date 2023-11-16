@@ -17,6 +17,7 @@ export class EventComponent implements OnInit {
   id!: string;
   edit: boolean = false;
   form!: FormGroup;
+  saved: boolean= false ; 
   constructor(
     private eventService: EventsService,
     private activated: ActivatedRoute,
@@ -51,7 +52,10 @@ export class EventComponent implements OnInit {
     this.eventService
       .confirmParticipation(this.id, userID)
       .subscribe((response) => {
-        console.log(response);
+        this.saved=true ; 
+        setTimeout(()=> {
+          this.saved=false ; 
+        },3000)
       });
   }
   handleEdit() {
@@ -75,12 +79,19 @@ export class EventComponent implements OnInit {
       .editEvent(this.id, this.form.value)
       .subscribe((response) => {
         this.event = this.form.value;
-        this.edit=false
+        this.edit=false;
+        this.saved=true ; 
+        setTimeout(()=>this.saved=false , 3000)
       });
   }
   handleDelete() {
     this.eventService.deleteEvent(this.id).subscribe(response=> {
-      this.router.navigateByUrl('/admin/events')
+      this.router.navigateByUrl('/admin/events') 
+    })
+  }
+  handleEndEvent() {
+    this.eventService.endEvent(this.id).subscribe(response => {
+      this.event.ended=true ; 
     })
   }
 }

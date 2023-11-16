@@ -16,15 +16,23 @@ export class CustomValidator {
     }
     return null;
   }
-  public static numeric(control : AbstractControl) : ValidationErrors | null {
-    const value = control.value ; 
-    if(isNaN(value)) return {number : false }
-    return null 
+  public static numeric(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    if (isNaN(value)) return { number: false };
+    return null;
   }
-  public static facebook(control : AbstractControl) : ValidationErrors | null {
-      const value = control.value ; 
-      const regex : RegExp = /^https:\/\/(www.)?facebook.com\//
-      if(regex.test(value)) return null ; 
-      return {facebook : false}
+  public static facebook(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    const regex: RegExp = /^https:\/\/(www.)?facebook.com\//;
+    if (regex.test(value)) return null;
+    return { facebook: false };
+  }
+  public cleanChat(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    const bad = ['fuck', 'shit', 'nigga', 'jerk', 'ass'];
+    let index = 0;
+    while (index < bad.length && !value.includes(bad[index])) index++;
+    if (index == bad.length) return null;
+    return { bad: true };
   }
 }

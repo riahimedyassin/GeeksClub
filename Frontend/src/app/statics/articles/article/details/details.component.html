@@ -1,8 +1,8 @@
 <app-navbar></app-navbar>
-<ng-container *ngIf="article!=null">
+<ng-container *ngIf="article!=null" >
     <div class="h-[100vh] w-full px-36 text-white mt-36">
         <div class="img--container">
-            <img [src]="article.picture" alt="Article Picture">
+            <img [src]="article.picture" alt="Article Picture" *ngIf="article.picture">
         </div>
         <h1 class="mb-4">{{article.title}} </h1>
         <hr>

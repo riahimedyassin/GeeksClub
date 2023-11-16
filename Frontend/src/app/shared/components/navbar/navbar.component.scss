@@ -15,7 +15,7 @@
     }
     span.link {
         cursor: pointer;
-        @apply hover:opacity-60 transition-opacity px-3 py-2 rounded-full;
+        @apply  hover:opacity-50 px-3 py-2 rounded-full transition-all;
         &:hover {
             background-color: rgba(128, 128, 128, 0.16);
         }

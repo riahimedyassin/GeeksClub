@@ -10,7 +10,10 @@
         />
         <p *ngIf="!edit; else editCategorie">{{ event.categorie }}</p>
         <ng-template #editCategorie>
-          <select formControlName="categorie" class='border-[1px] border-gray-500 mt-4'>
+          <select
+            formControlName="categorie"
+            class="border-[1px] border-gray-500 mt-4"
+          >
             <option value="formation">Formation</option>
             <option value="reunion">Reunion</option>
             <option value="assignment">Assignement</option>
@@ -18,7 +21,7 @@
           </select>
         </ng-template>
       </div>
-      <div class="flex gap-4 items*center">
+      <div class="flex gap-4 items-center">
         <button class="danger-button" (click)="handleDelete()">
           <p>Delete</p>
           <lucide-angular name="trash"></lucide-angular>
@@ -27,15 +30,16 @@
           class="third-button"
           (click)="handleEdit()"
           type="button"
+          *ngIf="!event.ended"
         >
           <p>Edit</p>
           <lucide-angular name="pencil"></lucide-angular>
         </button>
-        <button
-          class="succuss-button"
-          *ngIf="edit"
-          type="submit"
-        >
+        <button class="warning-button" (click)="handleEndEvent()">
+          <lucide-angular name="plus-circle"></lucide-angular>
+          <p>Ended</p>
+        </button>
+        <button class="succuss-button" *ngIf="edit" type="submit">
           <p>Save</p>
           <lucide-angular name="save"></lucide-angular>
         </button>
@@ -146,7 +150,10 @@
               <button [routerLink]="'/admin/members/' + p._id">
                 <lucide-angular name="eye"></lucide-angular>
               </button>
-              <button (click)="confirmParticipation(p._id)" *ngIf="!participants.includes(p)" >
+              <button
+                (click)="confirmParticipation(p._id)"
+                *ngIf="!participants.includes(p)"
+              >
                 <lucide-angular name="plus-circle"></lucide-angular>
               </button>
             </td>
@@ -159,3 +166,10 @@
 <ng-template #load>
   <app-loading></app-loading>
 </ng-template>
+<ng-container *ngIf="saved">
+  <app-notification
+    message="Event Saved Succussfully"
+    icon="plus-circle"
+    color="green"
+  ></app-notification>
+</ng-container>

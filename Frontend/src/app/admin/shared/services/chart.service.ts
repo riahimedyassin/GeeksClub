@@ -13,14 +13,14 @@ export class ChartService {
     labels: string[],
     title: string
   ) {
-    const chart = new Chart(canvas, {
+    return new Chart(canvas, {
       type: 'bar',
       data: {
         datasets: [
           {
             label: title,
             data: dataset,
-            backgroundColor: ['#ff008cff', '#96a7ff'],
+            backgroundColor: ['#ff008cff'],
           },
         ],
         labels: labels,
