@@ -83,7 +83,7 @@
             {{ article.message.content | shorten }}
           </td>
           <td class="flex items-center justify-center h-14">
-            <button>
+            <button [routerLink]="'/admin/forums/'+id+'/'+article._id">
               <lucide-angular name="eye"></lucide-angular>
             </button>
           </td>

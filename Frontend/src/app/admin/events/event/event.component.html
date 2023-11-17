@@ -116,10 +116,10 @@
         <div
           class="flex justify-between items-center mt-4"
           formArrayName="prerequis"
-          *ngIf="event.prerequis"
+          
         >
-          <p *ngFor="let pre of event.prerequis; index as index">
-            {{ pre }}
+          <p *ngFor="let pre of listPrerequis.controls; index as index">
+            {{ pre.value }}
           </p>
         </div>
       </div>

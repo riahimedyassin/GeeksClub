@@ -1,1 +1,27 @@
-<p>list-articles works!</p>
+<div class="flex items-center justify-between">
+  <h1>List of all articles</h1>
+  <button class="new-button" routerLink="/admin/articles/new">
+    <lucide-angular name="file-plus"></lucide-angular>
+    <p>Add new Article</p>
+  </button>
+</div>
+
+<table class="mt-14">
+  <tr class="head ">
+    <th>Title</th>
+    <th>Brief Content</th>
+    <th>Actions</th> 
+  </tr>
+  <tr *ngFor="let article of articles ; index as index" class="body" [appTableColor]="index" >
+    <td>{{article.title}} </td>
+    <td>{{article.content | shorten }} </td>
+    <td  class="flex gap-6 items-center justify-center h-14">
+        <button [routerLink]="'/admin/articles/'+article._id" >
+             <lucide-angular name="eye"></lucide-angular>
+        </button>
+        <button (click)="handleDelete(article._id)">
+            <lucide-angular name="trash"></lucide-angular>
+        </button>
+    </td>
+  </tr>
+</table>

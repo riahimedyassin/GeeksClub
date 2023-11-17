@@ -25,7 +25,6 @@ import { EventComponent } from './events/event/event.component';
 import { ListEventsComponent } from './events/list-events/list-events.component';
 import { ListForumsComponent } from './forums/list-forums/list-forums.component';
 import { ForumComponent } from './forums/forum/forum.component';
-import { ArticleComponent } from './forums/forum/article/article.component';
 import { NewForumComponent } from './forums/new-forum/new-forum.component';
 import { NotificationComponent } from '../shared/components/notification/notification.component';
 import { NewEventComponent } from './events/new-event/new-event.component';
@@ -34,6 +33,10 @@ import { ArticlesComponent } from './articles/articles.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ListAdminsComponent } from './admins/list-admins/list-admins.component';
 import { NewAdminComponent } from './admins/new-admin/new-admin.component';
+import { ListArticlesComponent } from './articles/list-articles/list-articles.component';
+import { ArticleComponent } from './articles/article/article.component';
+import { NewArticleComponent } from './articles/new-article/new-article.component';
+import { PostComponent } from './forums/forum/post/post.component';
 
 
 @NgModule({
@@ -54,7 +57,6 @@ import { NewAdminComponent } from './admins/new-admin/new-admin.component';
     ListEventsComponent,
     ListForumsComponent,
     ForumComponent,
-    ArticleComponent,
     NewForumComponent,
     NewEventComponent,
     TableColorDirective,
@@ -62,7 +64,11 @@ import { NewAdminComponent } from './admins/new-admin/new-admin.component';
     ProfileComponent,
     ListAdminsComponent,
     NewAdminComponent,
-
+    ArticleComponent,
+    ListArticlesComponent,
+    NewArticleComponent,
+    PostComponent,
+    
   ],
   imports: [
     CommonModule,

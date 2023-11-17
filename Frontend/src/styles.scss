@@ -122,3 +122,12 @@ label {
 .new-button {
   @apply flex gap-4 border-[1px] border-main hover:bg-main transition-all rounded-lg px-4 py-2
 }
+table {
+  @apply w-full text-center rounded-t-lg overflow-hidden ; 
+  .head {
+    @apply bg-second h-16  
+  }
+  .body {
+    @apply h-14
+  }
+}

@@ -24,11 +24,11 @@ export class ArticlesService {
   postArticle(article: Article): Observable<Article> {
     return this.http.post<Article>(`${URL}`, article);
   }
-  deleteArticle(id: string): void {
-    this.http.delete(`${URL}/${id}`);
+  deleteArticle(id: string) {
+    return this.http.delete(`${URL}/${id}`);
   }
   updateArticle(id : string, article : Article ) : Observable<Article> {
-    return this.http.put<Article>(`${URL}/${id}`,article)
+    return this.http.patch<Article>(`${URL}/${id}`,article)
   }
 
 

@@ -1,0 +1,7 @@
+textarea {
+    @apply w-full bg-transparent ; 
+    min-height: 200px;
+}
+textarea , input {
+    @apply border-[1px] border-gray-500 rounded-lg
+}

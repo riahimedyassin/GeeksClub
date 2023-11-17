@@ -1,1 +1,51 @@
-<p>article works!</p>
+<ng-container *ngIf="article; else load">
+  <form [formGroup]="form" (ngSubmit)="handleSave()">
+    <div class="flex items-center justify-between">
+      <input
+        type="text"
+        formControlName="title"
+        class="text-5xl font-bold bg-transparent"
+        [ngClass]="edit ? 'border-[1px] border-gray-500' : ''"
+      />
+      <div class="flex gap-6">
+        <button class="danger-button" type="button" (click)="handleDelete()">
+          <lucide-angular name="trash"></lucide-angular>
+          <p>Delete</p>
+        </button>
+        <button class="third-button" type="button" (click)="handleEdit()">
+          <lucide-angular name="pencil"></lucide-angular>
+          <p>Edit</p>
+        </button>
+        <button
+          class="succuss-button"
+          type="submit"
+          *ngIf="edit"
+          [ngClass]="
+            form.invalid || !form.touched
+              ? 'default-button cursor-not-allowed'
+              : ''
+          "
+        >
+          <lucide-angular name="save"></lucide-angular>
+          <p>Save</p>
+        </button>
+      </div>
+    </div>
+    <div class="mt-16">
+      <textarea
+        formControlName="content"
+        [ngClass]="edit ? 'border-[1px] border-gray-500' : ''"
+      ></textarea>
+    </div>
+  </form>
+</ng-container>
+<ng-template #load>
+  <app-loading></app-loading>
+</ng-template>
+<ng-container *ngIf="updated">
+  <app-notification
+    message="Article Saved Succussfully"
+    color="green"
+    icon="plus-circle"
+  ></app-notification>
+</ng-container>

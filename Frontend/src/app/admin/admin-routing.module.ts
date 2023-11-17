@@ -21,6 +21,9 @@ import { newAdminGuard } from './shared/guards/new-admin.guard';
 import { isSuperAdminResolver } from './shared/resolvers/is-super-admin.resolver';
 import { ArticlesComponent } from './articles/articles.component';
 import { ListArticlesComponent } from './articles/list-articles/list-articles.component';
+import { NewArticleComponent } from './articles/new-article/new-article.component';
+import { ArticleComponent } from './articles/article/article.component';
+import { PostComponent } from './forums/forum/post/post.component';
 
 const routes: Routes = [
   {
@@ -53,6 +56,15 @@ const routes: Routes = [
             path: 'list',
             component: ListArticlesComponent,
           },
+          {
+            path:'new',
+            component : NewArticleComponent
+          },
+          {
+            path : ':id',
+            component:ArticleComponent
+          
+          }
         ],
       },
       {
@@ -91,7 +103,10 @@ const routes: Routes = [
           { path: '', redirectTo: 'list', pathMatch: 'full' },
           { path: 'list', component: ListForumsComponent },
           { path: 'new', component: NewForumComponent },
-          { path: ':id', component: ForumComponent },
+          { path: ':id', children:[
+            {path: '', component: ForumComponent , pathMatch:'full'},
+            {path:':post',component:PostComponent}
+          ] },
         ],
       },
       {

@@ -1,0 +1,20 @@
+<ng-container *ngIf="post; else load">
+  <h1>Show Post</h1>
+  <h3 class="mt-8 mb-16">{{ post.message.content }}</h3>
+  <hr>
+  <h2 class="mt-8 mb-4">Replies : </h2>
+  <div class="flex flex-col w-full space-y-6 mt-6">
+    <div *ngFor="let reply of post.replies" class="bg-deepblack w-full h-16">
+      <h4
+        class="underline cursor-pointer"
+        [routerLink]="'/admin/members/' + reply.sent_by.user_id"
+      >
+        {{ reply.sent_by.name }} {{ reply.sent_by.forname }}
+      </h4>
+      <p>{{ reply.content }}</p>
+    </div>
+  </div>
+</ng-container>
+<ng-template #load>
+  <app-loading></app-loading>
+</ng-template>

@@ -1,0 +1,41 @@
+<h1>Add Article</h1>
+
+<form [formGroup]="form" (ngSubmit)="handleSubmit()">
+  <div class="input--container">
+    <input
+      type="text"
+      placeholder="Enter the article's title"
+      formControlName="title"
+    />
+    <div
+      *ngIf="form.get('title')?.invalid && form.get('title')?.touched"
+      class="input-error"
+    >
+      <lucide-angular name="alert-circle"></lucide-angular>
+      <p>Invalid Title</p>
+    </div>
+  </div>
+  <div class="input--container">
+    <textarea
+      formControlName="content"
+      placeholder="Enter the content of the article"
+    ></textarea>
+    <div *ngIf="form.get('content')?.invalid && form.get('content')?.touched" class="input-error">
+        <lucide-angular name="alert-circle"></lucide-angular>
+        <p>Invalid Content</p>
+    </div>
+  </div>
+  <div class="flex gap-6 mt-4">
+    <button type="submit" class="succuss-button ">
+        <lucide-angular name="save"></lucide-angular>
+        <p>Save</p>
+      </button>
+      <button class="default-button" (click)="form.reset()" type="button">
+        <lucide-angular name="rotate-ccw"></lucide-angular>
+        <p>Reset</p>
+      </button>
+  </div>
+</form>
+<ng-container *ngIf="published">
+    <app-notification message="Article Added Succussfully" icon="plus-circle" color="green"></app-notification>
+</ng-container>
