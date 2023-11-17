@@ -1,0 +1,89 @@
+<h1>Add new Admin</h1>
+<form [formGroup]="form" (ngSubmit)="handleSubmit()">
+  <div class="grid grid-cols-2 gap-6">
+    <div class="input--container col-span-1">
+      <label for="">Name</label>
+      <input
+        type="text"
+        placeholder="Enter the admin's name"
+        class="border-[1px] border-gray-500"
+        formControlName="name"
+      />
+    </div>
+    <div class="input--container col-span-1">
+      <label for="">Forname</label>
+      <input
+        type="text"
+        placeholder="Enter the admin's forname"
+        class="border-[1px] border-gray-500"
+        formControlName="forname"
+      />
+    </div>
+    <div class="input--container col-span-1">
+      <label for="">Age</label>
+      <input
+        type="number"
+        placeholder="Enter the admin's age"
+        class="border-[1px] border-gray-500"
+        formControlName="age"
+      />
+    </div>
+    <div class="input--container col-span-1">
+      <label for="">Email</label>
+      <input
+        type="text"
+        placeholder="Enter the admin's email"
+        class="border-[1px] border-gray-500"
+        formControlName="email"
+      />
+    </div>
+    <div class="input--container col-span-1">
+      <label for="">Password</label>
+      <input
+        type="password"
+        placeholder="Enter the admin's password"
+        class="border-[1px] border-gray-500"
+        formControlName="password"
+      />
+    </div>
+    <div class="input--container col-span-1">
+      <label for="">Facebook</label>
+      <input
+        type="text"
+        placeholder="Enter the admin's facebook"
+        class="border-[1px] border-gray-500"
+        formControlName="facebook"
+      />
+    </div>
+    <div class="input--container col-span-1">
+      <label for="">Phone</label>
+      <input
+        type="number"
+        placeholder="Enter the admin's phone"
+        class="border-[1px] border-gray-500"
+        formControlName="phone"
+      />
+    </div>
+    <div class="input--container col-span-1">
+      <label>Role</label>
+      <br />
+      <select
+        formControlName="role"
+        class="mt-2 border-[1px] border-gray-500 w-full"
+      >
+        <option value="Vice President">Vice President</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+  </div>
+  <div class="flex gap-6 mt-6">
+    <button class="succuss-button" type="submit">
+      <lucide-angular name="plus-circle"></lucide-angular>
+      <p>Add</p>
+    </button>
+    <button class="default-button" (click)="form.reset()" type="button">
+      <lucide-angular name="rotate-ccw"></lucide-angular>
+      <p>Reset</p>
+    </button>
+  </div>
+</form>

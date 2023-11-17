@@ -214,7 +214,7 @@ const deleteForum = async (req, res, next) => {
     for (let i = 0; i < members.length; i++) {
       if (members[i].forums.includes(id)) {
         members[i].forums = deleteFromTable(members[i].forums, id);
-        const update = await Member.findOneAndUpdate({ _id: members[i]._id },members);
+        const update = await Member.findOneAndUpdate({ _id: members[i]._id },members[i]);
       }
     }
     if (forum) return response(res, "Forum deleted succussfully", 204);

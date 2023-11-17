@@ -17,7 +17,7 @@ export class ListEventsComponent implements OnInit {
   ngOnInit(): void {
     this.eventService.getAllEvenets().subscribe((response) => {
       this.events = response.data;
-      this.toDisplay = response.data
+      this.toDisplay = response.data.filter(event=> event.ended==this.ended)
     });
   }
   handleEndEvent(eventId: string) {

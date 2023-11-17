@@ -1,4 +1,4 @@
-import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
 export class CustomValidator {
   public static password(control: AbstractControl): ValidationErrors | null {
     const value = control.value;
@@ -34,5 +34,12 @@ export class CustomValidator {
     while (index < bad.length && !value.includes(bad[index])) index++;
     if (index == bad.length) return null;
     return { bad: true };
+  }
+  public role(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    if (value == 'President' || value == 'Vice President' || value == 'Other') {
+      return null;
+    }
+    return { role: false };
   }
 }

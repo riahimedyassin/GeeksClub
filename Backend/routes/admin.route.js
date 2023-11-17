@@ -4,7 +4,9 @@ const {
   getAdminInfo,
   registerAdmin,
   adminLogin,
-  deleteAdmin
+  deleteAdmin,
+  changePassword,
+  getAllAdmins
 
 } = require("../controllers/admin.controller");
 const { requireAdminAuth } = require("../middlewares/auth/admin.auth");
@@ -18,6 +20,8 @@ router.patch("/me",changeInfo)
 router.get("/me",getAdminInfo)
 router.post('/register',registerAdmin)
 router.delete('/:id',deleteAdmin)
+router.patch('/me/password',changePassword)
+router.get('/',getAllAdmins)
 
 
 

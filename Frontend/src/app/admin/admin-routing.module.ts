@@ -14,6 +14,11 @@ import { ListForumsComponent } from './forums/list-forums/list-forums.component'
 import { ForumComponent } from './forums/forum/forum.component';
 import { NewForumComponent } from './forums/new-forum/new-forum.component';
 import { NewEventComponent } from './events/new-event/new-event.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ListAdminsComponent } from './admins/list-admins/list-admins.component';
+import { NewAdminComponent } from './admins/new-admin/new-admin.component';
+import { newAdminGuard } from './shared/guards/new-admin.guard';
+import { isSuperAdminResolver } from './shared/resolvers/is-super-admin.resolver';
 
 const routes: Routes = [
   {
@@ -28,6 +33,10 @@ const routes: Routes = [
       {
         path: 'home',
         component: HomeComponent,
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
       },
       {
         path: 'members',
@@ -71,6 +80,21 @@ const routes: Routes = [
       {
         path: 'admins',
         component: AdminsComponent,
+        children: [
+          { path: '', redirectTo: 'list', pathMatch: 'full' },
+          {
+            path: 'list',
+            component: ListAdminsComponent,
+            resolve: {
+              isSup: isSuperAdminResolver,
+            },
+          },
+          {
+            path: 'new',
+            component: NewAdminComponent,
+            canActivate: [newAdminGuard],
+          },
+        ],
       },
     ],
   },

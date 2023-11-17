@@ -22,7 +22,7 @@
             <p>Admins</p>
         </li>
     </ul>
-    <div class="profile w-full" >
+    <div class="profile w-full cursor-pointer" routerLink="/admin/profile" >
         <div class="bg-black hover:bg-third transition-all w-full rounded-lg px-4 py-2 h-26 flex items-center justify-between" *ngIf="admin ; else loadProfile">
            <div>
                 <h4>{{admin.name}} {{admin.forname}}</h4>

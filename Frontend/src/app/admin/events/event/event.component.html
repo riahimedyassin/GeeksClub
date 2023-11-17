@@ -35,7 +35,7 @@
           <p>Edit</p>
           <lucide-angular name="pencil"></lucide-angular>
         </button>
-        <button class="warning-button" (click)="handleEndEvent()">
+        <button class="warning-button" (click)="handleEndEvent()" *ngIf="!event.ended">
           <lucide-angular name="plus-circle"></lucide-angular>
           <p>Ended</p>
         </button>

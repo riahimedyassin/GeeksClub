@@ -1,17 +1,16 @@
-
 const { createError } = require("../errors/customError");
 const Member = require("../models/member.model");
 const { response } = require("../utils/response/Response");
 const Event = require("../models/event.model");
 const Admin = require("../models/admin.model");
 const { createToken } = require("../utils/token/createToken");
-const { hashPassword } = require("../utils/password/Password");
-const {Recovery} = require('../utils/recovery/Recovery')
+const {
+  hashPassword,
+  isMatchingPassword,
+} = require("../utils/password/Password");
+const { Recovery } = require("../utils/recovery/Recovery");
 
-const recovery = new Recovery()
-
-
-
+const recovery = new Recovery();
 
 const getAdminInfo = async (req, res, next) => {
   try {
@@ -33,13 +32,13 @@ const getAdminInfo = async (req, res, next) => {
 const changeInfo = async (req, res, next) => {
   const id = req.user;
   if (!id) return next(createError("Unauthorized", 403));
-  const impossible = ["name", "forname", "role", "isSup"];
+  const impossible = ["isSup"];
   const changes = Object.keys(req.body);
   if (!changes) return next(createError("No changes has been detected", 400));
   let index = 0;
   while (index < changes.length) {
     if (impossible.includes(changes[index]))
-      return next(createError(`You can't change ${changes[index]}`, 403));
+      return next(createError(`You can't change ${changes[index]}`, 400));
     index++;
   }
   try {
@@ -55,7 +54,7 @@ const changeInfo = async (req, res, next) => {
 };
 const registerAdmin = async (req, res, next) => {
   const admin = req.body;
-  admin.password = await hashPassword(admin.password)
+  admin.password = await hashPassword(admin.password);
   Admin.create(admin)
     .then((data) => {
       res.status(200).json(data);
@@ -68,25 +67,60 @@ const adminLogin = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const admin = await Admin.login(email, password);
-    if(admin) {
-      const token = createToken(admin)
-      if (token) return response(res, "Logged in successfully", 200,true,token);
+    if (admin) {
+      const token = createToken(admin);
+      if (token)
+        return response(res, "Logged in successfully", 200, true, token);
     }
     return next(createError("Invalid email or password", 403));
   } catch (error) {
     next(error);
   }
 };
-const deleteAdmin = async(req,res,next) => {
-  const {id} = req.params ; 
+const deleteAdmin = async (req, res, next) => {
+  const { id } = req.params;
   try {
-      const admin = await Admin.findOneAndDelete({_id:id, isSup : false });
-      if(admin) return response (res,"Admin Deleted successfuly",204)
-      return next(createError('Cannot find this admin',404))
+    const admin = await Admin.findOneAndDelete({ _id: id, isSup: false });
+    if (admin) return response(res, "Admin Deleted successfuly", 204);
+    return next(createError("Cannot find this admin", 404));
+  } catch (error) {
+    next(error);
+  }
+};
+const changePassword = async (req, res, next) => {
+  const id = req.user;
+  const { password, newPassowrd } = req.body;
+  if (!password || !newPassowrd)
+    return next(
+      createError("Provide the old and the new password please", 400)
+    );
+  try {
+    const admin = await Admin.findOne({ _id: id }, { password: 1 });
+    const isValid = await isMatchingPassword(admin.password, password);
+    if (isValid) {
+      const hashedNew = await hashPassword(newPassowrd);
+      const done = await Admin.findOneAndUpdate(
+        { _id: id },
+        { password: hashedNew }
+      );
+      if (done) return response(res, "Password changed succussfully", 201);
+      return next(createError("Cannot update password", 500));
+    }
+    return next(createError("Invalid password", 400));
+  } catch (error) {
+    next(error);
+  }
+};
+const getAllAdmins=async(req,res,next)=> {
+  try {
+      const admins = await Admin.find({});
+      if(admins) return response(res,'Admin list retireved succussfully',200,false , admins)
+      return next(createError("Cannot retrieve the admin's list"))
   } catch (error) {
       next(error)
   }
 }
+
 
 
 module.exports = {
@@ -94,5 +128,7 @@ module.exports = {
   getAdminInfo,
   registerAdmin,
   adminLogin,
-  deleteAdmin
+  deleteAdmin,
+  changePassword,
+  getAllAdmins
 };

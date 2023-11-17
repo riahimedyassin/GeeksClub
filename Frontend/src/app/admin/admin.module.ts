@@ -31,6 +31,9 @@ import { NotificationComponent } from '../shared/components/notification/notific
 import { NewEventComponent } from './events/new-event/new-event.component';
 import { TableColorDirective } from '../shared/directives/table-color.directive';
 import { ArticlesComponent } from './articles/articles.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ListAdminsComponent } from './admins/list-admins/list-admins.component';
+import { NewAdminComponent } from './admins/new-admin/new-admin.component';
 
 
 @NgModule({
@@ -56,6 +59,9 @@ import { ArticlesComponent } from './articles/articles.component';
     NewEventComponent,
     TableColorDirective,
     ArticlesComponent,
+    ProfileComponent,
+    ListAdminsComponent,
+    NewAdminComponent,
 
   ],
   imports: [

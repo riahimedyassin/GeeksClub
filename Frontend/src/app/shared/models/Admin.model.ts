@@ -1,4 +1,4 @@
-import { recovery_question } from './types/recovery_question.type';
+
 
 export class Admin {
   constructor(
@@ -11,7 +11,6 @@ export class Admin {
     public password: string,
     public isSup: boolean,
     public phone: string,
-    public facebook: string,
-    public recovery_question: recovery_question
+    public facebook: string
   ) {}
 }

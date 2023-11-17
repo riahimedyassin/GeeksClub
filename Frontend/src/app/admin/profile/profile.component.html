@@ -1,0 +1,81 @@
+<ng-container *ngIf="admin; else load">
+  <img src="" alt="" *ngIf="admin.picture" />
+  <h1>{{ admin.name }} {{ admin.forname }}</h1>
+  <h3 class="mt-2">{{ admin.role }}</h3>
+  <form [formGroup]="form" (ngSubmit)="handleSubmit()">
+    <div class="grid grid-cols-2 gap-6">
+      <div class="col-span-1 input--container">
+        <label>Email</label>
+        <input
+          type="text"
+          formControlName="email"
+          [ngClass]="edit ? 'border-[1px] border-gray-500' : ''"
+        />
+        <div *ngIf="form.get('email')?.invalid" class="input-error">
+            <lucide-angular name="alert-circle"></lucide-angular>
+            <p>Invalid email</p>
+        </div>
+      </div>
+      <div class="col-span-1 input--container">
+        <label>Phone</label>
+        <input type="number" formControlName="phone" [ngClass]="edit ? 'border-[1px] border-gray-500' : ''" />
+        <div *ngIf="form.get('phone')?.invalid" class="input-error">
+            <lucide-angular name="alert-circle"></lucide-angular>
+            <p>Invalid Phone Number</p>
+        </div>
+      </div>
+      <div class="col-span-1 input--container">
+        <label>Facebook</label>
+        <input type="text" formControlName="facebook" [ngClass]="edit ? 'border-[1px] border-gray-500' : ''" />
+        <div *ngIf="form.get('facebook')?.invalid" class="input-error">
+            <lucide-angular name="alert-circle"></lucide-angular>
+            <p>Invalid Facebook link</p>
+        </div>
+      </div>
+      <div class="col-span-1 input--container">
+        <label>Age</label>
+        <input type="number" formControlName="age" [ngClass]="edit ? 'border-[1px] border-gray-500' : ''" />
+        <div *ngIf="form.get('age')?.invalid" class="input-error">
+            <lucide-angular name="alert-circle"></lucide-angular>
+            <p>Invalid Age</p>
+        </div>
+      </div>
+      <form class="col-span-2 flex gap-6 items-center" [formGroup]="passwordForm" *ngIf="edit" (ngSubmit)="handlePassword()" >
+        <div class="col-span-1 input--container"  >
+            <label>Current Password</label>
+            <input type="password" formControlName="password" class="border-[1px] border-gray-500" placeholder="Enter you current password" />
+          </div>
+          <div class="col-span-1 input--container">
+            <label>New Password</label>
+            <input type="password" formControlName="newPassword" class="border-[1px] border-gray-500" placeholder="Enter you new password"  />
+            <div *ngIf="passwordForm.get('newPassword')?.invalid && passwordForm.get('newPassword')?.touched" class="input-error">
+                <lucide-angular name="alert-circle"></lucide-angular>
+                <p>Invalid Password</p>
+            </div>
+          </div>
+          <button class="warning-button mt-14" type="submit"  >
+            <lucide-angular name="key-round"></lucide-angular>
+            <p>Change Password</p>
+          </button>
+      </form>
+      
+    </div>
+    <div *ngIf="form.invalid && form.touched" class="mt-8">
+        <p class="text-red-500 font-bold">Make sure all the fiels are correctly field</p>
+    </div>
+    <div class="mt-14 flex gap-4">
+      <button class="third-button" type="button" (click)="handleEdit()">
+        <lucide-angular name="pencil"></lucide-angular>
+        <p>Edit</p>
+      </button>
+      <button [ngClass]="edit && form.valid && form.touched ? 'succuss-button cursor-pointer' : 'default-button cursor-not-allowed'" *ngIf="edit" type="submit">
+        <lucide-angular name="save"></lucide-angular>
+        <p>Save</p>
+      </button>
+    </div>
+  </form>
+</ng-container>
+<ng-template #load>
+  <app-loading></app-loading>
+</ng-template>
+

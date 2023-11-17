@@ -103,3 +103,22 @@ h3 {
 .ng-invalid.ng-touched {
   @apply border-red-500
 }
+.input--container {
+  @apply mt-8 ; 
+  input {
+      width: 100%;
+      height: 50px;
+      @apply bg-transparent rounded-lg text-white  mt-2; 
+  }
+
+}
+label {
+  color:gray
+}
+
+.input-error {
+  @apply flex gap-4 items-center text-red-500 mt-2
+}
+.new-button {
+  @apply flex gap-4 border-[1px] border-main hover:bg-main transition-all rounded-lg px-4 py-2
+}

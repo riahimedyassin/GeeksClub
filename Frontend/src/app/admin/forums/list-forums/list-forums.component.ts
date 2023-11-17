@@ -19,7 +19,7 @@ export class ListForumsComponent implements OnInit {
   }
   handleDelete(id: string) {
     this.forumService.deleteForum(id).subscribe((response) => {
-      console.log('done');
+      this.forum=this.forum.filter(forum=> forum._id!=id)
     });
   }
 }
