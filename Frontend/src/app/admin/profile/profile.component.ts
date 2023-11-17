@@ -49,8 +49,8 @@ export class ProfileComponent implements OnInit {
       this.admin = response.data;
     });
     this.passwordForm = this.formBuilder.nonNullable.group({
-      password: ['', Validators.required],
-      newPassword: ['', Validators.required, CustomValidator.password],
+      password: ['', [Validators.required]],
+      newPassword: ['', [Validators.required, CustomValidator.password]],
     });
   }
   handleSubmit() {

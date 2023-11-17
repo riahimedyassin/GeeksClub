@@ -9,6 +9,10 @@
         class="border-[1px] border-gray-500"
         formControlName="name"
       />
+      <div class="input-error" *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
+        <lucide-angular name="alert-circle"></lucide-angular>
+        <p>Invalid Name</p>
+      </div>
     </div>
     <div class="input--container col-span-1">
       <label for="">Forname</label>
@@ -18,6 +22,10 @@
         class="border-[1px] border-gray-500"
         formControlName="forname"
       />
+      <div class="input-error" *ngIf="form.get('forname')?.invalid && form.get('forname')?.touched">
+        <lucide-angular name="alert-circle"></lucide-angular>
+        <p>Invalid Forname</p>
+      </div>
     </div>
     <div class="input--container col-span-1">
       <label for="">Age</label>
@@ -27,6 +35,10 @@
         class="border-[1px] border-gray-500"
         formControlName="age"
       />
+      <div class="input-error" *ngIf="form.get('age')?.invalid && form.get('age')?.touched">
+        <lucide-angular name="alert-circle"></lucide-angular>
+        <p>Invalid Age</p>
+      </div>
     </div>
     <div class="input--container col-span-1">
       <label for="">Email</label>
@@ -36,6 +48,10 @@
         class="border-[1px] border-gray-500"
         formControlName="email"
       />
+      <div class="input-error" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+        <lucide-angular name="alert-circle"></lucide-angular>
+        <p>Invalid Email</p>
+      </div>
     </div>
     <div class="input--container col-span-1">
       <label for="">Password</label>
@@ -45,6 +61,10 @@
         class="border-[1px] border-gray-500"
         formControlName="password"
       />
+      <div class="input-error" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+        <lucide-angular name="alert-circle"></lucide-angular>
+        <p>Invalid Password</p>
+      </div>
     </div>
     <div class="input--container col-span-1">
       <label for="">Facebook</label>
@@ -54,6 +74,10 @@
         class="border-[1px] border-gray-500"
         formControlName="facebook"
       />
+      <div class="input-error" *ngIf="form.get('facebook')?.invalid && form.get('facebook')?.touched">
+        <lucide-angular name="alert-circle"></lucide-angular>
+        <p>Invalid Facebook Profile</p>
+      </div>
     </div>
     <div class="input--container col-span-1">
       <label for="">Phone</label>
@@ -63,6 +87,10 @@
         class="border-[1px] border-gray-500"
         formControlName="phone"
       />
+      <div class="input-error" *ngIf="form.get('phone')?.invalid && form.get('phone')?.touched">
+        <lucide-angular name="alert-circle"></lucide-angular>
+        <p>Invalid Phone Number</p>
+      </div>
     </div>
     <div class="input--container col-span-1">
       <label>Role</label>
@@ -87,3 +115,9 @@
     </button>
   </div>
 </form>
+<ng-container *ngIf="added">
+    <app-notification message="Admin added successfully" color="green" icon="check-circle-2"></app-notification>
+</ng-container>
+<ng-container *ngIf="error">
+    <app-notification message="Errpr Occured : Cannot add Admin" color="red" icon="x-circle"></app-notification>
+</ng-container>

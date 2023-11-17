@@ -1,26 +1,39 @@
 <div class="flex items-center justify-between">
-    <h1>Liste of all Admins</h1>
-    <button class="new-button" *ngIf="authAdd" routerLink="/admin/admins/new">
-        <lucide-angular name="shield"></lucide-angular>
-        <p class="shield-ellipsis">Add new Admin</p>
-    </button>
+  <h1>Liste of all Admins</h1>
+  <button
+    class="new-button"
+    *ngIf="current.isSup"
+    routerLink="/admin/admins/new"
+  >
+    <lucide-angular name="shield"></lucide-angular>
+    <p class="shield-ellipsis">Add new Admin</p>
+  </button>
 </div>
-<ng-container *ngIf="admins ; else load ">
-    <table class="w-full mt-16 rounded-t-lg overflow-hidden text-center" >
-        <tr class="h-16 w-full bg-main rounded-t-lg  ">
-            <th>Full-name</th>
-            <th>Role</th>
-            <th>Actions</th>
-        </tr>
-        <tr *ngFor="let admin of admins ; index as index" class="h-14" [appTableColor]="index"  >
-            <th>{{admin.name}} {{admin.forname}}</th>
-            <th>{{admin.role}}</th>
-            <th class="flex gap-6 item-center justify-center h-14">
-                <button><lucide-angular name="eye"></lucide-angular></button>
-            </th>
-        </tr>   
-    </table>
+<ng-container *ngIf="admins; else load">
+  <table class="w-full mt-16 rounded-t-lg overflow-hidden text-center">
+    <tr class="h-16 w-full bg-second rounded-t-lg">
+      <th>Full-name</th>
+      <th>Role</th>
+      <th>Actions</th>
+    </tr>
+    <tr
+      *ngFor="let admin of admins; index as index"
+      class="h-14"
+      [appTableColor]="index"
+    >
+      <th>{{ admin.name }} {{ admin.forname }}</th>
+      <th>{{ admin.role }}</th>
+      <th class="flex gap-6 item-center justify-center h-14">   
+        <button
+          (click)="handleDelete(admin._id)"
+          *ngIf="current.isSup && current._id != admin._id"
+        >
+          <lucide-angular name="trash"></lucide-angular>
+        </button>
+      </th>
+    </tr>
+  </table>
 </ng-container>
 <ng-template #load>
-    <app-loading></app-loading>
+  <app-loading></app-loading>
 </ng-template>

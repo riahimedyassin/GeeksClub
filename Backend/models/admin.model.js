@@ -60,8 +60,8 @@ adminSchema.statics.login = async function (email, password) {
       { email: 1, password: 1, _id: 1 }
     );
     if (admin) {
-      // const pass = await isMatchingPassword(admin.password, password);
-      if (admin.password === password) {
+      const pass = await isMatchingPassword(admin.password, password);
+      if (pass) {
         return admin.id;
       }
       return null;

@@ -16,6 +16,8 @@ export class NewAdminComponent implements OnInit {
     private adminServie: AdminService
   ) {}
   form!: FormGroup;
+  added : boolean = false ;
+  error : boolean = false  
   ngOnInit(): void {
     this.form = this.formBuilder.nonNullable.group({
       name: ['', [Validators.required, CustomValidator.strings]],
@@ -32,7 +34,11 @@ export class NewAdminComponent implements OnInit {
   handleSubmit() {
     if (this.form.valid && this.form.touched) {
       this.adminServie.registerAdmin(this.form.value).subscribe((response) => {
-        console.log('Done');
+        this.added=true 
+        setTimeout(()=>this.added=false , 3000)
+      },err=> {
+        this.error = true 
+        setTimeout(()=>this.error = false , 3000)
       });
     }
     else {

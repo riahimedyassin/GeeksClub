@@ -17,12 +17,16 @@
             <lucide-angular name="messages-square"></lucide-angular>
             <p>Forums</p>
         </li>
+        <li routerLinkActive="active" routerLink="/admin/articles">
+            <lucide-angular name="newspaper"></lucide-angular>
+            <p>Articles</p>
+        </li>
         <li routerLinkActive="active" routerLink="/admin/admins">
             <lucide-angular name="shield-half"></lucide-angular>
             <p>Admins</p>
         </li>
     </ul>
-    <div class="profile w-full cursor-pointer" routerLink="/admin/profile" >
+    <div class="profile w-full cursor-pointer items-center flex flex-col space-y-4" routerLink="/admin/profile" >
         <div class="bg-black hover:bg-third transition-all w-full rounded-lg px-4 py-2 h-26 flex items-center justify-between" *ngIf="admin ; else loadProfile">
            <div>
                 <h4>{{admin.name}} {{admin.forname}}</h4>
@@ -31,6 +35,10 @@
            <lucide-angular name="arrow-right-circle"></lucide-angular>
 
         </div>
+        <button class="danger-button" (click)="handleLogout()">
+            <lucide-angular name="log-out"></lucide-angular>
+            <p>Logout</p>
+        </button>
         <ng-template #loadProfile>
             <app-skeleton-profile></app-skeleton-profile>
         </ng-template>

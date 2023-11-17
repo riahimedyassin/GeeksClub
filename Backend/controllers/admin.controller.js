@@ -1,16 +1,12 @@
 const { createError } = require("../errors/customError");
-const Member = require("../models/member.model");
 const { response } = require("../utils/response/Response");
-const Event = require("../models/event.model");
 const Admin = require("../models/admin.model");
 const { createToken } = require("../utils/token/createToken");
 const {
   hashPassword,
   isMatchingPassword,
 } = require("../utils/password/Password");
-const { Recovery } = require("../utils/recovery/Recovery");
 
-const recovery = new Recovery();
 
 const getAdminInfo = async (req, res, next) => {
   try {
@@ -53,8 +49,11 @@ const changeInfo = async (req, res, next) => {
   }
 };
 const registerAdmin = async (req, res, next) => {
+  const id = req.user ; 
   const admin = req.body;
   admin.password = await hashPassword(admin.password);
+  const user = await Admin.findOne({_id:id})
+   if(!user.isSup) return next(createError("You are not authorized",403))
   Admin.create(admin)
     .then((data) => {
       res.status(200).json(data);
@@ -89,8 +88,9 @@ const deleteAdmin = async (req, res, next) => {
 };
 const changePassword = async (req, res, next) => {
   const id = req.user;
-  const { password, newPassowrd } = req.body;
-  if (!password || !newPassowrd)
+  const { password, newPassword } = req.body;
+  console.log(req.body)
+  if (!password || !newPassword)
     return next(
       createError("Provide the old and the new password please", 400)
     );
@@ -98,7 +98,7 @@ const changePassword = async (req, res, next) => {
     const admin = await Admin.findOne({ _id: id }, { password: 1 });
     const isValid = await isMatchingPassword(admin.password, password);
     if (isValid) {
-      const hashedNew = await hashPassword(newPassowrd);
+      const hashedNew = await hashPassword(newPassword);
       const done = await Admin.findOneAndUpdate(
         { _id: id },
         { password: hashedNew }

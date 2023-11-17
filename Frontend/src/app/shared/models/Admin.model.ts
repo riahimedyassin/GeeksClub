@@ -2,6 +2,7 @@
 
 export class Admin {
   constructor(
+    public _id : string , 
     public picture : string , 
     public name: string,
     public forname: string,

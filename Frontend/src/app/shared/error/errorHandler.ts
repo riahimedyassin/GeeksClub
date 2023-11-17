@@ -15,11 +15,11 @@ export class HandleError  {
       console.log("Hola ?")
       this.jwtService.removeToken()
       this.router.navigate(['/login'])
-      return throwError(error.message);
+      return throwError(error);
     }
     else {
       console.log(error)
     }
-    return throwError(error.message);
+    return throwError(error);
   }
 }

@@ -19,6 +19,8 @@ import { ListAdminsComponent } from './admins/list-admins/list-admins.component'
 import { NewAdminComponent } from './admins/new-admin/new-admin.component';
 import { newAdminGuard } from './shared/guards/new-admin.guard';
 import { isSuperAdminResolver } from './shared/resolvers/is-super-admin.resolver';
+import { ArticlesComponent } from './articles/articles.component';
+import { ListArticlesComponent } from './articles/list-articles/list-articles.component';
 
 const routes: Routes = [
   {
@@ -37,6 +39,21 @@ const routes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent,
+      },
+      {
+        path: 'articles',
+        component: ArticlesComponent,
+        children: [
+          {
+            path: '',
+            redirectTo: 'list',
+            pathMatch: 'full',
+          },
+          {
+            path: 'list',
+            component: ListArticlesComponent,
+          },
+        ],
       },
       {
         path: 'members',

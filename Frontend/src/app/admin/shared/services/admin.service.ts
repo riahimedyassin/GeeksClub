@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { JwtService } from 'src/app/services/auth/jwt.service';
 import { Admin } from 'src/app/shared/models/Admin.model';
 import { Response } from 'src/app/shared/models/Response.model';
 import { User } from 'src/app/shared/models/User.model';
@@ -13,7 +14,7 @@ const MEMBERSURL = `${environment.host}/members`;
   providedIn: 'root',
 })
 export class AdminService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient , private jwtService : JwtService) {}
   updated: boolean = false;
 
   admin$: Observable<Response<Admin>> = new Observable<Response<Admin>>(
@@ -21,11 +22,11 @@ export class AdminService {
       observer.next({
         message: 'Admin retrieved succussfully',
         status: 200,
-        data: this.admin,
+        data: <Admin>this.admin,
       });
     }
   );
-  admin!: Admin;
+  admin!: Admin | null;
 
   private cacheAdmin() {
     console.log('cached ');
@@ -50,8 +51,8 @@ export class AdminService {
   }
   changePassword(password: string, newPassword: string) {
     return this.http.patch(`${ADMINURL}/me/password`, {
-      password,
-      newPassword,
+      password : password,
+      newPassword : newPassword,
     });
   }
   getAllAdmins(): Observable<Response<Admin[]>> {
@@ -59,5 +60,12 @@ export class AdminService {
   }
   registerAdmin(admin: Admin): Observable<Response<Admin>> {
     return this.http.post<Response<Admin>>(`${ADMINURL}/register`, admin);
+  }
+  deleteAdmin(id:string) {
+    return this.http.delete(`${ADMINURL}/${id}`)
+  }
+  logout() {
+    this.jwtService.removeToken()
+    this.admin=null ;
   }
 }
