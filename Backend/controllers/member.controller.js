@@ -90,8 +90,6 @@ const updateMember = async (req, res, next) => {
   if (!id) return next(createError("Unauthorized"));
   const changes = req.body;
   const impossible = [
-    "name",
-    "forname",
     "points",
     "forums",
     "recovery_question",

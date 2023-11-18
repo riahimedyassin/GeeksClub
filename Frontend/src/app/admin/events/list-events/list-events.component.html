@@ -17,10 +17,9 @@
       placeholder="Search for event"
       (input)="handleSearch($event)"
     />
-    <button
-      class="third-button"
+    <button 
       (click)="handelEnded()"
-      [ngClass]="ended ? 'bg-purple-500' : ''"
+      [ngClass]="ended ? 'bg-purple-400 px-4 py-2 rounded-lg flex gap-4' : 'third-button'"
     >
       <lucide-angular name="calendar-off"></lucide-angular>
       <p>Ended</p>

@@ -1,11 +1,15 @@
 <div class="grid grid-cols-12 ">
-  <div class="col-span-12">
-    <app-navbar></app-navbar>
+  <div class="col-span-12 h-20">
+    <div class="fixed top-0 left-0 w-full h-20">
+      <app-navbar></app-navbar>
+    </div>
   </div>
   <div class="col-span-12 row-span-1">
     <div class="grid grid-cols-12">
       <div class="col-span-2">
-        <app-side-navbar></app-side-navbar>
+        <div class="fixed left-0 w-80 ">
+          <app-side-navbar></app-side-navbar>
+        </div>
       </div>
       <div class="col-span-10">
         <router-outlet></router-outlet>

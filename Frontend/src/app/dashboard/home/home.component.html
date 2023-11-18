@@ -58,7 +58,7 @@
         <app-loading></app-loading>
       </ng-template>
     </div>
-    <div class="col-span-2">
+    <div class="col-span-2 h-[400px]">
       <h2>Subscribed Forums</h2>
       <ng-container *ngIf="!forums; else dispForum">
         <h4>You haven't subscribed to any forums yet</h4>
@@ -66,10 +66,10 @@
       <ng-template #dispForum>
         <ng-container *ngIf="forums.length > 0; else noForum">
           <div
-            *ngFor="let forum of forums"
-            class="space-y-4 py-6 h-full w-full"
+            *ngFor="let frm of forums"
+            class=" py-6 w-full overflow-hidden"
           >
-            <app-forum [forum]="forum"></app-forum>
+            <app-forum [forum]="frm"></app-forum>
           </div>
         </ng-container>
         <ng-template #noForum>

@@ -11,12 +11,12 @@
             <p>Subscribed Forums</p>
         </button>
     </div>
-    <div *ngIf="forums && type=='all'; else loading " class="mt-12">
+    <div *ngIf="forums && type=='all'; else loading " class="mt-12 space-y-6 flex flex-col">
         <ng-container *ngFor="let forum of forums">
             <app-forum [forum]="forum"></app-forum>
         </ng-container>
     </div>
-    <div *ngIf="subscribedForums && type=='user' " class="mt-12">
+    <div *ngIf="subscribedForums && type=='user' " class="mt-12 space-y-6 flex flex-col">
         <ng-container *ngFor="let forum of subscribedForums">
             <app-forum [forum]="forum"></app-forum>
         </ng-container>

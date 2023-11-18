@@ -4,9 +4,9 @@
             <div class="img--container">
                 <img src="" alt="">
             </div>
-            <div class="mt-8">
+            <div class="mt-8 w-full text-center">
                 <h1>{{user.name + " " + user.forname}}</h1>
-                <div class="flex gap-4 mt-3">
+                <div class="flex gap-4 mt-3 items-center w-full justify-center">
                     <lucide-icon name="mail"></lucide-icon>
                     <p> {{user.email}} </p>
                 </div>
@@ -16,11 +16,11 @@
                 <li>Week Points : {{user.points?.week_point}} </li>
             </ul>
             <div class="flex w-full justify-center gap-12 mt-12 ">
-                <button class="dashed-button flex gap-4">
+                <button class="dashed-button flex gap-4" (click)="handleEdit()">
                     <lucide-icon name="pencil" color="white" ></lucide-icon>
                     <p>Edit</p>
                 </button>
-                <button class="logout-button flex gap-4">
+                <button class="logout-button flex gap-4" (click)="handleLogout()">
                     <lucide-icon name="log-out"></lucide-icon>
                     <p>Logout</p>
                 </button>
@@ -28,33 +28,47 @@
         </div>  
         <div class="col-span-4 h-[80vh] bg-deepblack text-white px-6 py-4 rounded-md">
             <h1>Details</h1>
-            <form class="grid grid-cols-2 gap-4" [formGroup]="form" >
-                <div class="input--container">
-                    <label for="">Name</label>
-                    <input type="text" formControlName="name" >
-                </div>
-                <div class="input--container">
-                    <label for="">Forname</label>
-                    <input type="text" formControlName="forname" >
-                </div>
-                <div class="input--container">
-                    <label for="">Email</label>
-                    <input type="text" formControlName="email" >
-                </div>
-                <div class="input--container">
-                    <label for="">Age</label>
-                    <input type="number" formControlName="age">
-                </div>
-                <div formGroupName="address" class="col-span-2 grid grid-cols-2 gap-4">
+            <form  [formGroup]="form" class="flex items-center justify-center flex-col space-y-6" (ngSubmit)="handleSubmit()" >
+                <div class="grid grid-cols-2 gap-4">
                     <div class="input--container">
-                        <label for="">Resgion</label>
-                        <input type="text" formControlName="region">
+                        <label for="">Name</label>
+                        <input type="text" formControlName="name" [ngClass]="edit ? 'border-[1px] border-gray-500':''" >
                     </div>
                     <div class="input--container">
-                        <label for="">City</label>
-                        <input type="text" formControlName="city">
+                        <label for="">Forname</label>
+                        <input type="text" formControlName="forname" [ngClass]="edit ? 'border-[1px] border-gray-500':''" >
+                    </div>
+                    <div class="input--container">
+                        <label for="">Email</label>
+                        <input type="text" formControlName="email" [ngClass]="edit ? 'border-[1px] border-gray-500':''" >
+                    </div>
+                    <div class="input--container">
+                        <label for="">Age</label>
+                        <input type="number" formControlName="age" [ngClass]="edit ? 'border-[1px] border-gray-500':''">
+                    </div>
+                    <div formGroupName="address" class="col-span-2 grid grid-cols-2 gap-4">
+                        <div class="input--container">
+                            <label for="">Resgion</label>
+                            <input type="text" formControlName="region" [ngClass]="edit ? 'border-[1px] border-gray-500':''">
+                        </div>
+                        <div class="input--container">
+                            <label for="">City</label>
+                            <input type="text" formControlName="city" [ngClass]="edit ? 'border-[1px] border-gray-500':''">
+                        </div>
+                    </div>
+                    <div class="input--container">
+                        <label for="">Facebook</label>
+                        <input type="text" formControlName="facebook" [ngClass]="edit ? 'border-[1px] border-gray-500':''" >
+                    </div>
+                    <div class="input--container cursor-not-allowed">
+                        <label for="">CIN</label>
+                        <h3 class="mt-4">{{user.CIN}} </h3>
                     </div>
                 </div>
+                <button class="succuss-button" *ngIf="edit " [ngClass]="form.valid && form.touched ? '' : 'default-button cursor-not-allowed'">
+                    <lucide-angular name="save"></lucide-angular>
+                    <p>Save</p>
+                </button>
                 
             </form>
         </div>
@@ -63,3 +77,9 @@
         </ng-template>
     </div>
 </div>
+<ng-container *ngIf="updated">
+    <app-notification message="Profile updated succussfully" color="green" icon="plus-circle"></app-notification>
+</ng-container>
+<ng-container *ngIf="error">
+    <app-notification message="Cannot Save Changes" color="red" icon="x-circle"></app-notification>
+</ng-container>

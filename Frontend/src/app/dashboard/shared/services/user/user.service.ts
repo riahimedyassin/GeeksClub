@@ -84,6 +84,9 @@ export class UserService {
   getAllRegistered() : Observable<Response<User[]>> {
     return this.http.get<Response<User[]>>(`${URL}/registered/all`)
   }
+  updateMember(id : string , user : User) {
+    return this.http.patch(`${URL}/me`,user)
+  }
 
 
 
