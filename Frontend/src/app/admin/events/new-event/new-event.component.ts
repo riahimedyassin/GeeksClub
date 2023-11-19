@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { EventsService } from 'src/app/services/events/events.service';
+import { CustomValidator } from 'src/app/shared/validators/CustomValidator';
 
 @Component({
   selector: 'app-new-event',
@@ -15,22 +16,24 @@ import { EventsService } from 'src/app/services/events/events.service';
 })
 export class NewEventComponent implements OnInit {
   form!: FormGroup;
+  error: boolean = false ; 
+  added : boolean = false ; 
   constructor(
     private formBuilder: FormBuilder,
     private eventService: EventsService
   ) {}
   ngOnInit(): void {
     this.form = this.formBuilder.nonNullable.group({
-      title: '',
-      descreption: '',
-      price: 0,
-      reward_point: 0,
+      title: ['',[Validators.required]],
+      descreption: ['',[Validators.required]],
+      price: [0,[Validators.required,CustomValidator.numeric]],
+      reward_point: [0,[Validators.required,CustomValidator.numeric]],
       date: this.formBuilder.nonNullable.group({
-        date_start: '',
-        date_end: '',
+        date_start: ['',[Validators.required]],
+        date_end: ['',[Validators.required]],
       }),
       ended: false,
-      categorie: 'formation',
+      categorie: ['formation',[Validators.required,CustomValidator.eventCategorie]],
       prerequis: this.formBuilder.array([]),
     });
   }
@@ -38,7 +41,7 @@ export class NewEventComponent implements OnInit {
     return this.form.controls['prerequis'] as FormArray;
   }
   addPrerequis() {
-    this.listePrerquis.push(new FormControl('', [Validators.required]));
+    this.listePrerquis.push(new FormControl('', [Validators.required,CustomValidator.strings]));
   }
   deletePrerequis(index: number) {
     this.listePrerquis.removeAt(index);
@@ -48,8 +51,14 @@ export class NewEventComponent implements OnInit {
       this.eventService
         .addNewEvent(this.form.value)
         .subscribe((response) => {
-          console.log('Done')
+            this.added=true ;
+            setTimeout(()=> this.added=false , 3000)
+
+        },(err)=> {
+          this.error=true ; 
+          setTimeout(()=> this.error=false , 3000)
         });
     }
+    else console.log(this.form)
   }
 }

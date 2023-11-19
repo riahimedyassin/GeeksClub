@@ -125,14 +125,14 @@
       </div>
       <div class="col-span-2">
         <h2 class="mt-6">Participants</h2>
-        <table class="text-center w-full rounded-t-lg overflow-hidden mt-4">
-          <tr class="bg-main h-16 rounded-t-lg">
+        <table class="text-center w-full rounded-t-lg overflow-hidden mt-4 mb-12" >
+          <tr class="bg-second h-16 rounded-t-lg">
             <th>Full-name</th>
             <th>Email</th>
             <th>Facebook</th>
             <th>Actions</th>
           </tr>
-          <tr *ngFor="let p of participants" class="h-14">
+          <tr *ngFor="let p of participants ; index as index " class="h-14" [appTableColor]="index">
             <td>{{ p.name }} {{ p.forname }}</td>
             <td>{{ p.email }}</td>
             <td>
@@ -159,6 +159,14 @@
             </td>
           </tr>
         </table>
+        <hr>
+        <div class="space-y-4 mt-14">
+          <h2 class="mb-12">Comments : </h2>
+          <div *ngFor="let comment of event.comments" class="w-full h-20 bg-deepblack rounded-lg px-4 py-2 ">
+            <h3  >{{comment.name}} {{comment.forname}}</h3>
+            <p>{{comment.content}}</p>
+          </div>
+        </div>
       </div>
     </div>
   </form>

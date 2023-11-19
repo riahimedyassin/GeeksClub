@@ -9,6 +9,10 @@
               placeholder="Enter the event title"
               formControlName="title"
             />
+            <div class="input-error" *ngIf="form.get('title')?.invalid && form.get('title')?.touched">
+              <lucide-angular name="alert-circle"></lucide-angular>
+              <p>Invalid Title</p>
+            </div>
           </div>
           <div class="input--holder">
             <h3>Reward Points</h3>
@@ -17,6 +21,10 @@
               placeholder="Enter the event title"
               formControlName="reward_point"
             />
+            <div class="input-error" *ngIf="form.get('reward_point')?.invalid && form.get('reward_point')?.touched">
+              <lucide-angular name="alert-circle"></lucide-angular>
+              <p>Invalid Reward Points</p>
+            </div>
           </div>
           <div class="input--holder col-span-2">
             <h3>Descreption</h3>
@@ -25,6 +33,10 @@
               placeholder="Enter the event title"
               formControlName="descreption"
             ></textarea>
+            <div class="input-error" *ngIf="form.get('descreption')?.invalid && form.get('descreption')?.touched">
+              <lucide-angular name="alert-circle"></lucide-angular>
+              <p>Invalid Descreption</p>
+            </div>
           </div>
           <div class="input--holder col-span-2">
             <h3>Categorie</h3>
@@ -79,3 +91,9 @@
     </div>
   </form>
 </div>
+<ng-container *ngIf="added">
+  <app-notification message="Event added succussfully" color="green" icon="plus-circle"></app-notification>
+</ng-container>
+<ng-container *ngIf="error">
+  <app-notification message="Error Occurred while trying to add the event" color="red" icon="x-circle"></app-notification>
+</ng-container>

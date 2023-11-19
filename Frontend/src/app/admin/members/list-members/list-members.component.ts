@@ -9,7 +9,10 @@ import { User } from 'src/app/shared/models/User.model';
   styleUrls: ['./list-members.component.scss'],
 })
 export class ListMembersComponent {
-  constructor(private userService: UserService , private activated : ActivatedRoute) {}
+  constructor(
+    private userService: UserService,
+    private activated: ActivatedRoute
+  ) {}
   members!: User[];
   toDisplay!: User[];
   search: string = '';
@@ -19,11 +22,13 @@ export class ListMembersComponent {
   ngOnInit(): void {
     this.userService.getAllMembers(this.page).subscribe((response) => {
       this.members = response.data;
-      
-      if(this.activated.snapshot.queryParamMap.get('registered')=='true') {
-        this.listRegistered=true
+
+      if (this.activated.snapshot.queryParamMap.get('registered') == 'true') {
+        this.listRegistered = true;
       }
-      this.toDisplay = response.data.filter(memeber => memeber.isMember==!this.listRegistered );
+      this.toDisplay = response.data.filter(
+        (memeber) => memeber.isMember == !this.listRegistered
+      );
     });
     this.userService.getAllRegistered().subscribe((response) => {
       this.registered = response.data;
@@ -35,13 +40,17 @@ export class ListMembersComponent {
         (member) => member.isMember == !this.listRegistered
       );
     else {
-      this.toDisplay = this.members.filter((member) =>
-        member.name.toLowerCase().includes(this.search.toLowerCase()) && member.isMember==!this.listRegistered
+      this.toDisplay = this.members.filter(
+        (member) =>
+          member.name.toLowerCase().includes(this.search.toLowerCase()) &&
+          member.isMember == !this.listRegistered
       );
     }
   }
   dispalyRegisterd() {
     this.listRegistered = !this.listRegistered;
-    this.toDisplay = this.listRegistered ? this.registered : this.members;
+    this.toDisplay = this.listRegistered
+      ? this.registered.filter((member) => member.name.toLowerCase().includes(this.search.toLowerCase()))
+      : this.members.filter(member=> member.name.toLowerCase().includes(this.search.toLowerCase()));
   }
 }

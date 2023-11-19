@@ -42,7 +42,7 @@
       <th>Actions</th>
     </tr>
     <tr
-      *ngFor="let event of toDisplay; index as index"
+      *ngFor="let event of toDisplay; index as index ; trackBy:trackBy"
       class="h-14"
       [ngClass]="index % 2 === 0 ? 'bg-deepblack' : 'bg-black'"
     >

@@ -22,7 +22,7 @@ export class ListEventsComponent implements OnInit {
   }
   handleEndEvent(eventId: string) {
     this.eventService.endEvent(eventId).subscribe((response) => {
-      response.status === 200 ? console.log('Done') : console.log('What ?');
+        this.toDisplay=this.events.filter(event=> event.ended==this.ended )
     });
   }
   handleSearch(event: any) {
@@ -51,4 +51,9 @@ export class ListEventsComponent implements OnInit {
     this.ended = !this.ended;
     this.toDisplay = this.events.filter((event) => event.ended == this.ended);
   }
+  trackBy(index:number , event : Event) {
+    return event._id
+  }
+
+
 }

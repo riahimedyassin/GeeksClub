@@ -42,10 +42,13 @@ export class EventComponent implements OnInit {
         prerequis: this.formBuilder.nonNullable.array(response.data.prerequis),
         categorie: [response.data.categorie,[Validators.required]],
       });
+      this.form.disable()
       this.eventService.getParticipants(this.id).subscribe((response) => {
         this.participants = response.data;
       });
     });
+    
+
   }
   get listPrerequis() {
     return this.form.controls['prerequis'] as FormArray
@@ -87,4 +90,5 @@ export class EventComponent implements OnInit {
       this.event.ended=true ; 
     })
   }
+
 }

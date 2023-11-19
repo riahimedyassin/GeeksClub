@@ -27,7 +27,7 @@ export class CustomValidator {
     if (regex.test(value)) return null;
     return { facebook: false };
   }
-  public cleanChat(control: AbstractControl): ValidationErrors | null {
+  public static cleanChat(control: AbstractControl): ValidationErrors | null {
     const value = control.value;
     const bad = ['fuck', 'shit', 'nigga', 'jerk', 'ass'];
     let index = 0;
@@ -35,11 +35,17 @@ export class CustomValidator {
     if (index == bad.length) return null;
     return { bad: true };
   }
-  public role(control: AbstractControl): ValidationErrors | null {
+  public static  role(control: AbstractControl): ValidationErrors | null {
     const value = control.value;
     if (value == 'President' || value == 'Vice President' || value == 'Other') {
       return null;
     }
     return { role: false };
+  }
+  public static eventCategorie(control : AbstractControl) {
+    const value = control.value ; 
+    const possible = ['reunion','formation','event','assignment']
+    if(possible.includes(value.toLowerCase())) return null 
+    return {event : false }
   }
 }
