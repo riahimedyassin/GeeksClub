@@ -14,6 +14,7 @@ const memberRoute = require("./routes/member.route");
 const eventRoute = require("./routes/event.route");
 const forumRoute = require("./routes/forum.route");
 const articleRoute = require("./routes/article.route");
+const visitorRoute = require('./routes/visitor.route')
 const errorHandler = require("./middlewares/errorHandler");
 const { default: helmet } = require("helmet");
 const rateLimit = require("express-rate-limit");
@@ -25,7 +26,7 @@ app.use(express.json());
 app.use(helmet())
 // app.use(rateLimit({
 //   max: 200 ,
-//   windowMs : 15*60*1000
+//   windowMs : 15*60*2000
 // }))
 app.use(hpp())
 app.use(express.urlencoded({extended:false}))

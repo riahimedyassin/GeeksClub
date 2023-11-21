@@ -1,10 +1,9 @@
-import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
-import { Subject, debounceTime, switchMap } from 'rxjs';
+import { Component,OnInit,  } from '@angular/core';
+import { Subject, debounceTime,  } from 'rxjs';
 import { EventsService } from 'src/app/services/events/events.service';
 import { Event as Events } from 'src/app/shared/models/Event.model';
 import { Forum } from 'src/app/shared/models/Forum.model';
 import { ForumsService } from '../../../services/forum/forums.service';
-import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-search',
