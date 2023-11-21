@@ -1,0 +1,21 @@
+<h1>Visitors Stack Trace</h1>
+<div class="w-full h-52 mt-16">
+    <table>
+        <tr class="h-16 bg-second rounded-t-lg overflow-hidden">
+            <th>IP Address</th>
+            <th>Country</th>
+            <th>Region</th>
+            <th>City</th>
+            <th>Visit Count</th>
+        </tr>
+        <tr *ngFor="let visitor of visitors ; index as index" [appTableColor]="index" class="h-14">
+            <td>{{visitor.ip}} </td>
+            <td>{{visitor.country}}</td>
+            <td>{{visitor.region}}</td>
+            <td>{{visitor.city}}</td>
+            <td>{{visitor.count}}</td>
+        </tr>
+    </table>
+</div>
+
+

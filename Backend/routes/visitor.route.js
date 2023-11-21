@@ -1,9 +1,11 @@
 const router = require('express').Router();
-const {addVisitor} = require("../controllers/visitor.controller")
+const {addVisitor,getVisitors} = require("../controllers/visitor.controller");
+const { requireAdminAuth } = require('../middlewares/auth/admin.auth');
 
 
 
 router.post("/",addVisitor); 
+router.get("/",requireAdminAuth,getVisitors); 
 
 
 

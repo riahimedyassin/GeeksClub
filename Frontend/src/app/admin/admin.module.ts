@@ -37,6 +37,7 @@ import { ListArticlesComponent } from './articles/list-articles/list-articles.co
 import { ArticleComponent } from './articles/article/article.component';
 import { NewArticleComponent } from './articles/new-article/new-article.component';
 import { PostComponent } from './forums/forum/post/post.component';
+import { VisitorsComponent } from './visitors/visitors.component';
 
 
 @NgModule({
@@ -68,6 +69,7 @@ import { PostComponent } from './forums/forum/post/post.component';
     ListArticlesComponent,
     NewArticleComponent,
     PostComponent,
+    VisitorsComponent,
     
   ],
   imports: [

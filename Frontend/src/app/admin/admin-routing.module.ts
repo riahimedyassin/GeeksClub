@@ -24,6 +24,7 @@ import { ListArticlesComponent } from './articles/list-articles/list-articles.co
 import { NewArticleComponent } from './articles/new-article/new-article.component';
 import { ArticleComponent } from './articles/article/article.component';
 import { PostComponent } from './forums/forum/post/post.component';
+import { VisitorsComponent } from './visitors/visitors.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,10 @@ const routes: Routes = [
         path: '',
         redirectTo: 'home',
         pathMatch: 'full',
+      },
+      {
+        path: 'visitors',
+        component: VisitorsComponent,
       },
       {
         path: 'home',
@@ -57,14 +62,13 @@ const routes: Routes = [
             component: ListArticlesComponent,
           },
           {
-            path:'new',
-            component : NewArticleComponent
+            path: 'new',
+            component: NewArticleComponent,
           },
           {
-            path : ':id',
-            component:ArticleComponent
-          
-          }
+            path: ':id',
+            component: ArticleComponent,
+          },
         ],
       },
       {
@@ -103,10 +107,13 @@ const routes: Routes = [
           { path: '', redirectTo: 'list', pathMatch: 'full' },
           { path: 'list', component: ListForumsComponent },
           { path: 'new', component: NewForumComponent },
-          { path: ':id', children:[
-            {path: '', component: ForumComponent , pathMatch:'full'},
-            {path:':post',component:PostComponent}
-          ] },
+          {
+            path: ':id',
+            children: [
+              { path: '', component: ForumComponent, pathMatch: 'full' },
+              { path: ':post', component: PostComponent },
+            ],
+          },
         ],
       },
       {

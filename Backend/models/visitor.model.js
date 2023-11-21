@@ -17,6 +17,11 @@ const visitorSchema = new mongoose.Schema({
     country : {
         type : String , 
         required : true 
+    },
+    count : {
+        type: Number , 
+        required : true ,
+        default : 0
     }
 })
 
