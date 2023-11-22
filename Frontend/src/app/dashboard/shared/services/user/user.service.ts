@@ -31,7 +31,7 @@ export class UserService {
     this.jwtService.removeToken();
   }
   public cacheUser() {
-   
+    this.user = null ; 
     this.http.get<Response<User>>(`${URL}/me/info`).subscribe((response) => {
       this.user = response.data;
     });

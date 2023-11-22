@@ -76,26 +76,32 @@ export class ProfileComponent implements OnInit {
   setImage(event: any) {
     this.file = event.target.files[0];
   }
-  pictureUpdated : boolean = false ; 
-  pending : boolean = false ; 
+  pictureUpdated: boolean = false;
+  pending: boolean = false;
   uploadImage() {
     if (this.file != undefined && !this.pending) {
       const formData = new FormData();
       formData.append('file', this.file);
-      this.userService.getImageSignature('members').subscribe(response=>{
-          this.cloudinary.uploadToCloud(formData,'members',response).subscribe((response : any) => {
-            console.log("Done Cloud Dinary")
-              this.userService.uploadImage(response.secure_url).subscribe(response=> {
-                  this.userService.cacheUser()
-                  this.user.picture=response.data.picture
-                  this.file=undefined ; 
-                  this.edit=false ;
-                  this.pictureUpdated=true ; 
-                  setTimeout(()=>this.pictureUpdated=false , 3000)
-
-              })
-          })
-      })
+      this.userService.getImageSignature('members').subscribe((response) => {
+        this.cloudinary
+          .uploadToCloud(formData, 'members', response)
+          .subscribe((response: any) => {
+            console.log('Done Cloud Dinary');
+            this.userService
+              .uploadImage(response.secure_url)
+              .subscribe((response) => {
+                this.userService.cacheUser();
+                this.user.picture = response.data.picture;
+                this.file = undefined;
+                this.edit = false;
+                this.pictureUpdated = true;
+                setTimeout(() => {
+                  this.pictureUpdated = false;
+                  location.reload();
+                }, 3000);
+              });
+          });
+      });
     }
   }
 }
