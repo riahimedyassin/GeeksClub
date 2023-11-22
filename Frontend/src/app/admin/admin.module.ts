@@ -38,6 +38,7 @@ import { ArticleComponent } from './articles/article/article.component';
 import { NewArticleComponent } from './articles/new-article/new-article.component';
 import { PostComponent } from './forums/forum/post/post.component';
 import { VisitorsComponent } from './visitors/visitors.component';
+import { SelectedAdminComponent } from './admins/selected-admin/selected-admin.component';
 
 
 @NgModule({
@@ -70,6 +71,7 @@ import { VisitorsComponent } from './visitors/visitors.component';
     NewArticleComponent,
     PostComponent,
     VisitorsComponent,
+    SelectedAdminComponent,
     
   ],
   imports: [

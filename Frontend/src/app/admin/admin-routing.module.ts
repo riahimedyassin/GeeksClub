@@ -25,6 +25,7 @@ import { NewArticleComponent } from './articles/new-article/new-article.componen
 import { ArticleComponent } from './articles/article/article.component';
 import { PostComponent } from './forums/forum/post/post.component';
 import { VisitorsComponent } from './visitors/visitors.component';
+import { SelectedAdminComponent } from './admins/selected-admin/selected-admin.component';
 
 const routes: Routes = [
   {
@@ -133,6 +134,11 @@ const routes: Routes = [
             component: NewAdminComponent,
             canActivate: [newAdminGuard],
           },
+          {
+            path:':id',
+            component : SelectedAdminComponent,
+            canActivate:[newAdminGuard]
+          }
         ],
       },
     ],

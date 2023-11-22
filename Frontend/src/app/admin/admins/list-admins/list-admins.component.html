@@ -2,7 +2,7 @@
   <div class="flex items-center gap-4">
     <lucide-angular name="shield-half" size="48"></lucide-angular>
     <h1>Liste of all Admins</h1>
-  </div>  
+  </div>
   <button
     class="new-button"
     *ngIf="current.isSup"
@@ -26,13 +26,30 @@
     >
       <th>{{ admin.name }} {{ admin.forname }}</th>
       <th>{{ admin.role }}</th>
-      <th class="flex gap-6 item-center justify-center h-14">   
+      <th class="flex gap-6 item-center justify-center h-14">
         <button
           (click)="handleDelete(admin._id)"
-          *ngIf="current.isSup && current._id != admin._id && admin.role!='President'"
+          *ngIf="
+            current.isSup &&
+            current._id != admin._id &&
+            admin.role != 'President'
+          "
         >
           <lucide-angular name="trash"></lucide-angular>
         </button>
+        <button
+          [routerLink]="'/admin/admins/' + admin._id"
+          *ngIf="admin._id != current._id; else profile"
+        >
+          <lucide-angular name="eye"></lucide-angular>
+        </button>
+        <ng-template #profile>
+          <button
+            routerLink="/admin/profile"
+          >
+            <lucide-angular name="user"></lucide-angular>
+          </button>
+        </ng-template>
       </th>
     </tr>
   </table>

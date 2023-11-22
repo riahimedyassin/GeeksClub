@@ -1,6 +1,12 @@
 const { response } = require("../utils/response/Response");
 const Article = require("../models/article.model");
 const { createError } = require("../errors/customError");
+const signature = require('../utils/cloudinary/signUploadForm');
+require('../utils/cloudinary/config');
+
+const cloudinary = require('cloudinary').v2
+const cloudName = cloudinary.config().cloud_name;
+const apiKey = cloudinary.config().api_key;
 
 const getAllArticles = async (req, res, next) => {
   try {
@@ -40,8 +46,8 @@ const addNewArticle = async (req, res, next) => {
   if (!article) return next(createError("Please provide an article", 400));
   try {
     const created = await Article.create(article);
-    if (article)
-      return response(res, "Created Successfully", 200, false, article);
+    if (created)
+      return response(res, "Created Successfully", 200, false, created);
     return next(createError("Cannot create article", 500));
   } catch (error) {
     next(error);
@@ -68,11 +74,33 @@ const deleteArticle = async (req, res, next) => {
     next(error);
   }
 };
-
+const uploadArticleImage=async(req,res,next) => {
+  const {id} = req.params ;
+  const {link} = req.body ; 
+  try {
+      const article = await Article.findOneAndUpdate({_id:id},{picture:link})
+      if(article) return response(res,"Image uploaded successfully",200,false ,article)
+      return next(createError('Cannot save picture',500))
+  } catch (error) {
+      next(error)
+  }
+}
+const getImageSignature=async(req,res,next) => {
+  const {folderName} = req.params
+  const sig = signature.signuploadform(folderName)
+  res.json({
+    signature: sig.signature,
+    timestamp: sig.timestamp,
+    cloudname: cloudName,
+    apikey: apiKey
+  })
+}
 module.exports = {
   getAllArticles,
   getSingleArticle,
   addNewArticle,
   updateArticle,
-  deleteArticle
+  deleteArticle,
+  getImageSignature,
+  uploadArticleImage
 };

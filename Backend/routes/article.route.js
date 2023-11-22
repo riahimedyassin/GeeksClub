@@ -3,7 +3,9 @@ const {
   getSingleArticle,
   addNewArticle,
   updateArticle,
-  deleteArticle
+  deleteArticle,
+  getImageSignature,
+  uploadArticleImage
 } = require("../controllers/article.controller");
 
 const router = require("express").Router();
@@ -14,5 +16,6 @@ router.get("/:id", getSingleArticle);
 router.post("/", requireAdminAuth, addNewArticle);
 router.patch("/:id",requireAdminAuth , updateArticle)
 router.delete('/:id',requireAdminAuth,deleteArticle)
-
+router.get("/image/signature/:folderName",requireAdminAuth,getImageSignature)
+router.post("/image/upload/:id",uploadArticleImage)
 module.exports = router;

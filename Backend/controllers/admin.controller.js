@@ -148,7 +148,16 @@ const getImageSignature=async(req,res,next) => {
     apikey: apiKey
   })
 }
-
+const getSingleAdmin=async(req,res,next) => {
+  const {id} = req.params ; 
+  try {
+      const admin = await Admin.findOne({_id:id});
+      if(admin) return response(res,"Admin retrieved succussfullu",200,false,admin)
+      return next(createError("Admin not found",404))
+  } catch (error) {
+      next(error)
+  }
+}
 
 
 module.exports = {
@@ -160,5 +169,6 @@ module.exports = {
   changePassword,
   getAllAdmins,
   uploadAdminImage,
-  getImageSignature
+  getImageSignature,
+  getSingleAdmin
 };

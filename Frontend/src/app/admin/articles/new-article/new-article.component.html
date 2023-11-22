@@ -2,6 +2,10 @@
 
 <form [formGroup]="form" (ngSubmit)="handleSubmit()">
   <div class="input--container">
+    <input 
+      type="file"
+      (change)="handleImage($event)"
+    />
     <input
       type="text"
       placeholder="Enter the article's title"

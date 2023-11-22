@@ -1,0 +1,15 @@
+<div *ngIf="admin ; else load" class="bg-deepblack px-4 py-2 rounded-lg">
+   <div class="flex items-center justify-between">
+        <div>
+            <h1 class="mb-2">{{admin.name}} {{admin.forname}}</h1>
+        <p class="text-gray-500">{{admin.role}}</p>
+        </div>
+        <button class="danger-button"  (click)="handleDelete()"> 
+            <lucide-angular name="trash"></lucide-angular>
+            <p>Delete</p>
+        </button>
+   </div>
+</div>
+<ng-template #load>
+    <app-loading></app-loading>
+</ng-template>

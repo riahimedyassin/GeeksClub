@@ -1,8 +1,11 @@
 <ng-container *ngIf="admin; else load">
   <img [src]="admin.picture" alt="" *ngIf="admin.picture" class="w-52 h-52 rounded-lg mb-6" />
-  <div class="mt-4 mb-8 flex gap-6" *ngIf="edit">
+  <div class="mt-4 mb-8 flex gap-6 bg-deepblack  py-2 rounded-lg " *ngIf="edit">
     <input type="file" (change)="changePicture($event)" >
-    <button (click)="saveImage()" class="succuss-button">Change picture</button>
+    <button (click)="saveImage()" class="succuss-button">
+      <lucide-angular name="pencil"></lucide-angular>
+      <p>Change</p>
+    </button>
   </div>
   <h1>{{ admin.name }} {{ admin.forname }}</h1>
   <h3 class="mt-2">{{ admin.role }}</h3>

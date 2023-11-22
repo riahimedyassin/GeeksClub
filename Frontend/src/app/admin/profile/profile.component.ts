@@ -79,24 +79,29 @@ export class ProfileComponent implements OnInit {
         });
     }
   }
-  file!: File;
+  file!: File | undefined;
   changePicture(event: any) {
     this.file = event.target.files[0];
   }
   saveImage() {
-    const formData = new FormData();
-    formData.append('file', this.file);
-    this.adminService.getSignature('admin').subscribe((response) => {
-      const signData: any = response;
-      this.cloudinary
-        .uploadToCloud(formData, 'admin', signData)
-        .subscribe((response: any) => {
-          this.adminService
-            .uploadImage(response['secure_url'])
-            .subscribe((response) => {
-                this.admin.picture=response.data.picture
-            });
-        });
-    });
+    if (this.file != undefined) {
+      const formData = new FormData();
+      formData.append('file', this.file);
+      this.adminService.getSignature('admin').subscribe((response) => {
+        const signData: any = response;
+        this.cloudinary
+          .uploadToCloud(formData, 'admin', signData)
+          .subscribe((response: any) => {
+            this.adminService
+              .uploadImage(response['secure_url'])
+              .subscribe((response) => {
+                this.admin.picture = response.data.picture;
+                this.adminService.cacheAdmin();
+                this.file=undefined ; 
+                this.edit = false ; 
+              });
+          });
+      });
+    }
   }
 }

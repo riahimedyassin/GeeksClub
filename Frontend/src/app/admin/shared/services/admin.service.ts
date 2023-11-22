@@ -28,7 +28,7 @@ export class AdminService {
   );
   admin!: Admin | null;
 
-  private cacheAdmin() {
+  public cacheAdmin() {
     console.log('cached ');
     this.updated = false;
     this.http.get<Response<Admin>>(`${ADMINURL}/me`).subscribe((response) => {
@@ -73,6 +73,9 @@ export class AdminService {
   }
   uploadImage(link : string ) : Observable<Response<Admin>> {
     return this.http.post<Response<Admin>>(`${ADMINURL}/me/image`,{link})
+  }
+  getSingleAdmin(id: string) : Observable<Response<Admin>> {
+    return this.http.get<Response<Admin>> (`${ADMINURL}/admin/${id}`)
   }
 
 }
