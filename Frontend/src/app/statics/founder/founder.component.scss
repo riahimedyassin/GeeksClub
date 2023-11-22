@@ -6,7 +6,7 @@
 }
 .skills {
     @include flex(false); 
-    @apply gap-10; 
+    @apply gap-14; 
     img {
         @include resize(45px,50px);
     }
