@@ -10,7 +10,8 @@ const {
   deleteMember,
   getAllRegistred,
   registerMember,
-  getRecoverQuestion
+  getRecoverQuestion,
+  getUserRecoverID
 } = require("../controllers/member.controller");
 const { requireAdminAuth } = require("../middlewares/auth/admin.auth");
 const { requireMemberAuth } = require("../middlewares/auth/member.auth");
@@ -19,9 +20,8 @@ const router = require("express").Router();
 
 router.post("/register", registerUser);
 router.post("/login", loginMember);
-router.post("/recovery/answer", recoverAccount);
 router.post('/image',imageUpload) ;
-router.get("/recover/question/:id", getRecoverQuestion)
+router.post("/recover", recoverAccount); 
 
 
 router.get("/all/:page", requireAdminAuth, getAllMembers);

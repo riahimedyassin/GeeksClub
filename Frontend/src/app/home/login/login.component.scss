@@ -39,6 +39,9 @@ form {
             background-color: rgb(0, 0, 0)
         }
     }
+    select {
+        @apply w-full h-[50px] bg-black border-[2px] border-gray-500 text-white
+    }
 }
 .invalid {
     &.touched {

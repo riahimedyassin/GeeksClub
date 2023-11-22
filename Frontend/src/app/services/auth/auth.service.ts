@@ -27,6 +27,9 @@ export class AuthService {
     return this.http.post<Response<string>>(`${environment.host}/dashboard/login`,{email,password})
   }
 
+  recoverAccount(question : string , answer : string , email : string , password: string ) {
+    return this.http.post(`${environment.host}/members/recover`,{question,answer,email,password})
+  }
 
 
 }

@@ -30,3 +30,6 @@
     </button>
   </div>
 </div>
+<ng-container *ngIf="posted" >
+  <app-notification message="Reply Posted Succussfully" color="green" icon="plus-circle"></app-notification>
+</ng-container>

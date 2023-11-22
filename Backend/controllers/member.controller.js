@@ -51,21 +51,20 @@ const loginMember = async (req, res, next) => {
   }
 };
 const recoverAccount = async (req, res, next) => {
-  const { answer, email, password } = req.body;
-  if (!email || !answer)
-    return next(createError("Please Provide the email and your answer", 400));
+  const { answer, email, password, question } = req.body;
+  if (!email || !answer || !password || !question)
+    return next(createError("All fields are manadatory", 400));
   const user = await Member.findOne(
     { email: email, isMember: true },
-    { recovery_question }
+    { recovery_question : 1 }
   );
   if (!user) return next(createError("Cannot find this user", 404));
-  if (recovery.isMatching(answer, user.recovery_question.answer)) {
+  if (recovery.isMatching(answer, user.recovery_question.answer) && question===user.recovery_question.question ) {
     const newHashed = await hashPassword(password);
     const updated = await Member.findOneAndUpdate(
       { email: email },
       { password: newHashed }
     );
-
     if (updated) return response(res, "Updated Successfully", 200);
     return next(createError("Internal Server Error", 500));
   }
@@ -190,10 +189,10 @@ const registerMember = async (req, res, next) => {
   }
 };
 const getRecoverQuestion = async (req, res, next) => {
-  const { id } = req.params;
-  if (!id) return next(createError("Please provide your ID", 400));
+  const { email } = req.body;
+  if (!email) return next(createError("Please provide your email", 400));
   try {
-    const user = await Member.findOne({ _id: id }, { recovery_question: 1 });
+    const user = await Member.findOne({ email: email, isMember:true }, { recovery_question: 1 });
     if (!user) return next(createError("Cannot find this user", 404));
     return response(
       res,
@@ -206,6 +205,8 @@ const getRecoverQuestion = async (req, res, next) => {
     next(error);
   }
 };
+
+
 
 module.exports = {
   registerUser,

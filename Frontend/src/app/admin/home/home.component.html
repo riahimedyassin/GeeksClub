@@ -1,4 +1,7 @@
-<h1>Admin Dashboard</h1>
+<div class="flex items-center gap-4">
+  <lucide-angular name="home" size="48"></lucide-angular>
+  <h1>Admin Dashboard</h1>
+</div>
 <div class="grid grid-cols-3 gap-4 mt-28" *ngIf="!isLoading; else load">
   <app-overview-block
     title="Total Members"
@@ -44,13 +47,13 @@
   ></app-quick-action>
 </div>
 <h1 class="mt-14 ">Stats</h1>
-<div class="grid grid-cols-2">
+<div class="grid grid-cols-2 mt-8">
   <div class="col-span-1">
-    <h2 class="mb-4 mt-16">Forums Activities Overview : </h2>
+    <h2 class="mb-4 ">Forums Activities Overview : </h2>
     <canvas id="forumsStats"></canvas>
   </div>
   <div class="col-span-1">
-    <h2 class="mb-4 mt-16">Member's Points Overview : </h2>
+    <h2 class="mb-4 ">Member's Points Overview : </h2>
     <canvas id="membersStats"></canvas>
   </div>
 </div>

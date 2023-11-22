@@ -16,6 +16,7 @@ export class RepliesComponent {
   >();
   showComment: boolean = false;
   comment!: string;
+  posted : boolean = false ; 
   constructor(private forumService: ForumsService) {}
   ngOnInit(): void {}
   handleComment() {
@@ -23,7 +24,9 @@ export class RepliesComponent {
       this.forumService
         .postComment(this.comment, this.forum, this.article._id)
         .subscribe((response) => {
-          console.log(response);
+          this.posted=true ;
+          setTimeout(()=>this.posted=false , 3000)
+          this.comment="";
           this.oncomment.emit(response.data);
         });
     }

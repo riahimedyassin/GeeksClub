@@ -13,7 +13,7 @@
             <a href=""><lucide-icon name="instagram" size="36"></lucide-icon></a>
         </div>
     </div>
-    <form [formGroup]="form" (ngSubmit)="submit()" class="col-span-2">
+    <form [formGroup]="form" (ngSubmit)="submit()" class="col-span-2" *ngIf="!forget">
       <h1>Member's Login</h1>
       <div class="input--holder">
         <input
@@ -31,11 +31,64 @@
         />
         <p *ngIf="form.get('password')?.invalid && form.get('password')?.touched " class="text-red-700 ">Please enter a valid password</p>
       </div>
+      <div class="text-gray-500 underline cursor-pointer" (click)="forget=true">
+        Forget password ?
+      </div>
       <ng-container *ngIf="error">
         <app-feedback type="danger" [message]="errorMessage"></app-feedback>
       </ng-container>
       <button class="btn" type="submit">Login</button>
     </form>
+    <ng-container *ngIf="forget">
+      <form [formGroup]="forgetForm" class="col-span-2">
+        <h1>Reset Password</h1>
+        <div class="input--holder">
+          <input
+            type="email"
+            placeholder="Enter your email"
+            formControlName="email"
+          />
+          <p *ngIf="form.get('email')?.invalid && form.get('email')?.touched " class="text-red-700 ">Please enter a valid email</p>
+        </div>
+        <div class="input--holder">
+          <select
+              formControlName="question"
+              id=""
+              class="col-span-9 cursor-pointer"
+            >
+              <ng-container *ngFor="let question of questions">
+                <option [value]="question.question">
+                  {{ question.question }}
+                </option>
+              </ng-container>
+            </select>
+        </div>
+        <div class="input--holder">
+          <input
+            type="text"
+            placeholder="Enter your answer"
+            formControlName="answer"
+          />
+          <p *ngIf="form.get('answer')?.invalid && form.get('answer')?.touched " class="text-red-700 ">Please enter a valid answer</p>
+        </div>
+        <div class="input--holder">
+          <input
+            type="password"
+            placeholder="Enter your answer"
+            formControlName="password"
+          />
+          <p *ngIf="form.get('password')?.invalid && form.get('password')?.touched " class="text-red-700 ">Please enter a valid password</p>
+        </div>
+        <button (click)="handleReset()" >Reset</button>
+      </form> 
+    </ng-container>
   </div>
 </div>
 <app-footer></app-footer>
+
+<ng-container *ngIf="recovered">
+  <app-notification message="Recovered Succussfully !" color="green" icon="plus-circle" ></app-notification>
+</ng-container>
+<ng-container *ngIf="errorRecovering">
+  <app-notification message="Cannot reset account !" color="red" icon="x-circle" ></app-notification>
+</ng-container>

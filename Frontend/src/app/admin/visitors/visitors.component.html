@@ -1,5 +1,8 @@
 <div class="flex items-center justify-between">
-    <h1>Visitors Stack Trace</h1>
+    <div class="flex items-center gap-4">
+        <lucide-angular name="fingerprint" size="48"></lucide-angular>
+        <h1>Visitors Stack Trace</h1>
+    </div>
     <button class="new-button" [ngClass]="stat ? 'bg-second':''" (click)="stat=!stat">
         <lucide-angular name="bar-chart-3"></lucide-angular>
         <p>Stats</p>
