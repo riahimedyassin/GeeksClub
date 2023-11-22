@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { EventsService } from 'src/app/services/events/events.service';
 import { Comment } from 'src/app/shared/models/Comment.model';

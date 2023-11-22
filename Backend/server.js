@@ -24,10 +24,10 @@ const hpp = require("hpp");
 app.disable('x-powered-by');
 app.use(express.json());
 app.use(helmet())
-// app.use(rateLimit({
-//   max: 200 ,
-//   windowMs : 15*60*2000
-// }))
+app.use(rateLimit({
+  max: 1000 ,
+  windowMs : 15*60*5000
+}))
 app.use(hpp())
 app.use(express.urlencoded({extended:false}))
 app.use(

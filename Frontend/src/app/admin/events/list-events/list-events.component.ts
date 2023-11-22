@@ -1,4 +1,3 @@
-import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { EventsService } from 'src/app/services/events/events.service';
 import { Event } from 'src/app/shared/models/Event.model';

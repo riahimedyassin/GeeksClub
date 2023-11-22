@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HandleError } from 'src/app/shared/error/errorHandler';
 import { Event } from 'src/app/shared/models/Event.model';
 import { Response } from 'src/app/shared/models/Response.model';
@@ -68,7 +68,7 @@ export class EventsService {
   getImageSignature(folder : string ) {
     return this.http.get(`${URL}/image/signature/${folder}`)
   }
-  uploadImage( id :string , link : string ) {
-    return this.http.post(`${URL}/image/upload/${id}`,{link})
+  uploadImage( id :string , link : string ) : Observable<Response<Event>> {
+    return this.http.post<Response<Event>>(`${URL}/image/upload/${id}`,{link})
   }
 }

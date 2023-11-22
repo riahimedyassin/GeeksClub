@@ -235,6 +235,11 @@ const uploadMemberImage=async(req,res,next) => {
       next(error)
   }
 }
+const getMembersCount = async(req,res,next)=> {
+    const members = await Member.find({},{_id:1})
+    const length = members.length 
+    return response(res,"Members length retrieved",200,false,length)
+}
 
 
 module.exports = {
@@ -251,5 +256,6 @@ module.exports = {
   registerMember,
   getRecoverQuestion,
   getImageSignature,
-  uploadMemberImage
+  uploadMemberImage,
+  getMembersCount
 };

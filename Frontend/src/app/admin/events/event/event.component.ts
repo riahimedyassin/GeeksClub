@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from 'src/app/dashboard/shared/services/user/user.service';
+import { CloudinaryService } from 'src/app/services/cloudinary/cloudinary.service';
 import { EventsService } from 'src/app/services/events/events.service';
 import { Event } from 'src/app/shared/models/Event.model';
 import { User } from 'src/app/shared/models/User.model';
@@ -19,11 +19,13 @@ export class EventComponent implements OnInit {
   edit: boolean = false;
   form!: FormGroup;
   saved: boolean= false ; 
+  file! : File | undefined ; 
   constructor(
     private eventService: EventsService,
     private activated: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private router : Router
+    private router : Router,
+    private cloudinary : CloudinaryService
   ) {}
   ngOnInit(): void {
     this.id = <string>this.activated.snapshot.paramMap.get('id');
@@ -62,6 +64,27 @@ export class EventComponent implements OnInit {
           this.saved=false ; 
         },3000)
       });
+  }
+  saveImage() {
+    if(this.file !=undefined) {
+      this.eventService.getImageSignature('events').subscribe(response=> {
+        const formData = new FormData();
+        formData.append('file',<File>this.file)
+        this.cloudinary.uploadToCloud(formData,'events',response).subscribe((response : any )=> {
+          const link = response.secure_url
+          this.eventService.uploadImage(this.id,response.secure_url).subscribe((response)=> {
+            this.file = undefined ; 
+            this.edit = false ; 
+            this.saved=true ;
+            this.event.picture=link;
+            setTimeout(()=>this.saved=false , 3000)
+          })
+        })
+      })
+    }
+  }
+  handleImage(event : any ) {
+    this.file=event.target.files[0]; 
   }
   handleEdit() {
     this.edit = !this.edit;

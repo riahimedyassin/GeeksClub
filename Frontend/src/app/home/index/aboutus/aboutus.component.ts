@@ -1,6 +1,5 @@
-import { Component, OnInit , HostListener, ElementRef , ViewChild } from '@angular/core'; 
+import { Component} from '@angular/core'; 
 import { RevealAnimationService } from 'src/app/shared/services/reveal-animation.service';
-import  ScrollReveal from 'scrollreveal' ; 
 @Component({
   selector: 'app-aboutus',
   templateUrl: './aboutus.component.html',

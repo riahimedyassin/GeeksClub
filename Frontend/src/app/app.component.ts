@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { RevealAnimationService } from './shared/services/reveal-animation.service';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 
 @Component({

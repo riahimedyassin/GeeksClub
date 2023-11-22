@@ -39,8 +39,41 @@ const getVisitors = async (req, res, next) => {
     next(error);
   }
 };
+const blockUser=async(req,res,next) => {
+  const {ip} = req.body
+  try {
+      const visitor = await Visitor.findOneAndUpdate({ip:ip},{blocked:true})
+      if(visitor) return response(res,"Blocked",200)
+      return next(createError("Cannot block this user"))
+  } catch (error) {
+      next(error)
+  }
+}
+const retrieveUser=async(req,res,next) => {
+  const {ip} = req.body
+  try {
+      const visitor = await Visitor.findOneAndUpdate({ip:ip},{blocked:false})
+      if(visitor) return response(res,"Blocked",200)
+      return next(createError("Cannot block this user"))
+  } catch (error) {
+      next(error)
+  }
+}
+const blockedList = async(req,res,next) => {
+  try {
+      const blocked = await Visitor.find({blocked:true },{ip:1})
+      if(blocked) return response(res,'Blocked List',200,false , blocked)
+      return next(createError("Cannot retrieve list ",500))
+  } catch (error) {
+      next(error)
+  }
+}
+
 
 module.exports = {
   addVisitor,
   getVisitors,
+  blockUser,
+  retrieveUser,
+  blockedList
 };

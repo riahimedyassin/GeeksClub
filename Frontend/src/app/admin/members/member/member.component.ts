@@ -1,8 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/dashboard/shared/services/user/user.service';
 import { User } from 'src/app/shared/models/User.model';
-import { AdminService } from '../../shared/services/admin.service';
 
 @Component({
   selector: 'app-member',

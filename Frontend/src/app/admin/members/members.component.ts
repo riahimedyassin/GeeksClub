@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/dashboard/shared/services/user/user.service';
-import { User } from 'src/app/shared/models/User.model';
+import { Component } from '@angular/core';
+
 
 @Component({
   selector: 'app-members',

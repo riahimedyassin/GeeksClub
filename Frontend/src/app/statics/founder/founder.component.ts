@@ -17,6 +17,11 @@ export class FounderComponent {
     { path: `${base}/jest.png`, alt: 'Jest', title: 'Jest Testing Library' },
     { path: `${base}/mongo.png`, alt: 'MongoDB', title: 'Mongo Database' },
     { path: `${base}/sass.png`, alt: 'Sass', title: 'SASS/SCSS' }, 
-    { path: `${base}/express.png`, alt: 'Express JS', title: 'Express JS' }
+    { path: `${base}/express.png`, alt: 'Express JS', title: 'Express JS' },
+    { path: `${base}/threejs.png`, alt: 'Three JS', title: 'Three JS'  },
+    { path: `${base}/mongoose.png`, alt: 'Mongoose', title: 'Mongoose Library'  },
+    { path: `${base}/less.png`, alt: 'LESS', title: 'LESS'  },
+    { path: `${base}/tailwind.png`, alt: 'tailwind', title: 'tailwind'  },
+    
   ]
 }

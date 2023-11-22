@@ -1,6 +1,18 @@
 <ng-container *ngIf="event; else load">
-  <img [src]="event.picture" alt="" *ngIf="event.picture" class="w-60 h-60 mb-8 ">
+  <img
+    [src]="event.picture"
+    alt=""
+    *ngIf="event.picture"
+    class="w-60 h-60 mb-8"
+  />
   <form [formGroup]="form" (ngSubmit)="handleSave()">
+    <div class="flex items-center justify-between bg-deepblack px-4 py-2 rounded-lg mb-6" *ngIf="edit">
+      <input type="file" (change)="handleImage($event)" />
+      <button (click)="saveImage()" class="succuss-button">
+        <lucide-angular name="save"></lucide-angular>
+        <p>Change</p>
+      </button>
+    </div>
     <div class="flex items-center justify-between">
       <div class="flex flex-col">
         <input
@@ -36,7 +48,11 @@
           <p>Edit</p>
           <lucide-angular name="pencil"></lucide-angular>
         </button>
-        <button class="warning-button" (click)="handleEndEvent()" *ngIf="!event.ended">
+        <button
+          class="warning-button"
+          (click)="handleEndEvent()"
+          *ngIf="!event.ended"
+        >
           <lucide-angular name="plus-circle"></lucide-angular>
           <p>Ended</p>
         </button>
@@ -117,7 +133,6 @@
         <div
           class="flex justify-between items-center mt-4"
           formArrayName="prerequis"
-          
         >
           <p *ngFor="let pre of listPrerequis.controls; index as index">
             {{ pre.value }}
@@ -126,14 +141,20 @@
       </div>
       <div class="col-span-2">
         <h2 class="mt-6">Participants</h2>
-        <table class="text-center w-full rounded-t-lg overflow-hidden mt-4 mb-12" >
+        <table
+          class="text-center w-full rounded-t-lg overflow-hidden mt-4 mb-12"
+        >
           <tr class="bg-second h-16 rounded-t-lg">
             <th>Full-name</th>
             <th>Email</th>
             <th>Facebook</th>
             <th>Actions</th>
           </tr>
-          <tr *ngFor="let p of participants ; index as index " class="h-14" [appTableColor]="index">
+          <tr
+            *ngFor="let p of participants; index as index"
+            class="h-14"
+            [appTableColor]="index"
+          >
             <td>{{ p.name }} {{ p.forname }}</td>
             <td>{{ p.email }}</td>
             <td>
@@ -160,12 +181,15 @@
             </td>
           </tr>
         </table>
-        <hr>
+        <hr />
         <div class="space-y-4 mt-14">
-          <h2 class="mb-12">Comments : </h2>
-          <div *ngFor="let comment of event.comments" class="w-full h-20 bg-deepblack rounded-lg px-4 py-2 ">
-            <h3  >{{comment.name}} {{comment.forname}}</h3>
-            <p>{{comment.content}}</p>
+          <h2 class="mb-12">Comments :</h2>
+          <div
+            *ngFor="let comment of event.comments"
+            class="w-full h-20 bg-deepblack rounded-lg px-4 py-2"
+          >
+            <h3>{{ comment.name }} {{ comment.forname }}</h3>
+            <p>{{ comment.content }}</p>
           </div>
         </div>
       </div>

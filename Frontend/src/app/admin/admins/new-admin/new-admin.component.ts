@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { AdminService } from '../../shared/services/admin.service';
 import { CustomValidator } from 'src/app/shared/validators/CustomValidator';
-import { Question } from 'src/app/shared/models/Question.model';
 
 @Component({
   selector: 'app-new-admin',

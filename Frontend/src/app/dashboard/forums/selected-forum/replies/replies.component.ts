@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ForumsService } from 'src/app/dashboard/shared/services/forum/forums.service';
 import { articleResponse } from 'src/app/shared/models/types/articleResponse.type';
-import { RevealAnimationService } from 'src/app/shared/services/reveal-animation.service';
 
 @Component({
   selector: 'app-replies',

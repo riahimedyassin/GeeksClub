@@ -1,10 +1,9 @@
-const { MongooseError, get } = require("mongoose");
+const { MongooseError } = require("mongoose");
 const Forum = require("../models/forum.model");
 const { response } = require("../utils/response/Response");
 const { createError } = require("../errors/customError");
 const { deleteFromTable } = require("../utils/deleteFromTable");
 const Member = require("../models/member.model");
-const { verfiyToken } = require("../utils/token/verifyToken");
 
 const addForum = async (req, res, next) => {
   const { name, descreption } = req.body;

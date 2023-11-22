@@ -1,6 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivitiesService } from 'src/app/services/activities/activities.service';
 import { EventsService } from 'src/app/services/events/events.service';
 import { Event } from 'src/app/shared/models/Event.model';
 import { RevealAnimationService } from 'src/app/shared/services/reveal-animation.service';

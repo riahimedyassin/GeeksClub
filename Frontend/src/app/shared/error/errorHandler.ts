@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Injectable } from '@angular/core';
+import {  Router } from '@angular/router';
 import { throwError } from 'rxjs';
 import { JwtService } from 'src/app/services/auth/jwt.service';
 
@@ -12,7 +12,6 @@ export class HandleError  {
   current! : string 
   handle(error: HttpErrorResponse) {
     if (error.status == 403 ) {
-      console.log("Hola ?")
       this.jwtService.removeToken()
       this.router.navigate(['/login'])
       return throwError(error);

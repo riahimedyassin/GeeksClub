@@ -9,13 +9,13 @@
                 <h1>Riahi Yassin</h1>
                 <p>MEAN/MERN Junior Developer | Junior Game Developer | CLI Tools Builder</p>
             </div>
-            <div class="skills mt-12">
-                <div *ngFor="let skill of skills">
+            <div class="skills mt-12 flex-wrap w-[80%]">
+                <div *ngFor="let skill of skills" class="image-container">
                     <img [src]="skill.path" [alt]="skill.alt" [title]="skill.title">
                 </div>
             </div>
             <div class="skills mt-14">
-                <a class="flex items-center gap-4 bg-blue-500 hover:bg-blue-600 transition-all px-4 py-2 rounded-lg" target="_blank" href="https://www.linkedin.com/in/riahi-mohamed-yassin/">
+                <a class="flex  items-center gap-4 bg-blue-500 hover:bg-blue-600 transition-all px-4 py-2 rounded-lg" target="_blank" href="https://www.linkedin.com/in/riahi-mohamed-yassin/">
                     <lucide-icon name="linkedin"></lucide-icon>
                     <p>Contact Me</p>
                 </a>

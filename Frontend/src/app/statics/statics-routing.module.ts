@@ -3,9 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FounderComponent } from './founder/founder.component';
 import { PolicyComponent } from './policy/policy.component';
 import { SponsoringComponent } from './sponsoring/sponsoring.component';
-import { ArticlesComponent } from './articles/articles.component';
 import { DetailsComponent } from './articles/article/details/details.component';
-import { ArticlesService } from '../services/articles/articles.service';
 import { MainComponent } from './main/main.component';
 import { DonateComponent } from './donate/donate.component';
 

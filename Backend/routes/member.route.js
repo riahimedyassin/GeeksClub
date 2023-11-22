@@ -10,7 +10,8 @@ const {
   getAllRegistred,
   registerMember,
   getImageSignature,
-  uploadMemberImage
+  uploadMemberImage,
+  getMembersCount
 } = require("../controllers/member.controller");
 const { requireAdminAuth } = require("../middlewares/auth/admin.auth");
 const { requireMemberAuth } = require("../middlewares/auth/member.auth");
@@ -33,6 +34,7 @@ router.get("/me/info",requireMemberAuth,getInfo)
 router.patch("/me",requireMemberAuth,updateMember)
 router.get("/me/image/signature/:folderName",getImageSignature)
 router.post('/me/image',requireMemberAuth,uploadMemberImage)
+router.get('/all/members/length',requireAdminAuth,getMembersCount)
 
 
 

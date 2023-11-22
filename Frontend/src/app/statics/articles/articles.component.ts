@@ -1,6 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { ArticlesService } from 'src/app/services/articles/articles.service';
 import { NavbarComponent } from 'src/app/shared/components/navbar/navbar.component';
 import { Article } from 'src/app/shared/models/Article.model';
@@ -9,7 +8,6 @@ import { ArticleComponent } from './article/article.component';
 import { ErrorComponent } from 'src/app/shared/components/error/error.component';
 import { FooterComponent } from 'src/app/shared/components/footer/footer.component';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-articles',

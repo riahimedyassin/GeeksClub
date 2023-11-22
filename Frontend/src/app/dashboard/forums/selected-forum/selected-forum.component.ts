@@ -5,8 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../shared/services/user/user.service';
 import { User } from 'src/app/shared/models/User.model';
 import { articleResponse } from 'src/app/shared/models/types/articleResponse.type';
-import { message } from 'src/app/shared/models/types/message.type';
-import { Article } from 'src/app/shared/models/Article.model';
 
 @Component({
   selector: 'app-selected-forum',
