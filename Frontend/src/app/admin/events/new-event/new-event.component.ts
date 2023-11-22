@@ -6,6 +6,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { CloudinaryService } from 'src/app/services/cloudinary/cloudinary.service';
 import { EventsService } from 'src/app/services/events/events.service';
 import { CustomValidator } from 'src/app/shared/validators/CustomValidator';
 
@@ -18,9 +19,11 @@ export class NewEventComponent implements OnInit {
   form!: FormGroup;
   error: boolean = false ; 
   added : boolean = false ; 
+  file! : File ; 
   constructor(
     private formBuilder: FormBuilder,
-    private eventService: EventsService
+    private eventService: EventsService,
+    private couldinary : CloudinaryService
   ) {}
   ngOnInit(): void {
     this.form = this.formBuilder.nonNullable.group({

@@ -30,7 +30,7 @@ export class UserService {
     this.user = null ; 
     this.jwtService.removeToken();
   }
-  private cacheUser() {
+  public cacheUser() {
    
     this.http.get<Response<User>>(`${URL}/me/info`).subscribe((response) => {
       this.user = response.data;
@@ -87,7 +87,12 @@ export class UserService {
   updateMember(id : string , user : User) {
     return this.http.patch(`${URL}/me`,user)
   }
-
+  getImageSignature(folderName : string ) {
+    return this.http.get(`${URL}/me/image/signature/${folderName}`)
+  } 
+  uploadImage(link : string ) : Observable<Response<User>> {
+    return this.http.post<Response<User>>(`${URL}/me/image`,{link})
+  }
 
 
 }

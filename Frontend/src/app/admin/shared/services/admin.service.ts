@@ -68,4 +68,11 @@ export class AdminService {
     this.jwtService.removeToken()
     this.admin=null ;
   }
+  getSignature(folderName : string ) {
+    return this.http.get(`${ADMINURL}/me/image/signature/${folderName}`)
+  }
+  uploadImage(link : string ) : Observable<Response<Admin>> {
+    return this.http.post<Response<Admin>>(`${ADMINURL}/me/image`,{link})
+  }
+
 }

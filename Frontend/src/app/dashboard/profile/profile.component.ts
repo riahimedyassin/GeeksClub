@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/dashboard/shared/services/user/user.service';
+import { CloudinaryService } from 'src/app/services/cloudinary/cloudinary.service';
 import { User } from 'src/app/shared/models/User.model';
 import { CustomValidator } from 'src/app/shared/validators/CustomValidator';
 
@@ -17,10 +18,12 @@ export class ProfileComponent implements OnInit {
   edit: boolean = false;
   updated: boolean = false;
   error: boolean = false;
+  file!: File;
   constructor(
     private userService: UserService,
     private formbuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private cloudinary: CloudinaryService
   ) {}
   ngOnInit(): void {
     this.userService.getCurrentUser().subscribe((response) => {
@@ -58,7 +61,7 @@ export class ProfileComponent implements OnInit {
             this.updated = true;
             setTimeout(() => (this.updated = false), 3000);
             this.form.disable();
-            this.edit=false ; 
+            this.edit = false;
           },
           (err) => {
             (this.error = true), setTimeout(() => (this.error = false), 3000);
@@ -69,5 +72,23 @@ export class ProfileComponent implements OnInit {
   handleLogout() {
     this.userService.logout();
     this.router.navigate(['/login/member']);
+  }
+  setImage(event: any) {
+    this.file = event.target.files[0];
+  }
+  uploadImage() {
+    if (this.file != undefined) {
+      const formData = new FormData();
+      formData.append('file', this.file);
+      this.userService.getImageSignature('members').subscribe(response=>{
+          this.cloudinary.uploadToCloud(formData,'members',response).subscribe((response : any) => {
+            console.log("Done Cloud Dinary")
+              this.userService.uploadImage(response.secure_url).subscribe(response=> {
+                  this.userService.cacheUser()
+                  this.user.picture=response.data.picture
+              })
+          })
+      })
+    }
   }
 }

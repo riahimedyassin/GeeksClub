@@ -1,7 +1,11 @@
 <h1>Add new Event</h1>
+<div class="mt-24 mb-4">
+  <h3 for="">Picture : </h3>
+  <input type="file"  >
+</div>
 <div>
   <form [formGroup]="form" (ngSubmit)="handleSubmit()" >
-    <div class="w-full grid grid-cols-2 mt-24 gap-6">
+    <div class="w-full grid grid-cols-2  gap-6">
         <div class="input--holder">
             <h3>Title</h3>
             <input

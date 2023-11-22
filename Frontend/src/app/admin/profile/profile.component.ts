@@ -3,6 +3,7 @@ import { AdminService } from '../shared/services/admin.service';
 import { Admin } from 'src/app/shared/models/Admin.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomValidator } from 'src/app/shared/validators/CustomValidator';
+import { CloudinaryService } from 'src/app/services/cloudinary/cloudinary.service';
 
 @Component({
   selector: 'app-profile',
@@ -12,7 +13,8 @@ import { CustomValidator } from 'src/app/shared/validators/CustomValidator';
 export class ProfileComponent implements OnInit {
   constructor(
     private adminService: AdminService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private cloudinary: CloudinaryService
   ) {}
   admin!: Admin;
   form!: FormGroup;
@@ -73,8 +75,28 @@ export class ProfileComponent implements OnInit {
           this.passwordForm.get('newPassword')?.value
         )
         .subscribe((response) => {
-          this.passwordForm.reset(); 
+          this.passwordForm.reset();
         });
     }
+  }
+  file!: File;
+  changePicture(event: any) {
+    this.file = event.target.files[0];
+  }
+  saveImage() {
+    const formData = new FormData();
+    formData.append('file', this.file);
+    this.adminService.getSignature('admin').subscribe((response) => {
+      const signData: any = response;
+      this.cloudinary
+        .uploadToCloud(formData, 'admin', signData)
+        .subscribe((response: any) => {
+          this.adminService
+            .uploadImage(response['secure_url'])
+            .subscribe((response) => {
+                this.admin.picture=response.data.picture
+            });
+        });
+    });
   }
 }

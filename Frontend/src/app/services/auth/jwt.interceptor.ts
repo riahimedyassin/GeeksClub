@@ -14,6 +14,9 @@ export class JwtInterceptor implements HttpInterceptor {
   constructor(private jwt : JwtService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if (request.url.includes('https://api.cloudinary.com/v1_1/')) {
+      return next.handle(request);
+    }
     const jwtedRequest = request.clone({
       headers: request.headers.set('authorization',`Bearer ${this.jwt.getToken()}`)
     })
