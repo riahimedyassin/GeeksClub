@@ -1,14 +1,23 @@
-<h1>Visitors Stack Trace</h1>
-<div class="w-full h-52 mt-16">
+<div class="flex items-center justify-between">
+    <h1>Visitors Stack Trace</h1>
+    <button class="new-button" [ngClass]="stat ? 'bg-second':''" (click)="stat=!stat">
+        <lucide-angular name="bar-chart-3"></lucide-angular>
+        <p>Stats</p>
+    </button>
+</div>
+<div class="w-full h-80 mt-8 flex items-center justify-center " [ngClass]="!stat ? 'hidden' : ''">
+    <canvas id="visitorsStats"></canvas>
+</div>
+<div class="w-full  mt-16">
     <table>
-        <tr class="h-16 bg-second rounded-t-lg overflow-hidden">
+        <tr class="head">
             <th>IP Address</th>
             <th>Country</th>
             <th>Region</th>
             <th>City</th>
             <th>Visit Count</th>
         </tr>
-        <tr *ngFor="let visitor of visitors ; index as index" [appTableColor]="index" class="h-14">
+        <tr *ngFor="let visitor of visitors ; index as index" [appTableColor]="index" class="body">
             <td>{{visitor.ip}} </td>
             <td>{{visitor.country}}</td>
             <td>{{visitor.region}}</td>

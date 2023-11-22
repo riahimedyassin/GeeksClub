@@ -10,6 +10,9 @@ import { Visitor } from 'src/app/shared/models/Visitor.model';
 })
 export class VisitorsComponent implements OnInit {
   visitors!: Visitor[];
+  dataset : number[] = []
+  labels : string[] = [];
+  stat : boolean = false ; 
   constructor(
     private visitorService: VisitorService,
     private chart: ChartService
@@ -17,6 +20,11 @@ export class VisitorsComponent implements OnInit {
   ngOnInit(): void {
     this.visitorService.getAllVisitros().subscribe((response) => {
       this.visitors = response.data;
+      this.visitors.map(visitor=> {
+        this.dataset.push(visitor.count || 0);
+        this.labels.push(`${visitor.ip} | ${visitor.city}`)
+      })
+      this.chart.revealCharts("visitorsStats",this.dataset,this.labels,"IP Address Visit Count")
       console.log(this.visitors)
     });
   }
