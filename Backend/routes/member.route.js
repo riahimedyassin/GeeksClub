@@ -5,13 +5,12 @@ const {
   getSingleMember,
   updateMember,
   getInfo,
-  imageUpload,
   getAllMembers,
   deleteMember,
   getAllRegistred,
   registerMember,
-  getRecoverQuestion,
-  getUserRecoverID
+  getImageSignature,
+  uploadMemberImage
 } = require("../controllers/member.controller");
 const { requireAdminAuth } = require("../middlewares/auth/admin.auth");
 const { requireMemberAuth } = require("../middlewares/auth/member.auth");
@@ -20,7 +19,6 @@ const router = require("express").Router();
 
 router.post("/register", registerUser);
 router.post("/login", loginMember);
-router.post('/image',imageUpload) ;
 router.post("/recover", recoverAccount); 
 
 
@@ -33,6 +31,8 @@ router.get("/:id",requireAdminAuth,getSingleMember)
 
 router.get("/me/info",requireMemberAuth,getInfo)
 router.patch("/me",requireMemberAuth,updateMember)
+router.get("/me/image/signature/:folderName",getImageSignature)
+router.post('/me/image',requireMemberAuth,uploadMemberImage)
 
 
 

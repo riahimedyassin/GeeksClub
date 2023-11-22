@@ -1,7 +1,7 @@
 <h1>Add new Event</h1>
 <div class="mt-24 mb-4">
   <h3 for="">Picture : </h3>
-  <input type="file"  >
+  <input type="file" (change)="handleImage($event)"  >
 </div>
 <div>
   <form [formGroup]="form" (ngSubmit)="handleSubmit()" >

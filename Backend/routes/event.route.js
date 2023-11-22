@@ -13,7 +13,9 @@ const {
   getLeaderboard,
   confirmParticipation,
   getEventsParticipants,
-  deleteEvent
+  deleteEvent,
+  getImageSignature,
+  uploadMemberImage
 } = require("../controllers/event.controller");
 const { requireAdminAuth } = require("../middlewares/auth/admin.auth");
 const { requireMemberAuth } = require("../middlewares/auth/member.auth");
@@ -40,6 +42,8 @@ router.patch("/:id", updateEvent);
 router.post("/end/:id", endEvent);
 router.post("/confirm/:id/:user", confirmParticipation);
 router.get("/members/:id", getEventsParticipants);
-router.delete('/:id',deleteEvent)
+router.delete('/:id',deleteEvent);
+router.get('/image/signature/:folderName',getImageSignature)
+router.post('/image/upload/:id',uploadMemberImage)
 
 module.exports = router;

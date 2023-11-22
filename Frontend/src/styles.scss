@@ -131,3 +131,6 @@ table {
     @apply h-14
   }
 }
+input[type="file"] {
+  @apply flex h-10 w-full rounded-md bg-black  px-3 py-2 text-sm text-gray-400 file:border-0 file:bg-transparent file:text-white file:text-sm file:font-normal
+}

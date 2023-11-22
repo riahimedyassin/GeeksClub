@@ -7,8 +7,13 @@ const { response } = require("../utils/response/Response");
 const { createToken } = require("../utils/token/createToken");
 const { Recovery } = require("../utils/recovery/Recovery");
 const { inTable } = require("../utils/inTable");
-const cloudinary = require("../utils/cloudinary").v2;
 const { lazyResponse } = require("../utils/response/LazyResponse");
+const signature = require('../utils/cloudinary/signUploadForm');
+require('../utils/cloudinary/config');
+
+const cloudinary = require('cloudinary').v2
+const cloudName = cloudinary.config().cloud_name;
+const apiKey = cloudinary.config().api_key;
 
 const recovery = new Recovery();
 
@@ -35,8 +40,20 @@ const registerUser = async (req, res, next) => {
   }
 };
 const imageUpload = async (req, res, next) => {
-  console.log(req.picture);
+
 };
+const getImageSignature=async(req,res,next) => {
+  const {folderName} = req.params
+  const sig = signature.signuploadform(folderName)
+  res.json({
+    signature: sig.signature,
+    timestamp: sig.timestamp,
+    cloudname: cloudName,
+    apikey: apiKey
+  })
+}
+
+
 const loginMember = async (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password)
@@ -205,7 +222,19 @@ const getRecoverQuestion = async (req, res, next) => {
     next(error);
   }
 };
-
+const uploadMemberImage=async(req,res,next) => {
+  const id = req.user ;
+  const {link} = req.body ; 
+  if(!link) return next(createError("Please provide the link "))
+  if(!id) return next(createError("No auth header is provided"))
+  try {
+      const member = await Member.findOneAndUpdate({_id:id},{picture:link})
+      if(member) return response(res,"Image uploaded successfully",200,false ,member)
+      return next(createError('Cannot save picture',500))
+  } catch (error) {
+      next(error)
+  }
+}
 
 
 module.exports = {
@@ -221,4 +250,6 @@ module.exports = {
   getAllRegistred,
   registerMember,
   getRecoverQuestion,
+  getImageSignature,
+  uploadMemberImage
 };

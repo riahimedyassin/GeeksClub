@@ -1,4 +1,5 @@
 <ng-container *ngIf="event; else load">
+  <img [src]="event.picture" alt="" *ngIf="event.picture" class="w-60 h-60 mb-8 ">
   <form [formGroup]="form" (ngSubmit)="handleSave()">
     <div class="flex items-center justify-between">
       <div class="flex flex-col">

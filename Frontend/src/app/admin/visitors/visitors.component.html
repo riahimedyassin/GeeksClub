@@ -19,6 +19,7 @@
             <th>Region</th>
             <th>City</th>
             <th>Visit Count</th>
+            <th>Actions</th>
         </tr>
         <tr *ngFor="let visitor of visitors ; index as index" [appTableColor]="index" class="body">
             <td>{{visitor.ip}} </td>
@@ -26,6 +27,12 @@
             <td>{{visitor.region}}</td>
             <td>{{visitor.city}}</td>
             <td>{{visitor.count}}</td>
+            <td>
+                <button class="danger-button">
+                    <lucide-angular name="shield-ban"></lucide-angular>
+                    <p>Block Access</p>
+                </button>
+            </td>
         </tr>
     </table>
 </div>

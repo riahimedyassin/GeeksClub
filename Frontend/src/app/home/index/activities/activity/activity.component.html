@@ -1,5 +1,6 @@
 <div class="bg-[#0D0D0D] w-[70vw] h-52 rounded-xl grid grid-cols-8 py-4  transition-all cursor-not-allowed" title="Register to join the event">
-    <div class="col-span-2 border-r-[1px] border-r-[#272727] overflow-hidden " >
+    <div class="col-span-2 border-r-[1px] border-r-[#272727] overflow-hidden flex items-center justify-center " >
+        <img [src]="picture" alt="" class="w-64 h-64  " *ngIf="picture">
     </div>
     <div class="col-span-6 px-6 py-2">
         <h2 class="mb-4">{{title}}</h2>

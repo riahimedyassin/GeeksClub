@@ -18,7 +18,7 @@ export class ProfileComponent implements OnInit {
   edit: boolean = false;
   updated: boolean = false;
   error: boolean = false;
-  file!: File;
+  file!: File | undefined;
   constructor(
     private userService: UserService,
     private formbuilder: FormBuilder,
@@ -53,7 +53,7 @@ export class ProfileComponent implements OnInit {
     this.edit ? this.form.enable() : this.form.disable();
   }
   handleSubmit() {
-    if (this.form.valid && this.form.touched) {
+    if (this.form.valid && this.form.touched && !this.pending) {
       this.userService
         .updateMember(this.user._id, <User>this.form.value)
         .subscribe(
@@ -76,8 +76,10 @@ export class ProfileComponent implements OnInit {
   setImage(event: any) {
     this.file = event.target.files[0];
   }
+  pictureUpdated : boolean = false ; 
+  pending : boolean = false ; 
   uploadImage() {
-    if (this.file != undefined) {
+    if (this.file != undefined && !this.pending) {
       const formData = new FormData();
       formData.append('file', this.file);
       this.userService.getImageSignature('members').subscribe(response=>{
@@ -86,6 +88,11 @@ export class ProfileComponent implements OnInit {
               this.userService.uploadImage(response.secure_url).subscribe(response=> {
                   this.userService.cacheUser()
                   this.user.picture=response.data.picture
+                  this.file=undefined ; 
+                  this.edit=false ;
+                  this.pictureUpdated=true ; 
+                  setTimeout(()=>this.pictureUpdated=false , 3000)
+
               })
           })
       })

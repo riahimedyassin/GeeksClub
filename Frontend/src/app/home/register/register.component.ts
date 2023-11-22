@@ -15,10 +15,6 @@ export class RegisterComponent implements OnInit {
   constructor(private auth: AuthService) {}
   form!: FormGroup;
   trigger: boolean = false;
-  image!: File | null;
-  handleImage(event: any) {
-    this.image = event.target.files[0];
-  }
   questions: Question[] = [
     {
       value: 0,

@@ -1,93 +1,158 @@
-<div class=" h[100vh]" *ngIf="user">
-    <div class="w-full h-[80vh] grid grid-cols-6 px-24 mt-24 gap-6">
-        <div class="col-span-2 bg-deepblack flex  flex-col items-center py-4 text-white rounded-md" *ngIf="user ; else load">
-            <div class="img--container">
-                <img [src]="user.picture" alt="">
-            </div>
-            <div class="mt-8 w-full text-center">
-                <div *ngIf="edit" class="w-full font-normal text-md mb-6">
-                    <label for="">Picture</label>
-                    <input type="file" class="" (change)="setImage($event)">
-                </div>
-                <h1>{{user.name + " " + user.forname}}</h1>
-                <div class="flex gap-4 mt-3 items-center w-full justify-center">
-                    <lucide-icon name="mail"></lucide-icon>
-                    <p> {{user.email}} </p>
-                </div>
-            </div>
-            <ul class="list mt-8 font-bold text-center space-y-">
-                <li >Total Points : {{user.points?.global_point}} </li>
-                <li>Week Points : {{user.points?.week_point}} </li>
-            </ul>
-            <div class="flex w-full justify-center gap-12 mt-12 ">
-                <button class="dashed-button flex gap-4" (click)="handleEdit()">
-                    <lucide-icon name="pencil" color="white" ></lucide-icon>
-                    <p>Edit</p>
-                </button>
-                <button class="logout-button flex gap-4" (click)="handleLogout()">
-                    <lucide-icon name="log-out"></lucide-icon>
-                    <p>Logout</p>
-                </button>
-            </div>
-        </div>  
-        <div class="col-span-4 h-[80vh] bg-deepblack text-white px-6 py-4 rounded-md">
-            <h1>Details</h1>
-            <form  [formGroup]="form" class="flex items-center justify-center flex-col space-y-6" (ngSubmit)="handleSubmit()" >
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="input--container">
-                        <label for="">Name</label>
-                        <input type="text" formControlName="name" [ngClass]="edit ? 'border-[1px] border-gray-500':''" >
-                    </div>
-                    <div class="input--container">
-                        <label for="">Forname</label>
-                        <input type="text" formControlName="forname" [ngClass]="edit ? 'border-[1px] border-gray-500':''" >
-                    </div>
-                    <div class="input--container">
-                        <label for="">Email</label>
-                        <input type="text" formControlName="email" [ngClass]="edit ? 'border-[1px] border-gray-500':''" >
-                    </div>
-                    <div class="input--container">
-                        <label for="">Age</label>
-                        <input type="number" formControlName="age" [ngClass]="edit ? 'border-[1px] border-gray-500':''">
-                    </div>
-                    <div formGroupName="address" class="col-span-2 grid grid-cols-2 gap-4">
-                        <div class="input--container">
-                            <label for="">Resgion</label>
-                            <input type="text" formControlName="region" [ngClass]="edit ? 'border-[1px] border-gray-500':''">
-                        </div>
-                        <div class="input--container">
-                            <label for="">City</label>
-                            <input type="text" formControlName="city" [ngClass]="edit ? 'border-[1px] border-gray-500':''">
-                        </div>
-                    </div>
-                    <div class="input--container">
-                        <label for="">Facebook</label>
-                        <input type="text" formControlName="facebook" [ngClass]="edit ? 'border-[1px] border-gray-500':''" >
-                    </div>
-                    <div class="input--container cursor-not-allowed">
-                        <label for="">CIN</label>
-                        <h3 class="mt-4">{{user.CIN}} </h3>
-                    </div>
-                </div>
-                <button class="succuss-button" *ngIf="edit " [ngClass]="form.valid && form.touched ? '' : 'default-button cursor-not-allowed'"  >
-                    <lucide-angular name="save"></lucide-angular>
-                    <p>Save</p>
-                </button>
-                <button (click)="uploadImage()" class="warning-button" *ngIf="edit " [ngClass]="file!=null  ? '' : 'default-button cursor-not-allowed'"   >
-                    <lucide-angular name="save"></lucide-angular>
-                    <p>Save Picture</p>
-                </button>
-                
-            </form>
+<div class="h[100vh]" *ngIf="user">
+  <div class="w-full h-[80vh] grid grid-cols-6 px-24 mt-24 gap-6">
+    <div
+      class="col-span-2 bg-deepblack flex flex-col items-center py-4 text-white rounded-md"
+      *ngIf="user; else load"
+    >
+      <div class="img--container">
+        <img [src]="user.picture" alt="" />
+      </div>
+      <div class="mt-8 w-full text-center">
+        <div *ngIf="edit" class="w-full font-normal text-md mb-6">
+          <label for="">Picture</label>
+          <input type="file" class="" (change)="setImage($event)" />
         </div>
-        <ng-template #load>
-            <app-skeleton-profile></app-skeleton-profile>
-        </ng-template>
+        <h1>{{ user.name + " " + user.forname }}</h1>
+        <div class="flex gap-4 mt-3 items-center w-full justify-center">
+          <lucide-icon name="mail"></lucide-icon>
+          <p>{{ user.email }}</p>
+        </div>
+      </div>
+      <ul class="list mt-8 font-bold text-center space-y-">
+        <li>Total Points : {{ user.points?.global_point }}</li>
+        <li>Week Points : {{ user.points?.week_point }}</li>
+      </ul>
+      <div class="flex w-full justify-center gap-12 mt-12">
+        <button class="dashed-button flex gap-4" (click)="handleEdit()">
+          <lucide-icon name="pencil" color="white"></lucide-icon>
+          <p>Edit</p>
+        </button>
+        <button class="logout-button flex gap-4" (click)="handleLogout()">
+          <lucide-icon name="log-out"></lucide-icon>
+          <p>Logout</p>
+        </button>
+      </div>
     </div>
+    <div
+      class="col-span-4 h-[80vh] bg-deepblack text-white px-6 py-4 rounded-md"
+    >
+      <h1>Details</h1>
+      <form
+        [formGroup]="form"
+        class="flex items-center justify-center flex-col space-y-6"
+        (ngSubmit)="handleSubmit()"
+      >
+        <div class="grid grid-cols-2 gap-4">
+          <div class="input--container">
+            <label for="">Name</label>
+            <input
+              type="text"
+              formControlName="name"
+              [ngClass]="edit ? 'border-[1px] border-gray-500' : ''"
+            />
+          </div>
+          <div class="input--container">
+            <label for="">Forname</label>
+            <input
+              type="text"
+              formControlName="forname"
+              [ngClass]="edit ? 'border-[1px] border-gray-500' : ''"
+            />
+          </div>
+          <div class="input--container">
+            <label for="">Email</label>
+            <input
+              type="text"
+              formControlName="email"
+              [ngClass]="edit ? 'border-[1px] border-gray-500' : ''"
+            />
+          </div>
+          <div class="input--container">
+            <label for="">Age</label>
+            <input
+              type="number"
+              formControlName="age"
+              [ngClass]="edit ? 'border-[1px] border-gray-500' : ''"
+            />
+          </div>
+          <div
+            formGroupName="address"
+            class="col-span-2 grid grid-cols-2 gap-4"
+          >
+            <div class="input--container">
+              <label for="">Resgion</label>
+              <input
+                type="text"
+                formControlName="region"
+                [ngClass]="edit ? 'border-[1px] border-gray-500' : ''"
+              />
+            </div>
+            <div class="input--container">
+              <label for="">City</label>
+              <input
+                type="text"
+                formControlName="city"
+                [ngClass]="edit ? 'border-[1px] border-gray-500' : ''"
+              />
+            </div>
+          </div>
+          <div class="input--container">
+            <label for="">Facebook</label>
+            <input
+              type="text"
+              formControlName="facebook"
+              [ngClass]="edit ? 'border-[1px] border-gray-500' : ''"
+            />
+          </div>
+          <div class="input--container cursor-not-allowed">
+            <label for="">CIN</label>
+            <h3 class="mt-4">{{ user.CIN }}</h3>
+          </div>
+        </div>
+        <div class="flex gap-6">
+          <button
+            class="succuss-button"
+            *ngIf="edit"
+            [ngClass]="
+              form.valid && form.touched 
+                ? ''
+                : 'default-button cursor-not-allowed'
+            "
+          >
+            <lucide-angular name="save"></lucide-angular>
+            <p>Save</p>
+          </button>
+          <button
+            (click)="uploadImage()"
+            class="warning-button"
+            *ngIf="edit"
+            [ngClass]="file != null ? '' : 'default-button cursor-not-allowed'"
+          >
+            <lucide-angular name="save"></lucide-angular>
+            <p>Save Picture</p>
+          </button>
+        </div>
+      </form>
+    </div>
+    <ng-template #load>
+      <app-skeleton-profile></app-skeleton-profile>
+    </ng-template>
+  </div>
 </div>
 <ng-container *ngIf="updated">
-    <app-notification message="Profile updated succussfully" color="green" icon="plus-circle"></app-notification>
+  <app-notification
+    message="Profile updated succussfully"
+    color="green"
+    icon="plus-circle"
+  ></app-notification>
 </ng-container>
 <ng-container *ngIf="error">
-    <app-notification message="Cannot Save Changes" color="red" icon="x-circle"></app-notification>
+  <app-notification
+    message="Cannot Save Changes"
+    color="red"
+    icon="x-circle"
+  ></app-notification>
+</ng-container>
+<ng-container *ngIf="pictureUpdated">
+    <app-notification message="Profile Picture Updated Successfully" color="green" icon="plus-circle"></app-notification>
 </ng-container>

@@ -4,6 +4,10 @@ const { Validator } = require("../utils/validators/Validator");
 const { isMatchingPassword } = require("../utils/password/Password");
 
 const adminSchema = Schema({
+  picture : {
+    type : String , 
+    required : false 
+  },
   name: {
     type: String,
     required: [true, "Please enter the admin name"],

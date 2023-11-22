@@ -17,12 +17,14 @@ export class ListEventsComponent implements OnInit {
   ngOnInit(): void {
     this.eventService.getAllEvenets().subscribe((response) => {
       this.events = response.data;
-      this.toDisplay = response.data.filter(event=> event.ended==this.ended)
+      this.toDisplay = response.data.filter(
+        (event) => event.ended == this.ended
+      );
     });
   }
   handleEndEvent(eventId: string) {
     this.eventService.endEvent(eventId).subscribe((response) => {
-        this.toDisplay=this.events.filter(event=> event.ended==this.ended )
+      this.toDisplay = this.events.filter((event) => event.ended == this.ended);
     });
   }
   handleSearch(event: any) {
@@ -51,9 +53,12 @@ export class ListEventsComponent implements OnInit {
     this.ended = !this.ended;
     this.toDisplay = this.events.filter((event) => event.ended == this.ended);
   }
-  trackBy(index:number , event : Event) {
-    return event._id
+  trackBy(index: number, event: Event) {
+    return event._id;
   }
-
-
+  handleDelete(id: string) {
+    this.eventService.deleteEvent(id).subscribe((response) => {
+      this.toDisplay = this.toDisplay.filter((event) => event._id != id);
+    });
+  }
 }

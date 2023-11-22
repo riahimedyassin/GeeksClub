@@ -59,10 +59,16 @@ export class EventsService {
   editEvent(id: string, changes: Event) {
     return this.http.patch(`${URL}/${id}`, changes);
   }
-  addNewEvent(event: Event) {
-    return this.http.post(`${URL}`, event);
+  addNewEvent(event: Event) : Observable<Response<Event>> {
+    return this.http.post<Response<Event>>(`${URL}`, event);
   }
   deleteEvent(id : string) {
     return this.http.delete(`${URL}/${id}`)
+  }
+  getImageSignature(folder : string ) {
+    return this.http.get(`${URL}/image/signature/${folder}`)
+  }
+  uploadImage( id :string , link : string ) {
+    return this.http.post(`${URL}/image/upload/${id}`,{link})
   }
 }

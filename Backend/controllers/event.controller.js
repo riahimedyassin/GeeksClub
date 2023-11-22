@@ -3,6 +3,12 @@ const { response } = require("../utils/response/Response");
 const { MongooseError } = require("mongoose");
 const { createError } = require("../errors/customError");
 const Member = require("../models/member.model");
+const signature = require('../utils/cloudinary/signUploadForm');
+require('../utils/cloudinary/config');
+
+const cloudinary = require('cloudinary').v2
+const cloudName = cloudinary.config().cloud_name;
+const apiKey = cloudinary.config().api_key;
 
 const getAllEvents = async (req, res, next) => {
   try {
@@ -69,9 +75,7 @@ const addEvents = async (req, res, next) => {
     const event = req.body;
     const createdEvent = await Event.create(event);
     if (createError) {
-      return response(res, "Event has been created successfully", 200, false, {
-        eventid: createdEvent._id,
-      });
+      return response(res, "Event has been created successfully", 200, false, createdEvent);
     }
   } catch (error) {
     if (error instanceof MongooseError) return next(error);
@@ -303,6 +307,31 @@ const deleteEvent = async (req, res, next) => {
     next(error);
   }
 };
+const getImageSignature=async(req,res,next) => {
+  const {folderName} = req.params
+  const sig = signature.signuploadform(folderName)
+  res.json({
+    signature: sig.signature,
+    timestamp: sig.timestamp,
+    cloudname: cloudName,
+    apikey: apiKey
+  })
+}
+const uploadMemberImage=async(req,res,next) => {
+  const {id} = req.params ;
+  const {link} = req.body ; 
+  if(!link) return next(createError("Please provide the link "))
+  if(!id) return next(createError("No auth header is provided"))
+  try {
+      const event = await Event.findOneAndUpdate({_id:id},{picture:link})
+      if(event) return response(res,"Image uploaded successfully",200,false ,event)
+      return next(createError('Cannot save picture',500))
+  } catch (error) {
+      next(error)
+  }
+}
+
+
 
 module.exports = {
   getAllEvents,
@@ -320,4 +349,6 @@ module.exports = {
   confirmParticipation,
   getEventsParticipants,
   deleteEvent,
+  getImageSignature,
+  uploadMemberImage
 };

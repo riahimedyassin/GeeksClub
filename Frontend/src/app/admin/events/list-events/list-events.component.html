@@ -68,7 +68,7 @@
         <button (click)="handleEndEvent(event._id)" *ngIf="!event.ended">
           <lucide-angular name="calendar-heart"></lucide-angular>
         </button>
-        <button>
+        <button (click)="handleDelete(event._id)">
           <lucide-angular name="trash"></lucide-angular>
         </button>
       </td>

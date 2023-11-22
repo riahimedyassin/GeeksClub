@@ -6,6 +6,13 @@ const {
   hashPassword,
   isMatchingPassword,
 } = require("../utils/password/Password");
+const signature = require('../utils/cloudinary/signUploadForm');
+require('../utils/cloudinary/config');
+
+const cloudinary = require('cloudinary').v2
+const cloudName = cloudinary.config().cloud_name;
+const apiKey = cloudinary.config().api_key;
+
 
 
 const getAdminInfo = async (req, res, next) => {
@@ -120,6 +127,27 @@ const getAllAdmins=async(req,res,next)=> {
       next(error)
   }
 }
+const uploadAdminImage=async(req,res,next) => {
+  const id = req.user ;
+  const {link} = req.body ; 
+  try {
+      const admin = await Admin.findOneAndUpdate({_id:id},{picture:link})
+      if(admin) return response(res,"Image uploaded successfully",200,false ,admin)
+      return next(createError('Cannot save picture',500))
+  } catch (error) {
+      next(error)
+  }
+}
+const getImageSignature=async(req,res,next) => {
+  const {folderName} = req.params
+  const sig = signature.signuploadform(folderName)
+  res.json({
+    signature: sig.signature,
+    timestamp: sig.timestamp,
+    cloudname: cloudName,
+    apikey: apiKey
+  })
+}
 
 
 
@@ -130,5 +158,7 @@ module.exports = {
   adminLogin,
   deleteAdmin,
   changePassword,
-  getAllAdmins
+  getAllAdmins,
+  uploadAdminImage,
+  getImageSignature
 };

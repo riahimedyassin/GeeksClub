@@ -3,6 +3,10 @@ const mongoose=require('mongoose')
 
 
 const articleSchema = new mongoose.Schema({
+    picture : {
+        type : String , 
+        required : false 
+      },
     title : {
         type : String , 
         required : [true,"Please enter the article title"]

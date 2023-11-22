@@ -5,6 +5,10 @@ const Schema = require("mongoose").Schema
 
 
 const eventSchema = Schema({
+    picture : {
+        type : String , 
+        required : false 
+      },
     title : {
         type: String , 
         required : [true,"Please enter the event name"]

@@ -11,5 +11,6 @@ export class ActivityComponent {
   @Input('desc') desc ! : string ; 
   @Input('date') date ! : date ; 
   @Input('participants') participants ! : number ; 
+  @Input('picture') picture! : string ; 
 
 }

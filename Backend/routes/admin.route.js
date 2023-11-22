@@ -6,7 +6,9 @@ const {
   adminLogin,
   deleteAdmin,
   changePassword,
-  getAllAdmins
+  getAllAdmins,
+  uploadAdminImage,
+  getImageSignature
 
 } = require("../controllers/admin.controller");
 const { requireAdminAuth } = require("../middlewares/auth/admin.auth");
@@ -22,6 +24,8 @@ router.post('/register',registerAdmin)
 router.delete('/:id',deleteAdmin)
 router.patch('/me/password',changePassword)
 router.get('/',getAllAdmins)
+router.post('/me/image',uploadAdminImage)
+router.get('/me/image/signature/:folderName',getImageSignature)
 
 
 
