@@ -28,16 +28,6 @@
       <th>{{ admin.role }}</th>
       <th class="flex gap-6 item-center justify-center h-14">
         <button
-          (click)="handleDelete(admin._id)"
-          *ngIf="
-            current.isSup &&
-            current._id != admin._id &&
-            admin.role != 'President'
-          "
-        >
-          <lucide-angular name="trash"></lucide-angular>
-        </button>
-        <button
           [routerLink]="'/admin/admins/' + admin._id"
           *ngIf="admin._id != current._id; else profile"
         >
@@ -50,6 +40,17 @@
             <lucide-angular name="user"></lucide-angular>
           </button>
         </ng-template>
+        <button
+          (click)="handleDelete(admin._id)"
+          *ngIf="
+            current.isSup &&
+            current._id != admin._id &&
+            admin.role != 'President'
+          "
+        >
+          <lucide-angular name="trash"></lucide-angular>
+        </button>
+        
       </th>
     </tr>
   </table>

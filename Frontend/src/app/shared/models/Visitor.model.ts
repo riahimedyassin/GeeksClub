@@ -4,6 +4,7 @@ export class Visitor {
     public city: string,
     public region: string,
     public country: string, 
+    public blocked : boolean,
     public loc?: string,
     public org?:string,
     public timezone?: string,

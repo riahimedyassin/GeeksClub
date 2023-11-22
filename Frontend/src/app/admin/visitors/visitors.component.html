@@ -27,10 +27,14 @@
             <td>{{visitor.region}}</td>
             <td>{{visitor.city}}</td>
             <td>{{visitor.count}}</td>
-            <td class="flex items-center justify-center h-14">
-                <button class="danger-button">
+            <td class="flex items-center justify-center h-14" >
+                <button class="danger-button" *ngIf="!visitor.blocked " (click)="handleBlock(visitor.ip)">
                     <lucide-angular name="shield-ban"></lucide-angular>
                     <p>Block Access</p>
+                </button>
+                <button class="succuss-button" *ngIf="visitor.blocked" (click)="handleGiveAccess(visitor.ip)">
+                    <lucide-angular name="shield-check"></lucide-angular>
+                    <p>Retrieve Access</p>
                 </button>
             </td>
         </tr>

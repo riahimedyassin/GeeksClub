@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit {
   datasetMembers: number[] = [];
   labelsMembers: string[] = [];
   isLoading: boolean = true;
+  membersTotal! : number ; 
   ngOnInit(): void {
     this.adminService.getCurrentAdmin().subscribe((response) => {
       this.admin = response.data;
@@ -50,9 +51,12 @@ export class HomeComponent implements OnInit {
         );
         this.eventService.getAllEvenets().subscribe((response) => {
           this.events = response.data;
-          this.userService.getAllMembers(1).subscribe((response) => {
+          this.userService.getAllMembers("1").subscribe((response) => {
             this.members = response.data;
-            this.isLoading = false;
+            this.userService.getMembersLength().subscribe(res=> {
+              this.membersTotal=res.data
+              this.isLoading = false;
+            })
             for (let i = 0; i < this.members.length; i++) {
               this.labelsMembers.push(
                 `${this.members[i].name} ${this.members[i].forname}`

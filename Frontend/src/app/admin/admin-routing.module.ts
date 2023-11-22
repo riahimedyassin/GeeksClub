@@ -78,11 +78,11 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            redirectTo: 'list',
+            redirectTo: 'list/1',
             pathMatch: 'full',
           },
           {
-            path: 'list',
+            path: 'list/:page',
             component: ListMembersComponent,
           },
           {

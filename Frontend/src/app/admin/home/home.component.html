@@ -5,7 +5,7 @@
 <div class="grid grid-cols-3 gap-4 mt-28" *ngIf="!isLoading; else load">
   <app-overview-block
     title="Total Members"
-    [count]="members.length"
+    [count]="membersTotal"
     icon="user-2"
     link="/members"
   ></app-overview-block>

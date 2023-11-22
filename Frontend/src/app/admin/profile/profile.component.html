@@ -1,5 +1,5 @@
 <ng-container *ngIf="admin; else load">
-  <img [src]="admin.picture" alt="" *ngIf="admin.picture" class="w-52 h-52 rounded-lg mb-6" />
+  <img [src]="admin.picture" alt="Admin Picture" *ngIf="admin.picture" class="w-52 h-52 rounded-lg mb-6" />
   <div class="mt-4 mb-8 flex gap-6 bg-deepblack  py-2 rounded-lg " *ngIf="edit">
     <input type="file" (change)="changePicture($event)" >
     <button (click)="saveImage()" class="succuss-button">

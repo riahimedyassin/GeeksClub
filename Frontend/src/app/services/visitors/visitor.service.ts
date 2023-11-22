@@ -26,5 +26,13 @@ export class VisitorService {
   saveVisitor(visitor : Visitor)  {
     return this.http.post(URL,visitor)
   }
-
+  blockAccess(ip : string ) {
+    return this.http.post(`${URL}/block`,{ip})
+  }
+  retrieveAccess(ip : string ) {
+    return this.http.post(`${URL}/retrieve`,{ip})
+  }
+  getBlocked() : Observable<Response<{ip:string}[]>> {
+      return this.http.get<Response<{ip:string}[]>>(`${URL}/blocked`)
+  }
 }

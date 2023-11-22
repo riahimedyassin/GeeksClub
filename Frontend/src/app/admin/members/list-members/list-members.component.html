@@ -4,7 +4,7 @@
 </div>
 
 <div class="flex justify-between items-center mt-14">
-  <div class="search grid grid-cols-6 ">
+  <div class="search grid grid-cols-6">
     <lucide-angular name="search"></lucide-angular>
     <input
       class="col-span-5"
@@ -14,10 +14,10 @@
       (input)="handleSerch()"
     />
   </div>
-  <button (click)="dispalyRegisterd()"
+  <button
+    (click)="dispalyRegisterd()"
     class="px-4 py-2 flex gap-4 rounded-lg"
     [ngClass]="listRegistered ? 'bg-lightthird' : 'bg-third'"
-
   >
     <lucide-angular name="align-left"></lucide-angular>
     <p>Registered</p>
@@ -32,19 +32,19 @@
     <th>Full-name</th>
     <th>Email</th>
     <th>Global Points</th>
-    <th>Week Points </th>
+    <th>Week Points</th>
     <th>Actions</th>
   </tr>
   <tr
     *ngFor="let member of toDisplay; index as index"
-    class="h-12"
+    class="h-20"
     [appTableColor]="index"
   >
     <th>{{ member.name }} {{ member.forname }}</th>
     <th>{{ member.email }}</th>
     <th>{{ member.points?.global_point }}</th>
     <th>{{ member.points?.week_point }}</th>
-    <th class="flex gap-8 items-center justify-center h-12">
+    <th class="flex gap-8 items-center justify-center h-20">
       <button [routerLink]="'/admin/members/' + member._id">
         <lucide-angular name="eye"></lucide-angular>
       </button>
@@ -57,6 +57,10 @@
     <h2 class="mt-2">No member found</h2>
   </ng-container>
 </table>
+<div class="w-full flex items-center justify-center gap-6 mt-6">
+  <button class="underline" (click)="handlePage('min')" *ngIf="page!='1'">Previous</button>
+  <button class="underline" (click)="handlePage('plus')" *ngIf="!isDoneMember">Next</button>
+</div>
 <ng-template #load>
   <app-loading></app-loading>
 </ng-template>

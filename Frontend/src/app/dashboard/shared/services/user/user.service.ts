@@ -78,7 +78,7 @@ export class UserService {
   getMemberDetails(id: string): Observable<Response<User>> {
     return this.http.get<Response<User>>(`${URL}/${id}`);
   }
-  getAllMembers(page: number): Observable<Response<User[]>> {
+  getAllMembers(page: string): Observable<Response<User[]>> {
     return this.http.get<Response<User[]>>(`${URL}/all/${page}`);
   }
   getAllRegistered() : Observable<Response<User[]>> {
@@ -92,6 +92,9 @@ export class UserService {
   } 
   uploadImage(link : string ) : Observable<Response<User>> {
     return this.http.post<Response<User>>(`${URL}/me/image`,{link})
+  }
+  getMembersLength() : Observable<Response<number>> {
+    return this.http.get<Response<number>>(`${URL}/all/members/length`)
   }
 
 

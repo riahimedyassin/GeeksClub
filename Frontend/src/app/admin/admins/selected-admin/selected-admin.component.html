@@ -1,6 +1,7 @@
-<div *ngIf="admin ; else load" class="bg-deepblack px-4 py-2 rounded-lg">
-   <div class="flex items-center justify-between">
-        <div>
+<div *ngIf="admin ; else load" >
+    <img [src]="admin.picture" alt="" *ngIf="admin.picture" class="w-52 h-52">
+   <div class="flex items-center justify-between mt-4 bg-deepblack px-4 py-2 rounded-lg">
+        <div >
             <h1 class="mb-2">{{admin.name}} {{admin.forname}}</h1>
         <p class="text-gray-500">{{admin.role}}</p>
         </div>

@@ -28,4 +28,20 @@ export class VisitorsComponent implements OnInit {
       console.log(this.visitors)
     });
   }
+  handleBlock(ip : string ) {
+    this.visitorService.blockAccess(ip).subscribe(response=> {
+        this.visitors=this.visitors.map(vistor=>{
+          if(vistor.ip===ip) vistor.blocked=true;
+          return vistor
+        })
+    })
+  }
+  handleGiveAccess(ip : string ) {
+    this.visitorService.retrieveAccess(ip).subscribe(response=> {
+      this.visitors=this.visitors.map(vistor=>{
+        if(vistor.ip===ip) vistor.blocked=false;
+        return vistor
+      })
+  })
+  }
 }
