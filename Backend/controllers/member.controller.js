@@ -231,13 +231,11 @@ module.exports = {
   getSingleMember,
   updateMember,
   getInfo,
-  imageUpload,
   getAllMembers,
   deleteMember,
   getAllRegistred,
   registerMember,
   getRecoverQuestion,
-  getImageSignature,
   uploadMemberImage,
   getMembersCount
 };
