@@ -1,51 +1,64 @@
-<nav class="h-full w-full text-white border-r-[1px] border-gray-500 bg-deepblack flex flex-col items-center px-2 justify-between py-12">
-    <h2><span class="text-second"> &lt; </span> Geeks <span class="text-second"> &gt; </span>  </h2>
-    <ul class="flex flex-col items-center  px-2 py-1 ">
-        <li routerLinkActive="active" routerLink="/admin/home">
-            <lucide-angular name="home"></lucide-angular>
-            <p>Home</p>
-        </li>
-        <li routerLinkActive="active" routerLink="/admin/members">
-            <lucide-angular name="users-2"></lucide-angular>
-            <p>Members</p>
-        </li>
-        <li routerLinkActive="active" routerLink="/admin/visitors">
-            <lucide-angular name="fingerprint"></lucide-angular>
-            <p>Visitors</p>
-        </li>
-        <li routerLinkActive="active" routerLink="/admin/events">
-            <lucide-angular name="calendar-clock"></lucide-angular>
-            <p>Events</p>
-        </li>
-        <li routerLinkActive="active" routerLink="/admin/forums">
-            <lucide-angular name="messages-square"></lucide-angular>
-            <p>Forums</p>
-        </li>
-        <li routerLinkActive="active" routerLink="/admin/articles">
-            <lucide-angular name="newspaper"></lucide-angular>
-            <p>Articles</p>
-        </li>
-        <li routerLinkActive="active" routerLink="/admin/admins">
-            <lucide-angular name="shield-half"></lucide-angular>
-            <p>Admins</p>
-        </li>
-    </ul>
-    <div class="profile w-full cursor-pointer items-center flex flex-col space-y-4" routerLink="/admin/profile" >
-        <div class="bg-black hover:bg-third transition-all w-full rounded-lg px-4 py-2 h-26 flex items-center justify-between" *ngIf="admin ; else loadProfile">
-           <div>
-                <h4>{{admin.name}} {{admin.forname}}</h4>
-                <p>{{admin.role}}</p>
-           </div>
-           <lucide-angular name="arrow-right-circle"></lucide-angular>
-
-        </div>
-        <button class="danger-button" (click)="handleLogout()">
-            <lucide-angular name="log-out"></lucide-angular>
-            <p>Logout</p>
-        </button>
-        <ng-template #loadProfile>
-            <app-skeleton-profile></app-skeleton-profile>
-        </ng-template>
+<nav
+  class="h-full w-full text-white border-r-[1px] border-gray-500 bg-deepblack flex flex-col items-center px-2 justify-between py-12"
+>
+  <h2>
+    <span class="text-second"> &lt; </span> Geeks
+    <span class="text-second"> &gt; </span>
+  </h2>
+  <ul class="flex flex-col items-center px-2 py-1">
+    <li routerLinkActive="active" routerLink="/admin/home">
+      <lucide-angular name="home"></lucide-angular>
+      <p>Home</p>
+    </li>
+    <li routerLinkActive="active" routerLink="/admin/members">
+      <lucide-angular name="users-2"></lucide-angular>
+      <p>Members</p>
+    </li>
+    <li routerLinkActive="active" routerLink="/admin/visitors">
+      <lucide-angular name="fingerprint"></lucide-angular>
+      <p>Visitors</p>
+    </li>
+    <li routerLinkActive="active" routerLink="/admin/events">
+      <lucide-angular name="calendar-clock"></lucide-angular>
+      <p>Events</p>
+    </li>
+    <li routerLinkActive="active" routerLink="/admin/forums">
+      <lucide-angular name="messages-square"></lucide-angular>
+      <p>Forums</p>
+    </li>
+    <li routerLinkActive="active" routerLink="/admin/articles">
+      <lucide-angular name="newspaper"></lucide-angular>
+      <p>Articles</p>
+    </li>
+    <li routerLinkActive="active" routerLink="/admin/admins">
+      <lucide-angular name="shield-half"></lucide-angular>
+      <p>Admins</p>
+    </li>
+  </ul>
+  <div
+    class="profile w-full cursor-pointer items-center flex flex-col space-y-4"
+    routerLink="/admin/profile"
+  >
+    <div
+      class="bg-black hover:bg-third transition-all w-full rounded-lg px-4 py-2 h-26 items-center gap-6 grid grid-cols-6"
+      *ngIf="admin; else loadProfile"
+    >  <div class="col-span-2">
+        <img [src]="admin.picture" alt="" class="rounded-full border-[1px] border-white">
     </div>
-    
+      <div class="col-span-4 flex items-center gap-4 ">
+        <div>
+          <h4>{{ admin.name }} {{ admin.forname }}</h4>
+          <p>{{ admin.role }}</p>
+        </div>
+        <lucide-angular name="arrow-right-circle"></lucide-angular>
+      </div>
+    </div>
+    <button class="danger-button" (click)="handleLogout()">
+      <lucide-angular name="log-out"></lucide-angular>
+      <p>Logout</p>
+    </button>
+    <ng-template #loadProfile>
+      <app-skeleton-profile></app-skeleton-profile>
+    </ng-template>
+  </div>
 </nav>

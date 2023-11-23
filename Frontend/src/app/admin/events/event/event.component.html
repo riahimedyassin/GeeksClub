@@ -174,7 +174,7 @@
               </button>
               <button
                 (click)="confirmParticipation(p._id)"
-                *ngIf="!participants.includes(p)"
+                *ngIf="!exist(p._id)"
               >
                 <lucide-angular name="plus-circle"></lucide-angular>
               </button>
