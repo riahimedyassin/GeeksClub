@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HandleError } from 'src/app/shared/error/errorHandler';
 import { Event } from 'src/app/shared/models/Event.model';
 import { Response } from 'src/app/shared/models/Response.model';
 import { User } from 'src/app/shared/models/User.model';
@@ -14,7 +13,7 @@ const URL = `${environment.host}/events`;
   providedIn: 'root',
 })
 export class EventsService {
-  constructor(private http: HttpClient, private handleError: HandleError) {}
+  constructor(private http: HttpClient) {}
 
   getAllEvenets(): Observable<Response<Event[]>> {
     return this.http.get<Response<Event[]>>(URL);
@@ -64,9 +63,6 @@ export class EventsService {
   }
   deleteEvent(id : string) {
     return this.http.delete(`${URL}/${id}`)
-  }
-  getImageSignature(folder : string ) {
-    return this.http.get(`${URL}/image/signature/${folder}`)
   }
   uploadImage( id :string , link : string ) : Observable<Response<Event>> {
     return this.http.post<Response<Event>>(`${URL}/image/upload/${id}`,{link})

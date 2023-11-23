@@ -30,9 +30,6 @@ export class ArticlesService {
   updateArticle(id : string, article : Article ) : Observable<Article> {
     return this.http.patch<Article>(`${URL}/${id}`,article)
   }
-  getSignature(folder : string ) {
-    return this.http.get(`${URL}/image/signature/${folder}`)
-  }
   uploadImage(id:string , link : string) :Observable<Response<Article>> {
     return this.http.post<Response<Article>>(`${URL}/image/upload/${id}`,{link})
   }

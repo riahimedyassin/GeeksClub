@@ -87,7 +87,7 @@ export class ProfileComponent implements OnInit {
     if (this.file != undefined) {
       const formData = new FormData();
       formData.append('file', this.file);
-      this.adminService.getSignature('admin').subscribe((response) => {
+      this.cloudinary.getSignature('admin').subscribe((response) => {
         const signData: any = response;
         this.cloudinary
           .uploadToCloud(formData, 'admin', signData)

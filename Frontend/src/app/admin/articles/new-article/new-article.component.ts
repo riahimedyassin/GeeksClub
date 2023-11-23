@@ -32,7 +32,7 @@ export class NewArticleComponent implements OnInit {
       this.articleService.postArticle(this.form.value).subscribe((response) => {
         const article_id = response.data._id;
         if (this.file != undefined) {
-          this.articleService.getSignature('articles').subscribe((response) => {
+          this.cloudinary.getSignature('articles').subscribe((response) => {
             const formData = new FormData();
             formData.append('file', <File>this.file);
             this.cloudinary

@@ -87,9 +87,6 @@ export class UserService {
   updateMember(id : string , user : User) {
     return this.http.patch(`${URL}/me`,user)
   }
-  getImageSignature(folderName : string ) {
-    return this.http.get(`${URL}/me/image/signature/${folderName}`)
-  } 
   uploadImage(link : string ) : Observable<Response<User>> {
     return this.http.post<Response<User>>(`${URL}/me/image`,{link})
   }

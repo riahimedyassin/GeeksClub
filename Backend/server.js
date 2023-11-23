@@ -44,7 +44,7 @@ app.use("/api/geeks/events", eventRoute);
 app.use("/api/geeks/forums", forumRoute);
 app.use("/api/geeks/articles", articleRoute);
 app.use("/api/geeks/visitors",visitorRoute)
-app.use("/signature",signature)
+app.use("/api/geeks/signature",signature)
 app.use(errorHandler);
 
 const run = async () => {

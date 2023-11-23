@@ -1,5 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/env/env';
+
+
+const URL = `${environment.host}/signature`
 
 @Injectable({
   providedIn: 'root',
@@ -21,5 +25,8 @@ export class CloudinaryService {
       '&folder='+folder;
 
     return this.http.post(url, formData);
+  }
+  getSignature(foldername : string) {
+    return this.http.get(`${URL}/${foldername}`)
   }
 }

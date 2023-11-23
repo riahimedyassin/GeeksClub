@@ -12,7 +12,7 @@ import { RevealAnimationService } from 'src/app/shared/services/reveal-animation
 export class ActivitiesComponent implements OnInit {
   constructor(
     private scroll: RevealAnimationService,
-    private activitieService: EventsService
+    private activitieService: EventsService,
   ) {}
 
   activities!: Event[];

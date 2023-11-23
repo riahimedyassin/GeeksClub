@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,7 +7,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.scss'],
   standalone: true,
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
+  theme!: string;
+  ngOnInit(): void {}
   constructor(private router: Router) {}
   navigate(to: string) {
     this.router.navigateByUrl(to);
@@ -20,6 +22,6 @@ export class NavbarComponent {
     });
   }
   navigateToHome() {
-    this.router.navigate(['/'])
+    this.router.navigate(['/']);
   }
 }

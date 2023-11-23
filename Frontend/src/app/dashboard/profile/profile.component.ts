@@ -82,7 +82,7 @@ export class ProfileComponent implements OnInit {
     if (this.file != undefined && !this.pending) {
       const formData = new FormData();
       formData.append('file', this.file);
-      this.userService.getImageSignature('members').subscribe((response) => {
+      this.cloudinary.getSignature('members').subscribe((response) => {
         this.cloudinary
           .uploadToCloud(formData, 'members', response)
           .subscribe((response: any) => {
@@ -96,9 +96,8 @@ export class ProfileComponent implements OnInit {
                 this.edit = false;
                 this.pictureUpdated = true;
                 setTimeout(() => {
-                  this.pictureUpdated = false;
                   location.reload();
-                }, 3000);
+                }, 1000);
               });
           });
       });

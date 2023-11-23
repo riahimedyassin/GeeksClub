@@ -1,4 +1,4 @@
-<div class="bg-[#0D0D0D] w-[70vw] h-52 rounded-xl grid grid-cols-8 py-4  transition-all cursor-not-allowed" title="Register to join the event">
+<div class="bg-deepblack w-[70vw] h-52 rounded-xl grid grid-cols-8 py-4  transition-all cursor-not-allowed" title="Register to join the event">
     <div class="col-span-2 border-r-[1px] border-r-[#272727] overflow-hidden flex items-center justify-center " >
         <img [src]="picture" alt="" class="w-64 h-64  " *ngIf="picture">
     </div>
@@ -7,10 +7,10 @@
         <p class="text-gray-300">{{desc | shorten : 'lg'}} </p>
         <div class="flex justify-around mt-8">
             <div class="flex space-x-2">
-                <lucide-icon name="users-2"></lucide-icon> <span>{{participants}} Participants</span>
+                <lucide-icon name="users-2"></lucide-icon> <span class="change">{{participants}} Participants</span>
             </div>
             <div class="flex space-x-2">
-                <lucide-icon name="calendar-days"></lucide-icon> <span>{{date.date_start | date : 'dd MMMM YYYY'}} </span>
+                <lucide-icon name="calendar-days"></lucide-icon> <span class="change">{{date.date_start | date : 'dd MMMM YYYY'}} </span>
             </div>
         </div>
     </div>

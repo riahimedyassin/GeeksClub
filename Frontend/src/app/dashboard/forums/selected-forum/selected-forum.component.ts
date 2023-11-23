@@ -28,11 +28,11 @@ export class SelectedForumComponent implements OnInit {
       this.id = <string>params.get('id');
       this.forumService.getSingleForum(this.id).subscribe((response) => {
         this.forum = response.data;
-        this.isSub = this.isSubscribed();
+        this.userService.getCurrentUser().subscribe((response) => {
+          this.user = response.data;
+          this.isSub = this.isSubscribed();
+        });
       });
-    });
-    this.userService.getCurrentUser().subscribe((response) => {
-      this.user = response.data;
     });
   }
   isSubscribed() {

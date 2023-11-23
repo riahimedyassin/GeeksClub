@@ -77,7 +77,7 @@ export class EventComponent implements OnInit {
   }
   saveImage() {
     if (this.file != undefined) {
-      this.eventService.getImageSignature('events').subscribe((response) => {
+      this.cloudinary.getSignature('events').subscribe((response) => {
         const formData = new FormData();
         formData.append('file', <File>this.file);
         this.cloudinary

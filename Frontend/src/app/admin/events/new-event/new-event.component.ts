@@ -62,8 +62,8 @@ export class NewEventComponent implements OnInit {
       this.eventService.addNewEvent(this.form.value).subscribe(
         (response) => {
           const event_id = response.data._id;
-          this.eventService
-            .getImageSignature('events')
+          this.couldinary
+            .getSignature('events')
             .subscribe((response) => {
               const formData = new FormData();
               formData.append('file', <File>this.file);

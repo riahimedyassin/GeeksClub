@@ -1,8 +1,9 @@
 <div
-  class="h-[1000px] bg-black bg-[url(assets/aboutuseffect.svg)] bg-cover text-white flex flex-col items-center pt-12"
+  class="h-[1000px]  bg-[url(assets/aboutuseffect.svg)] bg-cover flex flex-col items-center pt-12"
   id="aboutus"
 >
-  <h1 class="z-20 mb-16 mt-16">About us</h1>
+  <h1 class="z-20 mb-2 mt-16">About us</h1>
+  <p class="mb-16 text-gray-500 text-sm">Discover more about our club</p>
   <div class="grid grid-cols-4 grid-rows-2 px-24" #myElement>
     <ng-container *ngFor="let abt of aboutus; index as index">
       <div class="grid-cols-1 " [id]="'element-' + index" [ngClass]="index<4 ? 'reveal-element' : 'reveal-element-right'">
@@ -14,10 +15,10 @@
   </div>
   <div class="mt-24 w-[75vw] flex flex-col items-center overflow-hidden">
     <h4 class="mb-6">About the founder</h4>
-    <div class="founder grid relative grid-cols-6 overflow-hidden reveal-element" >
+    <div class="founder grid relative grid-cols-6 overflow-hidden reveal-element " >
     
       <div
-        class="col-span-2  h-[300px] flex flex-col items-center justify-center z-[20]"
+        class="col-span-2  h-[300px] flex flex-col items-center justify-center z-[20] hover:bg-[#ffa43c0b] transition-all "
       >
         <img
           src="assets/me.jpg"

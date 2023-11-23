@@ -61,18 +61,20 @@
 }
 .effect {
   backdrop-filter: blur(17px) saturate(200%);
-  background-color: rgba(0, 0, 0, 0.54);
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.125);
   width: 80%;
-  height: 600px;
+  height: 90%;
   z-index: 10;
+  @apply pt-2 ; 
   overflow: hidden;
   box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.308);
   @apply transition-all;
   &:hover {
-    background-color: rgba(0, 0, 0, 0.59);
     box-shadow: 0 20px 20px 10px rgba(0, 0, 0, 0.509);
+  }
+  &.flex-col {
+    height: 380px;
   }
   .header {
     background-color: rgba(0, 0, 0, 0.141);
@@ -81,7 +83,7 @@
 }
 
 .join {
-  @apply px-6 py-2 border-[1px] rounded-xl border-white text-white opacity-80 hover:opacity-100 transition-all;
+  @apply px-6 py-2 border-[1px] rounded-xl border-white opacity-80 hover:opacity-100 transition-all;
   cursor: pointer;
 }
 .readmore {
@@ -93,9 +95,6 @@ a {
   text-decoration: none;
 }
 /* <main-style> ============================ */
-.main__scroll-text {
-  color: white;
-}
 
 .main__action .main__scroll-box {
   animation: scroll-down 3s infinite;
@@ -140,4 +139,8 @@ a {
 .anonymous,
 .anonymous span {
   font-family: "Anonymous Pro", monospace;
+}
+#header {
+  min-height: 100vh;
+  height: auto;
 }

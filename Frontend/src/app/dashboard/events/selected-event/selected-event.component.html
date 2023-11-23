@@ -1,6 +1,6 @@
 <div class="text-white px-24 py-12">
   <div *ngIf="event && !error; else loading">
-    <img [src]="event.picture" *ngIf="event.picture" />
+    <img [src]="event.picture" *ngIf="event.picture" class="mb-6 rounded-lg" />
     <div class="flex justify-between items-center mb-12">
       <h1>{{ event.title }}</h1>
       <ng-container *ngIf="!event.ended">
