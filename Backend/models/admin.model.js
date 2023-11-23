@@ -22,7 +22,7 @@ const adminSchema = Schema({
   },
   role: {
     type: String,
-    enum: ["President", "Vice President", "Other"],
+    enum: ["President", "Vice President", "VP Media" , "VP Dev" , "VP RH" , "Assistant Media","Asistant Dev","Assistant RH"],
     required: [
       true,
       "Please enter the admin role : President / Vice Presidentt / Other",
@@ -30,7 +30,7 @@ const adminSchema = Schema({
   },
   email: {
     type: String,
-    required: [true, "Please enter the admin password"],
+    required: [true, "Please enter the admin email"],
     // validate: {
     //   validator: [validate.email],
     // },
@@ -43,7 +43,7 @@ const adminSchema = Schema({
     type: Boolean,
     default: false,
     required: false,
-    //Set up the sup by hand in the DB to avoid problems
+    //Set up the sup by hand in the DB to avoid problems (This field is only manipulated by the DB Owner)
   },
   phone: {
     type: String,

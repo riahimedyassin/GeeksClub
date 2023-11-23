@@ -16,7 +16,7 @@ const eventSchema = Schema({
     descreption : {
         type: String ,
         required:[true,"Please enter the event descreption"],
-        maxlength: [500,"Descreption should not exceed 500 caracter"]
+        maxlength: [1000,"Descreption should not exceed 500 caracter"]
     },
     price : {
         type: Number , 

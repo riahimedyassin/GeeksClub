@@ -2,7 +2,6 @@ const { response } = require("../utils/response/Response");
 const Visitor = require("../models/visitor.model");
 const { createError } = require("../errors/customError");
 
-const token = process.env.IP_TOKEN;
 
 const addVisitor = async (req, res, next) => {
   const data = req.body;
@@ -34,7 +33,7 @@ const getVisitors = async (req, res, next) => {
         false,
         vistors
       );
-    return next(createError("Error occured", 500));
+    return next(createError("Internal Server Error", 500));
   } catch (error) {
     next(error);
   }

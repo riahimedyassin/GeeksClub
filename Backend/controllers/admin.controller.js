@@ -6,12 +6,7 @@ const {
   hashPassword,
   isMatchingPassword,
 } = require("../utils/password/Password");
-const signature = require('../utils/cloudinary/signUploadForm');
-require('../utils/cloudinary/config');
 
-const cloudinary = require('cloudinary').v2
-const cloudName = cloudinary.config().cloud_name;
-const apiKey = cloudinary.config().api_key;
 
 
 
@@ -34,27 +29,20 @@ const getAdminInfo = async (req, res, next) => {
 
 const changeInfo = async (req, res, next) => {
   const id = req.user;
+  if(!req.body ) return next(createError("No changes has been detected", 400));
   if (!id) return next(createError("Unauthorized", 403));
-  const impossible = ["isSup"];
   const changes = Object.keys(req.body);
-  if (!changes) return next(createError("No changes has been detected", 400));
-  let index = 0;
-  while (index < changes.length) {
-    if (impossible.includes(changes[index]))
-      return next(createError(`You can't change ${changes[index]}`, 400));
-    index++;
-  }
+  if(changes.includes("isSup")) return next(createError(`You can't change the Sup of an admin , you need access to DB`, 400));
   try {
     const applyChanges = await Admin.findOneAndUpdate({ _id: id }, req.body);
-    if (applyChanges)
-      return response(res, "Changes has been saved succeessfully", 201);
-    else {
-      next(createError("Cannot save", 500));
-    }
+    if (applyChanges) return response(res, "Changes has been saved succeessfully", 201);
+    return next(createError("Cannot save", 500));
   } catch (error) {
     next(error);
   }
 };
+
+
 const registerAdmin = async (req, res, next) => {
   const id = req.user ; 
   const admin = req.body;
@@ -63,12 +51,13 @@ const registerAdmin = async (req, res, next) => {
    if(!user.isSup) return next(createError("You are not authorized",403))
   Admin.create(admin)
     .then((data) => {
-      res.status(200).json(data);
+        return response(res,"Admin created succussfully",200,false,data)
     })
     .catch((err) => {
-      res.status(400).json(err);
+        return next(err)
     });
 };
+
 const adminLogin = async (req, res, next) => {
   const { email, password } = req.body;
   try {
@@ -78,7 +67,7 @@ const adminLogin = async (req, res, next) => {
       if (token)
         return response(res, "Logged in successfully", 200, true, token);
     }
-    return next(createError("Invalid email or password", 403));
+    return next(createError("Invalid email or password", 400));
   } catch (error) {
     next(error);
   }
@@ -90,16 +79,15 @@ const deleteAdmin = async (req, res, next) => {
     if (admin) return response(res, "Admin Deleted successfuly", 204);
     return next(createError("Cannot find this admin", 404));
   } catch (error) {
-    next(error);
+     return next(error);
   }
 };
 const changePassword = async (req, res, next) => {
   const id = req.user;
   const { password, newPassword } = req.body;
-  console.log(req.body)
   if (!password || !newPassword)
     return next(
-      createError("Provide the old and the new password please", 400)
+      createError("Please Provide the old and the new password", 400)
     );
   try {
     const admin = await Admin.findOne({ _id: id }, { password: 1 });
@@ -111,11 +99,11 @@ const changePassword = async (req, res, next) => {
         { password: hashedNew }
       );
       if (done) return response(res, "Password changed succussfully", 201);
-      return next(createError("Cannot update password", 500));
+      return next(createError("Internal Servor Error", 500));
     }
     return next(createError("Invalid password", 400));
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 const getAllAdmins=async(req,res,next)=> {
@@ -138,16 +126,6 @@ const uploadAdminImage=async(req,res,next) => {
       next(error)
   }
 }
-const getImageSignature=async(req,res,next) => {
-  const {folderName} = req.params
-  const sig = signature.signuploadform(folderName)
-  res.json({
-    signature: sig.signature,
-    timestamp: sig.timestamp,
-    cloudname: cloudName,
-    apikey: apiKey
-  })
-}
 const getSingleAdmin=async(req,res,next) => {
   const {id} = req.params ; 
   try {
@@ -169,6 +147,5 @@ module.exports = {
   changePassword,
   getAllAdmins,
   uploadAdminImage,
-  getImageSignature,
   getSingleAdmin
 };

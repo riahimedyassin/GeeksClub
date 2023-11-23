@@ -85,22 +85,12 @@ const uploadArticleImage=async(req,res,next) => {
       next(error)
   }
 }
-const getImageSignature=async(req,res,next) => {
-  const {folderName} = req.params
-  const sig = signature.signuploadform(folderName)
-  res.json({
-    signature: sig.signature,
-    timestamp: sig.timestamp,
-    cloudname: cloudName,
-    apikey: apiKey
-  })
-}
+
 module.exports = {
   getAllArticles,
   getSingleArticle,
   addNewArticle,
   updateArticle,
   deleteArticle,
-  getImageSignature,
   uploadArticleImage
 };

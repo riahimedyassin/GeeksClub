@@ -8,7 +8,6 @@ const {
   changePassword,
   getAllAdmins,
   uploadAdminImage,
-  getImageSignature,
   getSingleAdmin
 
 } = require("../controllers/admin.controller");
@@ -26,7 +25,6 @@ router.delete('/:id',deleteAdmin)
 router.patch('/me/password',changePassword)
 router.get('/',getAllAdmins)
 router.post('/me/image',uploadAdminImage)
-router.get('/me/image/signature/:folderName',getImageSignature)
 router.get('/admin/:id',getSingleAdmin)
 
 

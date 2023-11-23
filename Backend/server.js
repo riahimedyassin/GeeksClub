@@ -16,6 +16,7 @@ const forumRoute = require("./routes/forum.route");
 const articleRoute = require("./routes/article.route");
 const visitorRoute = require('./routes/visitor.route')
 const errorHandler = require("./middlewares/errorHandler");
+const signature = require("./routes/signature.route")
 const { default: helmet } = require("helmet");
 const rateLimit = require("express-rate-limit");
 const hpp = require("hpp");
@@ -26,7 +27,7 @@ app.use(express.json());
 app.use(helmet())
 app.use(rateLimit({
   max: 1000 ,
-  windowMs : 15*60*5000
+  windowMs : 15*60*1000
 }))
 app.use(hpp())
 app.use(express.urlencoded({extended:false}))
@@ -43,6 +44,7 @@ app.use("/api/geeks/events", eventRoute);
 app.use("/api/geeks/forums", forumRoute);
 app.use("/api/geeks/articles", articleRoute);
 app.use("/api/geeks/visitors",visitorRoute)
+app.use("/signature",signature)
 app.use(errorHandler);
 
 const run = async () => {

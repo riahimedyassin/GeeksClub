@@ -3,12 +3,6 @@ const { response } = require("../utils/response/Response");
 const { MongooseError } = require("mongoose");
 const { createError } = require("../errors/customError");
 const Member = require("../models/member.model");
-const signature = require('../utils/cloudinary/signUploadForm');
-require('../utils/cloudinary/config');
-
-const cloudinary = require('cloudinary').v2
-const cloudName = cloudinary.config().cloud_name;
-const apiKey = cloudinary.config().api_key;
 
 const getAllEvents = async (req, res, next) => {
   try {
@@ -96,7 +90,6 @@ const endEvent = async (req, res, next) => {
         const memberId = event.participants[i]["user_id"];
         const member = await Member.findOne({ _id: memberId });
         member.points.week_point += event.reward_point;
-        console.log(member);
         const update = await Member.findOneAndUpdate(
           { _id: memberId },
           member,
@@ -164,6 +157,7 @@ const addComment = async (req, res, next) => {
   const { id } = req.params;
   const { content } = req.body;
   if (!user_id) return next(createError("Not authorized", 404));
+  if(!content || content.length===0 ) return next(createError("All fields are mandatory",400))
   try {
     const user = await Member.findOne(
       { _id: user_id },
@@ -307,16 +301,7 @@ const deleteEvent = async (req, res, next) => {
     next(error);
   }
 };
-const getImageSignature=async(req,res,next) => {
-  const {folderName} = req.params
-  const sig = signature.signuploadform(folderName)
-  res.json({
-    signature: sig.signature,
-    timestamp: sig.timestamp,
-    cloudname: cloudName,
-    apikey: apiKey
-  })
-}
+
 const uploadMemberImage=async(req,res,next) => {
   const {id} = req.params ;
   const {link} = req.body ; 
@@ -349,6 +334,5 @@ module.exports = {
   confirmParticipation,
   getEventsParticipants,
   deleteEvent,
-  getImageSignature,
   uploadMemberImage
 };

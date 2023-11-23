@@ -20,12 +20,12 @@ const memberSchema = Schema({
   name: {
     type: String,
     required: [true, "Please Enter your name"],
-    maxlength: [15, "Name Should not excced 15 caracter"],
+    maxlength: [20, "Name Length Should not excced 20 caracter"],
   },
   forname: {
     type: String,
     required: [true, "Please Enter your forname"],
-    maxlength: [15, "Forname Should not excced 15 caracter"],
+    maxlength: [20, "Forname Lengtth Should not excced 20 caracter"],
   },
   age: {
     type: Number,
@@ -35,8 +35,8 @@ const memberSchema = Schema({
   },
   CIN: {
     type: Number,
-    required: false,
-    default: 0,
+    required: [true,"Please provide your CIN Number"],
+    min : [100000,"Please provide a valid CIN Number"]
   },
   email: {
     type: String,
@@ -59,7 +59,7 @@ const memberSchema = Schema({
   },
   address: {
     type: addressSchema,
-    required: true,
+    required: [true,"Please provide a valid address"],
   },
   phone: {
     type: String,

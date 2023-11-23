@@ -8,12 +8,7 @@ const { createToken } = require("../utils/token/createToken");
 const { Recovery } = require("../utils/recovery/Recovery");
 const { inTable } = require("../utils/inTable");
 const { lazyResponse } = require("../utils/response/LazyResponse");
-const signature = require('../utils/cloudinary/signUploadForm');
-require('../utils/cloudinary/config');
 
-const cloudinary = require('cloudinary').v2
-const cloudName = cloudinary.config().cloud_name;
-const apiKey = cloudinary.config().api_key;
 
 const recovery = new Recovery();
 
@@ -39,19 +34,6 @@ const registerUser = async (req, res, next) => {
     return next(createError(`Unknown Error , Error : ${error}`, 500));
   }
 };
-const imageUpload = async (req, res, next) => {
-
-};
-const getImageSignature=async(req,res,next) => {
-  const {folderName} = req.params
-  const sig = signature.signuploadform(folderName)
-  res.json({
-    signature: sig.signature,
-    timestamp: sig.timestamp,
-    cloudname: cloudName,
-    apikey: apiKey
-  })
-}
 
 
 const loginMember = async (req, res, next) => {
