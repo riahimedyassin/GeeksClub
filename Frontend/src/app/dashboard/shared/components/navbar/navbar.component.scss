@@ -5,12 +5,9 @@ img {
   border: 1px solid white;
 }
 .user {
-  @apply bg-deepblack w-auto h-12 flex justify-between gap-4 px-6 items-center rounded-lg border-[1px] border-gray-600 transition-all;
+  @apply bg-black w-auto h-12 flex justify-between gap-4 px-6 items-center rounded-lg border-[1px] border-gray-600 transition-all hover:bg-third;
   min-width: 200px; 
   cursor: pointer;
-  &:hover {
-    background-color: #0d0d0db1;
-  }
 }
 .logout {
   color: white;

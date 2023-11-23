@@ -85,20 +85,28 @@ h3 {
   border-radius: 8px;
 }
 
+.main-button {
+  @apply px-4 py-2 rounded-lg flex gap-4 transition-all
+}
 .succuss-button {
-  @apply px-4 py-2 rounded-lg bg-green-500 flex gap-4 transition-all hover:bg-green-600;
+  @extend .main-button ; 
+  @apply  bg-green-500 hover:bg-green-600;
 }
 .danger-button {
-  @apply px-4 py-2 rounded-lg bg-red-500 flex gap-4 transition-all hover:bg-red-600;
+  @extend .main-button ; 
+  @apply  bg-red-500  hover:bg-red-600;
 }
 .warning-button {
-  @apply px-4 py-2 rounded-lg bg-yellow-500 flex gap-4 transition-all hover:bg-yellow-600;
+  @extend .main-button ; 
+  @apply  bg-yellow-500  hover:bg-yellow-600;
 }
 .default-button {
-  @apply px-4 py-2 rounded-lg bg-gray-500 flex gap-4 transition-all hover:bg-gray-600;
+  @extend .main-button ; 
+  @apply  bg-gray-500  hover:bg-gray-600;
 }
 .third-button {
-  @apply px-4 py-2 rounded-lg bg-third flex gap-4 transition-all hover:bg-lightthird;
+  @extend .main-button ; 
+  @apply  bg-third  hover:bg-lightthird;
 }
 .ng-invalid.ng-touched {
   @apply border-red-500

@@ -32,13 +32,15 @@ export class ListMembersComponent {
 
         if (this.activated.snapshot.queryParamMap.get('registered') == 'true') {
           this.listRegistered = true;
+          this.userService.getAllRegistered().subscribe((response) => {
+            this.registered = response.data;
+            this.toDisplay = this.registered;
+          });
+        } else {
+          this.toDisplay = response.data.filter(
+            (memeber: any) => memeber.isMember == !this.listRegistered
+          );
         }
-        this.toDisplay = response.data.filter(
-          (memeber: any) => memeber.isMember == !this.listRegistered
-        );
-      });
-      this.userService.getAllRegistered().subscribe((response) => {
-        this.registered = response.data;
       });
     });
   }

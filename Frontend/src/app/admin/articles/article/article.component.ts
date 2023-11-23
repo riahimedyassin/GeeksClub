@@ -23,12 +23,12 @@ export class ArticleComponent implements OnInit {
   updated : boolean = false ; 
   ngOnInit(): void {
     this.id = <string>this.activated.snapshot.paramMap.get('id');
-    this.articleService.getSingleArticle(this.id).subscribe((response) => {
-      this.article = response.data;
+    this.articleService.getSingleArticle(this.id).subscribe((response ) => {
       this.form = this.formBuilder.nonNullable.group({
         title: [response.data.title, [Validators.required]],
         content: [response.data.content, [Validators.required]],
       });
+      this.article = response.data;
       this.form.disable(); 
     });
   }

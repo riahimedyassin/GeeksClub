@@ -18,6 +18,7 @@ export class DetailsComponent implements OnInit {
       if(this.id) {
         this.articleService.getSingleArticle(this.id).subscribe((response )=> {
           this.article=response.data;
+          console.log(this.article)
         })
       }
       

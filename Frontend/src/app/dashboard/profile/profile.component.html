@@ -1,4 +1,4 @@
-<div class="h[100vh]" *ngIf="user">
+<div class="h[100vh]" *ngIf="user ; else loadProfile">
   <div class="w-full h-[80vh] grid grid-cols-6 px-24 mt-24 gap-6">
     <div
       class="col-span-2 bg-deepblack flex flex-col items-center py-4 text-white rounded-md"
@@ -139,6 +139,9 @@
     </ng-template>
   </div>
 </div>
+<ng-template #loadProfile>
+    <app-loading></app-loading>
+</ng-template>
 <ng-container *ngIf="updated">
   <app-notification
     message="Profile updated succussfully"

@@ -1,4 +1,10 @@
 <ng-container *ngIf="article; else load">
+  <img
+    [src]="article.picture"
+    alt=""
+    *ngIf="article.picture"
+    class="w-60 h-60 mb-8"
+  />
   <form [formGroup]="form" (ngSubmit)="handleSave()">
     <div class="flex items-center justify-between">
       <input
@@ -31,9 +37,9 @@
         </button>
       </div>
     </div>
-    <hr class="mt-4">
+    <hr class="mt-4" />
     <div class="mt-8">
-      <h2 class="mb-4">Content : </h2>
+      <h2 class="mb-4">Content :</h2>
       <textarea
         formControlName="content"
         [ngClass]="edit ? 'border-[1px] border-gray-500' : ''"
