@@ -32,7 +32,7 @@ export class ListMembersComponent {
         if (this.activated.snapshot.queryParamMap.get('registered') == 'true') {
           this.listRegistered = true;
           this.userService.getAllRegistered().subscribe((response) => {
-            this.toDisplay=this.members.filter(member => member.isMember==false)
+            this.toDisplay=response.data
           });
         } else {
           this.toDisplay = response.data.filter(

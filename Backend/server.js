@@ -26,7 +26,7 @@ app.disable('x-powered-by');
 app.use(express.json());
 app.use(helmet())
 app.use(rateLimit({
-  max: 1000 ,
+  max: 2000 ,
   windowMs : 15*60*1000
 }))
 app.use(hpp())
