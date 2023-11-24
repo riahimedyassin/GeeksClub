@@ -15,14 +15,15 @@ export class NewAdminComponent implements OnInit {
   ) {}
   form!: FormGroup;
   added : boolean = false ;
-  error : boolean = false  
+  error : boolean = false  ;
+  roles : string[] = ["President", "Vice President", "VP Media" , "VP Dev" , "VP RH" , "Assistant Media","Asistant Dev","Assistant RH"]
   ngOnInit(): void {
     this.form = this.formBuilder.nonNullable.group({
       name: ['', [Validators.required, CustomValidator.strings]],
       forname: ['', [Validators.required, CustomValidator.strings]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, CustomValidator.password]],
-      role: ['Vice President', [Validators.required]],
+      role: ['Assistant RH', [Validators.required]],
       isSup: false,
       facebook: ['', [Validators.required, CustomValidator.facebook]],
       phone: [null, [Validators.required, CustomValidator.numeric]],
@@ -34,13 +35,15 @@ export class NewAdminComponent implements OnInit {
       this.adminServie.registerAdmin(this.form.value).subscribe((response) => {
         this.added=true 
         setTimeout(()=>this.added=false , 3000)
+        this.form.reset()
       },err=> {
         this.error = true 
         setTimeout(()=>this.error = false , 3000)
       });
     }
     else {
-      console.log(this.form)
+      this.error=true ; 
+      setTimeout(()=>this.error = false , 3000)
     }
   }
 }

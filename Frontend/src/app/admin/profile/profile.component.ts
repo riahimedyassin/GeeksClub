@@ -99,6 +99,7 @@ export class ProfileComponent implements OnInit {
                 this.adminService.cacheAdmin();
                 this.file=undefined ; 
                 this.edit = false ; 
+                setTimeout(()=> location.reload(),1000)
               });
           });
       });

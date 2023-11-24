@@ -15,6 +15,7 @@
 <ng-container *ngIf="admins; else load">
   <table class="w-full mt-16 rounded-t-lg overflow-hidden text-center">
     <tr class="h-16 w-full bg-second rounded-t-lg">
+      <th>Picture</th>
       <th>Full-name</th>
       <th>Role</th>
       <th>Actions</th>
@@ -24,6 +25,9 @@
       class="h-14"
       [appTableColor]="index"
     >
+    <th class="flex items-center justify-center">
+      <img [src]="admin.picture" alt="" class="h-8 w-8 rounded-sm" *ngIf="admin.picture">
+    </th>
       <th>{{ admin.name }} {{ admin.forname }}</th>
       <th>{{ admin.role }}</th>
       <th class="flex gap-6 item-center justify-center h-14">
