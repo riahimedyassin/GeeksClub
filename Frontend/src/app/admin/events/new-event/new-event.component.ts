@@ -58,7 +58,7 @@ export class NewEventComponent implements OnInit {
     this.file = event.target.files[0]
   }
   handleSubmit() {
-    if (this.form.valid && this.form.touched) {
+    if (this.form.valid && this.form.touched && this.file!=undefined) {
       this.eventService.addNewEvent(this.form.value).subscribe(
         (response) => {
           const event_id = response.data._id;
@@ -76,6 +76,7 @@ export class NewEventComponent implements OnInit {
                       this.added = true;
                       setTimeout(() => (this.added = false), 3000);
                       this.file = undefined ; 
+                      this.form.reset()
                     });
                 });
             });

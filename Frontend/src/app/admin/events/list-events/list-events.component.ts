@@ -11,6 +11,8 @@ export class ListEventsComponent implements OnInit {
   events!: Event[];
   toDisplay: Event[] = [];
   ended: boolean = false;
+  categorie : string = 'all'
+  searchValue : string = ""
 
   constructor(private eventService: EventsService) {}
   ngOnInit(): void {
@@ -28,32 +30,31 @@ export class ListEventsComponent implements OnInit {
   }
   handleSearch(event: any) {
     const value = (<HTMLInputElement>event.target).value;
-    if (value.trim() != '') {
-      this.toDisplay = this.events.filter(
-        (element) =>
-          element.title.toLowerCase().includes(value.toLowerCase()) &&
-          element.ended == this.ended
-      );
-    } else {
-      this.toDisplay = this.events.filter((event) => event.ended == this.ended);
-    }
+    this.applyFilter()
   }
   handleCategorie(event: any) {
     const value = (<HTMLSelectElement>event.target).value;
-    if (value === 'all') {
-      this.toDisplay = this.events.filter((event) => event.ended == this.ended);
-    } else {
-      this.toDisplay = this.events.filter(
-        (event) => event.categorie === value && event.ended === this.ended
-      );
-    }
+    this.categorie=value ; 
+    this.applyFilter()
   }
   handelEnded() {
     this.ended = !this.ended;
-    this.toDisplay = this.events.filter((event) => event.ended == this.ended);
+    this.applyFilter()
   }
   trackBy(index: number, event: Event) {
     return event._id;
+  }
+  applyFilter() {
+    this.toDisplay=this.events.filter(event=> {
+      if(this.categorie==='all') {
+        if(this.searchValue.trim()==='') return event.ended===this.ended
+        return event.ended===this.ended && event.title.toLowerCase().includes(this.searchValue.toLowerCase())
+      }
+      else {
+        if(this.searchValue.trim()==="") return event.ended===this.ended && event.categorie==this.categorie
+        return event.ended===this.ended && event.title.toLowerCase().includes(this.searchValue.toLowerCase()) && event.categorie==this.categorie
+      }
+    })
   }
   handleDelete(id: string) {
     this.eventService.deleteEvent(id).subscribe((response) => {
