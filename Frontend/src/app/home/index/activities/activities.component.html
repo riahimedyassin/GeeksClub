@@ -8,15 +8,20 @@
   <div
     class="backdrop-blur-lg h-[750px] overflow-y-hidden w-full space-y-8 backdrop-filter backdrop-opacity-10 flex flex-col items-center py-12 border-[1px] border-gray-600 rounded-lg reveal-element-buttom"
    *ngIf="!error ; else errortemp">
-    <ng-container *ngFor="let activity of activities">
-      <app-activity
-        [title]="activity.title"
-        [date]="activity.date"
-        [desc]="activity.descreption"
-        [participants]="activity.participants.length"
-        [picture]="activity.picture"
-      ></app-activity>
+    <ng-container *ngIf="activities; else noActivities">
+      <ng-container *ngFor="let activity of activities">
+        <app-activity
+          [title]="activity.title"
+          [date]="activity.date"
+          [desc]="activity.descreption"
+          [participants]="activity.participants.length"
+          [picture]="activity.picture"
+        ></app-activity>
+      </ng-container>
     </ng-container>
+    <ng-template #noActivities>
+      <h1 class="mt-8 mb-16">No Recent Activites to show </h1>
+    </ng-template>
   </div>
   <ng-template #errortemp>
     <app-error></app-error>

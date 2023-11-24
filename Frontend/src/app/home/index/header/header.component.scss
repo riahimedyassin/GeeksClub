@@ -86,10 +86,7 @@
   @apply px-6 py-2 border-[1px] rounded-xl border-white opacity-80 hover:opacity-100 transition-all;
   cursor: pointer;
 }
-.readmore {
-  @extend .join;
-  @apply border-dashed;
-}
+
 /* <reset-style> ============================ */
 a {
   text-decoration: none;

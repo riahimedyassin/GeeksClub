@@ -106,6 +106,7 @@ export class RegisterComponent implements OnInit {
       this.auth.register(user).subscribe(
         (response) => {
           this.alert = this.alerts[0];
+          this.form.reset()
         },
         (err: HttpErrorResponse) => {
           console.log(err);

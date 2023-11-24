@@ -17,7 +17,6 @@ export class ListMembersComponent {
   members!: User[];
   toDisplay!: User[];
   search: string = '';
-  registered!: User[];
   page!: string;
   listRegistered: boolean = false;
   isDoneMember!: boolean;
@@ -33,12 +32,11 @@ export class ListMembersComponent {
         if (this.activated.snapshot.queryParamMap.get('registered') == 'true') {
           this.listRegistered = true;
           this.userService.getAllRegistered().subscribe((response) => {
-            this.registered = response.data;
-            this.toDisplay = this.registered;
+            this.toDisplay=this.members.filter(member => member.isMember==false)
           });
         } else {
           this.toDisplay = response.data.filter(
-            (memeber: any) => memeber.isMember == !this.listRegistered
+            (memeber: any) => memeber.isMember == true 
           );
         }
       });
@@ -73,8 +71,8 @@ export class ListMembersComponent {
   dispalyRegisterd() {
     this.listRegistered = !this.listRegistered;
     this.toDisplay = this.listRegistered
-      ? this.registered.filter((member) =>
-          member.name.toLowerCase().includes(this.search.toLowerCase())
+      ? this.members.filter((member) =>
+          member.name.toLowerCase().includes(this.search.toLowerCase())  && member.isMember===false 
         )
       : this.members.filter((member) =>
           member.name.toLowerCase().includes(this.search.toLowerCase())

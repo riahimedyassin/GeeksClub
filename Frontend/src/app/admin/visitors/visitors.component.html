@@ -1,44 +1,66 @@
-<div class="flex items-center justify-between">
+<ng-container *ngIf="visitors; else load">
+  <div class="flex items-center justify-between">
     <div class="flex items-center gap-4">
-        <lucide-angular name="fingerprint" size="48"></lucide-angular>
-        <h1>Visitors Stack Trace</h1>
+      <lucide-angular name="fingerprint" size="48"></lucide-angular>
+      <h1>Visitors Stack Trace</h1>
     </div>
-    <button class="new-button" [ngClass]="stat ? 'bg-second':''" (click)="stat=!stat">
-        <lucide-angular name="bar-chart-3"></lucide-angular>
-        <p>Stats</p>
+    <button
+      class="new-button"
+      [ngClass]="stat ? 'bg-second' : ''"
+      (click)="stat = !stat"
+    >
+      <lucide-angular name="bar-chart-3"></lucide-angular>
+      <p>Stats</p>
     </button>
-</div>
-<div class="w-full h-80 mt-8 flex items-center justify-center " [ngClass]="!stat ? 'hidden' : ''">
+  </div>
+  <div
+    class="w-full h-80 mt-8 flex items-center justify-center"
+    [ngClass]="!stat ? 'hidden' : ''"
+  >
     <canvas id="visitorsStats"></canvas>
-</div>
-<div class="w-full  mt-16">
+  </div>
+  <div class="w-full mt-16">
     <table>
-        <tr class="head">
-            <th>IP Address</th>
-            <th>Country</th>
-            <th>Region</th>
-            <th>City</th>
-            <th>Visit Count</th>
-            <th>Actions</th>
-        </tr>
-        <tr *ngFor="let visitor of visitors ; index as index" [appTableColor]="index" class="body">
-            <td>{{visitor.ip}} </td>
-            <td>{{visitor.country}}</td>
-            <td>{{visitor.region}}</td>
-            <td>{{visitor.city}}</td>
-            <td>{{visitor.count}}</td>
-            <td class="flex items-center justify-center h-14" >
-                <button class="danger-button" *ngIf="!visitor.blocked " (click)="handleBlock(visitor.ip)">
-                    <lucide-angular name="shield-ban"></lucide-angular>
-                    <p>Block Access</p>
-                </button>
-                <button class="succuss-button" *ngIf="visitor.blocked" (click)="handleGiveAccess(visitor.ip)">
-                    <lucide-angular name="shield-check"></lucide-angular>
-                    <p>Retrieve Access</p>
-                </button>
-            </td>
-        </tr>
+      <tr class="head">
+        <th>IP Address</th>
+        <th>Country</th>
+        <th>Region</th>
+        <th>City</th>
+        <th>Visit Count</th>
+        <th>Actions</th>
+      </tr>
+      <tr
+        *ngFor="let visitor of visitors; index as index"
+        [appTableColor]="index"
+        class="body"
+      >
+        <td>{{ visitor.ip }}</td>
+        <td>{{ visitor.country }}</td>
+        <td>{{ visitor.region }}</td>
+        <td>{{ visitor.city }}</td>
+        <td>{{ visitor.count }}</td>
+        <td class="flex items-center justify-center h-14">
+          <button
+            class="danger-button"
+            *ngIf="!visitor.blocked"
+            (click)="handleBlock(visitor.ip)"
+          >
+            <lucide-angular name="shield-ban"></lucide-angular>
+            <p>Block Access</p>
+          </button>
+          <button
+            class="succuss-button"
+            *ngIf="visitor.blocked"
+            (click)="handleGiveAccess(visitor.ip)"
+          >
+            <lucide-angular name="shield-check"></lucide-angular>
+            <p>Retrieve Access</p>
+          </button>
+        </td>
+      </tr>
     </table>
-</div>
-
-
+  </div>
+</ng-container>
+<ng-template #load>
+  <app-loading></app-loading>
+</ng-template>
