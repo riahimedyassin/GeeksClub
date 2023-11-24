@@ -37,9 +37,8 @@ export class CustomValidator {
   }
   public static  role(control: AbstractControl): ValidationErrors | null {
     const value = control.value;
-    if (value == 'President' || value == 'Vice President' || value == 'Other') {
-      return null;
-    }
+    const possible = ["President", "Vice President", "VP Media" , "VP Dev" , "VP RH" , "Assistant Media","Asistant Dev","Assistant RH"]
+    if(possible.includes(value)) return null ;
     return { role: false };
   }
   public static eventCategorie(control : AbstractControl) {

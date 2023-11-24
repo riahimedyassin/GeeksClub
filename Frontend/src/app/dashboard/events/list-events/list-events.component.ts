@@ -6,13 +6,15 @@ import { RevealAnimationService } from 'src/app/shared/services/reveal-animation
 @Component({
   selector: 'app-list-events',
   templateUrl: './list-events.component.html',
-  styleUrls: ['./list-events.component.scss']
+  styleUrls: ['./list-events.component.scss'],
 })
 export class ListEventsComponent {
   events!: Event[];
   allEvents!: Event[];
   toDisplay!: Event[];
   searchValue: string = '';
+  categorie: string = 'all';
+  listParticipation: boolean = false;
 
   constructor(
     private eventService: EventsService,
@@ -20,11 +22,9 @@ export class ListEventsComponent {
   ) {}
   ngOnInit(): void {
     this.reveal.initScrollReveal('bottom', 1000, 'reveal');
-    this.eventService.getUsersEvents().subscribe(
-      (response) => {
-        this.events = response.data;
-      }
-    );
+    this.eventService.getUsersEvents().subscribe((response) => {
+      this.events = response.data;
+    });
     this.eventService.getAllEvenets().subscribe((response) => {
       this.allEvents = response.data;
       this.toDisplay = response.data;
@@ -32,22 +32,24 @@ export class ListEventsComponent {
   }
   handleSearch(event: any) {
     const value = (<HTMLInputElement>event.target).value;
-    if (value.trim() != '') {
-      this.toDisplay = this.allEvents.filter(
-        (element) => element.title.toLowerCase().includes(value.toLowerCase())
-      );
-    }
-    else {
-      this.toDisplay=this.allEvents
-    }
+    this.searchValue = value;
+    this.applyFilter();
   }
-  handleCategorie(event :any ) {
-      const value = (<HTMLInputElement>event.target).value;
-      if(value==="all") {
-        this.toDisplay=this.allEvents ;
-      }
-      else {
-        this.toDisplay=this.allEvents.filter(element=> element.categorie===value)
-      }
+  handleCategorie(event: any) {
+    const value = (<HTMLInputElement>event.target).value;
+    this.categorie = value;
+    this.applyFilter();
+  }
+  applyFilter() {
+    this.toDisplay = this.allEvents.filter((event) => {
+      if (this.categorie === 'all')
+        return event.title
+          .toLowerCase()
+          .includes(this.searchValue.toLowerCase());
+      return (
+        event.title.toLowerCase().includes(this.searchValue.toLowerCase()) &&
+        event.categorie === this.categorie
+      );
+    });
   }
 }

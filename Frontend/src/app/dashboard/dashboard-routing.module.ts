@@ -21,15 +21,17 @@ const routes: Routes = [
       {
         path: '',
         component: HomeComponent,
+        title: 'Geeks Club | Dashboard'
       },
       {
         path: 'profile',
         component: ProfileComponent,
-        title: 'Geeks Club | Profile',
+        title: 'Geeks Club | Member Profile',
       },
       {
         path: 'leaderboard',
         component: LeaderboardComponent,
+        title: 'Geeks Club | Leaderboard'
       },
       {
         path: 'forums',
@@ -39,8 +41,9 @@ const routes: Routes = [
           {
             path: 'list',
             component: ListForumsComponent,
+            title: 'Geeks Club | Forums List'
           },
-          { path: ':id', component: SelectedForumComponent },
+          { path: ':id', component: SelectedForumComponent ,  title: 'Geeks Club | Forum' },
         ],
       },
       {
@@ -51,8 +54,9 @@ const routes: Routes = [
           {
             path: 'list',
             component: ListEventsComponent,
+            title: 'Geeks Club | Events List'
           },
-          { path: ':id', component: SelectedEventComponent },
+          { path: ':id', component: SelectedEventComponent ,  title: 'Geeks Club | Event' },
         ],
       },
     ],

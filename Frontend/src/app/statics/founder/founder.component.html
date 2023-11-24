@@ -1,29 +1,49 @@
-
 <div class="w-full h-[85vh] flex flex-col px-28 py-12 text-white mt-24">
-    <div class="border-[1px] border-white rounded-lg w-full h-full  items-center flex flex-col py-12 gap-12 bg-deepblack">
-        <div class="founder__img overflow-hidden ">
-            <img src="assets/me.jpg" alt="">
-        </div>
-        <div class="flex justify-center flex-col items-center">
-            <div class="flex flex-col justify-center items-center gap-4">
-                <h1>Riahi Yassin</h1>
-                <p>MEAN/MERN Junior Developer | Junior Game Developer | CLI Tools Builder</p>
-            </div>
-            <div class="skills mt-12 flex-wrap w-[80%]">
-                <div *ngFor="let skill of skills" class="image-container">
-                    <img [src]="skill.path" [alt]="skill.alt" [title]="skill.title">
-                </div>
-            </div>
-            <div class="skills mt-14">
-                <a class="flex  items-center gap-4 bg-blue-500 hover:bg-blue-600 transition-all px-4 py-2 rounded-lg" target="_blank" href="https://www.linkedin.com/in/riahi-mohamed-yassin/">
-                    <lucide-icon name="linkedin"></lucide-icon>
-                    <p>Contact Me</p>
-                </a>
-                <button class="flex gap-4 items-center dashed-button hover:bg-white hover:text-black transition-all" download="assets/cv.png">
-                    <lucide-icon name="download"></lucide-icon>
-                    <a href="assets/cv.png" download="cv.png">Resume</a>
-                </button>
-            </div>
-        </div>
+  <div
+    class="border-[1px] border-white rounded-lg w-full h-full items-center flex flex-col py-12 gap-12 bg-deepblack"
+  >
+    <div class="founder__img overflow-hidden">
+      <img src="assets/me.jpg" alt="" />
     </div>
+    <div class="flex justify-center flex-col items-center">
+      <div class="flex flex-col justify-center items-center gap-4">
+        <h1>Riahi Yassin</h1>
+        <p>
+          MEAN/MERN Junior Developer | Junior Game Developer | CLI Tools Builder
+        </p>
+      </div>
+      <div class="skills mt-12 flex-wrap w-[80%]">
+        <div *ngFor="let skill of skills" class="image-container">
+          <img [src]="skill.path" [alt]="skill.alt" [title]="skill.title" />
+        </div>
+      </div>
+      <div class="mt-14">
+        <div class="flex items-center justify-center gap-6">
+          <a
+            class="flex items-center gap-4 bg-blue-500 hover:bg-blue-600 transition-all px-4 py-2 rounded-lg"
+            target="_blank"
+            href="https://www.linkedin.com/in/riahi-mohamed-yassin/"
+          >
+            <lucide-icon name="linkedin"></lucide-icon>
+            <p>Contact Me</p>
+          </a>
+          <a
+            class="default-button"
+            target="_blank"
+            href="https://github.com/riahimedyassin"
+          >
+            <lucide-icon name="github"></lucide-icon>
+            <p>Github</p>
+          </a>
+          <button
+          class="flex gap-4 items-center dashed-button hover:bg-white hover:text-black transition-all "
+          download="assets/cv.png"
+        >
+          <lucide-icon name="download"></lucide-icon>
+          <a href="assets/cv.png" download="cv.png">Resume</a>
+        </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

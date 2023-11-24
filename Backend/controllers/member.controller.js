@@ -129,7 +129,7 @@ const getAllMembers = async (req, res, next) => {
       return lazyResponse(res, "Members Retrieved Successfully", 200, members);
     return next(createError("Server Error", 500));
   } catch (error) {
-    console.log(error);
+    
     next(error);
   }
 };

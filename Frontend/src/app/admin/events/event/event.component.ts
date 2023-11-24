@@ -20,6 +20,7 @@ export class EventComponent implements OnInit {
   form!: FormGroup;
   saved: boolean = false;
   file!: File | undefined;
+  addedMember : boolean = false 
   constructor(
     private eventService: EventsService,
     private activated: ActivatedRoute,
@@ -69,9 +70,9 @@ export class EventComponent implements OnInit {
     this.eventService
       .confirmParticipation(this.id, userID)
       .subscribe((response) => {
-        this.saved = true;
+        this.addedMember = true;
         setTimeout(() => {
-          this.saved = false;
+          this.addedMember = false;
         }, 3000);
       });
   }

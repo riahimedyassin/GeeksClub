@@ -16,21 +16,26 @@ const routes: Routes = [
       {
         path: 'founder',
         component: FounderComponent,
+        title: 'Geeks Club | Founder'
       },
       {
         path: 'policy',
         component: PolicyComponent,
+        title: 'Geeks Club | Policy'
       },
       {
         path: 'sponsoring',
         component: SponsoringComponent,
+        title: 'Geeks Club | Sponsoring'
       },
       {
         path:'donate',
-        component:DonateComponent
+        component:DonateComponent,
+        title: 'Geeks Club | Donate'
       },
       {
         path: 'articles',
+        title: 'Geeks Club | Articles', 
         children: [
           {
             path: '',

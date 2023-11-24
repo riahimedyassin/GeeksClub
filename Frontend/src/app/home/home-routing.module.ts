@@ -13,17 +13,20 @@ const routes: Routes = [
     path: '',
     component: IndexComponent,
     pathMatch: 'full',
+    title: 'Geeks Club | Home'
   },
   {
     path: 'register',
     component: RegisterComponent,
+    title: 'Geeks Club | Register'
   },
   {
     path: 'login',
+
     children: [
       { path: '', redirectTo: 'member' , pathMatch:'full' },
-      { path: 'member', component: LoginComponent , canActivate: [loginGuard] },
-      { path: 'admin', component: AdminLoginComponent },
+      { path: 'member', component: LoginComponent , canActivate: [loginGuard] ,  title: 'Geeks Club | Login Member' },
+      { path: 'admin', component: AdminLoginComponent  ,  title: 'Geeks Club | Login Admin'},
     ],
   },
 ];

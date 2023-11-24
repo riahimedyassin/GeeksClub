@@ -206,3 +206,6 @@
     color="green"
   ></app-notification>
 </ng-container>
+<ng-container *ngIf="addedMember">
+  <app-notification message="Member added successfully" color="green" icon="plus-circle"></app-notification>
+</ng-container>

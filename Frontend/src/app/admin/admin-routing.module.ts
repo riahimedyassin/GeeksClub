@@ -40,14 +40,17 @@ const routes: Routes = [
       {
         path: 'visitors',
         component: VisitorsComponent,
+        title: 'Geeks Club | Visitors'
       },
       {
         path: 'home',
         component: HomeComponent,
+        title: 'Geeks Club | Dashboard'
       },
       {
         path: 'profile',
         component: ProfileComponent,
+        title: 'Geeks Club | Admin Profile'
       },
       {
         path: 'articles',
@@ -57,18 +60,22 @@ const routes: Routes = [
             path: '',
             redirectTo: 'list',
             pathMatch: 'full',
+            title: 'Geeks Club | Articles'
           },
           {
             path: 'list',
             component: ListArticlesComponent,
+            title: 'Geeks Club | Articles List'
           },
           {
             path: 'new',
             component: NewArticleComponent,
+            title: 'Geeks Club | New Article'
           },
           {
             path: ':id',
             component: ArticleComponent,
+            title: 'Geeks Club | Article'
           },
         ],
       },
@@ -80,14 +87,17 @@ const routes: Routes = [
             path: '',
             redirectTo: 'list/1',
             pathMatch: 'full',
+            
           },
           {
             path: 'list/:page',
             component: ListMembersComponent,
+            title: 'Geeks Club | Members List '
           },
           {
             path: ':id',
             component: MemberComponent,
+            title: 'Geeks Club | Member '
           },
         ],
       },
@@ -96,23 +106,23 @@ const routes: Routes = [
         component: EventsComponent,
         children: [
           { path: '', redirectTo: 'list', pathMatch: 'full' },
-          { path: 'list', component: ListEventsComponent },
-          { path: 'new', component: NewEventComponent },
-          { path: ':id', component: EventComponent },
+          { path: 'list', component: ListEventsComponent  , title: 'Geeks Club | Events List '},
+          { path: 'new', component: NewEventComponent , title: 'Geeks Club | New Event ' },
+          { path: ':id', component: EventComponent ,  title: 'Geeks Club | Event ' },
         ],
       },
       {
         path: 'forums',
         component: ForumsComponent,
         children: [
-          { path: '', redirectTo: 'list', pathMatch: 'full' },
-          { path: 'list', component: ListForumsComponent },
-          { path: 'new', component: NewForumComponent },
+          { path: '', redirectTo: 'list', pathMatch: 'full'   },
+          { path: 'list', component: ListForumsComponent , title: 'Geeks Club | Forums List ' },
+          { path: 'new', component: NewForumComponent  , title: 'Geeks Club | New Forum '},
           {
             path: ':id',
             children: [
               { path: '', component: ForumComponent, pathMatch: 'full' },
-              { path: ':post', component: PostComponent },
+              { path: ':post', component: PostComponent , title: 'Geeks Club | Forum Post ' },
             ],
           },
         ],
@@ -125,6 +135,7 @@ const routes: Routes = [
           {
             path: 'list',
             component: ListAdminsComponent,
+            title: 'Geeks Club | Admins List ',
             resolve: {
               isSup: isSuperAdminResolver,
             },
@@ -133,11 +144,13 @@ const routes: Routes = [
             path: 'new',
             component: NewAdminComponent,
             canActivate: [newAdminGuard],
+            title: 'Geeks Club | New Admin '
           },
           {
             path:':id',
             component : SelectedAdminComponent,
-            canActivate:[newAdminGuard]
+            canActivate:[newAdminGuard],
+            title: 'Geeks Club | Admin '
           }
         ],
       },

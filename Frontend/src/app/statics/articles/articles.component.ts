@@ -17,6 +17,7 @@ import { CommonModule } from '@angular/common';
   standalone:true
 })
 export class ArticlesComponent implements OnInit {
+  title:string =  'Geeks Club | Articles'
   constructor(private articleService: ArticlesService) {}
   articlesResponse!: Response<Article[]>;
   articles!: Article[];

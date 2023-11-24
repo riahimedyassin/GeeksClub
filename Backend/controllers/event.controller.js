@@ -253,7 +253,6 @@ const confirmParticipation = async (req, res, next) => {
     );
     if (!event) next(createError("Cannot Find this Event", 404));
     let index = 0;
-    console.log(event.participants)
     while (
       event.participants[index]["user_id"] != user &&
       event.participants.length > index
@@ -261,7 +260,6 @@ const confirmParticipation = async (req, res, next) => {
       index++;
     if (index === event.participants.length)
       return next(createError("This member is not part of the event", 404));
-    console.log(event.participants[index]);
     event.participants[index].participated = true;
     await Event.findOneAndUpdate({ _id: id }, event);
     return response(res, "Confirmed Successfully", 200, false, event);
@@ -287,7 +285,6 @@ const getEventsParticipants = async (req, res, next) => {
       finalParticipants
     );
   } catch (error) {
-    console.log(error);
     next(error);
   }
 };

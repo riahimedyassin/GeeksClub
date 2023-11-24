@@ -12,7 +12,7 @@
       class="grid grid-cols-2 gap-6"
       (ngSubmit)="submit()"
     >
-      <div class="">
+      <div >
         <input
           type="text"
           formControlName="name"
@@ -26,7 +26,7 @@
           <p class="text-sm text-red-500">Invalid name</p>
         </div>
       </div>
-      <div class="">
+      <div >
         <input
           type="text"
           formControlName="forname"
@@ -40,7 +40,7 @@
           <p class="text-sm text-red-500">Invalid forname</p>
         </div>
       </div>
-      <div class="">
+      <div >
         <input type="text" formControlName="age" placeholder="Enter yout age" />
         <div
           *ngIf="form.get('age')?.invalid && form.get('age')?.touched"
@@ -58,7 +58,7 @@
           class="flex space-x-4 items-center mt-2"
         >
           <lucide-icon name="info" color="#ef4444" size="16"></lucide-icon>
-          <p class="text-sm text-red-500">Invalid CIN</p>
+          <p class="text-sm text-red-500">CIN number should be 8 numbers length</p>
         </div>
       </div>
       <div class="flex flex-col">
@@ -71,7 +71,7 @@
           <input
             type="email"
             class="col-span-9"
-            id=""
+          
             formControlName="email"
             placeholder="Enter your email"
           />
@@ -94,7 +94,7 @@
           <input
             type="password"
             class="col-span-9"
-            id=""
+       
             formControlName="password"
             placeholder="Enter your password"
           />
@@ -104,7 +104,7 @@
           class="flex space-x-4 items-center mt-2"
         >
           <lucide-icon name="info" color="#ef4444" size="16"></lucide-icon>
-          <p class="text-sm text-red-500">Invalid Password</p>
+          <p class="text-sm text-red-500">Password must be at least 8 caracter length ,include  one special caracter and numbers</p>
         </div>
       </div>
       <div formGroupName="address" class="grid grid-cols-3 gap-4 col-span-2">
@@ -163,7 +163,7 @@
           <input
             type="text"
             class="col-span-9"
-            id=""
+           
             formControlName="facebook"
             placeholder="Enter your facebook"
           />
@@ -186,7 +186,7 @@
           <input
             type="text"
             class="col-span-9"
-            id=""
+       
             formControlName="phone"
             placeholder="Enter your phone"
           />
@@ -209,7 +209,7 @@
             </div>
             <select
               formControlName="question"
-              id=""
+             
               class="col-span-9 cursor-pointer"
             >
               <ng-container *ngFor="let question of questions">
@@ -230,7 +230,6 @@
             <input
               type="text"
               class="col-span-9"
-              id=""
               formControlName="answer"
               placeholder="Enter your answer"
             />
@@ -243,7 +242,7 @@
             <p class="text-sm text-red-500">Invalid Answer</p>
           </div>
         </div>
-      </ng-container>
+      </ng-container> 
       <div class="mt-4 bg-orange-700 rounded-md col-span-2 px-4 py-2 text-gray-300 text-sm text-center font-bold ">
         <p>Security Notification : All of your sensetive credentials are encrypted and saved safely in highly protected servers.</p>
       </div>

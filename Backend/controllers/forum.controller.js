@@ -219,7 +219,7 @@ const deleteForum = async (req, res, next) => {
     if (forum) return response(res, "Forum deleted succussfully", 204);
     return next(createError("Cannot find this forum", 404));
   } catch (error) {
-    console.log(error);
+    
     next(error);
   }
 };

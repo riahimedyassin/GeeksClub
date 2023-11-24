@@ -1,16 +1,24 @@
 <div class="text-white px-24 pt-12 reveal" *ngIf="events ; else load">
     <h1>Liste of your events</h1>
-    <ng-container *ngIf="events.length > 0 ; else noParticiaption">
-      <div *ngFor="let event of events" class="space-y-4 mt-12 mb-8">
-        <app-event [event]="event"></app-event>
-      </div>
-    </ng-container>
-    <ng-template #noParticiaption>
-      <div class="mt-8">
-        <h3 class="font-normal mb-16">
-          You haven't participated in any event recently . . .
-        </h3>
-      </div>
+    <div *ngIf="listParticipation ; else listParticipationButton">
+      <ng-container *ngIf="events.length > 0 ; else noParticiaption">
+        <div *ngFor="let event of events" class="space-y-4 mt-12 mb-8">
+          <app-event [event]="event"></app-event>
+        </div>
+      </ng-container>
+      <ng-template #noParticiaption>
+        <div class="mt-8">
+          <h3 class="font-normal mb-16">
+            You haven't participated in any event recently . . .
+          </h3>
+        </div>
+      </ng-template>
+    </div>
+    <ng-template #listParticipationButton>
+      <button class="new-button mt-8 mb-14" (click)="listParticipation=!listParticipation">
+          <lucide-angular name="calendar-range"></lucide-angular>
+          <p>List your events</p>
+      </button>
     </ng-template>
     <hr />
     <h1 class="mt-16">Liste of all the events</h1>
