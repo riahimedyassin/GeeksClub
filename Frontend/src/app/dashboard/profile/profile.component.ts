@@ -1,5 +1,4 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/dashboard/shared/services/user/user.service';
@@ -19,6 +18,8 @@ export class ProfileComponent implements OnInit {
   updated: boolean = false;
   error: boolean = false;
   file!: File | undefined;
+  changePassword : boolean = false ; 
+  passwordForm! : FormGroup ; 
   constructor(
     private userService: UserService,
     private formbuilder: FormBuilder,
@@ -26,6 +27,10 @@ export class ProfileComponent implements OnInit {
     private cloudinary: CloudinaryService
   ) {}
   ngOnInit(): void {
+    this.passwordForm= this.formbuilder.nonNullable.group({
+      oldPassword : ['',[Validators.required, CustomValidator.password]],
+      newPassword : ['',[Validators.required,CustomValidator.password]]
+    })
     this.userService.getCurrentUser().subscribe((response) => {
       this.user = response.data;
       this.form = this.formbuilder.nonNullable.group({
@@ -53,7 +58,7 @@ export class ProfileComponent implements OnInit {
     this.edit ? this.form.enable() : this.form.disable();
   }
   handleSubmit() {
-    if (this.form.valid && this.form.touched && !this.pending) {
+    if (this.form.valid && this.form.dirty && !this.pending) {
       this.userService
         .updateMember(this.user._id, <User>this.form.value)
         .subscribe(
@@ -67,6 +72,13 @@ export class ProfileComponent implements OnInit {
             (this.error = true), setTimeout(() => (this.error = false), 3000);
           }
         );
+    }
+  }
+  handleChangePassword() {
+    if(this.passwordForm.valid && this.passwordForm.dirty) {
+        this.userService.changePassword(this.form.get('oldPassword')?.value,this.form.get('newPassword')?.value).subscribe(response=> {
+          this.changePassword=false ; 
+        })
     }
   }
   handleLogout() {

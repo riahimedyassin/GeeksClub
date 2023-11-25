@@ -74,7 +74,9 @@ h3 {
 }
 .dashed-button {
   @apply border-[1px] border-dashed border-white rounded-lg px-4 py-2;
+
 }
+
 .error--container {
   background-color: rgba(255, 0, 0, 0.169);
   width: 80vw;

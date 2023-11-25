@@ -10,7 +10,8 @@ const {
   getAllRegistred,
   registerMember,
   uploadMemberImage,
-  getMembersCount
+  getMembersCount,
+  changePassword
 } = require("../controllers/member.controller");
 const { requireAdminAuth } = require("../middlewares/auth/admin.auth");
 const { requireMemberAuth } = require("../middlewares/auth/member.auth");
@@ -32,6 +33,7 @@ router.get("/:id",requireAdminAuth,getSingleMember)
 router.get("/me/info",requireMemberAuth,getInfo)
 router.patch("/me",requireMemberAuth,updateMember)
 router.post('/me/image',requireMemberAuth,uploadMemberImage)
+router.patch("/me/password",requireMemberAuth,changePassword)
 router.get('/all/members/length',requireAdminAuth,getMembersCount)
 
 

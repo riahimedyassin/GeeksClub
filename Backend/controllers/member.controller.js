@@ -1,6 +1,6 @@
 const { MongooseError } = require("mongoose");
 const { createError } = require("../errors/customError");
-const { hashPassword } = require("../utils/password/Password");
+const { hashPassword, isMatchingPassword } = require("../utils/password/Password");
 const Member = require("../models/member.model");
 const Event = require("../models/event.model");
 const { response } = require("../utils/response/Response");
@@ -232,6 +232,24 @@ const getMembersCount = async (req, res, next) => {
   const length = members.length;
   return response(res, "Members length retrieved", 200, false, length);
 };
+const changePassword = async (req,res,next) => {
+  const user = req.user 
+  const {oldPassword , newPassword} = req.body ; 
+  if(!oldPassword || ! newPassword) return next(createError("Please provide the old and the new password",400))
+  try {
+      const member = await Member.findOne({_id : user , isMember : true })
+      const matching = await isMatchingPassword(member.password , oldPassword)
+      if(!matching) return next(createError("Non valid password ",400))
+      member.password = await hashPassword(newPassword) ;
+      const updated = await Member.findOneAndUpdate({_id:user,isMember:true},member)
+      if(updated) return response(res,"Updated succussfully",201)
+      return next(createError("Internal Server Error",500))
+  } catch (error) {
+      next(error)
+  }
+}
+
+
 
 
 module.exports = {
@@ -247,5 +265,6 @@ module.exports = {
   registerMember,
   getRecoverQuestion,
   uploadMemberImage,
-  getMembersCount
+  getMembersCount,
+  changePassword
 };

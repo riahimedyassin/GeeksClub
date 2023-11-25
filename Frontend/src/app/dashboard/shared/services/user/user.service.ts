@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import {  Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/shared/models/User.model';
 import { environment } from 'src/env/env';
@@ -12,10 +12,7 @@ const URL = `${environment.host}/members`;
   providedIn: 'root',
 })
 export class UserService {
-  constructor(
-    private http: HttpClient,
-    private jwtService: JwtService,
-  ) {}
+  constructor(private http: HttpClient, private jwtService: JwtService) {}
   user$: Observable<Response<User>> = new Observable<Response<User>>(
     (observer) => {
       observer.next({
@@ -25,20 +22,20 @@ export class UserService {
       });
     }
   );
-  user!: User | null ;
+  user!: User | null;
   logout() {
-    this.user = null ; 
+    this.user = null;
     this.jwtService.removeToken();
   }
   public cacheUser() {
-    this.user = null ; 
+    this.user = null;
     this.http.get<Response<User>>(`${URL}/me/info`).subscribe((response) => {
       this.user = response.data;
     });
   }
   getCurrentUser(): Observable<Response<User>> {
     if (this.user) {
-      console.log("cached")
+      console.log('cached');
       return this.user$;
     } else {
       this.cacheUser();
@@ -81,20 +78,19 @@ export class UserService {
   getAllMembers(page: string): Observable<Response<User[]>> {
     return this.http.get<Response<User[]>>(`${URL}/all/${page}`);
   }
-  getAllRegistered() : Observable<Response<User[]>> {
-    return this.http.get<Response<User[]>>(`${URL}/registered/all`)
+  getAllRegistered(): Observable<Response<User[]>> {
+    return this.http.get<Response<User[]>>(`${URL}/registered/all`);
   }
-  updateMember(id : string , user : User) {
-    return this.http.patch(`${URL}/me`,user)
+  updateMember(id: string, user: User) {
+    return this.http.patch(`${URL}/me`, user);
   }
-  uploadImage(link : string ) : Observable<Response<User>> {
-    return this.http.post<Response<User>>(`${URL}/me/image`,{link})
+  uploadImage(link: string): Observable<Response<User>> {
+    return this.http.post<Response<User>>(`${URL}/me/image`, { link });
   }
-  getMembersLength() : Observable<Response<number>> {
-    return this.http.get<Response<number>>(`${URL}/all/members/length`)
+  getMembersLength(): Observable<Response<number>> {
+    return this.http.get<Response<number>>(`${URL}/all/members/length`);
   }
-
-
+  changePassword(oldPassword: string, newPassword: string) {
+    return this.http.patch(`${URL}/me/password`, { oldPassword, newPassword });
+  }
 }
-
-
