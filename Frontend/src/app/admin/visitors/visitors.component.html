@@ -13,12 +13,7 @@
       <p>Stats</p>
     </button>
   </div>
-  <div
-    class="w-full h-80 mt-8 flex items-center justify-center"
-    [ngClass]="!stat ? 'hidden' : ''"
-  >
-    <canvas id="visitorsStats"></canvas>
-  </div>
+
   <div class="w-full mt-16">
     <table>
       <tr class="head">
@@ -61,6 +56,13 @@
     </table>
   </div>
 </ng-container>
+<div
+class="w-full h-80 mt-20 flex items-center justify-center flex-col"
+[ngClass]="!stat ? 'opacity-0 w-0 h-0' : 'w-full opacity-100 h-52'"
+>
+<h2 class="mb-4">Visitors Overview</h2>
+<canvas id="visitorsStats"></canvas>
+</div>
 <ng-template #load>
   <app-loading></app-loading>
 </ng-template>

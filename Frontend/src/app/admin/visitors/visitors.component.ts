@@ -24,7 +24,7 @@ export class VisitorsComponent implements OnInit {
         this.dataset.push(visitor.count || 0);
         this.labels.push(`${visitor.ip} | ${visitor.city}`)
       })
-      this.chart.revealCharts("visitorsStats",this.dataset,this.labels,"IP Address Visit Count")
+      if(this.visitors) this.chart.revealLineChart("visitorsStats",this.dataset,this.labels,"IP Address Visit Count")
       console.log(this.visitors)
     });
   }

@@ -9,7 +9,6 @@ const { Recovery } = require("../utils/recovery/Recovery");
 const { inTable } = require("../utils/inTable");
 const { lazyResponse } = require("../utils/response/LazyResponse");
 
-
 const recovery = new Recovery();
 
 const registerUser = async (req, res, next) => {
@@ -35,7 +34,6 @@ const registerUser = async (req, res, next) => {
   }
 };
 
-
 const loginMember = async (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password)
@@ -50,24 +48,30 @@ const loginMember = async (req, res, next) => {
   }
 };
 const recoverAccount = async (req, res, next) => {
-  const { answer, email, password, question } = req.body;
-  if (!email || !answer || !password || !question)
-    return next(createError("All fields are manadatory", 400));
-  const user = await Member.findOne(
-    { email: email, isMember: true },
-    { recovery_question : 1 }
-  );
-  if (!user) return next(createError("Cannot find this user", 404));
-  if (recovery.isMatching(answer, user.recovery_question.answer) && question===user.recovery_question.question ) {
-    const newHashed = await hashPassword(password);
-    const updated = await Member.findOneAndUpdate(
-      { email: email },
-      { password: newHashed }
+  const { email, password, question, answer } = req.body;
+  if (!id || !password || !question || !answer)
+    return next(createError("All fields are mandatory", 400));
+  try {
+    const user = await Member.findOne(
+      { email, isMember: true },
+      { recovery_question: 1, password: 1 }
     );
-    if (updated) return response(res, "Updated Successfully", 200);
+    if (!user)
+      return next(createError("There are not member's with such an email"));
+    if (user.recovery_question.question != question)
+      return next(createError("Invalid Question", 400));
+    const matching = await recovery.isMatching(
+      answer,
+      user.recovery_question.answer
+    );
+    if (!matching) return next(createError("Invalid Answer", 400));
+    user.recovery_question.answer = await recovery.hashResponse(answer);
+    const updated = await Member.findOneAndUpdate({ email: email }, user);
+    if (updated) return response(res, "Password Recovered Succussfully", 200);
     return next(createError("Internal Server Error", 500));
+  } catch (error) {
+    next(error);
   }
-  return next(createError("Invalid Recovery Question Answer", 400));
 };
 const getSingleMember = async (req, res, next) => {
   const { id } = req.params;
@@ -129,7 +133,6 @@ const getAllMembers = async (req, res, next) => {
       return lazyResponse(res, "Members Retrieved Successfully", 200, members);
     return next(createError("Server Error", 500));
   } catch (error) {
-    
     next(error);
   }
 };
@@ -191,7 +194,10 @@ const getRecoverQuestion = async (req, res, next) => {
   const { email } = req.body;
   if (!email) return next(createError("Please provide your email", 400));
   try {
-    const user = await Member.findOne({ email: email, isMember:true }, { recovery_question: 1 });
+    const user = await Member.findOne(
+      { email: email, isMember: true },
+      { recovery_question: 1 }
+    );
     if (!user) return next(createError("Cannot find this user", 404));
     return response(
       res,
@@ -204,24 +210,28 @@ const getRecoverQuestion = async (req, res, next) => {
     next(error);
   }
 };
-const uploadMemberImage=async(req,res,next) => {
-  const id = req.user ;
-  const {link} = req.body ; 
-  if(!link) return next(createError("Please provide the link "))
-  if(!id) return next(createError("No auth header is provided"))
+const uploadMemberImage = async (req, res, next) => {
+  const id = req.user;
+  const { link } = req.body;
+  if (!link) return next(createError("Please provide the link "));
+  if (!id) return next(createError("No auth header is provided"));
   try {
-      const member = await Member.findOneAndUpdate({_id:id},{picture:link})
-      if(member) return response(res,"Image uploaded successfully",200,false ,member)
-      return next(createError('Cannot save picture',500))
+    const member = await Member.findOneAndUpdate(
+      { _id: id },
+      { picture: link }
+    );
+    if (member)
+      return response(res, "Image uploaded successfully", 200, false, member);
+    return next(createError("Cannot save picture", 500));
   } catch (error) {
-      next(error)
+    next(error);
   }
-}
-const getMembersCount = async(req,res,next)=> {
-    const members = await Member.find({},{_id:1})
-    const length = members.length 
-    return response(res,"Members length retrieved",200,false,length)
-}
+};
+const getMembersCount = async (req, res, next) => {
+  const members = await Member.find({}, { _id: 1 });
+  const length = members.length;
+  return response(res, "Members length retrieved", 200, false, length);
+};
 
 
 module.exports = {

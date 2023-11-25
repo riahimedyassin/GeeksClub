@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
           'forumsStats',
           this.datasetForums,
           this.labelsForums,
-          'Forums Articles Published '
+          'Forums Articles Published ',
         );
         this.eventService.getAllEvenets().subscribe((response) => {
           this.events = response.data;
