@@ -10,8 +10,7 @@
       class="col-span-5"
       type="text"
       placeholder="Search by name"
-      [(ngModel)]="search"
-      (input)="handleSerch()"
+      (input)="handleSerch($event)"
     />
   </div>
   <button

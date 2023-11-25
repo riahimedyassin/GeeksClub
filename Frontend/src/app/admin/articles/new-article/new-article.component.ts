@@ -41,7 +41,6 @@ export class NewArticleComponent implements OnInit {
                 this.articleService
                   .uploadImage(article_id, resposne.secure_url)
                   .subscribe((response) => {
-                    console.log(response);
                     this.published = true;
                     this.form.reset();
                     setTimeout(() => (this.published = false), 3000);

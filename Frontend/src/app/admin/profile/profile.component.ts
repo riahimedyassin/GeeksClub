@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
   form!: FormGroup;
   edit: boolean = false;
   passwordForm!: FormGroup;
+  file!: File | undefined;
   ngOnInit(): void {
     this.adminService.getCurrentAdmin().subscribe((response) => {
       this.form = this.formBuilder.nonNullable.group({
@@ -51,21 +52,24 @@ export class ProfileComponent implements OnInit {
       this.admin = response.data;
     });
     this.passwordForm = this.formBuilder.nonNullable.group({
-      password: ['', [Validators.required]],
+      password: ['', [Validators.required, CustomValidator.password]],
       newPassword: ['', [Validators.required, CustomValidator.password]],
     });
   }
   handleSubmit() {
     if (this.form.valid && this.form.touched) {
       this.adminService.editAdmin(this.form.value).subscribe((response) => {
-        console.log('done');
         this.edit = false;
       });
     }
   }
   handleEdit() {
     this.edit = !this.edit;
-    this.edit ? this.form.enable() : this.form.disable();
+    if (this.edit) this.form.enable();
+    else {
+      this.form.disable();
+      this.form.reset();
+    }
   }
   handlePassword() {
     if (this.passwordForm.valid && this.passwordForm.touched) {
@@ -76,10 +80,11 @@ export class ProfileComponent implements OnInit {
         )
         .subscribe((response) => {
           this.passwordForm.reset();
+          this.edit=false ; 
         });
     }
   }
-  file!: File | undefined;
+  
   changePicture(event: any) {
     this.file = event.target.files[0];
   }
@@ -97,9 +102,9 @@ export class ProfileComponent implements OnInit {
               .subscribe((response) => {
                 this.admin.picture = response.data.picture;
                 this.adminService.cacheAdmin();
-                this.file=undefined ; 
-                this.edit = false ; 
-                setTimeout(()=> location.reload(),1000)
+                this.file = undefined;
+                this.edit = false;
+                setTimeout(() => location.reload(), 1000);
               });
           });
       });

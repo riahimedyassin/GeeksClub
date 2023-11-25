@@ -1,16 +1,10 @@
 <div *ngIf="user; else load">
   <div class="flex items-center justify-between">
     <h2>Member : {{ user.name }} {{ user.forname }}</h2>
-    <ng-container *ngIf="displayNotification">
-      <app-alert
-        message="Deleting members will be final and permenant and all the data will be gone"
-      ></app-alert>
-    </ng-container>
     <div class="flex gap-6">
       <button
         class="bg-red-500 rounded-lg px-4 py-2 flex gap-4 hover:bg-red-500 transition-all"
         (click)="handleDelete()"
-        *ngIf="!deleted"
       >
         <p>Delete Member</p>
         <lucide-angular name="trash"></lucide-angular>
@@ -77,17 +71,13 @@
 <ng-template #load>
   <app-loading></app-loading>
 </ng-template>
-<ng-container *ngIf="deleted">
-  <app-notification
-    message="User deleted succussfully"
-    color="red"
-    icon="x-circle"
-  ></app-notification>
-</ng-container>
 <ng-container *ngIf="accepted">
   <app-notification
     message="This user is a member"
     icon="plus-circle"
     color="green"
   ></app-notification>
+</ng-container>
+<ng-container *ngIf="error">
+  <app-notification message="Error Occured while deleting member" color="red" icon="x-circle" ></app-notification>
 </ng-container>

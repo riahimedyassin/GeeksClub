@@ -65,8 +65,8 @@
         <button [routerLink]="'/admin/events/' + event._id">
           <lucide-angular name="eye"></lucide-angular>
         </button>
-        <button (click)="handleEndEvent(event._id)" *ngIf="!event.ended">
-          <lucide-angular name="calendar-heart"></lucide-angular>
+        <button (click)="handleEndEvent(event._id)" *ngIf="!event.ended" title="End Event">
+          <lucide-angular name="plus-circle"></lucide-angular>
         </button>
         <button (click)="handleDelete(event._id)">
           <lucide-angular name="trash"></lucide-angular>

@@ -25,11 +25,12 @@ export class ListEventsComponent implements OnInit {
   }
   handleEndEvent(eventId: string) {
     this.eventService.endEvent(eventId).subscribe((response) => {
-      this.toDisplay = this.events.filter((event) => event.ended == this.ended);
+        this.applyFilter()
     });
   }
   handleSearch(event: any) {
     const value = (<HTMLInputElement>event.target).value;
+    this.searchValue=value ; 
     this.applyFilter()
   }
   handleCategorie(event: any) {
@@ -58,7 +59,8 @@ export class ListEventsComponent implements OnInit {
   }
   handleDelete(id: string) {
     this.eventService.deleteEvent(id).subscribe((response) => {
-      this.toDisplay = this.toDisplay.filter((event) => event._id != id);
+      this.events = this.events.filter(event => event._id!=id)
+      this.applyFilter()
     });
   }
 }

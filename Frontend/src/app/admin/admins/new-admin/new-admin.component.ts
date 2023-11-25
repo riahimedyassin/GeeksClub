@@ -26,12 +26,12 @@ export class NewAdminComponent implements OnInit {
       role: ['Assistant RH', [Validators.required]],
       isSup: false,
       facebook: ['', [Validators.required, CustomValidator.facebook]],
-      phone: [null, [Validators.required, CustomValidator.numeric]],
-      age: [null, [Validators.required, CustomValidator.numeric]],
+      phone: [0, [Validators.required, CustomValidator.numeric , Validators.pattern('[0-9]{8}')]],
+      age: [0, [Validators.required, CustomValidator.numeric]],
     });
   }
   handleSubmit() {
-    if (this.form.valid && this.form.touched) {
+    if (this.form.valid && this.form.dirty) {
       this.adminServie.registerAdmin(this.form.value).subscribe((response) => {
         this.added=true 
         setTimeout(()=>this.added=false , 3000)

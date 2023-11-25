@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ForumsService } from 'src/app/dashboard/shared/services/forum/forums.service';
 
 @Component({
@@ -9,21 +9,20 @@ import { ForumsService } from 'src/app/dashboard/shared/services/forum/forums.se
 })
 export class NewForumComponent implements OnInit {
   form!: FormGroup;
-  done: boolean = false;
-  error: boolean = false;
-  errorMessage: string = '';
+  done: boolean = false; // Notification Trigger
+  error: boolean = false; // Error Notification Trigger
   constructor(
     private formBuilder: FormBuilder,
     private forumService: ForumsService
   ) {}
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      name: '',
-      descreption: '',
+      name: ['',[Validators.required]],
+      descreption: ['',[Validators.required]],
     });
   }
   handleSubmit() {
-    if (this.form.valid && this.form.touched) {
+    if (this.form.valid && this.form.dirty) {
       this.forumService
         .addNewForum(
           this.form.get('name')?.value,
@@ -39,7 +38,7 @@ export class NewForumComponent implements OnInit {
           },
           (err) => {
             this.error = true;
-            this.errorMessage = err.message;
+            setTimeout(()=> this.error= false , 3000)
           }
         );
     }

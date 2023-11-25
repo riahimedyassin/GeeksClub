@@ -27,7 +27,7 @@
           type="submit"
           *ngIf="edit"
           [ngClass]="
-            form.invalid || !form.touched
+            form.invalid || !form.dirty
               ? 'default-button cursor-not-allowed'
               : ''
           "

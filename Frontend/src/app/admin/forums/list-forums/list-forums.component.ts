@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ForumsService } from 'src/app/dashboard/shared/services/forum/forums.service';
 import { Forum } from 'src/app/shared/models/Forum.model';
 
@@ -10,16 +11,15 @@ import { Forum } from 'src/app/shared/models/Forum.model';
 export class ListForumsComponent implements OnInit {
   forum!: Forum[];
 
-  constructor(private forumService: ForumsService) {}
+  constructor(private forumService: ForumsService, private router : Router) {}
   ngOnInit(): void {
     this.forumService.getAllForums().subscribe((response) => {
-      console.log(response);
       this.forum = response.data;
     });
   }
   handleDelete(id: string) {
     this.forumService.deleteForum(id).subscribe((response) => {
-      this.forum=this.forum.filter(forum=> forum._id!=id)
+        this.router.navigateByUrl(`/admin/forums/${id}`)
     });
   }
 }

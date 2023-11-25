@@ -30,7 +30,7 @@ export class NewEventComponent implements OnInit {
       title: ['', [Validators.required]],
       descreption: ['', [Validators.required]],
       price: [0, [Validators.required, CustomValidator.numeric]],
-      reward_point: [0, [Validators.required, CustomValidator.numeric]],
+      reward_point: [5, [Validators.required, CustomValidator.numeric , Validators.min(5) , Validators.max(50)]],
       date: this.formBuilder.nonNullable.group({
         date_start: ['', [Validators.required]],
         date_end: ['', [Validators.required]],
@@ -58,7 +58,7 @@ export class NewEventComponent implements OnInit {
     this.file = event.target.files[0]
   }
   handleSubmit() {
-    if (this.form.valid && this.form.touched && this.file!=undefined) {
+    if (this.form.valid && this.form.dirty && this.file!=undefined) {
       this.eventService.addNewEvent(this.form.value).subscribe(
         (response) => {
           const event_id = response.data._id;
@@ -86,6 +86,6 @@ export class NewEventComponent implements OnInit {
           setTimeout(() => (this.error = false), 3000);
         }
       );
-    } else console.log(this.form);
+    } 
   }
 }

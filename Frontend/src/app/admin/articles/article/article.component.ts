@@ -37,7 +37,7 @@ export class ArticleComponent implements OnInit {
     this.edit ? this.form.enable() : this.form.disable()
   }
   handleSave() {
-    if(this.form.valid && this.form.touched) {
+    if(this.form.valid && this.form.dirty) {
       this.articleService.updateArticle(this.id,this.form.value).subscribe(response=> {
         this.updated=true ; 
         this.edit=false ; 

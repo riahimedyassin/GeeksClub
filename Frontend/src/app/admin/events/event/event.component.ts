@@ -18,9 +18,9 @@ export class EventComponent implements OnInit {
   id!: string;
   edit: boolean = false;
   form!: FormGroup;
-  saved: boolean = false;
+  saved: boolean = false; // Notification Trigger
   file!: File | undefined;
-  addedMember : boolean = false 
+  addedMember: boolean = false; // Notification Trigger
   constructor(
     private eventService: EventsService,
     private activated: ActivatedRoute,
@@ -33,10 +33,7 @@ export class EventComponent implements OnInit {
     this.eventService.getSingleEvent(this.id).subscribe((response) => {
       this.event = response.data;
       this.form = this.formBuilder.nonNullable.group({
-        title: [
-          response.data.title,
-          [Validators.required, CustomValidator.strings],
-        ],
+        title: [response.data.title, [Validators.required]],
         descreption: [
           response.data.descreption,
           [Validators.required, CustomValidator.strings],
@@ -47,7 +44,12 @@ export class EventComponent implements OnInit {
         ],
         reward_point: [
           response.data.reward_point,
-          [Validators.required, CustomValidator.numeric],
+          [
+            Validators.required,
+            CustomValidator.numeric,
+            Validators.min(5),
+            Validators.max(50),
+          ],
         ],
         date: this.formBuilder.group({
           date_start: [response.data.date.date_start, [Validators.required]],
@@ -126,6 +128,7 @@ export class EventComponent implements OnInit {
   handleEndEvent() {
     this.eventService.endEvent(this.id).subscribe((response) => {
       this.event.ended = true;
+      this.form.get('ended')?.setValue(true);
     });
   }
   exist(p: string): boolean {
@@ -133,10 +136,10 @@ export class EventComponent implements OnInit {
     while (index < this.event.participants.length) {
       if (
         this.event.participants[index].user_id == p &&
-        this.event.participants[index].participated== true
+        this.event.participants[index].participated == true
       )
         return true;
-      else index++;
+      index++;
     }
     return index < this.event.participants.length;
   }

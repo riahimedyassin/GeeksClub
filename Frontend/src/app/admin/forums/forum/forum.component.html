@@ -11,22 +11,30 @@
           <lucide-angular name="trash"></lucide-angular>
           <p>Delete</p>
         </button>
-        <button
-          class="third-button"
-          (click)="handleEdit()"
-        >
+        <button class="third-button" (click)="handleEdit()">
           <lucide-angular name="pencil"></lucide-angular>
           <p>Edit</p>
         </button>
-        <button *ngIf="edit"  class="flex gap-4 items-center bg-green-500 rounded-lg px-4 py-2" (click)="saveChanges()">
-            <lucide-angular name="save"></lucide-angular>
-            <p>Save</p>
+        <button
+          *ngIf="edit"
+          class="flex gap-4 items-center bg-green-500 rounded-lg px-4 py-2"
+          (click)="saveChanges()"
+          [ngClass]="
+            form.valid && form.dirty ? '' : 'cursor-not-allowed bg-gray-500'
+          "
+        >
+          <lucide-angular name="save"></lucide-angular>
+          <p>Save</p>
         </button>
       </div>
     </div>
     <div class="mt-8 mb-6">
       <h2 class="mb-2">Descreption</h2>
-      <input type="text" formControlName="descreption" [ngClass]="edit ? 'border-[1px] border-gray-500' : ''"  >
+      <input
+        type="text"
+        formControlName="descreption"
+        [ngClass]="edit ? 'border-[1px] border-gray-500' : ''"
+      />
     </div>
   </form>
   <div class="grid grid-cols-2 mt-14">
@@ -45,7 +53,11 @@
           <th>Full-name</th>
           <th>Actions</th>
         </tr>
-        <tr *ngFor="let p of members ; index as index" class="h-14" [appTableColor]="index">
+        <tr
+          *ngFor="let p of members; index as index"
+          class="h-14"
+          [appTableColor]="index"
+        >
           <td>{{ p.name }} {{ p.forname }}</td>
           <td class="h-14 flex items-center justify-center gap-6">
             <button [routerLink]="'/admin/members/' + p._id">
@@ -54,7 +66,9 @@
             <button></button>
           </td>
         </tr>
-        <h2 *ngIf="singleForum.members.length===0">No Members subscribed yet</h2>
+        <h2 *ngIf="singleForum.members.length === 0">
+          No Members subscribed yet
+        </h2>
       </table>
     </div>
     <hr class="col-span-2 mb-16 mt-12" />
@@ -83,12 +97,14 @@
             {{ article.message.content | shorten }}
           </td>
           <td class="flex items-center justify-center h-14">
-            <button [routerLink]="'/admin/forums/'+id+'/'+article._id">
+            <button [routerLink]="'/admin/forums/' + id + '/' + article._id">
               <lucide-angular name="eye"></lucide-angular>
             </button>
           </td>
         </tr>
-        <h2 *ngIf="singleForum.articles.length===0">No articles published yet</h2>
+        <h2 *ngIf="singleForum.articles.length === 0">
+          No articles published yet
+        </h2>
       </table>
     </div>
   </div>
@@ -96,7 +112,3 @@
 <ng-template #load>
   <app-loading></app-loading>
 </ng-template>
-
-<ng-container *ngIf="deleted">
-  <app-notification message="Forum Delete succussfully" icon="plus-circle" color="red"></app-notification>
-</ng-container>

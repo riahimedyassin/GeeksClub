@@ -23,20 +23,17 @@ export class ListMembersComponent {
   ngOnInit(): void {
     this.activated.paramMap.subscribe((data) => {
       this.page = <string>data.get('page');
-
       this.userService.getAllMembers(this.page).subscribe((response: any) => {
-        console.log(response);
         this.members = response.data;
         this.isDoneMember = response.done;
-
         if (this.activated.snapshot.queryParamMap.get('registered') == 'true') {
           this.listRegistered = true;
           this.userService.getAllRegistered().subscribe((response) => {
-            this.toDisplay=response.data
+            this.toDisplay = response.data;
           });
         } else {
           this.toDisplay = response.data.filter(
-            (memeber: any) => memeber.isMember == true 
+            (memeber: any) => memeber.isMember == true
           );
         }
       });
@@ -50,32 +47,29 @@ export class ListMembersComponent {
       if (!this.isDoneMember) {
         this.page = `${Number(this.page) + 1}`;
         this.router.navigate(['/admin/members/list/' + this.page]);
-      } else {
-        console.log('done pages');
       }
     }
   }
-  handleSerch() {
-    if (this.search.trim() === '')
-      this.toDisplay = this.members.filter(
-        (member) => member.isMember == !this.listRegistered
-      );
-    else {
-      this.toDisplay = this.members.filter(
-        (member) =>
-          member.name.toLowerCase().includes(this.search.toLowerCase()) &&
-          member.isMember == !this.listRegistered
-      );
-    }
+  handleSerch(event : any) {
+      const value = (<HTMLInputElement>event.target).value;
+      this.search=value ;
+      this.applyFilter()
   }
   dispalyRegisterd() {
     this.listRegistered = !this.listRegistered;
-    this.toDisplay = this.listRegistered
-      ? this.members.filter((member) =>
-          member.name.toLowerCase().includes(this.search.toLowerCase())  && member.isMember===false 
-        )
-      : this.members.filter((member) =>
-          member.name.toLowerCase().includes(this.search.toLowerCase())
-        );
+    this.applyFilter()
+  }
+  applyFilter() {
+    if (this.search.trim() === '') {
+      this.toDisplay = this.members.filter(
+        (member) => member.isMember === !this.listRegistered
+      );
+    } else {
+      this.toDisplay = this.members.filter(
+        (member) =>
+          member.name.toLowerCase().includes(this.search.toLowerCase()) &&
+          member.isMember === !this.listRegistered
+      );
+    }
   }
 }
