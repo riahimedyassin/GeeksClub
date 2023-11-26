@@ -1,7 +1,7 @@
 <div class="main  w-full mt-28 px-24 py-12" >
     <h1>Remote Tech Jobs</h1>
     <p class="text-gray-500 mt-2 text-sm">We encourage our members to apply for those jobs !</p>
-    <ng-container *ngIf="jobs">
+    <ng-container *ngIf="jobs ; else load">
         <div class="grid grid-cols-3 gap-6 mt-12">
             <div class="w-full h-36 bg-deepblack grid grid-cols-6 col-span-1 px-4 py-2 rounded-lg gap-4 overflow-hidden" *ngFor="let job of jobs">
                 <div class="col-span-2" *ngIf="job.company_logo">
@@ -18,3 +18,6 @@
         </div>
     </ng-container>
 </div>
+<ng-template #load>
+    <app-loading></app-loading>
+</ng-template>

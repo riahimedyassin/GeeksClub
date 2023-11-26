@@ -22,6 +22,7 @@ import { ShortenPipe } from '../shared/pipes/shorten.pipe';
 import { ErrorComponent } from '../shared/components/error/error.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { TechJobsComponent } from './tech-jobs/tech-jobs.component';
+import { LoadingComponent } from '../dashboard/shared/components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { TechJobsComponent } from './tech-jobs/tech-jobs.component';
     ShortenPipe,
     ErrorComponent,
     NotificationComponent,
+    LoadingComponent
   ],
   exports: [HomeRoutingModule],
 })

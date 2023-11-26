@@ -1,14 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { Question } from 'src/app/shared/models/Question.model';
-import { User } from 'src/app/shared/models/User.model';
 import { CustomValidator } from 'src/app/shared/validators/CustomValidator';
 
 @Component({
@@ -20,18 +13,15 @@ export class RegisterComponent implements OnInit {
   constructor(private auth: AuthService, private formBuilder: FormBuilder) {}
   form!: FormGroup;
   trigger: boolean = false;
-  closeNotification : boolean = false ; 
-  questions: Question[] = [
+  closeNotification: boolean = false;
+  questions = [
     {
-      value: 0,
       question: "What is your best friend's name ?",
     },
     {
-      value: 1,
       question: "What is your pet's name ?",
     },
     {
-      value: 2,
       question: 'What is your favorite color ?',
     },
   ];

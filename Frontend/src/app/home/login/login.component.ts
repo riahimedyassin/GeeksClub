@@ -9,7 +9,6 @@ import {
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { JwtService } from 'src/app/services/auth/jwt.service';
-import { Question } from 'src/app/shared/models/Question.model';
 import { Response } from 'src/app/shared/models/Response.model';
 
 @Component({
@@ -23,17 +22,14 @@ export class LoginComponent implements OnInit {
   errorMessage!: string;
   forget: boolean = false;
   forgetForm!: FormGroup;
-  questions: Question[] = [
+  questions = [
     {
-      value: 0,
       question: "What is your best friend's name ?",
     },
     {
-      value: 1,
       question: "What is your pet's name ?",
     },
     {
-      value: 2,
       question: 'What is your favorite color ?',
     },
   ];
