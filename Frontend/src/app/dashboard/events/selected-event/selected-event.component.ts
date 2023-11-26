@@ -33,13 +33,11 @@ export class SelectedEventComponent implements OnInit {
             this.event.participants.filter(
               (participant) => participant.user_id === response.data._id
             ).length > 0;
-          console.log(this.member);
         });
       });
     });
   }
   handleComment() {
-    console.log(this.id);
     this.eventService
       .addComment(this.comment, this.id)
       .subscribe((response) => {

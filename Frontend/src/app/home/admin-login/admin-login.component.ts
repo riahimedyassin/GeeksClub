@@ -1,6 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { JwtService } from 'src/app/services/auth/jwt.service';
@@ -15,19 +20,20 @@ export class AdminLoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private jwtService: JwtService,
-    private router: Router
+    private router: Router,
+    private formBuilder: FormBuilder
   ) {}
   form!: FormGroup;
   error: boolean = false;
   errorMessage: string = '';
   ngOnInit(): void {
-    this.form = new FormGroup({
-      email: new FormControl(null, [Validators.email, Validators.required]),
-      password: new FormControl(null, [Validators.required]),
+    this.form = this.formBuilder.nonNullable.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
     });
   }
   handleLogin() {
-    if (this.form.valid && !this.form.invalid && this.form.touched) {
+    if (this.form.valid && this.form.dirty) {
       this.authService
         .loginAdmin(
           this.form.get('email')?.value,

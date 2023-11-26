@@ -1,6 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Question } from 'src/app/shared/models/Question.model';
 import { User } from 'src/app/shared/models/User.model';
@@ -12,7 +17,7 @@ import { CustomValidator } from 'src/app/shared/validators/CustomValidator';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, private formBuilder: FormBuilder) {}
   form!: FormGroup;
   trigger: boolean = false;
   questions: Question[] = [
@@ -48,65 +53,62 @@ export class RegisterComponent implements OnInit {
   ];
   alert!: { title: string; message: string; status: boolean } | null;
   ngOnInit(): void {
-    this.form = new FormGroup({
-      name: new FormControl(null, [
-        Validators.required,
-        CustomValidator.strings,
-      ]),
-      forname: new FormControl(null, [
-        Validators.required,
-        CustomValidator.strings,
-      ]),
-      email: new FormControl(null, [Validators.email, Validators.required]),
-      age: new FormControl(null, [
-        Validators.min(16),
-        Validators.max(22),
-        Validators.required,
-      ]),
-      phone: new FormControl(null, [
-        Validators.minLength(8),
-        Validators.maxLength(8),
-        Validators.required,
-        CustomValidator.numeric,
-      ]),
-      CIN: new FormControl(null, [
-        Validators.minLength(8),
-        Validators.maxLength(8),
-        Validators.required,
-        CustomValidator.numeric,
-      ]),
-      facebook: new FormControl(null, [
-        Validators.required,
-        CustomValidator.facebook,
-      ]),
-      password: new FormControl(null, [
-        Validators.required,
-        Validators.minLength(8),
-        Validators.maxLength(20),
-        CustomValidator.password,
-      ]),
-      address: new FormGroup({
-        city: new FormControl(null, [Validators.required]),
-        region: new FormControl(null, [Validators.required]),
-        country: new FormControl({ value: 'Tunisia', disabled: true }, [
+    this.form = this.formBuilder.nonNullable.group({
+      name: ['', [Validators.required, CustomValidator.strings]],
+      forname: ['', [Validators.required, CustomValidator.strings]],
+      email: ['', [Validators.required, Validators.email]],
+      age: [
+        0,
+        [
           Validators.required,
-        ]),
+          Validators.min(16),
+          Validators.max(22),
+          CustomValidator.numeric,
+        ],
+      ],
+      phone: [
+        0,
+        [
+          Validators.required,
+          Validators.pattern('[0-9]{8}'),
+          CustomValidator.numeric,
+        ],
+      ],
+      CIN: [
+        null,
+        [
+          Validators.required,
+          CustomValidator.numeric,
+          Validators.pattern('[0-9]{8}'),
+        ],
+      ],
+      facebook: ['', [Validators.required, CustomValidator.facebook]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(20),
+          CustomValidator.password,
+        ],
+      ],
+      address: this.formBuilder.nonNullable.group({
+        city: ['', [Validators.required, CustomValidator.strings]],
+        region: ['', [Validators.required, CustomValidator.strings]],
+        country: [{ value: 'Tunisia', disabled: true }, [Validators.required]],
       }),
-      recovery_question: new FormGroup({
-        question: new FormControl(this.questions[0].question, [
-          Validators.required,
-        ]),
-        answer: new FormControl(null, [Validators.required]),
+      recovery_question: this.formBuilder.nonNullable.group({
+        question: [this.questions[0].question, [Validators.required]],
+        answer: ['', [Validators.required]],
       }),
     });
   }
   submit() {
-    if (this.form.valid && !this.form.invalid && this.form.touched) {
-      let user: User = this.form.value;
-      this.auth.register(user).subscribe(
+    if (this.form.valid && this.form.dirty) {
+      this.auth.register(this.form.value).subscribe(
         (response) => {
           this.alert = this.alerts[0];
-          this.form.reset()
+          this.form.reset();
         },
         (err: HttpErrorResponse) => {
           console.log(err);

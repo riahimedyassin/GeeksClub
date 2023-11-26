@@ -6,22 +6,20 @@ import { Article } from 'src/app/shared/models/Article.model';
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
-  styleUrls: ['./details.component.scss']
+  styleUrls: ['./details.component.scss'],
 })
 export class DetailsComponent implements OnInit {
-  id! : string | null ; 
-  article! : Article ; 
+  id!: string;
+  article!: Article;
 
-  constructor(private activated : ActivatedRoute, private articleService : ArticlesService) {}
+  constructor(
+    private activated: ActivatedRoute,
+    private articleService: ArticlesService
+  ) {}
   ngOnInit(): void {
-      this.id = this.activated.snapshot.paramMap.get('id'); 
-      if(this.id) {
-        this.articleService.getSingleArticle(this.id).subscribe((response )=> {
-          this.article=response.data;
-          console.log(this.article)
-        })
-      }
-      
-
-  } 
+    this.id = <string>this.activated.snapshot.paramMap.get('id');
+    this.articleService.getSingleArticle(this.id).subscribe((response) => {
+      this.article = response.data;
+    });
+  }
 }

@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { EventsService } from 'src/app/services/events/events.service';
 import { Event } from 'src/app/shared/models/Event.model';
 import { RevealAnimationService } from 'src/app/shared/services/reveal-animation.service';
@@ -9,7 +9,7 @@ import { RevealAnimationService } from 'src/app/shared/services/reveal-animation
   templateUrl: './activities.component.html',
   styleUrls: ['./activities.component.scss'],
 })
-export class ActivitiesComponent implements OnInit {
+export class ActivitiesComponent implements OnInit,AfterViewInit {
   constructor(
     private scroll: RevealAnimationService,
     private activitieService: EventsService,
@@ -24,6 +24,7 @@ export class ActivitiesComponent implements OnInit {
     this.scroll.initScrollReveal('bottom', 1000, '.reveal-element-buttom');
   }
   ngOnInit(): void {
+    this.scroll.initScrollReveal('bottom', 1000, '.reveal-element-buttom');
     this.activitieService.getFeaturedEvents().subscribe(
       (response) => {
         this.activities = response.data;

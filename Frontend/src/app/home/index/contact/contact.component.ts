@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RevealAnimationService } from 'src/app/shared/services/reveal-animation.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { RevealAnimationService } from 'src/app/shared/services/reveal-animation
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss']
 })
-export class ContactComponent {
+export class ContactComponent implements OnInit {
   constructor(private reveal : RevealAnimationService) {
 
   }
@@ -17,10 +17,6 @@ export class ContactComponent {
   ngOnInit() {
     this.initScrollReveal()
   }
-  ngAfterViewInit() {
-    this.initScrollReveal()
-  }
-  
   showNotif : boolean = false ;
   copy() {
     navigator.clipboard.writeText("geeks.club@gmail.com"); 

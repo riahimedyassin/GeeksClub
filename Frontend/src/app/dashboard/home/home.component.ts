@@ -30,8 +30,7 @@ export class HomeComponent implements OnInit {
       this.tier = this.userService.getTier(
         <number>this.user.points?.global_point
       );
-      const userForums = this.user.forums;
-      if (userForums) {
+      if (this.user.forums) {
         this.forumsService.getUsersForums().subscribe((response) => {
           this.forums = response.data;
         });

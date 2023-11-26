@@ -11,9 +11,7 @@ export class IndexComponent {
   constructor(private visitorService : VisitorService){}
   ngOnInit(): void {
       this.visitorService.getCurrentIP().subscribe(data=> {
-          this.visitorService.saveVisitor(data).subscribe(response=> {
-              
-          })
+          this.visitorService.saveVisitor(data).subscribe()
       })
   }
 }

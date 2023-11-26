@@ -18,8 +18,10 @@ export class ProfileComponent implements OnInit {
   updated: boolean = false;
   error: boolean = false;
   file!: File | undefined;
-  changePassword : boolean = false ; 
-  passwordForm! : FormGroup ; 
+  changePassword: boolean = false;
+  passwordForm!: FormGroup;
+  pictureUpdated: boolean = false;
+  pending: boolean = false;
   constructor(
     private userService: UserService,
     private formbuilder: FormBuilder,
@@ -27,10 +29,10 @@ export class ProfileComponent implements OnInit {
     private cloudinary: CloudinaryService
   ) {}
   ngOnInit(): void {
-    this.passwordForm= this.formbuilder.nonNullable.group({
-      oldPassword : ['',[Validators.required, CustomValidator.password]],
-      newPassword : ['',[Validators.required,CustomValidator.password]]
-    })
+    this.passwordForm = this.formbuilder.nonNullable.group({
+      oldPassword: ['', [Validators.required, CustomValidator.password]],
+      newPassword: ['', [Validators.required, CustomValidator.password]],
+    });
     this.userService.getCurrentUser().subscribe((response) => {
       this.user = response.data;
       this.form = this.formbuilder.nonNullable.group({
@@ -55,12 +57,16 @@ export class ProfileComponent implements OnInit {
   }
   handleEdit() {
     this.edit = !this.edit;
-    this.edit ? this.form.enable() : this.form.disable();
+    if (this.edit) this.form.enable();
+    else {
+      this.form.disable();
+      this.form.reset();
+    }
   }
   handleSubmit() {
     if (this.form.valid && this.form.dirty && !this.pending) {
       this.userService
-        .updateMember(this.user._id, <User>this.form.value)
+        .updateMember(this.user._id, this.form.value)
         .subscribe(
           (response) => {
             this.updated = true;
@@ -75,10 +81,15 @@ export class ProfileComponent implements OnInit {
     }
   }
   handleChangePassword() {
-    if(this.passwordForm.valid && this.passwordForm.dirty) {
-        this.userService.changePassword(this.form.get('oldPassword')?.value,this.form.get('newPassword')?.value).subscribe(response=> {
-          this.changePassword=false ; 
-        })
+    if (this.passwordForm.valid && this.passwordForm.dirty) {
+      this.userService
+        .changePassword(
+          this.form.get('oldPassword')?.value,
+          this.form.get('newPassword')?.value
+        )
+        .subscribe((response) => {
+          this.changePassword = false;
+        });
     }
   }
   handleLogout() {
@@ -88,8 +99,7 @@ export class ProfileComponent implements OnInit {
   setImage(event: any) {
     this.file = event.target.files[0];
   }
-  pictureUpdated: boolean = false;
-  pending: boolean = false;
+
   uploadImage() {
     if (this.file != undefined && !this.pending) {
       const formData = new FormData();
@@ -98,7 +108,6 @@ export class ProfileComponent implements OnInit {
         this.cloudinary
           .uploadToCloud(formData, 'members', response)
           .subscribe((response: any) => {
-            console.log('Done Cloud Dinary');
             this.userService
               .uploadImage(response.secure_url)
               .subscribe((response) => {

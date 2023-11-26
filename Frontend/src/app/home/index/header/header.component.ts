@@ -1,4 +1,4 @@
-import { Component , OnInit, AfterViewInit } from '@angular/core';
+import { Component , OnInit } from '@angular/core';
 import { RevealAnimationService } from 'src/app/shared/services/reveal-animation.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { RevealAnimationService } from 'src/app/shared/services/reveal-animation
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit, AfterViewInit {
+export class HeaderComponent implements OnInit {
 
   constructor(private reveal : RevealAnimationService) {}
   scroll() {
@@ -14,14 +14,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       behavior:'smooth'
     })
   }
-  private initScrollReveal(): void {
-    this.reveal.initScrollReveal('top',2000,'.reveal-me')
-  }
   ngOnInit() {
-    this.initScrollReveal()
-  }
-  ngAfterViewInit() {
-    this.initScrollReveal()
+    this.reveal.initScrollReveal('top',2000,'.reveal-me')
   }
 
 }

@@ -21,7 +21,7 @@
           placeholder="Enter your email"
           formControlName="email"
         />
-        <p *ngIf="form.get('email')?.invalid && form.get('email')?.touched " class="text-red-700 ">Please enter a valid email</p>
+        <p *ngIf="form.get('email')?.invalid && form.get('email')?.dirty " class="text-red-700 ">Please enter a valid email</p>
       </div>
       <div>
         <input
@@ -29,7 +29,7 @@
           formControlName="password"
           placeholder="Enter your password"
         />
-        <p *ngIf="form.get('password')?.invalid && form.get('password')?.touched " class="text-red-700 ">Please enter a valid password</p>
+        <p *ngIf="form.get('password')?.invalid && form.get('password')?.dirty " class="text-red-700 ">Please enter a valid password</p>
       </div>
       <div class="text-gray-500 underline cursor-pointer" (click)="forget=true">
         Forget password ?
@@ -37,7 +37,7 @@
       <ng-container *ngIf="error">
         <app-feedback type="danger" [message]="errorMessage"></app-feedback>
       </ng-container>
-      <button class="btn" type="submit">Login</button>
+      <button class="btn" type="submit" [ngClass]="form.valid && form.dirty ? '' : 'cursor-not-allowed opacity-70'" >Login</button>
     </form>
     <ng-container *ngIf="forget">
       <form [formGroup]="forgetForm" class="col-span-2">

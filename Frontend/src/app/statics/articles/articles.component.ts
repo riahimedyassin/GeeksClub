@@ -13,21 +13,24 @@ import { CommonModule } from '@angular/common';
   selector: 'app-articles',
   templateUrl: './articles.component.html',
   styleUrls: ['./articles.component.scss'],
-  imports:[NavbarComponent,ArticleComponent,ErrorComponent,FooterComponent,CommonModule],
-  standalone:true
+  imports: [
+    NavbarComponent,
+    ArticleComponent,
+    ErrorComponent,
+    FooterComponent,
+    CommonModule,
+  ],
+  standalone: true,
 })
 export class ArticlesComponent implements OnInit {
-  title:string =  'Geeks Club | Articles'
   constructor(private articleService: ArticlesService) {}
-  articlesResponse!: Response<Article[]>;
   articles!: Article[];
   error: boolean = false;
   ngOnInit(): void {
     this.articleService.getAllArticles().subscribe(
       (response) => {
-        this.error=false
-        this.articlesResponse = response;
-        this.articles = this.articlesResponse.data;
+        this.error = false;
+        this.articles = response.data;
       },
       (error: HttpErrorResponse) => {
         this.error = true;

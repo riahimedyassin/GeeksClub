@@ -9,12 +9,9 @@ import { RouterModule } from '@angular/router';
   imports:[CommonModule,RouterModule],
   standalone:true
 })
-export class ArticleComponent implements OnInit {
+export class ArticleComponent  {
   @Input('title') title! : string ; 
   @Input('content') content! : string ; 
   @Input('id') id!  : string ; 
   @Input('picture') picture! : string 
-  ngOnInit(): void {
-      console.log("Hola")
-  }
 }

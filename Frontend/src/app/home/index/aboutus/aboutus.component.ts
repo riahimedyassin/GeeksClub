@@ -1,4 +1,4 @@
-import { Component} from '@angular/core'; 
+import { Component } from '@angular/core';
 import { RevealAnimationService } from 'src/app/shared/services/reveal-animation.service';
 @Component({
   selector: 'app-aboutus',
@@ -24,51 +24,49 @@ export class AboutusComponent {
       icon: 'plus-square',
     },
     {
-      title:"Points",
-      text : "Claim points and win epic rewards",
-      icon : "gift"
-    }, {
-      title:"Courses",
-      text:"Valuable free courses",
-      icon : "dollar-sign"
-    }, 
-    {
-      title : "Collaboration",
-      text : "between members and other clubs",
-      icon : "git-branch-plus"
+      title: 'Points',
+      text: 'Claim points and win epic rewards',
+      icon: 'gift',
     },
     {
-      title:"Work Flow",
-      text : "All the job is done remotly",
-      icon : 'laptop-2'
-    }
+      title: 'Courses',
+      text: 'Valuable free courses',
+      icon: 'dollar-sign',
+    },
+    {
+      title: 'Collaboration',
+      text: 'between members and other clubs',
+      icon: 'git-branch-plus',
+    },
+    {
+      title: 'Work Flow',
+      text: 'All the job is done remotly',
+      icon: 'laptop-2',
+    },
   ];
-  socialMedia= [
+  socialMedia = [
     {
-      title : "Github",
-      picture : "github.png",
-      link: "https://github.com/riahimedyassin"
-    },{
-      title : "Linkedin",
-      picture : "linkedin.png",
-      link: "https://www.linkedin.com/in/riahi-mohamed-yassin/"
+      title: 'Github',
+      picture: 'github.png',
+      link: 'https://github.com/riahimedyassin',
     },
     {
-      title : "Behance",
-      picture : "behance.png",
-      link: "https://www.behance.net/fernandoyassin"
-    }
-  ]
-  constructor(private scroll : RevealAnimationService) { }
+      title: 'Linkedin',
+      picture: 'linkedin.png',
+      link: 'https://www.linkedin.com/in/riahi-mohamed-yassin/',
+    },
+    {
+      title: 'Behance',
+      picture: 'behance.png',
+      link: 'https://www.behance.net/fernandoyassin',
+    },
+  ];
+  constructor(private scroll: RevealAnimationService) {}
   ngAfterViewInit(): void {
     this.initScrollReveal();
   }
   private initScrollReveal(): void {
-    this.scroll.initScrollReveal('left',2000,'.reveal-element')
-    this.scroll.initScrollReveal('right',2000,'.reveal-element-right')
-    // this.scroll.initScrollReveal('right',3000,'#about')
-    // this.scroll.initScrollReveal('right',3300,'#social')
-    // this.scroll.initScrollReveal('left',3300,'#more')
+    this.scroll.initScrollReveal('left', 2000, '.reveal-element');
+    this.scroll.initScrollReveal('right', 2000, '.reveal-element-right');
   }
-  
 }
