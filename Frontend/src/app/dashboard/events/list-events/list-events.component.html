@@ -44,6 +44,7 @@
         <app-event [event]="event"></app-event>
       </ng-container>
     </div>
+    <h2 *ngIf="toDisplay.length===0">No events with such a filter</h2>
   </div>
   <ng-template #load>
     <app-loading></app-loading>

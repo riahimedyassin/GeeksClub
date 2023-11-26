@@ -21,12 +21,11 @@
       <div
         class="w-auto flex gap-4 bg-deepblack rounded-lg overflow-hidden mt-4 items-center"
       >
-        <div class="bg-blue-500 w-16 h-full px-4 py-2">
+        <a [href]="user.facebook" class="w-full px-4 py-2 rounded-lg bg-blue-500 hover:bg-blue-600 transition-all flex items-center gap-6 ">
           <lucide-angular name="facebook"></lucide-angular>
-        </div>
-        <p class="py-2">{{ user.facebook }}</p>
-        <a [href]="user.facebook" target="_blank">
-          <lucide-angular name="link"></lucide-angular>
+          <p>
+            Facebook
+          </p>
         </a>
       </div>
     </div>
@@ -42,7 +41,7 @@
         {{ user.phone }}
       </p>
     </div>
-    <div>
+    <div *ngIf="user.isMember">
       <h4>Global Points</h4>
       <p class="mt-4 bg-deepblack rounded-lg overflow-hidden py-2">
         {{ user.points?.global_point }}

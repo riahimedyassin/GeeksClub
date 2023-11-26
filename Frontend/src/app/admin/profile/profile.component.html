@@ -75,7 +75,7 @@
         <lucide-angular name="pencil"></lucide-angular>
         <p>Edit</p>
       </button>
-      <button [ngClass]="edit && form.valid && form.touched ? 'succuss-button cursor-pointer' : 'default-button cursor-not-allowed'" *ngIf="edit" type="submit">
+      <button [ngClass]="edit && form.valid && form.dirty ? 'succuss-button cursor-pointer' : 'default-button cursor-not-allowed'" *ngIf="edit" type="submit">
         <lucide-angular name="save"></lucide-angular>
         <p>Save</p>
       </button>

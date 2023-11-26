@@ -146,7 +146,7 @@ export class EventComponent implements OnInit {
         this.event.participants[index].participated == true
       )
         return true;
-      index++;
+      else index++;
     }
     return index < this.event.participants.length;
   }

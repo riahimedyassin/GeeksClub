@@ -1,13 +1,12 @@
 import { inject } from '@angular/core';
-import { CanActivateFn } from '@angular/router';
-import { Router } from '@angular/router';
+import { CanActivateFn, Router } from '@angular/router';
 import { JwtService } from 'src/app/services/auth/jwt.service';
 
-export const loginGuard: CanActivateFn = (route, state) => {
+export const adminLoginGuard: CanActivateFn = (route, state) => {
   const jwtService = inject(JwtService);
   const router = inject(Router);
   if (jwtService.getToken()) {
-    router.navigateByUrl('/dashboard');
+    router.navigateByUrl('/admin');
     return false;
   }
   return true;

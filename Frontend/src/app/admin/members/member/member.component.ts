@@ -42,6 +42,7 @@ export class MemberComponent implements OnInit {
   acceptMember() {
     this.userService.registerMember(this.id).subscribe((response) => {
       this.accepted = true;
+      this.user.isMember=true ; 
     });
   }
 }

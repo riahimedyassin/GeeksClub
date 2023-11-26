@@ -57,7 +57,7 @@ export class ProfileComponent implements OnInit {
     });
   }
   handleSubmit() {
-    if (this.form.valid && this.form.touched) {
+    if (this.form.valid && this.form.dirty) {
       this.adminService.editAdmin(this.form.value).subscribe((response) => {
         this.edit = false;
       });
@@ -72,7 +72,7 @@ export class ProfileComponent implements OnInit {
     }
   }
   handlePassword() {
-    if (this.passwordForm.valid && this.passwordForm.touched) {
+    if (this.passwordForm.valid && this.passwordForm.dirty) {
       this.adminService
         .changePassword(
           this.passwordForm.get('password')?.value,

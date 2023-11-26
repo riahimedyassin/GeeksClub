@@ -65,37 +65,41 @@ export class ProfileComponent implements OnInit {
   }
   handleSubmit() {
     if (this.form.valid && this.form.dirty && !this.pending) {
-      this.userService
-        .updateMember(this.user._id, this.form.value)
-        .subscribe(
-          (response) => {
-            this.updated = true;
-            let timeout = setTimeout(() => {
-              this.updated = false
-              clearTimeout(timeout)
-            }, 3000);
-            this.form.disable();
-            this.edit = false;
-          },
-          (err) => {
-            this.error = true 
-            let timeout = setTimeout(() => {
-              this.error = false
-              clearTimeout(timeout)
-            }, 3000);
-          }
-        );
+      this.userService.updateMember(this.user._id, this.form.value).subscribe(
+        (response) => {
+          this.updated = true;
+          let timeout = setTimeout(() => {
+            this.updated = false;
+            clearTimeout(timeout);
+          }, 3000);
+          this.form.disable();
+          this.edit = false;
+        },
+        (err) => {
+          this.error = true;
+          let timeout = setTimeout(() => {
+            this.error = false;
+            clearTimeout(timeout);
+          }, 3000);
+        }
+      );
     }
   }
   handleChangePassword() {
     if (this.passwordForm.valid && this.passwordForm.dirty) {
       this.userService
         .changePassword(
-          this.form.get('oldPassword')?.value,
-          this.form.get('newPassword')?.value
+          this.passwordForm.get('oldPassword')?.value,
+          this.passwordForm.get('newPassword')?.value
         )
         .subscribe((response) => {
           this.changePassword = false;
+          this.edit = false;
+          this.updated = true;
+          let timeout = setTimeout(() => {
+            this.updated = false;
+            clearTimeout(timeout);
+          }, 3000);
         });
     }
   }
@@ -125,7 +129,7 @@ export class ProfileComponent implements OnInit {
                 this.pictureUpdated = true;
                 let timeout = setTimeout(() => {
                   location.reload();
-                  clearTimeout(timeout)
+                  clearTimeout(timeout);
                 }, 1000);
               });
           });

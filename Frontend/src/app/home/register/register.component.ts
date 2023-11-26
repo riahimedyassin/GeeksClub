@@ -20,6 +20,7 @@ export class RegisterComponent implements OnInit {
   constructor(private auth: AuthService, private formBuilder: FormBuilder) {}
   form!: FormGroup;
   trigger: boolean = false;
+  closeNotification : boolean = false ; 
   questions: Question[] = [
     {
       value: 0,

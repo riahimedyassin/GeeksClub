@@ -47,7 +47,7 @@
           class="flex space-x-4 items-center mt-2"
         >
           <lucide-icon name="info" color="#ef4444" size="16"></lucide-icon>
-          <p class="text-sm text-red-500">Invalid Age : 16 &lt; Age &gt; 22</p>
+          <p class="text-sm text-red-500">Invalid Age : 16 &lt; Age &lt; 22</p>
         </div>
       </div>
 
@@ -243,9 +243,12 @@
           </div>
         </div>
       </ng-container> 
-      <div class="mt-4 bg-orange-700 rounded-md col-span-2 px-4 py-2 text-gray-300 text-sm text-center font-bold flex items-center gap-4 justify-center ">
+      <div *ngIf="!closeNotification" class=" relative mt-4 bg-orange-700 rounded-md col-span-2 px-4 py-2 text-gray-300 text-sm text-center font-bold flex items-center gap-4 justify-center ">
         <lucide-angular name="alert-circle"></lucide-angular>
         <p>Security Notification : All of your sensetive credentials are encrypted and saved safely in highly protected servers.</p>
+        <button (click)="closeNotification=true" class="absolute right-5">
+          <lucide-angular name="x-circle"></lucide-angular>
+        </button>
       </div>
       <div class="col-span-2 flex items-center justify-center">
         <button

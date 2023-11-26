@@ -31,6 +31,10 @@
         </button>
       </td>
     </tr>
+    <ng-container *ngIf="forum.length==0">
+      <h2 class="mt-4">No forums have been added</h2>
+
+    </ng-container>
   </table>
 </ng-container>
 <ng-template #load>

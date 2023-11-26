@@ -27,4 +27,7 @@
         </button>
     </td>
   </tr>
+  <ng-container *ngIf="articles && articles.length===0">
+    <h2 class="mt-4">No articles have been published</h2>
+  </ng-container>
 </table>

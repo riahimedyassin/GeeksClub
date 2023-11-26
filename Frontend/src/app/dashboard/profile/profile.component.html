@@ -14,7 +14,7 @@
             <input type="file" class="" (change)="setImage($event)" />
             <button
               (click)="uploadImage()"
-              class="warning-button"
+              class="succuss-button"
               *ngIf="edit"
               [ngClass]="
                 file != null ? '' : 'default-button cursor-not-allowed'
@@ -150,12 +150,12 @@
         </div>
       </form>
       <ng-template #changePass>
-        <form [formGroup]="passwordForm" class="flex items-center justify-center flex-col" >
+        <form [formGroup]="passwordForm" class="flex items-center justify-center flex-col" (ngSubmit)="handleChangePassword()" >
           <div class="grid grid-cols-2 gap-4 ">
             <div class="input--container">
               <label for="">Old Password</label>
               <input
-                type="text"
+                type="password"
                 formControlName="oldPassword"
                 [ngClass]="edit ? 'border-[1px] border-gray-500' : ''"
               />
@@ -163,13 +163,13 @@
             <div class="input--container">
               <label for="">New Password</label>
               <input
-                type="text"
+                type="password"
                 formControlName="newPassword"
                 [ngClass]="edit ? 'border-[1px] border-gray-500' : ''"
               />
             </div>
           </div>
-          <button class="succuss-button mt-4" (click)="handleChangePassword()">
+          <button class="succuss-button mt-4"  type="submit">
             <lucide-angular name="save"></lucide-angular>
             <p>Save</p>
           </button>

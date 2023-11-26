@@ -34,7 +34,12 @@ export class ArticleComponent implements OnInit {
   }
   handleEdit() {
     this.edit = !this.edit;
-    this.edit ? this.form.enable() : this.form.disable();
+    if(this.edit) this.form.enable() 
+    else {
+      this.form.disable() 
+      this.form.reset()
+    }
+  
   }
   handleSave() {
     if (this.form.valid && this.form.dirty) {

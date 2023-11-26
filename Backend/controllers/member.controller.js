@@ -228,14 +228,15 @@ const uploadMemberImage = async (req, res, next) => {
   }
 };
 const getMembersCount = async (req, res, next) => {
-  const members = await Member.find({}, { _id: 1 });
-  const length = members.length;
-  return response(res, "Members length retrieved", 200, false, length);
+  const members = await Member.find({isMember:true}, { _id: 1 });
+  return response(res, "Members length retrieved", 200, false, members.length || `0`);
 };
 const changePassword = async (req,res,next) => {
   const user = req.user 
   const {oldPassword , newPassword} = req.body ; 
-  if(!oldPassword || ! newPassword) return next(createError("Please provide the old and the new password",400))
+  console.log(oldPassword)
+  console.log(newPassword)
+  if(!oldPassword || !newPassword) return next(createError("Please provide the old and the new password",400))
   try {
       const member = await Member.findOne({_id : user , isMember : true })
       const matching = await isMatchingPassword(member.password , oldPassword)

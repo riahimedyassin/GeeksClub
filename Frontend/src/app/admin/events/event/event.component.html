@@ -6,7 +6,10 @@
     class="w-60 h-60 mb-8"
   />
   <form [formGroup]="form" (ngSubmit)="handleSave()">
-    <div class="flex items-center justify-between bg-deepblack px-4 py-2 rounded-lg mb-6" *ngIf="edit">
+    <div
+      class="flex items-center justify-between bg-deepblack px-4 py-2 rounded-lg mb-6"
+      *ngIf="edit"
+    >
       <input type="file" (change)="handleImage($event)" />
       <button (click)="saveImage()" class="succuss-button">
         <lucide-angular name="save"></lucide-angular>
@@ -180,6 +183,10 @@
               </button>
             </td>
           </tr>
+
+          <h2 class="mt-4" *ngIf="!participants || participants.length === 0">
+            No participatants yet
+          </h2>
         </table>
         <hr />
         <div class="space-y-4 mt-14">
@@ -191,6 +198,9 @@
             <h3>{{ comment.name }} {{ comment.forname }}</h3>
             <p>{{ comment.content }}</p>
           </div>
+          <h2 class="mt-4" *ngIf="!event.comments || event.comments.length == 0">
+            No comments on this event yet
+          </h2>
         </div>
       </div>
     </div>
@@ -207,5 +217,9 @@
   ></app-notification>
 </ng-container>
 <ng-container *ngIf="addedMember">
-  <app-notification message="Member added successfully" color="green" icon="plus-circle"></app-notification>
+  <app-notification
+    message="Member added successfully"
+    color="green"
+    icon="plus-circle"
+  ></app-notification>
 </ng-container>

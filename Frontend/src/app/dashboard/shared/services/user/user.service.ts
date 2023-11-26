@@ -91,6 +91,6 @@ export class UserService {
     return this.http.get<Response<number>>(`${URL}/all/members/length`);
   }
   changePassword(oldPassword: string, newPassword: string) {
-    return this.http.patch(`${URL}/me/password`, { oldPassword, newPassword });
+    return this.http.patch(`${URL}/me/password`, { oldPassword : oldPassword, newPassword : newPassword });
   }
 }

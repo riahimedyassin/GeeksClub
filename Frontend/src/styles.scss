@@ -110,8 +110,14 @@ h3 {
   @extend .main-button ; 
   @apply  bg-third  hover:bg-lightthird;
 }
-.ng-invalid.ng-touched {
-  @apply border-red-500
+input.ng-touched {
+  border: 1px solid;
+  &.ng-invalid {
+    @apply border-red-500
+  }
+  &.ng-valid {
+    @apply border-green-500
+  }
 }
 .input--container {
   @apply mt-8 ; 
