@@ -27,6 +27,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorInterceptor } from '../shared/error/error.interceptor';
 import { ListForumsComponent } from './forums/list-forums/list-forums.component';
 import { ListEventsComponent } from './events/list-events/list-events.component';
+import { TechNewsComponent } from './tech-news/tech-news.component';
 
 @NgModule({
   providers: [{
@@ -52,6 +53,7 @@ import { ListEventsComponent } from './events/list-events/list-events.component'
     LeaderboardComponent,
     ListForumsComponent,
     ListEventsComponent,
+    TechNewsComponent,
   ],
   imports: [
     CommonModule,

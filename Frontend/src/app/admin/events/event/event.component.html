@@ -225,3 +225,7 @@
     icon="plus-circle"
   ></app-notification>
 </ng-container>
+
+<ng-container *ngIf="confiremd">
+  <app-alert message="Deleting events will be permenant , if you are sure click the delete button again" title="Delete Event" [status]="false"></app-alert>
+</ng-container>

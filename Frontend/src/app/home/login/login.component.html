@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
+
 <div class="text-white mt-32 w-full h-full px-36 mb-36">
   <div class="grid grid-cols-3 contain rounded-lg">
     <div class="col-span-1 border-r-2 border-r-gray-500 second flex flex-col items-center px-8 py-12 relative ">
@@ -40,7 +40,7 @@
       <button class="btn" type="submit" [ngClass]="form.valid && form.dirty ? '' : 'cursor-not-allowed opacity-70'" >Login</button>
     </form>
     <ng-container *ngIf="forget">
-      <form [formGroup]="forgetForm" class="col-span-2">
+      <form [formGroup]="forgetForm" class="col-span-2" (ngSubmit)="handleReset()">
         <h1>Reset Password</h1>
         <div class="input--holder">
           <input
@@ -79,12 +79,14 @@
           />
           <p *ngIf="forgetForm.get('answer')?.invalid && forgetForm.get('answer')?.touched " class="text-red-700 ">Please enter a valid answer</p>
         </div>
-        <button (click)="handleReset()" >Reset</button>
+        <div class="flex items-center justify-center gap-6">
+          <button  type="submit" >Reset</button>
+          <button (click)="forget=false" type="button">Cancel</button>
+        </div>
       </form> 
     </ng-container>
   </div>
 </div>
-<app-footer></app-footer>
 
 <ng-container *ngIf="recovered">
   <app-notification message="Recovered Succussfully !" color="green" icon="plus-circle" ></app-notification>

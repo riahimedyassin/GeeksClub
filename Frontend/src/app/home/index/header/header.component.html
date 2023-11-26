@@ -1,12 +1,17 @@
 <main
-  class="bg-[url(assets/bbblurry.svg)] bg-cover  py-32 px-16 w-full  flex items-center flex-col space-y-8 overflow-hidden relative z-10"
+  class="bg-[url(assets/bbblurry.svg)] bg-cover py-32 px-16 w-full flex items-center flex-col space-y-8 overflow-hidden relative z-10"
   id="header"
 >
   <div
     class="rounded-full border-[1px] border-white w-80 px-4 py-1 flex justify-center space-x-2 mt-12"
+    style="
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.263);
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.167),
+        0 0 20px rgba(255, 255, 255, 0.151), 0 0 30px rgba(255, 255, 255, 0.16);
+    "
   >
-    <lucide-icon name="sparkles" color="white"></lucide-icon>
-    <h3 >We are currently recruting</h3>
+    <lucide-icon name="sparkles" color="white" ></lucide-icon>
+    <h3>We are currently recruting</h3>
   </div>
   <div class="mb-2 text-center">
     <h1 class="mt-0 mb-4">
@@ -19,7 +24,7 @@
     </p>
   </div>
   <div
-    class="effect text-gray-400 flex flex-col justify-center items-center text-xl mt-4 relative reveal-me bg-[#0000008a] hover:bg-[##00000096] "
+    class="effect text-gray-400 flex flex-col justify-center items-center text-xl mt-4 relative reveal-me bg-[#0000008a] hover:bg-[##00000096]"
   >
     <div
       class="absolute top-0 left-0 w-full h-12 flex justify-between px-4 py-1 items-center header"
@@ -43,7 +48,9 @@
       </p>
       <div class="flex items-center justify-between mt-12 w-[25%]">
         <button class="join text-base" routerLink="register">Join us</button>
-        <button class="dashed-button text-base" (click)="scroll()">Read more</button>
+        <button class="dashed-button text-base" (click)="scroll()">
+          Read more
+        </button>
       </div>
     </div>
   </div>

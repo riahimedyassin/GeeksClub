@@ -81,3 +81,6 @@
 <ng-template #load>
   <app-loading></app-loading>
 </ng-template>
+<ng-container *ngIf="confiremd">
+  <app-alert message="Deleting events will be permenant , if you are sure click the delete button again" title="Delete Event" [status]="false"></app-alert>
+</ng-container>

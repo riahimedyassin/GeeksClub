@@ -66,29 +66,39 @@ export class NewEventComponent implements OnInit {
     this.file = event.target.files[0];
   }
   handleSubmit() {
-    if (this.form.valid && this.form.dirty && this.file != undefined) {
+    if (this.form.valid && this.form.dirty ) {
       this.eventService.addNewEvent(this.form.value).subscribe(
         (response) => {
-          const event_id = response.data._id;
-          this.couldinary.getSignature('events').subscribe((response) => {
-            const formData = new FormData();
-            formData.append('file', <File>this.file);
-            this.couldinary
-              .uploadToCloud(formData, 'events', response)
-              .subscribe((response: any) => {
-                this.eventService
-                  .uploadImage(event_id, response.secure_url)
-                  .subscribe((response) => {
-                    this.added = true;
-                    let timeout = setTimeout(() => {
-                      this.added = false;
-                      clearTimeout(timeout);
-                    }, 3000);
-                    this.file = undefined;
-                    this.form.reset();
-                  });
-              });
-          });
+          if (this.file != undefined) {
+            const event_id = response.data._id;
+            this.couldinary.getSignature('events').subscribe((response) => {
+              const formData = new FormData();
+              formData.append('file', <File>this.file);
+              this.couldinary
+                .uploadToCloud(formData, 'events', response)
+                .subscribe((response: any) => {
+                  this.eventService
+                    .uploadImage(event_id, response.secure_url)
+                    .subscribe((response) => {
+                      this.added = true;
+                      let timeout = setTimeout(() => {
+                        this.added = false;
+                        clearTimeout(timeout);
+                      }, 3000);
+                      this.file = undefined;
+                      this.form.reset();
+                    });
+                });
+            });
+          }
+          else {
+            this.added = true;
+            let timeout = setTimeout(() => {
+              this.added = false;
+              clearTimeout(timeout);
+            }, 3000);
+            this.form.reset()
+          }
         },
         (err) => {
           this.error = true;

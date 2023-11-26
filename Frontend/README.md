@@ -47,13 +47,13 @@ For the image upload , I used **Cloudinary** which is a free open source cloud t
 
 ### Interceptors :
 #### JWT Interceptor : 
-    The JWT interceptor is simply used to send Bearer Tokens headers automatically .
+The JWT interceptor is simply used to send Bearer Tokens headers automatically .
 #### Error Interceptor : 
-    The Error interceptor is mainly implemented here to redirect unauthorized user's **403 Forbidden**. Otherwise the problems will be handeled in the components .
+The Error interceptor is mainly implemented here to redirect unauthorized user's **403 Forbidden**. Otherwise the problems will be handeled in the components .
 
 ### Resolvers :
-    Implementing the is superior admin resolver is meant to check if the admin is superieur before loading the page. 
+Implementing the is superior admin resolver is meant to check if the admin is superieur before loading the page. 
 
 ### Standalone Components : 
-    Stand alone components are a new way of declaring global components that will be used in multiple modules. Instead of defining a module that contains just some components and importing it all , we could simply import the components we want only . 
-    The usage of standalone components is mainly for performance optimization. 
+Stand alone components are a new way of declaring global components that will be used in multiple modules. Instead of defining a module that contains just some components and importing it all , we could simply import the components we want only . 
+The usage of standalone components is mainly for performance optimization. 

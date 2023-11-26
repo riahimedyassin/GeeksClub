@@ -21,6 +21,7 @@ import { ActivityComponent } from './index/activities/activity/activity.componen
 import { ShortenPipe } from '../shared/pipes/shorten.pipe';
 import { ErrorComponent } from '../shared/components/error/error.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
+import { TechJobsComponent } from './tech-jobs/tech-jobs.component';
 
 @NgModule({
   declarations: [
@@ -33,9 +34,10 @@ import { AdminLoginComponent } from './admin-login/admin-login.component';
     AdminLoginComponent,
     IndexComponent,
     LoginComponent,
-  
+
     FeedbackComponent,
-        ActivityComponent,
+    ActivityComponent,
+    TechJobsComponent,
   ],
   imports: [
     HomeRoutingModule,
@@ -48,7 +50,7 @@ import { AdminLoginComponent } from './admin-login/admin-login.component';
     AlertComponent,
     ShortenPipe,
     ErrorComponent,
-    NotificationComponent
+    NotificationComponent,
   ],
   exports: [HomeRoutingModule],
 })

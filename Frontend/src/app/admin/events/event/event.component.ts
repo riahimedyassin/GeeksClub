@@ -21,6 +21,7 @@ export class EventComponent implements OnInit {
   saved: boolean = false; // Notification Trigger
   file!: File | undefined;
   addedMember: boolean = false; // Notification Trigger
+  confiremd!: boolean | undefined;
   constructor(
     private eventService: EventsService,
     private activated: ActivatedRoute,
@@ -73,7 +74,9 @@ export class EventComponent implements OnInit {
       .confirmParticipation(this.id, userID)
       .subscribe((response) => {
         this.addedMember = true;
-        this.event.participants.map(participant => {if(participant.user_id===userID) participant.participated=true} )
+        this.event.participants.map((participant) => {
+          if (participant.user_id === userID) participant.participated = true;
+        });
         let timeout = setTimeout(() => {
           this.addedMember = false;
           clearTimeout(timeout);
@@ -133,9 +136,12 @@ export class EventComponent implements OnInit {
       });
   }
   handleDelete() {
-    this.eventService.deleteEvent(this.id).subscribe((response) => {
-      this.router.navigateByUrl('/admin/events');
-    });
+    if (!this.confiremd) this.confiremd = true;
+    else {
+      this.eventService.deleteEvent(this.id).subscribe((response) => {
+        this.router.navigateByUrl('/admin/events');
+      });
+    }
   }
   handleEndEvent() {
     this.eventService.endEvent(this.id).subscribe((response) => {

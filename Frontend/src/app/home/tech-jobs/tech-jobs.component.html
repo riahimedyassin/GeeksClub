@@ -1,0 +1,20 @@
+<div class="main  w-full mt-28 px-24 py-12" >
+    <h1>Remote Tech Jobs</h1>
+    <p class="text-gray-500 mt-2 text-sm">We encourage our members to apply for those jobs !</p>
+    <ng-container *ngIf="jobs">
+        <div class="grid grid-cols-3 gap-6 mt-12">
+            <div class="w-full h-36 bg-deepblack grid grid-cols-6 col-span-1 px-4 py-2 rounded-lg gap-4 overflow-hidden" *ngFor="let job of jobs">
+                <div class="col-span-2" *ngIf="job.company_logo">
+                    <img [src]="job.company_logo" alt="" class="w-full h-full rounded-lg" >
+                </div>
+                <div class="col-span-4" [ngClass]="job.company_logo ? 'col-span-4' : 'col-span-6'">
+                    <h3>{{job.title |shorten : 'lg'}}</h3>
+                    <h4 class="flex items-center gap-4 mt-2">   
+                        <lucide-angular name="map-pin"></lucide-angular>
+                        {{job.location}}
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>

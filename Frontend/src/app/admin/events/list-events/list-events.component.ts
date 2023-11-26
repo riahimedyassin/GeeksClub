@@ -11,8 +11,9 @@ export class ListEventsComponent implements OnInit {
   events!: Event[];
   toDisplay: Event[] = [];
   ended: boolean = false;
-  categorie : string = 'all'
-  searchValue : string = ""
+  categorie: string = 'all';
+  searchValue: string = '';
+  confiremd!: boolean | undefined;
 
   constructor(private eventService: EventsService) {}
   ngOnInit(): void {
@@ -25,42 +26,55 @@ export class ListEventsComponent implements OnInit {
   }
   handleEndEvent(eventId: string) {
     this.eventService.endEvent(eventId).subscribe((response) => {
-        this.applyFilter()
+      this.applyFilter();
     });
   }
   handleSearch(event: any) {
     const value = (<HTMLInputElement>event.target).value;
-    this.searchValue=value ; 
-    this.applyFilter()
+    this.searchValue = value;
+    this.applyFilter();
   }
   handleCategorie(event: any) {
     const value = (<HTMLSelectElement>event.target).value;
-    this.categorie=value ; 
-    this.applyFilter()
+    this.categorie = value;
+    this.applyFilter();
   }
   handelEnded() {
     this.ended = !this.ended;
-    this.applyFilter()
+    this.applyFilter();
   }
   trackBy(index: number, event: Event) {
     return event._id;
   }
   applyFilter() {
-    this.toDisplay=this.events.filter(event=> {
-      if(this.categorie==='all') {
-        if(this.searchValue.trim()==='') return event.ended===this.ended
-        return event.ended===this.ended && event.title.toLowerCase().includes(this.searchValue.toLowerCase())
+    this.toDisplay = this.events.filter((event) => {
+      if (this.categorie === 'all') {
+        if (this.searchValue.trim() === '') return event.ended === this.ended;
+        return (
+          event.ended === this.ended &&
+          event.title.toLowerCase().includes(this.searchValue.toLowerCase())
+        );
+      } else {
+        if (this.searchValue.trim() === '')
+          return (
+            event.ended === this.ended && event.categorie == this.categorie
+          );
+        return (
+          event.ended === this.ended &&
+          event.title.toLowerCase().includes(this.searchValue.toLowerCase()) &&
+          event.categorie == this.categorie
+        );
       }
-      else {
-        if(this.searchValue.trim()==="") return event.ended===this.ended && event.categorie==this.categorie
-        return event.ended===this.ended && event.title.toLowerCase().includes(this.searchValue.toLowerCase()) && event.categorie==this.categorie
-      }
-    })
+    });
   }
   handleDelete(id: string) {
-    this.eventService.deleteEvent(id).subscribe((response) => {
-      this.events = this.events.filter(event => event._id!=id)
-      this.applyFilter()
-    });
+    if (!this.confiremd) this.confiremd = true;
+    else {
+      this.eventService.deleteEvent(id).subscribe((response) => {
+        this.events = this.events.filter((event) => event._id != id);
+        this.applyFilter();
+        this.confiremd=undefined
+      });
+    }
   }
 }

@@ -45,6 +45,7 @@ export class AdminLoginComponent implements OnInit {
             this.router.navigate(['/admin']);
           },
           (error: HttpErrorResponse) => {
+            this.error=true
             if (error.status === 400) {
               this.errorMessage = 'Invalid Email or Password';
             } else {

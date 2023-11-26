@@ -11,6 +11,7 @@ import { SelectedForumComponent } from './forums/selected-forum/selected-forum.c
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { ListForumsComponent } from './forums/list-forums/list-forums.component';
 import { ListEventsComponent } from './events/list-events/list-events.component';
+import { TechNewsComponent } from './tech-news/tech-news.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,11 @@ const routes: Routes = [
         path: '',
         component: HomeComponent,
         title: 'Geeks Club | Dashboard'
+      },
+      {
+        path:'tech-news',
+        component:TechNewsComponent,
+        title: 'Geeks Club | Tech News'
       },
       {
         path: 'profile',
