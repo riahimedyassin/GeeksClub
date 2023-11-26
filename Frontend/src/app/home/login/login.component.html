@@ -48,7 +48,7 @@
             placeholder="Enter your email"
             formControlName="email"
           />
-          <p *ngIf="form.get('email')?.invalid && form.get('email')?.touched " class="text-red-700 ">Please enter a valid email</p>
+          <p *ngIf="forgetForm.get('email')?.invalid && forgetForm.get('email')?.touched " class="text-red-700 ">Please enter a valid email</p>
         </div>
         <div class="input--holder">
           <input
@@ -56,7 +56,7 @@
             placeholder="Enter your new password"
             formControlName="password"
           />
-          <p *ngIf="form.get('password')?.invalid && form.get('password')?.touched " class="text-red-700 ">Please enter a valid password</p>
+          <p *ngIf="forgetForm.get('password')?.invalid && forgetForm.get('password')?.touched " class="text-red-700 ">Please enter a valid password</p>
         </div>
         <div class="input--holder">
           <select
@@ -77,7 +77,7 @@
             placeholder="Enter your answer"
             formControlName="answer"
           />
-          <p *ngIf="form.get('answer')?.invalid && form.get('answer')?.touched " class="text-red-700 ">Please enter a valid answer</p>
+          <p *ngIf="forgetForm.get('answer')?.invalid && forgetForm.get('answer')?.touched " class="text-red-700 ">Please enter a valid answer</p>
         </div>
         <button (click)="handleReset()" >Reset</button>
       </form> 

@@ -52,8 +52,8 @@ export class EventsService {
   endEvent(id: string): Observable<Response<Event>> {
     return this.http.post<Response<Event>>(`${URL}/end/${id}`, {});
   }
-  confirmParticipation(eventId: string, userId: string) {
-    return this.http.post(`${URL}/confirm/${eventId}/${userId}`, {});
+  confirmParticipation(eventId: string, userId: string) : Observable<Response<User[]>> {
+    return this.http.post<Response<User[]>>(`${URL}/confirm/${eventId}/${userId}`, {});
   }
   editEvent(id: string, changes: Event) {
     return this.http.patch(`${URL}/${id}`, changes);

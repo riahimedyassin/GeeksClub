@@ -73,9 +73,10 @@ export class EventComponent implements OnInit {
       .confirmParticipation(this.id, userID)
       .subscribe((response) => {
         this.addedMember = true;
+        this.event.participants.map(participant => {if(participant.user_id===userID) participant.participated=true} )
         let timeout = setTimeout(() => {
           this.addedMember = false;
-          clearTimeout(timeout)
+          clearTimeout(timeout);
         }, 3000);
       });
   }
@@ -109,7 +110,11 @@ export class EventComponent implements OnInit {
   }
   handleEdit() {
     this.edit = !this.edit;
-    this.edit ? this.form.enable() : this.form.disable();
+    if (this.edit) this.form.enable();
+    else {
+      this.form.disable();
+      this.form.reset();
+    }
   }
   handleSave() {
     this.form

@@ -49,7 +49,7 @@ const loginMember = async (req, res, next) => {
 };
 const recoverAccount = async (req, res, next) => {
   const { email, password, question, answer } = req.body;
-  if (!id || !password || !question || !answer)
+  if (!email || !password || !question || !answer)
     return next(createError("All fields are mandatory", 400));
   try {
     const user = await Member.findOne(
@@ -66,6 +66,7 @@ const recoverAccount = async (req, res, next) => {
     );
     if (!matching) return next(createError("Invalid Answer", 400));
     user.recovery_question.answer = await recovery.hashResponse(answer);
+    user.password = await hashPassword(password)
     const updated = await Member.findOneAndUpdate({ email: email }, user);
     if (updated) return response(res, "Password Recovered Succussfully", 200);
     return next(createError("Internal Server Error", 500));

@@ -38,7 +38,7 @@
         </ng-template>
       </div>
       <div class="flex gap-4 items-center">
-        <button class="danger-button" (click)="handleDelete()">
+        <button class="danger-button" (click)="handleDelete()" type="button">
           <p>Delete</p>
           <lucide-angular name="trash"></lucide-angular>
         </button>
@@ -55,6 +55,7 @@
           class="warning-button"
           (click)="handleEndEvent()"
           *ngIf="!event.ended"
+          type="button"
         >
           <lucide-angular name="plus-circle"></lucide-angular>
           <p>Ended</p>
@@ -177,6 +178,7 @@
               </button>
               <button
                 (click)="confirmParticipation(p._id)"
+                type="button"
                 *ngIf="!exist(p._id)"
               >
                 <lucide-angular name="plus-circle"></lucide-angular>
