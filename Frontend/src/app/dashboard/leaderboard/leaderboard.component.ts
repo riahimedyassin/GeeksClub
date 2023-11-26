@@ -18,7 +18,10 @@ export class LeaderboardComponent implements OnInit {
           this.leaderboard=response.data
         },(err)=> {
           this.error = true ; 
-          setTimeout(()=> this.error=false , 3000)
+          let timeout = setTimeout(()=> {
+            this.error=false
+            clearTimeout(timeout)
+          } , 3000)
         })
         this.tiers=this.userService.getAllTiers()
     }

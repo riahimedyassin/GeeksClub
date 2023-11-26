@@ -14,40 +14,45 @@ export class ArticleComponent implements OnInit {
     private articleService: ArticlesService,
     private activated: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private router : Router
+    private router: Router
   ) {}
   id!: string;
   article!: Article;
   form!: FormGroup;
-  edit : boolean = false ; 
-  updated : boolean = false ; 
+  edit: boolean = false;
+  updated: boolean = false;
   ngOnInit(): void {
     this.id = <string>this.activated.snapshot.paramMap.get('id');
-    this.articleService.getSingleArticle(this.id).subscribe((response ) => {
+    this.articleService.getSingleArticle(this.id).subscribe((response) => {
       this.form = this.formBuilder.nonNullable.group({
         title: [response.data.title, [Validators.required]],
         content: [response.data.content, [Validators.required]],
       });
       this.article = response.data;
-      this.form.disable(); 
+      this.form.disable();
     });
   }
   handleEdit() {
-    this.edit= !this.edit ; 
-    this.edit ? this.form.enable() : this.form.disable()
+    this.edit = !this.edit;
+    this.edit ? this.form.enable() : this.form.disable();
   }
   handleSave() {
-    if(this.form.valid && this.form.dirty) {
-      this.articleService.updateArticle(this.id,this.form.value).subscribe(response=> {
-        this.updated=true ; 
-        this.edit=false ; 
-        setTimeout(()=>this.updated=false , 3000)
-      })
+    if (this.form.valid && this.form.dirty) {
+      this.articleService
+        .updateArticle(this.id, this.form.value)
+        .subscribe((response) => {
+          this.updated = true;
+          this.edit = false;
+          let timeout = setTimeout(() => {
+            this.updated = false;
+            clearTimeout(timeout);
+          }, 3000);
+        });
     }
   }
   handleDelete() {
-    this.articleService.deleteArticle(this.id).subscribe(response=> {
-      this.router.navigateByUrl('/admin/articles')
-    })
+    this.articleService.deleteArticle(this.id).subscribe((response) => {
+      this.router.navigateByUrl('/admin/articles');
+    });
   }
 }

@@ -30,7 +30,15 @@ export class NewEventComponent implements OnInit {
       title: ['', [Validators.required]],
       descreption: ['', [Validators.required]],
       price: [0, [Validators.required, CustomValidator.numeric]],
-      reward_point: [5, [Validators.required, CustomValidator.numeric , Validators.min(5) , Validators.max(50)]],
+      reward_point: [
+        5,
+        [
+          Validators.required,
+          CustomValidator.numeric,
+          Validators.min(5),
+          Validators.max(50),
+        ],
+      ],
       date: this.formBuilder.nonNullable.group({
         date_start: ['', [Validators.required]],
         date_end: ['', [Validators.required]],
@@ -54,38 +62,42 @@ export class NewEventComponent implements OnInit {
   deletePrerequis(index: number) {
     this.listePrerquis.removeAt(index);
   }
-  handleImage(event : any) {
-    this.file = event.target.files[0]
+  handleImage(event: any) {
+    this.file = event.target.files[0];
   }
   handleSubmit() {
-    if (this.form.valid && this.form.dirty && this.file!=undefined) {
+    if (this.form.valid && this.form.dirty && this.file != undefined) {
       this.eventService.addNewEvent(this.form.value).subscribe(
         (response) => {
           const event_id = response.data._id;
-          this.couldinary
-            .getSignature('events')
-            .subscribe((response) => {
-              const formData = new FormData();
-              formData.append('file', <File>this.file);
-              this.couldinary
-                .uploadToCloud(formData, 'events', response)
-                .subscribe((response: any) => {
-                  this.eventService
-                    .uploadImage(event_id, response.secure_url)
-                    .subscribe((response) => {
-                      this.added = true;
-                      setTimeout(() => (this.added = false), 3000);
-                      this.file = undefined ; 
-                      this.form.reset()
-                    });
-                });
-            });
+          this.couldinary.getSignature('events').subscribe((response) => {
+            const formData = new FormData();
+            formData.append('file', <File>this.file);
+            this.couldinary
+              .uploadToCloud(formData, 'events', response)
+              .subscribe((response: any) => {
+                this.eventService
+                  .uploadImage(event_id, response.secure_url)
+                  .subscribe((response) => {
+                    this.added = true;
+                    let timeout = setTimeout(() => {
+                      this.added = false;
+                      clearTimeout(timeout);
+                    }, 3000);
+                    this.file = undefined;
+                    this.form.reset();
+                  });
+              });
+          });
         },
         (err) => {
           this.error = true;
-          setTimeout(() => (this.error = false), 3000);
+          let timeout = setTimeout(() => {
+            this.error = false;
+            clearTimeout(timeout);
+          }, 3000);
         }
       );
-    } 
+    }
   }
 }

@@ -15,7 +15,7 @@ export class NewArticleComponent implements OnInit {
     private cloudinary: CloudinaryService
   ) {}
   form!: FormGroup;
-  published: boolean = false;
+  published: boolean = false; // Notification Trigger
   file!: File | undefined;
   ngOnInit(): void {
     this.form = this.formBuilder.nonNullable.group({
@@ -43,7 +43,10 @@ export class NewArticleComponent implements OnInit {
                   .subscribe((response) => {
                     this.published = true;
                     this.form.reset();
-                    setTimeout(() => (this.published = false), 3000);
+                    let timeout = setTimeout(() => {
+                      this.published = false;
+                      clearTimeout(timeout);
+                    }, 3000);
                   });
               });
           });

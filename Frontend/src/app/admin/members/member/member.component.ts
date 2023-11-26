@@ -32,7 +32,10 @@ export class MemberComponent implements OnInit {
       },
       (err) => {
         this.error = true;
-        setTimeout(() => (this.error = false), 3000);
+        let timeout = setTimeout(() => {
+          this.error = false
+          clearTimeout(timeout)
+        }, 3000);
       }
     );
   }

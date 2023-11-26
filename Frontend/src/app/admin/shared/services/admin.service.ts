@@ -29,7 +29,6 @@ export class AdminService {
   admin!: Admin | null;
 
   public cacheAdmin() {
-    console.log('cached ');
     this.updated = false;
     this.http.get<Response<Admin>>(`${ADMINURL}/me`).subscribe((response) => {
       this.admin = response.data;
@@ -41,9 +40,6 @@ export class AdminService {
       this.cacheAdmin();
       return this.http.get<Response<Admin>>(`${ADMINURL}/me`);
     }
-  }
-  getAllRegistered(): Observable<Response<User>> {
-    return this.http.get<Response<User>>(`${MEMBERSURL}/registered/all`);
   }
   editAdmin(admin: Admin) {
     this.updated = true;

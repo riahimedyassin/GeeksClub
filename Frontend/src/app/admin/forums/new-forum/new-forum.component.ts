@@ -17,8 +17,8 @@ export class NewForumComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      name: ['',[Validators.required]],
-      descreption: ['',[Validators.required]],
+      name: ['', [Validators.required]],
+      descreption: ['', [Validators.required]],
     });
   }
   handleSubmit() {
@@ -31,14 +31,18 @@ export class NewForumComponent implements OnInit {
         .subscribe(
           (response) => {
             this.done = true;
-            setTimeout(() => {
+            let timeout = setTimeout(() => {
               this.done = false;
+              clearTimeout(timeout);
             }, 3000);
             this.form.reset();
           },
           (err) => {
             this.error = true;
-            setTimeout(()=> this.error= false , 3000)
+            let timeout = setTimeout(() => {
+              this.error = false;
+              clearTimeout(timeout);
+            }, 3000);
           }
         );
     }

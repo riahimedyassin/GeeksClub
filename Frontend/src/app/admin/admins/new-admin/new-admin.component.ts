@@ -14,9 +14,18 @@ export class NewAdminComponent implements OnInit {
     private adminServie: AdminService
   ) {}
   form!: FormGroup;
-  added : boolean = false ;
-  error : boolean = false  ;
-  roles : string[] = ["President", "Vice President", "VP Media" , "VP Dev" , "VP RH" , "Assistant Media","Asistant Dev","Assistant RH"]
+  added: boolean = false;
+  error: boolean = false;
+  roles: string[] = [
+    'President',
+    'Vice President',
+    'VP Media',
+    'VP Dev',
+    'VP RH',
+    'Assistant Media',
+    'Asistant Dev',
+    'Assistant RH',
+  ];
   ngOnInit(): void {
     this.form = this.formBuilder.nonNullable.group({
       name: ['', [Validators.required, CustomValidator.strings]],
@@ -26,24 +35,42 @@ export class NewAdminComponent implements OnInit {
       role: ['Assistant RH', [Validators.required]],
       isSup: false,
       facebook: ['', [Validators.required, CustomValidator.facebook]],
-      phone: [0, [Validators.required, CustomValidator.numeric , Validators.pattern('[0-9]{8}')]],
+      phone: [
+        0,
+        [
+          Validators.required,
+          CustomValidator.numeric,
+          Validators.pattern('[0-9]{8}'),
+        ],
+      ],
       age: [0, [Validators.required, CustomValidator.numeric]],
     });
   }
   handleSubmit() {
     if (this.form.valid && this.form.dirty) {
-      this.adminServie.registerAdmin(this.form.value).subscribe((response) => {
-        this.added=true 
-        setTimeout(()=>this.added=false , 3000)
-        this.form.reset()
-      },err=> {
-        this.error = true 
-        setTimeout(()=>this.error = false , 3000)
-      });
-    }
-    else {
-      this.error=true ; 
-      setTimeout(()=>this.error = false , 3000)
+      this.adminServie.registerAdmin(this.form.value).subscribe(
+        (response) => {
+          this.added = true;
+          let timeout = setTimeout(() => {
+            this.added = false
+            clearTimeout(timeout)
+          }, 3000);
+          this.form.reset();
+        },
+        (err) => {
+          this.error = true;
+          let timeout = setTimeout(() => {
+            this.error = false;
+            clearTimeout(timeout);
+          }, 3000);
+        }
+      );
+    } else {
+      this.error = true;
+      let timeout = setTimeout(() => {
+        this.error = false;
+        clearTimeout(timeout);
+      }, 3000);
     }
   }
 }

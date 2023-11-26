@@ -80,11 +80,11 @@ export class ProfileComponent implements OnInit {
         )
         .subscribe((response) => {
           this.passwordForm.reset();
-          this.edit=false ; 
+          this.edit = false;
         });
     }
   }
-  
+
   changePicture(event: any) {
     this.file = event.target.files[0];
   }
@@ -104,7 +104,10 @@ export class ProfileComponent implements OnInit {
                 this.adminService.cacheAdmin();
                 this.file = undefined;
                 this.edit = false;
-                setTimeout(() => location.reload(), 1000);
+                let timeout = setTimeout(() => {
+                  location.reload();
+                  clearTimeout(timeout);
+                }, 1000);
               });
           });
       });

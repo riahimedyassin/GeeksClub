@@ -5,7 +5,6 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { HomeComponent } from './home/home.component';
 import { MainComponent } from './main/main.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
-import { FooterComponent } from './shared/components/footer/footer.component';
 import { LucideAngularModule, icons } from 'lucide-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { MembersComponent } from './members/members.component';
@@ -46,7 +45,6 @@ import { SelectedAdminComponent } from './admins/selected-admin/selected-admin.c
     HomeComponent,
     MainComponent,
     NavbarComponent,
-    FooterComponent,
     MembersComponent,
     EventsComponent,
     ForumsComponent,

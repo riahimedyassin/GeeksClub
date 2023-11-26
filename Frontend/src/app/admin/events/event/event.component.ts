@@ -73,8 +73,9 @@ export class EventComponent implements OnInit {
       .confirmParticipation(this.id, userID)
       .subscribe((response) => {
         this.addedMember = true;
-        setTimeout(() => {
+        let timeout = setTimeout(() => {
           this.addedMember = false;
+          clearTimeout(timeout)
         }, 3000);
       });
   }
@@ -94,7 +95,10 @@ export class EventComponent implements OnInit {
                 this.edit = false;
                 this.saved = true;
                 this.event.picture = link;
-                setTimeout(() => (this.saved = false), 3000);
+                let timeout = setTimeout(() => {
+                  this.saved = false;
+                  clearTimeout(timeout);
+                }, 3000);
               });
           });
       });
@@ -117,7 +121,10 @@ export class EventComponent implements OnInit {
         this.event = { ...this.form.value, picture: this.event.picture };
         this.edit = false;
         this.saved = true;
-        setTimeout(() => (this.saved = false), 3000);
+        let timeout = setTimeout(() => {
+          this.saved = false;
+          clearTimeout(timeout);
+        }, 3000);
       });
   }
   handleDelete() {

@@ -56,8 +56,9 @@ export class SelectedForumComponent implements OnInit {
           this.forum.articles = [...response.data];
           this.content = '';
           this.published = true;
-          setTimeout(() => {
+          let timeout= setTimeout(() => {
             this.published = false;
+            clearTimeout(timeout)
           }, 3000);
         });
     }

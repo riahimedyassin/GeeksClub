@@ -70,12 +70,19 @@ export class ProfileComponent implements OnInit {
         .subscribe(
           (response) => {
             this.updated = true;
-            setTimeout(() => (this.updated = false), 3000);
+            let timeout = setTimeout(() => {
+              this.updated = false
+              clearTimeout(timeout)
+            }, 3000);
             this.form.disable();
             this.edit = false;
           },
           (err) => {
-            (this.error = true), setTimeout(() => (this.error = false), 3000);
+            this.error = true 
+            let timeout = setTimeout(() => {
+              this.error = false
+              clearTimeout(timeout)
+            }, 3000);
           }
         );
     }
@@ -116,8 +123,9 @@ export class ProfileComponent implements OnInit {
                 this.file = undefined;
                 this.edit = false;
                 this.pictureUpdated = true;
-                setTimeout(() => {
+                let timeout = setTimeout(() => {
                   location.reload();
+                  clearTimeout(timeout)
                 }, 1000);
               });
           });
