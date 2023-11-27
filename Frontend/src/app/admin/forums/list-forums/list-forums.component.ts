@@ -11,7 +11,7 @@ import { Forum } from 'src/app/shared/models/Forum.model';
 export class ListForumsComponent implements OnInit {
   forum!: Forum[];
 
-  constructor(private forumService: ForumsService, private router : Router) {}
+  constructor(private forumService: ForumsService, private router: Router) {}
   ngOnInit(): void {
     this.forumService.getAllForums().subscribe((response) => {
       this.forum = response.data;
@@ -19,7 +19,7 @@ export class ListForumsComponent implements OnInit {
   }
   handleDelete(id: string) {
     this.forumService.deleteForum(id).subscribe((response) => {
-        this.router.navigateByUrl(`/admin/forums/${id}`)
+      this.forum = this.forum.filter((f) => f._id != id);
     });
   }
 }

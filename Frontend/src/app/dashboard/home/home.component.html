@@ -36,7 +36,12 @@
         </button>
       </ng-container>
       <ng-template #loadEvent>
-        <app-loading></app-loading>
+        <ng-container *ngIf="!event && !fetchedEvent">
+          <app-loading></app-loading>
+        </ng-container>
+        <ng-container *ngIf="fetchedEvent && !event">
+          <h2>No recent events to display</h2>
+        </ng-container>
       </ng-template>
     </div>
     <div class="points-overview col-span-1 overflow-hidden" routerLink="/dashboard/leaderboard">

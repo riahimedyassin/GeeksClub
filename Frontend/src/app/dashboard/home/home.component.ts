@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   forums!: Forum[] ;
   user!: User;
   tier!: { title: string; icon: string };
+  fetchedEvent : boolean = false 
   constructor(
     private eventsService: EventsService,
     private forumsService: ForumsService,
@@ -24,6 +25,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.eventsService.getAllEvenets().subscribe((response) => {
       this.event = response.data[0];
+      this.fetchedEvent=true 
     });
     this.userService.getCurrentUser().subscribe((response) => {
       this.user = response.data;
