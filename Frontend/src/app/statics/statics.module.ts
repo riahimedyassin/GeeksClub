@@ -11,6 +11,8 @@ import { FooterComponent } from '../shared/components/footer/footer.component';
 import { ErrorComponent } from '../shared/components/error/error.component';
 import { MainComponent } from './main/main.component';
 import { DonateComponent } from './donate/donate.component';
+import { ReposComponent } from './founder/repos/repos.component';
+import { LoadingComponent } from '../dashboard/shared/components/loading/loading.component';
 
 
 
@@ -21,7 +23,8 @@ import { DonateComponent } from './donate/donate.component';
     SponsoringComponent,
     DetailsComponent,
     MainComponent,
-    DonateComponent
+    DonateComponent,
+    ReposComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +32,8 @@ import { DonateComponent } from './donate/donate.component';
     NavbarComponent,
     LucideAngularModule.pick(icons), 
     FooterComponent,
-    ErrorComponent
+    ErrorComponent,
+    LoadingComponent
   ],
   exports: [StaticsRoutingModule]
 })

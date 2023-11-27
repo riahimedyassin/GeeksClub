@@ -1,6 +1,6 @@
-<div class="w-full h-[85vh] flex flex-col px-28 py-12 text-white mt-24">
+<div class="w-full main flex flex-col px-28 py-12 text-white mt-24 justify-center">
   <div
-    class="border-[1px] border-white rounded-lg w-full h-full items-center flex flex-col py-12 gap-12 bg-deepblack"
+    class="border-[1px] border-white rounded-lg w-full h-[85vh] items-center flex flex-col py-12 gap-12 bg-deepblack"
   >
     <div class="founder__img overflow-hidden">
       <img src="assets/me.jpg" alt="" />
@@ -36,14 +36,37 @@
             <p>Github</p>
           </a>
           <button
-          class="flex gap-4 items-center dashed-button hover:bg-white hover:text-black transition-all "
-          download="assets/cv.png"
-        >
-          <lucide-icon name="download"></lucide-icon>
-          <a href="assets/cv.png" download="cv.png">Resume</a>
-        </button>
+            class="flex gap-4 items-center dashed-button hover:bg-white hover:text-black transition-all"
+            download="assets/cv.png"
+          >
+            <lucide-icon name="download"></lucide-icon>
+            <a href="assets/cv.png" download="cv.png">Resume</a>
+          </button>
         </div>
       </div>
     </div>
   </div>
+  <div class="mt-24 text-center mb-12 ">
+    <div class="items-center flex justify-center gap-4 mb-2">
+      <lucide-angular name="github" size="36"></lucide-angular>
+      <h2>Public Projects</h2>
+    </div>
+    <p class="text-gray-500 text-sm">A taste of what I'm capable to do</p>
+  </div>
+  <div class="grid grid-cols-2 gap-6 " *ngIf="repos ; else load">
+    <ng-container *ngIf="displayRepos ; else disp">
+      <app-repos *ngFor="let repo of repos" [repos]="repo"></app-repos>
+    </ng-container>
+  </div>
 </div>
+<ng-template #disp>
+  <div class="w-full items-center justify-center flex col-span-2  ">
+    <button class="bg-white hover:bg-gray-200 transition-all px-8 py-4 rounded-lg flex items-center gap-4 text-black" (click)="displayRepos=true">
+      <lucide-angular name="eye" size="36"></lucide-angular>
+      <h2>Display Projects</h2>
+    </button>
+  </div>
+</ng-template>
+<ng-template #load>
+  <app-loading></app-loading>
+</ng-template>

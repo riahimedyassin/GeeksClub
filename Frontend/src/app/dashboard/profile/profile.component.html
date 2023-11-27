@@ -35,17 +35,10 @@
         <li>Total Points : {{ user.points?.global_point }}</li>
         <li>Week Points : {{ user.points?.week_point }}</li>
       </ul>
-      <div class="flex w-full justify-center gap-2 mt-12 flex-col items-center">
+      <div class="flex w-full justify-center gap-2 mt-12 items-center">
         <button class="dashed-button flex gap-4 w-[40%]" (click)="handleEdit()">
           <lucide-icon name="pencil" color="white"></lucide-icon>
           <p>Edit</p>
-        </button>
-        <button
-          class="warning-button flex gap-4 w-[40%]"
-          (click)="changePassword = !changePassword && edit=true"
-        >
-          <lucide-icon name="lock" color="white"></lucide-icon>
-          <p>Password</p>
         </button>
         <button
           class="logout-button flex gap-4 w-[40%]"
@@ -134,10 +127,10 @@
           </div>
         </div>
 
-        <div class="flex gap-6">
+        <div class="flex gap-6" *ngIf="edit">
           <button
             class="succuss-button"
-            *ngIf="edit"
+            type="submit"
             [ngClass]="
               form.valid && form.dirty
                 ? ''
@@ -147,11 +140,26 @@
             <lucide-angular name="save"></lucide-angular>
             <p>Save</p>
           </button>
+          <button class="danger-button" type="button" (click)="edit = false">
+            <lucide-angular name="x"></lucide-angular>
+            <p>Cancel</p>
+          </button>
+          <button
+            class="warning-button flex gap-4 w-[40%]"
+            (click)="changePassword = !changePassword && (edit = true)"
+          >
+            <lucide-icon name="lock" color="white"></lucide-icon>
+            <p>Password</p>
+          </button>
         </div>
       </form>
       <ng-template #changePass>
-        <form [formGroup]="passwordForm" class="flex items-center justify-center flex-col" (ngSubmit)="handleChangePassword()" >
-          <div class="grid grid-cols-2 gap-4 ">
+        <form
+          [formGroup]="passwordForm"
+          class="flex items-center justify-center flex-col"
+          (ngSubmit)="handleChangePassword()"
+        >
+          <div class="grid grid-cols-2 gap-4">
             <div class="input--container">
               <label for="">Old Password</label>
               <input
@@ -169,11 +177,20 @@
               />
             </div>
           </div>
-          <button class="succuss-button mt-4"  type="submit">
-            <lucide-angular name="save"></lucide-angular>
-            <p>Save</p>
-          </button>
-
+          <div class="flex gap-6">
+            <button class="succuss-button mt-4" type="submit">
+              <lucide-angular name="save"></lucide-angular>
+              <p>Save</p>
+            </button>
+            <button
+              class="default-button mt-4"
+              type="button"
+              (click)="changePassword = false"
+            >
+              <lucide-angular name="x"></lucide-angular>
+              <p>Cancel</p>
+            </button>
+          </div>
         </form>
       </ng-template>
     </div>

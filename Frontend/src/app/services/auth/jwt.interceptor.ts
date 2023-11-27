@@ -18,7 +18,8 @@ export class JwtInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     if (
       request.url.includes('https://api.cloudinary.com/v1_1/') ||
-      request.url.includes('rapidapi.com')
+      request.url.includes('rapidapi.com') ||
+      request.url.includes('api.github.com')
     ) {
       return next.handle(request);
     }

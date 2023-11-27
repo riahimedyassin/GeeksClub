@@ -1,13 +1,24 @@
-
 <div class="main-container mb-36">
   <h1 class="mb-2">Articles</h1>
-  <p class="mb-16 text-sm text-gray-500">Recent tech & club news </p>
-  <div class="w-[80%] grid grid-cols-2 gap-6 items-center " *ngIf="!error ; else error_box ">
-        <ng-container *ngFor="let article of articles  ">
-            <app-article [title]="article.title" [content]="article.content" [picture]="article.picture" [id]="article._id"></app-article>
-        </ng-container>
+  <p class="mb-16 text-sm text-gray-500">Recent tech & club news</p>
+  <div
+    class="w-[80%] grid grid-cols-2 gap-6 items-center"
+    *ngIf="!error; else error_box"
+  >
+    <ng-container *ngIf="articles && articles.length>0 ; else noArticles">
+      <app-article
+        [title]="article.title"
+        [content]="article.content"
+        [picture]="article.picture"
+        [id]="article._id"
+        *ngFor="let article of articles"
+      ></app-article>
+    </ng-container>
+    <ng-template #noArticles>
+      <h2>No Articles have been published recently</h2>
+    </ng-template>
   </div>
   <ng-template #error_box>
-      <app-error ></app-error>
+    <app-error></app-error>
   </ng-template>
 </div>

@@ -54,6 +54,7 @@ export class ProfileComponent implements OnInit {
     this.passwordForm = this.formBuilder.nonNullable.group({
       password: ['', [Validators.required, CustomValidator.password]],
       newPassword: ['', [Validators.required, CustomValidator.password]],
+      confirmPassword: ['', [Validators.required, CustomValidator.password]],
     });
   }
   handleSubmit() {
@@ -72,7 +73,12 @@ export class ProfileComponent implements OnInit {
     }
   }
   handlePassword() {
-    if (this.passwordForm.valid && this.passwordForm.dirty) {
+    if (
+      this.passwordForm.valid &&
+      this.passwordForm.dirty &&
+      this.passwordForm.get('confirmPassword')?.value ===
+        this.passwordForm.get('newPassword')?.value
+    ) {
       this.adminService
         .changePassword(
           this.passwordForm.get('password')?.value,
